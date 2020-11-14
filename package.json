@@ -1,0 +1,34 @@
+{
+  "name": "@chargedparticles/subgraph",
+  "license": "MIT",
+  "scripts": {
+    "reinstall": "rm -rf node_modules/ && yarn",
+    "clean": "rm -rf build/ generated/",
+
+    "prepare:mainnet": "mustache networks/mainnet.json subgraph.template.yaml subgraph.mainnet.yaml",
+    "prepare:rinkeby": "mustache networks/rinkeby.json subgraph.template.yaml subgraph.rinkeby.yaml",
+    "prepare:ropsten": "mustache networks/ropsten.json subgraph.template.yaml subgraph.ropsten.yaml",
+
+    "gen:mainnet": "graph codegen subgraph.yaml",
+    "gen:rinkeby": "graph codegen subgraph.rinkeby.yaml",
+    "gen:ropsten": "graph codegen subgraph.ropsten.yaml",
+
+    "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 charged-particles/universe subgraph.local.yaml",
+    "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/universe subgraph.mainnet.yaml",
+
+    "deploy:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/rinkeby-universe subgraph.rinkeby.yaml",
+    "deploy:rinkeby-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/rinkeby-secord-universe subgraph.rinkeby.yaml",
+
+    "deploy:ropsten": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ropsten-universe subgraph.ropsten.yaml",
+    "deploy:ropsten-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ropsten-secord-universe subgraph.ropsten.yaml",
+
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "auth": "graph auth https://api.thegraph.com/deploy/"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.18.0",
+    "@graphprotocol/graph-ts": "^0.18.1",
+    "mustache": "^4.0.1"
+  }
+}

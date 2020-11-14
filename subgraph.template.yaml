@@ -1,0 +1,206 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - name: Universe
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{universe.address}}"
+      abi: Universe
+      startBlock: {{universe.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForUniverse.ts
+      entities:
+        - Universe
+      abis:
+        - name: Universe
+          file: ./abis/Universe.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ChargedParticlesSet(indexed address)
+          handler: handleChargedParticlesSet
+        - event: IonTokenSet(indexed address)
+          handler: handleIonTokenSet
+        - event: IonRewardsMultiplierSet(indexed address,uint256)
+          handler: handleIonRewardsMultiplierSet
+        - event: RewardIssued(indexed address,address,uint256)
+          handler: handleRewardIssued
+  - name: ChargedParticles
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{chargedParticles.address}}"
+      abi: ChargedParticles
+      startBlock: {{chargedParticles.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForChargedParticles.ts
+      entities:
+        - ChargedParticles
+      abis:
+        - name: ChargedParticles
+          file: ./abis/ChargedParticles.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: UniverseSet(indexed address)
+          handler: handleUniverseSet
+        - event: DepositFeeSet(uint256)
+          handler: handleDepositFeeSet
+        - event: LiquidityProviderRegistered(indexed string,indexed address)
+          handler: handleLiquidityProviderRegistered
+        - event: TokenContractConfigsSet(indexed address,indexed string,uint256,uint256,uint256)
+          handler: handleTokenContractConfigsSet
+        - event: TokenCreatorConfigsSet(indexed address,indexed uint256,indexed address,uint256,bool)
+          handler: handleTokenCreatorConfigsSet
+        - event: DischargeApproval(indexed address,indexed uint256,indexed address,address)
+          handler: handleDischargeApproval
+        - event: ReleaseApproval(indexed address,indexed uint256,indexed address,address)
+          handler: handleReleaseApproval
+        - event: TimelockApproval(indexed address,indexed uint256,indexed address,address)
+          handler: handleTimelockApproval
+        - event: TokenDischargeTimelock(indexed address,indexed uint256,indexed address,uint256)
+          handler: handleTokenDischargeTimelock
+        - event: TokenReleaseTimelock(indexed address,indexed uint256,indexed address,uint256)
+          handler: handleTokenReleaseTimelock
+        - event: EnergizedParticle(indexed address,indexed uint256,string,address,uint256)
+          handler: handleEnergizedParticle
+        - event: DischargedParticle(indexed address,indexed uint256,indexed address,string,address,uint256)
+          handler: handleDischargedParticle
+        - event: ReleasedParticle(indexed address,indexed uint256,indexed address,string,address,uint256,uint256)
+          handler: handleReleasedParticle
+        - event: FeesWithdrawn(indexed address,indexed address,string,address,uint256)
+          handler: handleFeesWithdrawn
+        - event: UpdateContractWhitelist(indexed address,bool)
+          handler: handleUpdateContractWhitelist
+  - name: AaveWalletManager
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{aavewalletManager.address}}"
+      abi: AaveWalletManager
+      startBlock: {{aavewalletManager.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForAaveWalletManager.ts
+      entities:
+        - AaveWalletManager
+      abis:
+        - name: AaveWalletManager
+          file: ./abis/AaveWalletManager.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: LendingPoolProviderSet(indexed address)
+          handler: handleLendingPoolProviderSet
+        - event: ControllerSet(indexed address)
+          handler: handleControllerSet
+        - event: PausedStateSet(bool)
+          handler: handlePausedStateSet
+        - event: NewSmartWallet(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleNewSmartWallet
+        - event: WalletEnergized(indexed uint256,indexed address,uint256,uint256)
+          handler: handleWalletEnergized
+        - event: WalletDischarged(indexed uint256,indexed address,uint256)
+          handler: handleWalletDischarged
+        - event: WalletReleased(indexed uint256,indexed address,indexed address,uint256,uint256)
+          handler: handleWalletReleased
+        - event: WalletRewarded(indexed uint256,indexed address,indexed address,uint256)
+          handler: handleWalletRewarded
+  - name: Ion
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{ion.address}}"
+      abi: Ion
+      startBlock: {{ion.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForIon.ts
+      entities:
+        - Ion
+      abis:
+        - name: Ion
+          file: ./abis/Ion.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: LockApproval(indexed address,indexed address,uint256)
+          handler: handleLockApproval
+  # - name: Proton
+  #   kind: ethereum/contract
+  #   network: {{network}}
+  #   source:
+  #     address: "{{proton.address}}"
+  #     abi: Proton
+  #     startBlock: {{proton.startBlock}}
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     file: ./src/mappingForProton.ts
+  #     entities:
+  #       - Proton
+  #     abis:
+  #       - name: Proton
+  #         file: ./abis/Proton.json
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #     eventHandlers:
+  #       - event: OwnershipTransferred(indexed address,indexed address)
+  #         handler: handleOwnershipTransferred
+  #       - event: Transfer(indexed address,indexed address,indexed uint256)
+  #         handler: handleTransfer
+  #       - event: Approval(indexed address,indexed address,indexed uint256)
+  #         handler: handleApproval
+  #       - event: ApprovalForAll(indexed address,indexed address,bool)
+  #         handler: handleApprovalForAll
+
+
+
+# templates:
+#   - name: AaveSmartWallet
+#     kind: ethereum/contract
+#     network: {{network}}
+#     source:
+#       abi: AaveSmartWallet
+#     mapping:
+#       kind: ethereum/events
+#       apiVersion: 0.0.4
+#       language: wasm/assemblyscript
+#       file: ./src/mappingForAaveSmartWallet.ts
+#       entities:
+#         - AaveSmartWallet
+#       abis:
+#         - name: AaveSmartWallet
+#           file: ./abis/AaveSmartWallet.json
+#       eventHandlers:
+#         - event: OwnershipTransferred(indexed address,indexed address)
+#           handler: handleOwnershipTransferred

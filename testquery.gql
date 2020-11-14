@@ -1,0 +1,74 @@
+{
+  universes(first: 1) {
+    id
+    owner
+    chargedParticles {
+      id
+      owner
+      depositFee
+      whitelisted {
+        id
+        contractAddress
+        state
+      }
+      externalContractSettings {
+        id
+        contractAddress
+        liquidityProvider
+        assetDepositFee
+        assetDepositMin
+        assetDepositMax
+      }
+      nftCreatorSettings {
+        id
+        contractAddress
+        tokenId
+        creatorAddress
+        annuityPercent
+        burnToRelease
+      }
+      chargedNftState {
+        id
+        contractAddress
+        tokenId
+        lastKnownOwner
+        dischargeApproval
+        releaseApproval
+        timelockApproval
+        dischargeTimelock
+        releaseTimelock
+        assetToBeReleasedBy
+      }
+      aaveWalletManager {
+        id
+        owner
+        name
+        address
+        paused
+        lendingPoolProvider
+        wallets {
+          id
+          address
+          tokenUuid
+          assetTokens
+          nftCreator
+          nftCreatorAnnuityPct
+        }
+      }
+    }
+    ionToken {
+      id
+      owner
+      holders {
+        id
+        address
+        balance
+      }
+    }
+    ionRewardsMultiplier {
+      id
+      assetToken
+      multiplier
+    }
+  }
+}

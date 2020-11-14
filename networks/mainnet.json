@@ -1,0 +1,23 @@
+{
+  "network": "mainnet",
+  "universe": {
+    "address": "",
+    "startBlock": "1000000"
+  },
+  "chargedParticles": {
+    "address": "",
+    "startBlock": "1000000"
+  },
+  "aavewalletManager": {
+    "address": "",
+    "startBlock": "1000000"
+  },
+  "ion": {
+    "address": "",
+    "startBlock": "1000000"
+  },
+  "proton": {
+    "address": "",
+    "startBlock": "1000000"
+  }
+}

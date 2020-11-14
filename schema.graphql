@@ -1,0 +1,187 @@
+
+# ID: `${universe.address}`
+type Universe @entity {
+  id: ID!
+  owner: Bytes!
+
+  chargedParticles: ChargedParticles
+
+  ionToken: Ion
+  ionRewardsMultiplier: [IonRewardsMultiplier!]! @derivedFrom(field: "universe")
+}
+
+# ID: `${chargedParticles.address}`
+type ChargedParticles @entity {
+  id: ID!
+  owner: Bytes!
+  universe: Universe
+
+  # liquidityProviders: [String!]
+
+  whitelisted: [WhitelistedNftContract!]! @derivedFrom(field: "chargedParticles")
+  depositFee: BigInt
+
+  externalContractSettings: [ExternalContractSettings!]! @derivedFrom(field: "chargedParticles")
+  nftCreatorSettings: [NftCreatorSettings!]! @derivedFrom(field: "chargedParticles")
+  chargedNftState: [ChargedNftState!]! @derivedFrom(field: "chargedParticles")
+
+  # Various WalletManagers listed here
+  aaveWalletManager: AaveWalletManager
+}
+
+# ID: `${contractAddress.address}`
+# dynamically generated type, not mapped to a specific contract
+type ExternalContractSettings @entity {
+  id: ID!
+  chargedParticles: ChargedParticles!
+
+  contractAddress: Bytes!
+
+  liquidityProvider: Bytes
+  assetDepositFee: BigInt
+  assetDepositMin: BigInt
+  assetDepositMax: BigInt
+}
+
+# ID: `${contractAddress.address}-${tokenId}-${creatorAddress.address}`
+# dynamically generated type, not mapped to a specific contract
+type NftCreatorSettings @entity {
+  id: ID!
+  chargedParticles: ChargedParticles!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+  creatorAddress: Bytes!
+
+  annuityPercent: BigInt
+  burnToRelease: Boolean
+}
+
+# ID: `${contractAddress.address}-${tokenId}`
+# dynamically generated type, not mapped to a specific contract
+type ChargedNftState @entity {
+  id: ID!
+  chargedParticles: ChargedParticles!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
+  lastKnownOwner: Bytes
+  dischargeApproval: Bytes
+  releaseApproval: Bytes
+  timelockApproval: Bytes
+
+  dischargeTimelock: BigInt
+  releaseTimelock: BigInt
+  assetToBeReleasedBy: Bytes
+}
+
+# ID: `${chargedParticles.address}-${contractAddress.address}`
+# dynamically generated type, not mapped to a specific contract
+type WhitelistedNftContract @entity {
+  id: ID!
+  chargedParticles: ChargedParticles!
+
+  contractAddress: Bytes!
+  state: Boolean!
+}
+
+
+
+# ID: `${aaveWalletManager.address}`
+type AaveWalletManager @entity {
+  id: ID!
+  owner: Bytes!
+  name: String!
+  address: Bytes!
+  paused: Boolean!
+
+  chargedParticles: Bytes
+
+  wallets: [AaveSmartWallet!]! @derivedFrom(field: "walletManager")
+
+  lendingPoolProvider: Bytes
+}
+
+# ID: `${tokenUuid}`
+type AaveSmartWallet @entity {
+  id: ID!
+  tokenUuid: BigInt!
+
+  address: Bytes
+  walletManager: AaveWalletManager
+  assetTokens: [Bytes!]
+
+  nftCreator: Bytes
+  nftCreatorAnnuityPct: BigInt
+
+  # balance: BigInt # ????  TODO per Asset Token
+  # assetBalances: [AssetTokenBalance!]! @derivedFrom(field: "tokenUuid")
+}
+
+# ID: `${assetToken.address}-${tokenUuid}`
+# dynamically generated type, not mapped to a specific contract
+type AssetTokenBalance @entity {
+  id: ID!
+  assetToken: Bytes!
+  tokenUuid: BigInt!
+
+  balance: BigInt!
+  interestDischarged: BigInt!
+}
+
+
+
+
+
+# ID: `${ion.address}`
+type Ion @entity {
+  id: ID!
+  owner: Bytes!
+  universe: Universe
+
+  holders: [IonHolder!]! @derivedFrom(field: "ion")
+}
+
+# ID: `${ion.address}-${holder.address}`
+# dynamically generated type, not mapped to a specific contract
+type IonHolder @entity {
+  id: ID!
+  ion: Ion!
+  address: Bytes!
+
+  balance: BigInt!
+}
+
+# ID: `${universe.address}-${assetToken.address}`
+# dynamically generated type, not mapped to a specific contract
+type IonRewardsMultiplier @entity {
+  id: ID!
+  universe: Universe!
+
+  assetToken: Bytes!
+  multiplier: BigInt!
+}
+
+
+
+# ID: `${proton.address}`
+type Proton @entity {
+  id: ID!
+  owner: Bytes!
+  chargedParticles: ChargedParticles!
+
+  tokens: [ProtonNFT!]! @derivedFrom(field: "proton")
+}
+
+# ID: `${proton.address}-${nft.id}`
+# dynamically generated type, not mapped to a specific contract
+type ProtonNFT @entity {
+  id: ID!
+  tokenId: BigInt!
+  proton: Proton!
+  creator: Bytes!
+  owner: Bytes!
+
+  metadataUri: String
+}

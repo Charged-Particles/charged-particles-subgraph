@@ -1,0 +1,9 @@
+node_modules
+build
+.history
+subgraph.yaml
+subgraph.local.yaml
+subgraph.ropsten.yaml
+subgraph.rinkeby.yaml
+subgraph.mainnet.yaml
+.DS_Store
