@@ -169,7 +169,7 @@ type IonRewardsMultiplier @entity {
 type Proton @entity {
   id: ID!
   owner: Bytes!
-  chargedParticles: ChargedParticles!
+  chargedParticles: ChargedParticles
 
   tokens: [ProtonNFT!]! @derivedFrom(field: "proton")
 }
@@ -179,9 +179,9 @@ type Proton @entity {
 type ProtonNFT @entity {
   id: ID!
   tokenId: BigInt!
-  proton: Proton!
-  creator: Bytes!
-  owner: Bytes!
+  proton: Proton
+  creator: Bytes
+  owner: Bytes
 
   metadataUri: String
 }

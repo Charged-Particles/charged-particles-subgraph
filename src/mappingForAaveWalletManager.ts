@@ -1,11 +1,6 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
-  AaveWalletManager,
-} from '../generated/schema';
-
-import {
-  AaveWalletManager as AaveWalletManagerContract,
   OwnershipTransferred,
   LendingPoolProviderSet,
   ControllerSet,
@@ -17,7 +12,7 @@ import {
   WalletRewarded,
 } from '../generated/AaveWalletManager/AaveWalletManager';
 
-import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles'
+import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
 import { loadOrCreateAaveWalletManager } from './helpers/loadOrCreateAaveWalletManager';
 import { loadOrCreateAaveSmartWallet } from './helpers/loadOrCreateAaveSmartWallet';
 import { loadOrCreateAssetTokenBalance } from './helpers/loadOrCreateAssetTokenBalance';

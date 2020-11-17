@@ -1,11 +1,6 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
-  Universe,
-} from '../generated/schema';
-
-import {
-  Universe as UniverseContract,
   OwnershipTransferred,
   ChargedParticlesSet,
   IonTokenSet,

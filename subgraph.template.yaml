@@ -154,34 +154,36 @@ dataSources:
           handler: handleApproval
         - event: LockApproval(indexed address,indexed address,uint256)
           handler: handleLockApproval
-  # - name: Proton
-  #   kind: ethereum/contract
-  #   network: {{network}}
-  #   source:
-  #     address: "{{proton.address}}"
-  #     abi: Proton
-  #     startBlock: {{proton.startBlock}}
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.4
-  #     language: wasm/assemblyscript
-  #     file: ./src/mappingForProton.ts
-  #     entities:
-  #       - Proton
-  #     abis:
-  #       - name: Proton
-  #         file: ./abis/Proton.json
-  #       - name: ERC20
-  #         file: ./abis/ERC20.json
-  #     eventHandlers:
-  #       - event: OwnershipTransferred(indexed address,indexed address)
-  #         handler: handleOwnershipTransferred
-  #       - event: Transfer(indexed address,indexed address,indexed uint256)
-  #         handler: handleTransfer
-  #       - event: Approval(indexed address,indexed address,indexed uint256)
-  #         handler: handleApproval
-  #       - event: ApprovalForAll(indexed address,indexed address,bool)
-  #         handler: handleApprovalForAll
+  - name: Proton
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{proton.address}}"
+      abi: Proton
+      startBlock: {{proton.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForProton.ts
+      entities:
+        - Proton
+      abis:
+        - name: Proton
+          file: ./abis/Proton.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ChargedParticlesSet(indexed address)
+          handler: handleChargedParticlesSet
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
 
 
 

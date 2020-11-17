@@ -23,3 +23,8 @@ export function whitelistedNftContractId(chargedParticlesAdress: string, contrac
 export function ionTokenHolderId(ionTokenAddress: string, holderAddress: string): string {
   return ionTokenAddress + '-' + holderAddress;
 }
+
+
+export function protonNftId(protonAddress: string, tokenId: string): string {
+  return protonAddress + '-' + tokenId;
+}

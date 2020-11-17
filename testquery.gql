@@ -71,4 +71,16 @@
       multiplier
     }
   }
+
+
+  ionHolders(where: {
+    address_in: [
+    	"0x6ad155dec215c9ee3a6edebcde8e3c528dc2d0ef",
+      "0xfc15c29fac2b19f29bbf9fdcc6f8e441604d8c27"
+    ]}
+  ) {
+    id
+    address
+  }
+
 }

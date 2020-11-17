@@ -1,11 +1,6 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
-  ChargedParticles,
-} from '../generated/schema';
-
-import {
-  ChargedParticles as ChargedParticlesContract,
   OwnershipTransferred,
   UniverseSet,
   DepositFeeSet,
@@ -30,8 +25,7 @@ import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreator
 import { loadOrCreateChargedNftState } from './helpers/loadOrCreateChargedNftState';
 import { loadOrCreateWhitelistedNftContract } from './helpers/loadOrCreateWhitelistedNftContract';
 
-import { trackLastKnownOwner } from './helpers/nftState'
-import { ADDRESS_ZERO } from './helpers/common';
+import { trackLastKnownOwner } from './helpers/nftState';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {

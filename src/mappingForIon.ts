@@ -1,11 +1,6 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
-  Ion,
-} from '../generated/schema';
-
-import {
-  Ion as IonContract,
   OwnershipTransferred,
   Transfer,
   Approval,
@@ -29,14 +24,14 @@ export function handleTransfer(event: Transfer): void {
   if (event.params.from.toHex() != ADDRESS_ZERO) {
     const sender = loadOrCreateIonTokenHolder(event.address, event.params.from);
     sender.balance = sender.balance.minus(event.params.value);
-    sender.save()
+    sender.save();
   }
 
   // Receiver (not Burn)
   if (event.params.to.toHex() != ADDRESS_ZERO) {
     const receiver = loadOrCreateIonTokenHolder(event.address, event.params.to);
     receiver.balance = receiver.balance.plus(event.params.value);
-    receiver.save()
+    receiver.save();
   }
 }
 

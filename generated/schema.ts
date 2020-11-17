@@ -1205,13 +1205,21 @@ export class Proton extends Entity {
     this.set("owner", Value.fromBytes(value));
   }
 
-  get chargedParticles(): string {
+  get chargedParticles(): string | null {
     let value = this.get("chargedParticles");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set chargedParticles(value: string) {
-    this.set("chargedParticles", Value.fromString(value));
+  set chargedParticles(value: string | null) {
+    if (value === null) {
+      this.unset("chargedParticles");
+    } else {
+      this.set("chargedParticles", Value.fromString(value as string));
+    }
   }
 
   get tokens(): Array<string> {
@@ -1263,31 +1271,55 @@ export class ProtonNFT extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get proton(): string {
+  get proton(): string | null {
     let value = this.get("proton");
-    return value.toString();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set proton(value: string) {
-    this.set("proton", Value.fromString(value));
+  set proton(value: string | null) {
+    if (value === null) {
+      this.unset("proton");
+    } else {
+      this.set("proton", Value.fromString(value as string));
+    }
   }
 
-  get creator(): Bytes {
+  get creator(): Bytes | null {
     let value = this.get("creator");
-    return value.toBytes();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
   }
 
-  set creator(value: Bytes) {
-    this.set("creator", Value.fromBytes(value));
+  set creator(value: Bytes | null) {
+    if (value === null) {
+      this.unset("creator");
+    } else {
+      this.set("creator", Value.fromBytes(value as Bytes));
+    }
   }
 
-  get owner(): Bytes {
+  get owner(): Bytes | null {
     let value = this.get("owner");
-    return value.toBytes();
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
   }
 
-  set owner(value: Bytes) {
-    this.set("owner", Value.fromBytes(value));
+  set owner(value: Bytes | null) {
+    if (value === null) {
+      this.unset("owner");
+    } else {
+      this.set("owner", Value.fromBytes(value as Bytes));
+    }
   }
 
   get metadataUri(): string | null {
