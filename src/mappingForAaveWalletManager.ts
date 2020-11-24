@@ -2,7 +2,7 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
   OwnershipTransferred,
-  LendingPoolProviderSet,
+  AaveBridgeSet,
   ControllerSet,
   PausedStateSet,
   NewSmartWallet,
@@ -15,7 +15,7 @@ import {
 import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
 import { loadOrCreateAaveWalletManager } from './helpers/loadOrCreateAaveWalletManager';
 import { loadOrCreateAaveSmartWallet } from './helpers/loadOrCreateAaveSmartWallet';
-import { loadOrCreateAssetTokenBalance } from './helpers/loadOrCreateAssetTokenBalance';
+import { loadOrCreateAaveAssetTokenBalance } from './helpers/loadOrCreateAaveAssetTokenBalance';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -24,9 +24,9 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   aaveWalletManager.save();
 }
 
-export function handleLendingPoolProviderSet(event: LendingPoolProviderSet): void {
+export function handleAaveBridgeSet(event: AaveBridgeSet): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address);
-  aaveWalletManager.lendingPoolProvider = event.params.aaveLendingProvider;
+  aaveWalletManager.aaveBridge = event.params.aaveBridge;
   aaveWalletManager.save();
 }
 
@@ -64,21 +64,26 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   }
   aaveSmartWallet.save();
 
-  const assetTokenBalance = loadOrCreateAssetTokenBalance(event.params.assetToken, event.params.uuid);
-  assetTokenBalance.balance = assetTokenBalance.balance.plus(event.params.assetAmount);
+  const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.uuid);
+  assetTokenBalance.principal = assetTokenBalance.principal.plus(event.params.assetAmount);
   assetTokenBalance.save();
 }
 
 export function handleWalletDischarged(event: WalletDischarged): void {
-  const assetTokenBalance = loadOrCreateAssetTokenBalance(event.params.assetToken, event.params.uuid);
-  assetTokenBalance.interestDischarged = assetTokenBalance.interestDischarged.plus(event.params.interestAmount);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.uuid);
+  const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.uuid);
+  assetTokenBalance.ownerInterestDischarged = assetTokenBalance.ownerInterestDischarged.plus(event.params.receiverAmount);
+  assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.creatorAmount);
   assetTokenBalance.save();
 }
 
 export function handleWalletReleased(event: WalletReleased): void {
-  const assetTokenBalance = loadOrCreateAssetTokenBalance(event.params.assetToken, event.params.uuid);
-  assetTokenBalance.balance = assetTokenBalance.balance.minus(event.params.principalAmount);
-  assetTokenBalance.interestDischarged = assetTokenBalance.interestDischarged.plus(event.params.interestAmount);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.uuid);
+  const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.uuid);
+  const ownerInterest = event.params.receiverAmount.minus(event.params.principalAmount);
+  assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
+  assetTokenBalance.ownerInterestDischarged = assetTokenBalance.ownerInterestDischarged.plus(ownerInterest);
+  assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.creatorAmount);
   assetTokenBalance.save();
 }
 

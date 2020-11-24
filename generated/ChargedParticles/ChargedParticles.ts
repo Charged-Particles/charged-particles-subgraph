@@ -58,78 +58,6 @@ export class DischargeApproval__Params {
   }
 }
 
-export class DischargedParticle extends ethereum.Event {
-  get params(): DischargedParticle__Params {
-    return new DischargedParticle__Params(this);
-  }
-}
-
-export class DischargedParticle__Params {
-  _event: DischargedParticle;
-
-  constructor(event: DischargedParticle) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get receiver(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get liquidityProviderId(): string {
-    return this._event.parameters[3].value.toString();
-  }
-
-  get assetToken(): Address {
-    return this._event.parameters[4].value.toAddress();
-  }
-
-  get interestAmount(): BigInt {
-    return this._event.parameters[5].value.toBigInt();
-  }
-}
-
-export class EnergizedParticle extends ethereum.Event {
-  get params(): EnergizedParticle__Params {
-    return new EnergizedParticle__Params(this);
-  }
-}
-
-export class EnergizedParticle__Params {
-  _event: EnergizedParticle;
-
-  constructor(event: EnergizedParticle) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get liquidityProviderId(): string {
-    return this._event.parameters[2].value.toString();
-  }
-
-  get assetToken(): Address {
-    return this._event.parameters[3].value.toAddress();
-  }
-
-  get assetAmount(): BigInt {
-    return this._event.parameters[4].value.toBigInt();
-  }
-}
-
 export class FeesWithdrawn extends ethereum.Event {
   get params(): FeesWithdrawn__Params {
     return new FeesWithdrawn__Params(this);
@@ -235,48 +163,6 @@ export class ReleaseApproval__Params {
 
   get operator(): Address {
     return this._event.parameters[3].value.toAddress();
-  }
-}
-
-export class ReleasedParticle extends ethereum.Event {
-  get params(): ReleasedParticle__Params {
-    return new ReleasedParticle__Params(this);
-  }
-}
-
-export class ReleasedParticle__Params {
-  _event: ReleasedParticle;
-
-  constructor(event: ReleasedParticle) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get receiver(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get liquidityProviderId(): string {
-    return this._event.parameters[3].value.toString();
-  }
-
-  get assetToken(): Address {
-    return this._event.parameters[4].value.toAddress();
-  }
-
-  get principalAmount(): BigInt {
-    return this._event.parameters[5].value.toBigInt();
-  }
-
-  get interestAmount(): BigInt {
-    return this._event.parameters[6].value.toBigInt();
   }
 }
 
@@ -478,6 +364,57 @@ export class UpdateContractWhitelist__Params {
   }
 }
 
+export class ChargedParticles__dischargeParticleResult {
+  value0: BigInt;
+  value1: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
+export class ChargedParticles__dischargeParticleAmountResult {
+  value0: BigInt;
+  value1: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
+export class ChargedParticles__finalizeReleaseResult {
+  value0: BigInt;
+  value1: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
 export class ChargedParticles__getCollectedFeesResult {
   value0: BigInt;
   value1: BigInt;
@@ -496,6 +433,23 @@ export class ChargedParticles__getCollectedFeesResult {
 }
 
 export class ChargedParticles__getFeesForDepositResult {
+  value0: BigInt;
+  value1: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
+export class ChargedParticles__releaseParticleResult {
   value0: BigInt;
   value1: BigInt;
 
@@ -693,10 +647,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     tokenId: BigInt,
     liquidityProviderId: string,
     assetToken: Address
-  ): BigInt {
+  ): ChargedParticles__dischargeParticleResult {
     let result = super.call(
       "dischargeParticle",
-      "dischargeParticle(address,address,uint256,string,address):(uint256)",
+      "dischargeParticle(address,address,uint256,string,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -706,7 +660,10 @@ export class ChargedParticles extends ethereum.SmartContract {
       ]
     );
 
-    return result[0].toBigInt();
+    return new ChargedParticles__dischargeParticleResult(
+      result[0].toBigInt(),
+      result[1].toBigInt()
+    );
   }
 
   try_dischargeParticle(
@@ -715,10 +672,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     tokenId: BigInt,
     liquidityProviderId: string,
     assetToken: Address
-  ): ethereum.CallResult<BigInt> {
+  ): ethereum.CallResult<ChargedParticles__dischargeParticleResult> {
     let result = super.tryCall(
       "dischargeParticle",
-      "dischargeParticle(address,address,uint256,string,address):(uint256)",
+      "dischargeParticle(address,address,uint256,string,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -731,7 +688,12 @@ export class ChargedParticles extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(
+      new ChargedParticles__dischargeParticleResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
+      )
+    );
   }
 
   dischargeParticleAmount(
@@ -741,10 +703,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     liquidityProviderId: string,
     assetToken: Address,
     assetAmount: BigInt
-  ): BigInt {
+  ): ChargedParticles__dischargeParticleAmountResult {
     let result = super.call(
       "dischargeParticleAmount",
-      "dischargeParticleAmount(address,address,uint256,string,address,uint256):(uint256)",
+      "dischargeParticleAmount(address,address,uint256,string,address,uint256):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -755,7 +717,10 @@ export class ChargedParticles extends ethereum.SmartContract {
       ]
     );
 
-    return result[0].toBigInt();
+    return new ChargedParticles__dischargeParticleAmountResult(
+      result[0].toBigInt(),
+      result[1].toBigInt()
+    );
   }
 
   try_dischargeParticleAmount(
@@ -765,10 +730,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     liquidityProviderId: string,
     assetToken: Address,
     assetAmount: BigInt
-  ): ethereum.CallResult<BigInt> {
+  ): ethereum.CallResult<ChargedParticles__dischargeParticleAmountResult> {
     let result = super.tryCall(
       "dischargeParticleAmount",
-      "dischargeParticleAmount(address,address,uint256,string,address,uint256):(uint256)",
+      "dischargeParticleAmount(address,address,uint256,string,address,uint256):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -782,7 +747,12 @@ export class ChargedParticles extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(
+      new ChargedParticles__dischargeParticleAmountResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
+      )
+    );
   }
 
   energizeParticle(
@@ -838,10 +808,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     tokenId: BigInt,
     liquidityProviderId: string,
     assetToken: Address
-  ): BigInt {
+  ): ChargedParticles__finalizeReleaseResult {
     let result = super.call(
       "finalizeRelease",
-      "finalizeRelease(address,address,uint256,string,address):(uint256)",
+      "finalizeRelease(address,address,uint256,string,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -851,7 +821,10 @@ export class ChargedParticles extends ethereum.SmartContract {
       ]
     );
 
-    return result[0].toBigInt();
+    return new ChargedParticles__finalizeReleaseResult(
+      result[0].toBigInt(),
+      result[1].toBigInt()
+    );
   }
 
   try_finalizeRelease(
@@ -860,10 +833,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     tokenId: BigInt,
     liquidityProviderId: string,
     assetToken: Address
-  ): ethereum.CallResult<BigInt> {
+  ): ethereum.CallResult<ChargedParticles__finalizeReleaseResult> {
     let result = super.tryCall(
       "finalizeRelease",
-      "finalizeRelease(address,address,uint256,string,address):(uint256)",
+      "finalizeRelease(address,address,uint256,string,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -876,7 +849,12 @@ export class ChargedParticles extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(
+      new ChargedParticles__finalizeReleaseResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
+      )
+    );
   }
 
   getCollectedFees(
@@ -924,38 +902,6 @@ export class ChargedParticles extends ethereum.SmartContract {
         value[1].toBigInt()
       )
     );
-  }
-
-  getFeeForDeposit(contractAddress: Address, assetAmount: BigInt): BigInt {
-    let result = super.call(
-      "getFeeForDeposit",
-      "getFeeForDeposit(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getFeeForDeposit(
-    contractAddress: Address,
-    assetAmount: BigInt
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getFeeForDeposit",
-      "getFeeForDeposit(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   getFeesForDeposit(
@@ -1102,6 +1048,38 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getTotalFeeForDeposit(contractAddress: Address, assetAmount: BigInt): BigInt {
+    let result = super.call(
+      "getTotalFeeForDeposit",
+      "getTotalFeeForDeposit(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getTotalFeeForDeposit(
+    contractAddress: Address,
+    assetAmount: BigInt
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getTotalFeeForDeposit",
+      "getTotalFeeForDeposit(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
     );
     if (result.reverted) {
@@ -1436,10 +1414,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     tokenId: BigInt,
     liquidityProviderId: string,
     assetToken: Address
-  ): BigInt {
+  ): ChargedParticles__releaseParticleResult {
     let result = super.call(
       "releaseParticle",
-      "releaseParticle(address,address,uint256,string,address):(uint256)",
+      "releaseParticle(address,address,uint256,string,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -1449,7 +1427,10 @@ export class ChargedParticles extends ethereum.SmartContract {
       ]
     );
 
-    return result[0].toBigInt();
+    return new ChargedParticles__releaseParticleResult(
+      result[0].toBigInt(),
+      result[1].toBigInt()
+    );
   }
 
   try_releaseParticle(
@@ -1458,10 +1439,10 @@ export class ChargedParticles extends ethereum.SmartContract {
     tokenId: BigInt,
     liquidityProviderId: string,
     assetToken: Address
-  ): ethereum.CallResult<BigInt> {
+  ): ethereum.CallResult<ChargedParticles__releaseParticleResult> {
     let result = super.tryCall(
       "releaseParticle",
-      "releaseParticle(address,address,uint256,string,address):(uint256)",
+      "releaseParticle(address,address,uint256,string,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
@@ -1474,7 +1455,12 @@ export class ChargedParticles extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(
+      new ChargedParticles__releaseParticleResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
+      )
+    );
   }
 
   storeCollectedFees(
@@ -1808,8 +1794,12 @@ export class DischargeParticleCall__Outputs {
     this._call = call;
   }
 
-  get interestAmount(): BigInt {
+  get creatorAmount(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[1].value.toBigInt();
   }
 }
 
@@ -1862,8 +1852,12 @@ export class DischargeParticleAmountCall__Outputs {
     this._call = call;
   }
 
-  get interestAmount(): BigInt {
+  get creatorAmount(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[1].value.toBigInt();
   }
 }
 
@@ -1962,8 +1956,12 @@ export class FinalizeReleaseCall__Outputs {
     this._call = call;
   }
 
-  get value0(): BigInt {
+  get creatorAmount(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[1].value.toBigInt();
   }
 }
 
@@ -2168,8 +2166,12 @@ export class ReleaseParticleCall__Outputs {
     this._call = call;
   }
 
-  get value0(): BigInt {
+  get creatorAmount(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[1].value.toBigInt();
   }
 }
 

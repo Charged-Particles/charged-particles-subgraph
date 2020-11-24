@@ -762,17 +762,8 @@ export class AaveWalletManager extends Entity {
     }
   }
 
-  get wallets(): Array<string> {
-    let value = this.get("wallets");
-    return value.toStringArray();
-  }
-
-  set wallets(value: Array<string>) {
-    this.set("wallets", Value.fromStringArray(value));
-  }
-
-  get lendingPoolProvider(): Bytes | null {
-    let value = this.get("lendingPoolProvider");
+  get aaveBridge(): Bytes | null {
+    let value = this.get("aaveBridge");
     if (value === null) {
       return null;
     } else {
@@ -780,12 +771,21 @@ export class AaveWalletManager extends Entity {
     }
   }
 
-  set lendingPoolProvider(value: Bytes | null) {
+  set aaveBridge(value: Bytes | null) {
     if (value === null) {
-      this.unset("lendingPoolProvider");
+      this.unset("aaveBridge");
     } else {
-      this.set("lendingPoolProvider", Value.fromBytes(value as Bytes));
+      this.set("aaveBridge", Value.fromBytes(value as Bytes));
     }
+  }
+
+  get wallets(): Array<string> {
+    let value = this.get("wallets");
+    return value.toStringArray();
+  }
+
+  set wallets(value: Array<string>) {
+    this.set("wallets", Value.fromStringArray(value));
   }
 }
 
@@ -912,9 +912,18 @@ export class AaveSmartWallet extends Entity {
       this.set("nftCreatorAnnuityPct", Value.fromBigInt(value as BigInt));
     }
   }
+
+  get assetBalances(): Array<string> {
+    let value = this.get("assetBalances");
+    return value.toStringArray();
+  }
+
+  set assetBalances(value: Array<string>) {
+    this.set("assetBalances", Value.fromStringArray(value));
+  }
 }
 
-export class AssetTokenBalance extends Entity {
+export class AaveAssetTokenBalance extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -922,17 +931,23 @@ export class AssetTokenBalance extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save AssetTokenBalance entity without an ID");
+    assert(
+      id !== null,
+      "Cannot save AaveAssetTokenBalance entity without an ID"
+    );
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save AssetTokenBalance entity with non-string ID. " +
+      "Cannot save AaveAssetTokenBalance entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("AssetTokenBalance", id.toString(), this);
+    store.set("AaveAssetTokenBalance", id.toString(), this);
   }
 
-  static load(id: string): AssetTokenBalance | null {
-    return store.get("AssetTokenBalance", id) as AssetTokenBalance | null;
+  static load(id: string): AaveAssetTokenBalance | null {
+    return store.get(
+      "AaveAssetTokenBalance",
+      id
+    ) as AaveAssetTokenBalance | null;
   }
 
   get id(): string {
@@ -962,22 +977,48 @@ export class AssetTokenBalance extends Entity {
     this.set("tokenUuid", Value.fromBigInt(value));
   }
 
-  get balance(): BigInt {
-    let value = this.get("balance");
+  get smartWallet(): string | null {
+    let value = this.get("smartWallet");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set smartWallet(value: string | null) {
+    if (value === null) {
+      this.unset("smartWallet");
+    } else {
+      this.set("smartWallet", Value.fromString(value as string));
+    }
+  }
+
+  get principal(): BigInt {
+    let value = this.get("principal");
     return value.toBigInt();
   }
 
-  set balance(value: BigInt) {
-    this.set("balance", Value.fromBigInt(value));
+  set principal(value: BigInt) {
+    this.set("principal", Value.fromBigInt(value));
   }
 
-  get interestDischarged(): BigInt {
-    let value = this.get("interestDischarged");
+  get ownerInterestDischarged(): BigInt {
+    let value = this.get("ownerInterestDischarged");
     return value.toBigInt();
   }
 
-  set interestDischarged(value: BigInt) {
-    this.set("interestDischarged", Value.fromBigInt(value));
+  set ownerInterestDischarged(value: BigInt) {
+    this.set("ownerInterestDischarged", Value.fromBigInt(value));
+  }
+
+  get creatorInterestDischarged(): BigInt {
+    let value = this.get("creatorInterestDischarged");
+    return value.toBigInt();
+  }
+
+  set creatorInterestDischarged(value: BigInt) {
+    this.set("creatorInterestDischarged", Value.fromBigInt(value));
   }
 }
 

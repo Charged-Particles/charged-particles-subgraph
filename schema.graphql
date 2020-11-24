@@ -97,10 +97,9 @@ type AaveWalletManager @entity {
   paused: Boolean!
 
   chargedParticles: Bytes
+  aaveBridge: Bytes
 
   wallets: [AaveSmartWallet!]! @derivedFrom(field: "walletManager")
-
-  lendingPoolProvider: Bytes
 }
 
 # ID: `${tokenUuid}`
@@ -116,18 +115,20 @@ type AaveSmartWallet @entity {
   nftCreatorAnnuityPct: BigInt
 
   # balance: BigInt # ????  TODO per Asset Token
-  # assetBalances: [AssetTokenBalance!]! @derivedFrom(field: "tokenUuid")
+  assetBalances: [AaveAssetTokenBalance!]! @derivedFrom(field: "smartWallet")
 }
 
 # ID: `${assetToken.address}-${tokenUuid}`
 # dynamically generated type, not mapped to a specific contract
-type AssetTokenBalance @entity {
+type AaveAssetTokenBalance @entity {
   id: ID!
   assetToken: Bytes!
   tokenUuid: BigInt!
+  smartWallet: AaveSmartWallet
 
-  balance: BigInt!
-  interestDischarged: BigInt!
+  principal: BigInt!
+  ownerInterestDischarged: BigInt!
+  creatorInterestDischarged: BigInt!
 }
 
 

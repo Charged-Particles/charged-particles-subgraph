@@ -45,7 +45,7 @@
         name
         address
         paused
-        lendingPoolProvider
+        aaveBridge
         wallets {
           id
           address
@@ -53,6 +53,14 @@
           assetTokens
           nftCreator
           nftCreatorAnnuityPct
+          assetBalances {
+            id
+            assetToken
+            tokenUuid
+            principal
+            ownerInterestDischarged
+            creatorInterestDischarged
+          }
         }
       }
     }
@@ -72,6 +80,27 @@
     }
   }
 
+  protonNFTs {
+    id
+    tokenId
+    proton {
+      id
+    }
+    creator
+    owner
+    metadataUri
+  }
+
+  protons {
+    id
+    tokens {
+      id
+      tokenId
+      creator
+      owner
+      metadataUri
+    }
+  }
 
   ionHolders(where: {
     address_in: [

@@ -12,9 +12,6 @@ import {
   TimelockApproval,
   TokenDischargeTimelock,
   TokenReleaseTimelock,
-  EnergizedParticle,
-  DischargedParticle,
-  ReleasedParticle,
   FeesWithdrawn,
   UpdateContractWhitelist,
 } from '../generated/ChargedParticles/ChargedParticles';
@@ -122,21 +119,6 @@ export function handleTokenReleaseTimelock(event: TokenReleaseTimelock): void {
   );
   _chargedNftState.releaseTimelock = event.params.unlockBlock;
   _chargedNftState.save();
-}
-
-export function handleEnergizedParticle(event: EnergizedParticle): void {
-  // no-op ??
-  log.info('TODO: handleEnergizedParticle', []);
-}
-
-export function handleDischargedParticle(event: DischargedParticle): void {
-  // no-op ??
-  log.info('TODO: handleDischargedParticle', []);
-}
-
-export function handleReleasedParticle(event: ReleasedParticle): void {
-  // no-op ??
-  log.info('TODO: handleReleasedParticle', []);
 }
 
 export function handleFeesWithdrawn(event: FeesWithdrawn): void {

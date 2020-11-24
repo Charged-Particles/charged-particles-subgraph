@@ -4,11 +4,11 @@ schema:
 dataSources:
   - name: Universe
     kind: ethereum/contract
-    network: {{network}}
+    network: kovan
     source:
-      address: "{{universe.address}}"
+      address: "0xee099fF1Be096831C372e5B8de0486ec613dAa83"
       abi: Universe
-      startBlock: {{universe.startBlock}}
+      startBlock: 22253834
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -36,11 +36,11 @@ dataSources:
           handler: handleRewardIssued
   - name: ChargedParticles
     kind: ethereum/contract
-    network: {{network}}
+    network: kovan
     source:
-      address: "{{chargedParticles.address}}"
+      address: "0x1261d72CB3FDDd07d234C6953B657e71a57BbE73"
       abi: ChargedParticles
-      startBlock: {{chargedParticles.startBlock}}
+      startBlock: 22253834
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -84,11 +84,11 @@ dataSources:
           handler: handleUpdateContractWhitelist
   - name: AaveWalletManager
     kind: ethereum/contract
-    network: {{network}}
+    network: kovan
     source:
-      address: "{{aaveWalletManager.address}}"
+      address: "0x7598db8d6e429490139309368F59516C64b12698"
       abi: AaveWalletManager
-      startBlock: {{aaveWalletManager.startBlock}}
+      startBlock: 22253834
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -122,11 +122,11 @@ dataSources:
           handler: handleWalletRewarded
   - name: Ion
     kind: ethereum/contract
-    network: {{network}}
+    network: kovan
     source:
-      address: "{{ion.address}}"
+      address: "0x09399C185254b1F917f1cf14B90a19D7Dc26c512"
       abi: Ion
-      startBlock: {{ion.startBlock}}
+      startBlock: 22253834
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -150,11 +150,11 @@ dataSources:
           handler: handleLockApproval
   - name: Proton
     kind: ethereum/contract
-    network: {{network}}
+    network: kovan
     source:
-      address: "{{proton.address}}"
+      address: "0x400a7d003995d82385BC851f2590cD0dCb45c6e7"
       abi: Proton
-      startBlock: {{proton.startBlock}}
+      startBlock: 22253834
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -184,7 +184,7 @@ dataSources:
 # templates:
 #   - name: AaveSmartWallet
 #     kind: ethereum/contract
-#     network: {{network}}
+#     network: kovan
 #     source:
 #       abi: AaveSmartWallet
 #     mapping:

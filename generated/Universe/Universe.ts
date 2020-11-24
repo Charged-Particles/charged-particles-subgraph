@@ -234,8 +234,12 @@ export class OnDischargeCall__Inputs {
     return this._call.inputValues[3].value.toAddress();
   }
 
-  get interestAmount(): BigInt {
+  get value4(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
   }
 }
 
@@ -326,12 +330,16 @@ export class OnReleaseCall__Inputs {
     return this._call.inputValues[3].value.toAddress();
   }
 
-  get value4(): BigInt {
+  get principalAmount(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
   }
 
-  get interestAmount(): BigInt {
+  get value5(): BigInt {
     return this._call.inputValues[5].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
   }
 }
 
