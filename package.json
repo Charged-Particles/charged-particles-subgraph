@@ -1,6 +1,25 @@
 {
-  "name": "@chargedparticles/subgraph",
+  "name": "@charged-particles/protocol-subgraph",
+  "version": "0.1.7",
+  "description": "Subgraph for the Charged Particles Protocol",
+  "author": "Rob Secord <robsecord.eth>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Charged-Particles/charged-particles-subgraph"
+  },
+  "keywords": [
+    "charged",
+    "particles",
+    "defi",
+    "nft",
+    "subgraph",
+    "ethereum"
+  ],
+  "engines": {
+    "node": ">=12.16.1",
+    "npm": ">=6.14.4"
+  },
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn",
     "clean": "rm -rf build/ generated/",
