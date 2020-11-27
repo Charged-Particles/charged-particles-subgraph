@@ -6,9 +6,9 @@ dataSources:
     kind: ethereum/contract
     network: kovan
     source:
-      address: "0xee099fF1Be096831C372e5B8de0486ec613dAa83"
+      address: "0x63f3Ef26636cc5C96F1754C7E8B416A82BfB6108"
       abi: Universe
-      startBlock: 22253834
+      startBlock: 22304455
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -38,9 +38,9 @@ dataSources:
     kind: ethereum/contract
     network: kovan
     source:
-      address: "0x1261d72CB3FDDd07d234C6953B657e71a57BbE73"
+      address: "0x5924d6Ab960FDC5Cb32338E1c237e9EaB8Fe835C"
       abi: ChargedParticles
-      startBlock: 22253834
+      startBlock: 22304455
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -86,9 +86,9 @@ dataSources:
     kind: ethereum/contract
     network: kovan
     source:
-      address: "0x7598db8d6e429490139309368F59516C64b12698"
+      address: "0x05883afF8Da8b2c4DA50060B852b7e5781F62E1c"
       abi: AaveWalletManager
-      startBlock: 22253834
+      startBlock: 22304455
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -124,9 +124,9 @@ dataSources:
     kind: ethereum/contract
     network: kovan
     source:
-      address: "0x09399C185254b1F917f1cf14B90a19D7Dc26c512"
+      address: "0x0a05E831E91c53B38f940B3319ACa884B95a1402"
       abi: Ion
-      startBlock: 22253834
+      startBlock: 22304455
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -152,9 +152,9 @@ dataSources:
     kind: ethereum/contract
     network: kovan
     source:
-      address: "0x400a7d003995d82385BC851f2590cD0dCb45c6e7"
+      address: "0xb135823cd462D5f97f9D4009c9BE2e8aA16C11a5"
       abi: Proton
-      startBlock: 22253834
+      startBlock: 22304455
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

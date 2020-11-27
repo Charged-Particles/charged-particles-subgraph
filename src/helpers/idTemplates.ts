@@ -24,7 +24,10 @@ export function ionTokenHolderId(ionTokenAddress: string, holderAddress: string)
   return ionTokenAddress + '-' + holderAddress;
 }
 
-
 export function protonNftId(protonAddress: string, tokenId: string): string {
   return protonAddress + '-' + tokenId;
+}
+
+export function nftAttributeId(protonNftId: string, attrIndex: string): string {
+  return protonNftId + '-' + attrIndex;
 }

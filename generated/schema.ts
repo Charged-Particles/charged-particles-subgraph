@@ -1363,6 +1363,49 @@ export class ProtonNFT extends Entity {
     }
   }
 
+  get particleType(): string | null {
+    let value = this.get("particleType");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set particleType(value: string | null) {
+    if (value === null) {
+      this.unset("particleType");
+    } else {
+      this.set("particleType", Value.fromString(value as string));
+    }
+  }
+
+  get creatorAnnuity(): BigInt | null {
+    let value = this.get("creatorAnnuity");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set creatorAnnuity(value: BigInt | null) {
+    if (value === null) {
+      this.unset("creatorAnnuity");
+    } else {
+      this.set("creatorAnnuity", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get burnToRelease(): boolean {
+    let value = this.get("burnToRelease");
+    return value.toBoolean();
+  }
+
+  set burnToRelease(value: boolean) {
+    this.set("burnToRelease", Value.fromBoolean(value));
+  }
+
   get metadataUri(): string | null {
     let value = this.get("metadataUri");
     if (value === null) {
@@ -1377,6 +1420,259 @@ export class ProtonNFT extends Entity {
       this.unset("metadataUri");
     } else {
       this.set("metadataUri", Value.fromString(value as string));
+    }
+  }
+
+  get metaName(): string | null {
+    let value = this.get("metaName");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaName(value: string | null) {
+    if (value === null) {
+      this.unset("metaName");
+    } else {
+      this.set("metaName", Value.fromString(value as string));
+    }
+  }
+
+  get metaDescription(): string | null {
+    let value = this.get("metaDescription");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaDescription(value: string | null) {
+    if (value === null) {
+      this.unset("metaDescription");
+    } else {
+      this.set("metaDescription", Value.fromString(value as string));
+    }
+  }
+
+  get metaExternalUrl(): string | null {
+    let value = this.get("metaExternalUrl");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaExternalUrl(value: string | null) {
+    if (value === null) {
+      this.unset("metaExternalUrl");
+    } else {
+      this.set("metaExternalUrl", Value.fromString(value as string));
+    }
+  }
+
+  get metaAnimationUrl(): string | null {
+    let value = this.get("metaAnimationUrl");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaAnimationUrl(value: string | null) {
+    if (value === null) {
+      this.unset("metaAnimationUrl");
+    } else {
+      this.set("metaAnimationUrl", Value.fromString(value as string));
+    }
+  }
+
+  get metaYoutubeUrl(): string | null {
+    let value = this.get("metaYoutubeUrl");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaYoutubeUrl(value: string | null) {
+    if (value === null) {
+      this.unset("metaYoutubeUrl");
+    } else {
+      this.set("metaYoutubeUrl", Value.fromString(value as string));
+    }
+  }
+
+  get metaIcon(): string | null {
+    let value = this.get("metaIcon");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaIcon(value: string | null) {
+    if (value === null) {
+      this.unset("metaIcon");
+    } else {
+      this.set("metaIcon", Value.fromString(value as string));
+    }
+  }
+
+  get metaImage(): string | null {
+    let value = this.get("metaImage");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaImage(value: string | null) {
+    if (value === null) {
+      this.unset("metaImage");
+    } else {
+      this.set("metaImage", Value.fromString(value as string));
+    }
+  }
+
+  get metaSymbol(): string | null {
+    let value = this.get("metaSymbol");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaSymbol(value: string | null) {
+    if (value === null) {
+      this.unset("metaSymbol");
+    } else {
+      this.set("metaSymbol", Value.fromString(value as string));
+    }
+  }
+
+  get metaDecimals(): BigInt | null {
+    let value = this.get("metaDecimals");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set metaDecimals(value: BigInt | null) {
+    if (value === null) {
+      this.unset("metaDecimals");
+    } else {
+      this.set("metaDecimals", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get metaBgColor(): string | null {
+    let value = this.get("metaBgColor");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metaBgColor(value: string | null) {
+    if (value === null) {
+      this.unset("metaBgColor");
+    } else {
+      this.set("metaBgColor", Value.fromString(value as string));
+    }
+  }
+
+  get metaAttributes(): Array<string> {
+    let value = this.get("metaAttributes");
+    return value.toStringArray();
+  }
+
+  set metaAttributes(value: Array<string>) {
+    this.set("metaAttributes", Value.fromStringArray(value));
+  }
+}
+
+export class NFTAttributes extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save NFTAttributes entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save NFTAttributes entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("NFTAttributes", id.toString(), this);
+  }
+
+  static load(id: string): NFTAttributes | null {
+    return store.get("NFTAttributes", id) as NFTAttributes | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get protonNft(): string {
+    let value = this.get("protonNft");
+    return value.toString();
+  }
+
+  set protonNft(value: string) {
+    this.set("protonNft", Value.fromString(value));
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
+  }
+
+  get value(): string | null {
+    let value = this.get("value");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set value(value: string | null) {
+    if (value === null) {
+      this.unset("value");
+    } else {
+      this.set("value", Value.fromString(value as string));
     }
   }
 }

@@ -184,5 +184,29 @@ type ProtonNFT @entity {
   creator: Bytes
   owner: Bytes
 
+  particleType: String
+  creatorAnnuity: BigInt
+  burnToRelease: Boolean
+
   metadataUri: String
+  metaName: String
+  metaDescription: String
+  metaExternalUrl: String
+  metaAnimationUrl: String
+  metaYoutubeUrl: String
+  metaIcon: String
+  metaImage: String
+  metaSymbol: String
+  metaDecimals: BigInt
+  metaBgColor: String
+
+  # metaAttributes: [String!]
+  metaAttributes: [NFTAttributes!]! @derivedFrom(field: "protonNft")
+}
+
+type NFTAttributes @entity {
+  id: ID!
+  protonNft: ProtonNFT!
+  name: String
+  value: String
 }
