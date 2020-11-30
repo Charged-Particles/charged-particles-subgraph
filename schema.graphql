@@ -171,6 +171,7 @@ type Proton @entity {
   id: ID!
   owner: Bytes!
   chargedParticles: ChargedParticles
+  mintFee: BigInt
 
   tokens: [ProtonNFT!]! @derivedFrom(field: "proton")
 }

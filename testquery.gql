@@ -86,9 +86,28 @@
     proton {
       id
     }
-    creator
     owner
+    creator
     metadataUri
+
+      particleType
+      creatorAnnuity
+      burnToRelease
+
+      metaName
+      metaDescription
+      metaExternalUrl
+      metaAnimationUrl
+      metaYoutubeUrl
+      metaIcon
+      metaImage
+      metaSymbol
+      metaDecimals
+      metaBgColor
+      metaAttributes {
+        name
+        value
+      }
   }
 
   protons {
@@ -96,9 +115,28 @@
     tokens {
       id
       tokenId
-      creator
       owner
+      creator
       metadataUri
+
+      particleType
+      creatorAnnuity
+      burnToRelease
+
+      metaName
+      metaDescription
+      metaExternalUrl
+      metaAnimationUrl
+      metaYoutubeUrl
+      metaIcon
+      metaImage
+      metaSymbol
+      metaDecimals
+      metaBgColor
+      metaAttributes {
+        name
+        value
+      }
     }
   }
 

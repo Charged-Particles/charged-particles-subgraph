@@ -1263,6 +1263,23 @@ export class Proton extends Entity {
     }
   }
 
+  get mintFee(): BigInt | null {
+    let value = this.get("mintFee");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set mintFee(value: BigInt | null) {
+    if (value === null) {
+      this.unset("mintFee");
+    } else {
+      this.set("mintFee", Value.fromBigInt(value as BigInt));
+    }
+  }
+
   get tokens(): Array<string> {
     let value = this.get("tokens");
     return value.toStringArray();

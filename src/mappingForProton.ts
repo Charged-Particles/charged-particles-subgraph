@@ -8,6 +8,8 @@ import {
 import {
   OwnershipTransferred,
   ChargedParticlesSet,
+  MintFeeSet,
+  FeesWithdrawn,
   Transfer,
   Approval,
   ApprovalForAll,
@@ -30,6 +32,16 @@ export function handleChargedParticlesSet(event: ChargedParticlesSet): void {
   const _proton = loadOrCreateProton(event.address);
   _proton.chargedParticles = event.params.chargedParticles.toHex();
   _proton.save();
+}
+
+export function handleMintFeeSet(event: MintFeeSet): void {
+  const _proton = loadOrCreateProton(event.address);
+  _proton.mintFee = event.params.fee;
+  _proton.save();
+}
+
+export function handleFeesWithdrawn(event: FeesWithdrawn): void {
+  log.info('TODO: handleFeesWithdrawn', []);
 }
 
 export function handleTransfer(event: Transfer): void {
