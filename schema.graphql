@@ -19,7 +19,7 @@ type ChargedParticles @entity {
   # liquidityProviders: [String!]
 
   whitelisted: [WhitelistedNftContract!]! @derivedFrom(field: "chargedParticles")
-  depositFee: BigInt
+  tieredDepositFee: [TieredDepositFees!]! @derivedFrom(field: "chargedParticles")
 
   externalContractSettings: [ExternalContractSettings!]! @derivedFrom(field: "chargedParticles")
   nftCreatorSettings: [NftCreatorSettings!]! @derivedFrom(field: "chargedParticles")
@@ -86,6 +86,15 @@ type WhitelistedNftContract @entity {
   state: Boolean!
 }
 
+# ID: `${chargedParticles.address}-${limit}`
+# dynamically generated type, not mapped to a specific contract
+type TieredDepositFees @entity {
+  id: ID!
+  chargedParticles: ChargedParticles!
+
+  limit: BigInt!
+  fee: BigInt
+}
 
 
 # ID: `${aaveWalletManager.address}`
@@ -129,6 +138,7 @@ type AaveAssetTokenBalance @entity {
   principal: BigInt!
   ownerInterestDischarged: BigInt!
   creatorInterestDischarged: BigInt!
+  depositFee: BigInt!
 }
 
 

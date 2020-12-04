@@ -21,6 +21,7 @@ import { loadOrCreateExternalContractSettings } from './helpers/loadOrCreateExte
 import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreatorSettings';
 import { loadOrCreateChargedNftState } from './helpers/loadOrCreateChargedNftState';
 import { loadOrCreateWhitelistedNftContract } from './helpers/loadOrCreateWhitelistedNftContract';
+import { loadOrCreateTieredDepositFees } from './helpers/loadOrCreateTieredDepositFees';
 
 import { trackLastKnownOwner } from './helpers/nftState';
 
@@ -38,9 +39,9 @@ export function handleUniverseSet(event: UniverseSet): void {
 }
 
 export function handleDepositFeeSet(event: DepositFeeSet): void {
-  const _chargedParticles = loadOrCreateChargedParticles(event.address);
-  _chargedParticles.depositFee = event.params.depositFee;
-  _chargedParticles.save();
+  const _tieredDepositFees = loadOrCreateTieredDepositFees(event.address, event.params.depositFeeLimit);
+  _tieredDepositFees.fee = event.params.depositFee;
+  _tieredDepositFees.save();
 }
 
 export function handleLiquidityProviderRegistered(event: LiquidityProviderRegistered): void {

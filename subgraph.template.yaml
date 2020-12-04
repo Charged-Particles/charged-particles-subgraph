@@ -60,7 +60,7 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: UniverseSet(indexed address)
           handler: handleUniverseSet
-        - event: DepositFeeSet(uint256)
+        - event: DepositFeeSet(uint256,uint256)
           handler: handleDepositFeeSet
         - event: LiquidityProviderRegistered(indexed string,indexed address)
           handler: handleLiquidityProviderRegistered
@@ -112,7 +112,7 @@ dataSources:
           handler: handlePausedStateSet
         - event: NewSmartWallet(indexed uint256,indexed address,indexed address,uint256)
           handler: handleNewSmartWallet
-        - event: WalletEnergized(indexed uint256,indexed address,uint256,uint256)
+        - event: WalletEnergized(indexed uint256,indexed address,uint256,uint256,uint256)
           handler: handleWalletEnergized
         - event: WalletDischarged(indexed uint256,indexed address,uint256,uint256)
           handler: handleWalletDischarged

@@ -171,8 +171,12 @@ export class WalletEnergized__Params {
     return this._event.parameters[2].value.toBigInt();
   }
 
-  get yieldTokensAmount(): BigInt {
+  get depositFee(): BigInt {
     return this._event.parameters[3].value.toBigInt();
+  }
+
+  get yieldTokensAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
   }
 }
 
@@ -444,18 +448,16 @@ export class AaveWalletManager extends ethereum.SmartContract {
     _uuid: BigInt,
     _assetToken: Address,
     _assetAmount: BigInt,
-    creator: Address,
-    annuityPct: BigInt
+    _depositFee: BigInt
   ): BigInt {
     let result = super.call(
       "energize",
-      "energize(uint256,address,uint256,address,uint256):(uint256)",
+      "energize(uint256,address,uint256,uint256):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_uuid),
         ethereum.Value.fromAddress(_assetToken),
         ethereum.Value.fromUnsignedBigInt(_assetAmount),
-        ethereum.Value.fromAddress(creator),
-        ethereum.Value.fromUnsignedBigInt(annuityPct)
+        ethereum.Value.fromUnsignedBigInt(_depositFee)
       ]
     );
 
@@ -466,18 +468,16 @@ export class AaveWalletManager extends ethereum.SmartContract {
     _uuid: BigInt,
     _assetToken: Address,
     _assetAmount: BigInt,
-    creator: Address,
-    annuityPct: BigInt
+    _depositFee: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "energize",
-      "energize(uint256,address,uint256,address,uint256):(uint256)",
+      "energize(uint256,address,uint256,uint256):(uint256)",
       [
         ethereum.Value.fromUnsignedBigInt(_uuid),
         ethereum.Value.fromAddress(_assetToken),
         ethereum.Value.fromUnsignedBigInt(_assetAmount),
-        ethereum.Value.fromAddress(creator),
-        ethereum.Value.fromUnsignedBigInt(annuityPct)
+        ethereum.Value.fromUnsignedBigInt(_depositFee)
       ]
     );
     if (result.reverted) {
@@ -695,6 +695,45 @@ export class AaveWalletManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getWalletAddressById(
+    _uuid: BigInt,
+    creator: Address,
+    annuityPct: BigInt
+  ): Address {
+    let result = super.call(
+      "getWalletAddressById",
+      "getWalletAddressById(uint256,address,uint256):(address)",
+      [
+        ethereum.Value.fromUnsignedBigInt(_uuid),
+        ethereum.Value.fromAddress(creator),
+        ethereum.Value.fromUnsignedBigInt(annuityPct)
+      ]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getWalletAddressById(
+    _uuid: BigInt,
+    creator: Address,
+    annuityPct: BigInt
+  ): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getWalletAddressById",
+      "getWalletAddressById(uint256,address,uint256):(address)",
+      [
+        ethereum.Value.fromUnsignedBigInt(_uuid),
+        ethereum.Value.fromAddress(creator),
+        ethereum.Value.fromUnsignedBigInt(annuityPct)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   isPaused(): boolean {
@@ -1026,12 +1065,8 @@ export class EnergizeCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get creator(): Address {
-    return this._call.inputValues[3].value.toAddress();
-  }
-
-  get annuityPct(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
+  get _depositFee(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
   }
 }
 
@@ -1246,6 +1281,48 @@ export class GetTotalCall__Outputs {
 
   get value0(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
+export class GetWalletAddressByIdCall extends ethereum.Call {
+  get inputs(): GetWalletAddressByIdCall__Inputs {
+    return new GetWalletAddressByIdCall__Inputs(this);
+  }
+
+  get outputs(): GetWalletAddressByIdCall__Outputs {
+    return new GetWalletAddressByIdCall__Outputs(this);
+  }
+}
+
+export class GetWalletAddressByIdCall__Inputs {
+  _call: GetWalletAddressByIdCall;
+
+  constructor(call: GetWalletAddressByIdCall) {
+    this._call = call;
+  }
+
+  get _uuid(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get creator(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get annuityPct(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class GetWalletAddressByIdCall__Outputs {
+  _call: GetWalletAddressByIdCall;
+
+  constructor(call: GetWalletAddressByIdCall) {
+    this._call = call;
+  }
+
+  get value0(): Address {
+    return this._call.outputValues[0].value.toAddress();
   }
 }
 

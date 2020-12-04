@@ -66,6 +66,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
 
   const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.uuid);
   assetTokenBalance.principal = assetTokenBalance.principal.plus(event.params.assetAmount);
+  assetTokenBalance.depositFee = assetTokenBalance.depositFee.plus(event.params.depositFee);
   assetTokenBalance.save();
 }
 

@@ -23,8 +23,12 @@ export class DepositFeeSet__Params {
     this._event = event;
   }
 
-  get depositFee(): BigInt {
+  get depositFeeLimit(): BigInt {
     return this._event.parameters[0].value.toBigInt();
+  }
+
+  get depositFee(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 }
 
@@ -600,21 +604,6 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  depositFee(): BigInt {
-    let result = super.call("depositFee", "depositFee():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_depositFee(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("depositFee", "depositFee():(uint256)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   depositFeesEarned(param0: Address, param1: Address): BigInt {
     let result = super.call(
       "depositFeesEarned",
@@ -1048,38 +1037,6 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getTotalFeeForDeposit(contractAddress: Address, assetAmount: BigInt): BigInt {
-    let result = super.call(
-      "getTotalFeeForDeposit",
-      "getTotalFeeForDeposit(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getTotalFeeForDeposit(
-    contractAddress: Address,
-    assetAmount: BigInt
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getTotalFeeForDeposit",
-      "getTotalFeeForDeposit(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
     );
     if (result.reverted) {
@@ -2247,32 +2204,36 @@ export class SetCreatorConfigsCall__Outputs {
   }
 }
 
-export class SetDepositFeeCall extends ethereum.Call {
-  get inputs(): SetDepositFeeCall__Inputs {
-    return new SetDepositFeeCall__Inputs(this);
+export class SetDepositFeesCall extends ethereum.Call {
+  get inputs(): SetDepositFeesCall__Inputs {
+    return new SetDepositFeesCall__Inputs(this);
   }
 
-  get outputs(): SetDepositFeeCall__Outputs {
-    return new SetDepositFeeCall__Outputs(this);
+  get outputs(): SetDepositFeesCall__Outputs {
+    return new SetDepositFeesCall__Outputs(this);
   }
 }
 
-export class SetDepositFeeCall__Inputs {
-  _call: SetDepositFeeCall;
+export class SetDepositFeesCall__Inputs {
+  _call: SetDepositFeesCall;
 
-  constructor(call: SetDepositFeeCall) {
+  constructor(call: SetDepositFeesCall) {
     this._call = call;
   }
 
-  get fee(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get limits(): Array<BigInt> {
+    return this._call.inputValues[0].value.toBigIntArray();
+  }
+
+  get fees(): Array<BigInt> {
+    return this._call.inputValues[1].value.toBigIntArray();
   }
 }
 
-export class SetDepositFeeCall__Outputs {
-  _call: SetDepositFeeCall;
+export class SetDepositFeesCall__Outputs {
+  _call: SetDepositFeesCall;
 
-  constructor(call: SetDepositFeeCall) {
+  constructor(call: SetDepositFeesCall) {
     this._call = call;
   }
 }

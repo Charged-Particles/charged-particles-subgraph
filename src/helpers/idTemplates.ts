@@ -20,6 +20,10 @@ export function whitelistedNftContractId(chargedParticlesAdress: string, contrac
   return chargedParticlesAdress + '-' + contractAddress;
 }
 
+export function tieredDepositFeeId(chargedParticlesAdress: string, limit: string): string {
+  return chargedParticlesAdress + '-' + limit;
+}
+
 export function ionTokenHolderId(ionTokenAddress: string, holderAddress: string): string {
   return ionTokenAddress + '-' + holderAddress;
 }
