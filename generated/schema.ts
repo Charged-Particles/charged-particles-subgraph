@@ -1507,8 +1507,8 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  get metaName(): string | null {
-    let value = this.get("metaName");
+  get name(): string | null {
+    let value = this.get("name");
     if (value === null) {
       return null;
     } else {
@@ -1516,33 +1516,16 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  set metaName(value: string | null) {
+  set name(value: string | null) {
     if (value === null) {
-      this.unset("metaName");
+      this.unset("name");
     } else {
-      this.set("metaName", Value.fromString(value as string));
+      this.set("name", Value.fromString(value as string));
     }
   }
 
-  get metaDescription(): string | null {
-    let value = this.get("metaDescription");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set metaDescription(value: string | null) {
-    if (value === null) {
-      this.unset("metaDescription");
-    } else {
-      this.set("metaDescription", Value.fromString(value as string));
-    }
-  }
-
-  get metaExternalUrl(): string | null {
-    let value = this.get("metaExternalUrl");
+  get description(): string | null {
+    let value = this.get("description");
     if (value === null) {
       return null;
     } else {
@@ -1550,33 +1533,16 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  set metaExternalUrl(value: string | null) {
+  set description(value: string | null) {
     if (value === null) {
-      this.unset("metaExternalUrl");
+      this.unset("description");
     } else {
-      this.set("metaExternalUrl", Value.fromString(value as string));
+      this.set("description", Value.fromString(value as string));
     }
   }
 
-  get metaAnimationUrl(): string | null {
-    let value = this.get("metaAnimationUrl");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set metaAnimationUrl(value: string | null) {
-    if (value === null) {
-      this.unset("metaAnimationUrl");
-    } else {
-      this.set("metaAnimationUrl", Value.fromString(value as string));
-    }
-  }
-
-  get metaYoutubeUrl(): string | null {
-    let value = this.get("metaYoutubeUrl");
+  get external_url(): string | null {
+    let value = this.get("external_url");
     if (value === null) {
       return null;
     } else {
@@ -1584,33 +1550,16 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  set metaYoutubeUrl(value: string | null) {
+  set external_url(value: string | null) {
     if (value === null) {
-      this.unset("metaYoutubeUrl");
+      this.unset("external_url");
     } else {
-      this.set("metaYoutubeUrl", Value.fromString(value as string));
+      this.set("external_url", Value.fromString(value as string));
     }
   }
 
-  get metaIcon(): string | null {
-    let value = this.get("metaIcon");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set metaIcon(value: string | null) {
-    if (value === null) {
-      this.unset("metaIcon");
-    } else {
-      this.set("metaIcon", Value.fromString(value as string));
-    }
-  }
-
-  get metaImage(): string | null {
-    let value = this.get("metaImage");
+  get animation_url(): string | null {
+    let value = this.get("animation_url");
     if (value === null) {
       return null;
     } else {
@@ -1618,16 +1567,16 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  set metaImage(value: string | null) {
+  set animation_url(value: string | null) {
     if (value === null) {
-      this.unset("metaImage");
+      this.unset("animation_url");
     } else {
-      this.set("metaImage", Value.fromString(value as string));
+      this.set("animation_url", Value.fromString(value as string));
     }
   }
 
-  get metaSymbol(): string | null {
-    let value = this.get("metaSymbol");
+  get youtube_url(): string | null {
+    let value = this.get("youtube_url");
     if (value === null) {
       return null;
     } else {
@@ -1635,16 +1584,67 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  set metaSymbol(value: string | null) {
+  set youtube_url(value: string | null) {
     if (value === null) {
-      this.unset("metaSymbol");
+      this.unset("youtube_url");
     } else {
-      this.set("metaSymbol", Value.fromString(value as string));
+      this.set("youtube_url", Value.fromString(value as string));
     }
   }
 
-  get metaDecimals(): BigInt | null {
-    let value = this.get("metaDecimals");
+  get icon(): string | null {
+    let value = this.get("icon");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set icon(value: string | null) {
+    if (value === null) {
+      this.unset("icon");
+    } else {
+      this.set("icon", Value.fromString(value as string));
+    }
+  }
+
+  get image(): string | null {
+    let value = this.get("image");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set image(value: string | null) {
+    if (value === null) {
+      this.unset("image");
+    } else {
+      this.set("image", Value.fromString(value as string));
+    }
+  }
+
+  get symbol(): string | null {
+    let value = this.get("symbol");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set symbol(value: string | null) {
+    if (value === null) {
+      this.unset("symbol");
+    } else {
+      this.set("symbol", Value.fromString(value as string));
+    }
+  }
+
+  get decimals(): BigInt | null {
+    let value = this.get("decimals");
     if (value === null) {
       return null;
     } else {
@@ -1652,16 +1652,16 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  set metaDecimals(value: BigInt | null) {
+  set decimals(value: BigInt | null) {
     if (value === null) {
-      this.unset("metaDecimals");
+      this.unset("decimals");
     } else {
-      this.set("metaDecimals", Value.fromBigInt(value as BigInt));
+      this.set("decimals", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get metaBgColor(): string | null {
-    let value = this.get("metaBgColor");
+  get background_color(): string | null {
+    let value = this.get("background_color");
     if (value === null) {
       return null;
     } else {
@@ -1669,21 +1669,21 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  set metaBgColor(value: string | null) {
+  set background_color(value: string | null) {
     if (value === null) {
-      this.unset("metaBgColor");
+      this.unset("background_color");
     } else {
-      this.set("metaBgColor", Value.fromString(value as string));
+      this.set("background_color", Value.fromString(value as string));
     }
   }
 
-  get metaAttributes(): Array<string> {
-    let value = this.get("metaAttributes");
+  get attributes(): Array<string> {
+    let value = this.get("attributes");
     return value.toStringArray();
   }
 
-  set metaAttributes(value: Array<string>) {
-    this.set("metaAttributes", Value.fromStringArray(value));
+  set attributes(value: Array<string>) {
+    this.set("attributes", Value.fromStringArray(value));
   }
 }
 

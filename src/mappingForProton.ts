@@ -82,16 +82,16 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   _nft.creatorAnnuity = protonMetadata.get('creatorAnnuity').toBigInt();
   _nft.burnToRelease = protonMetadata.get('burnToRelease').toBool();
 
-  _nft.metaName = protonMetadata.get('name').toString();
-  _nft.metaDescription = protonMetadata.get('description').toString();
-  _nft.metaExternalUrl = protonMetadata.get('external_url').toString();
-  _nft.metaAnimationUrl = protonMetadata.get('animation_url').toString();
-  _nft.metaYoutubeUrl = protonMetadata.get('youtube_url').toString();
-  _nft.metaIcon = protonMetadata.get('icon').toString();
-  _nft.metaImage = protonMetadata.get('image').toString();
-  _nft.metaSymbol = protonMetadata.get('symbol').toString();
-  _nft.metaDecimals = protonMetadata.get('decimals').toBigInt();
-  _nft.metaBgColor = protonMetadata.get('background_color').toString();
+  _nft.name = protonMetadata.get('name').toString();
+  _nft.description = protonMetadata.get('description').toString();
+  _nft.external_url = protonMetadata.get('external_url').toString();
+  _nft.animation_url = protonMetadata.get('animation_url').toString();
+  _nft.youtube_url = protonMetadata.get('youtube_url').toString();
+  _nft.icon = protonMetadata.get('icon').toString();
+  _nft.image = protonMetadata.get('image').toString();
+  _nft.symbol = protonMetadata.get('symbol').toString();
+  _nft.decimals = protonMetadata.get('decimals').toBigInt();
+  _nft.background_color = protonMetadata.get('background_color').toString();
   _nft.save();
 
   const attributes = protonMetadata.get('attributes').toArray();

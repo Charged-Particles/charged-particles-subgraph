@@ -200,19 +200,18 @@ type ProtonNFT @entity {
   burnToRelease: Boolean
 
   metadataUri: String
-  metaName: String
-  metaDescription: String
-  metaExternalUrl: String
-  metaAnimationUrl: String
-  metaYoutubeUrl: String
-  metaIcon: String
-  metaImage: String
-  metaSymbol: String
-  metaDecimals: BigInt
-  metaBgColor: String
+  name: String
+  description: String
+  external_url: String
+  animation_url: String
+  youtube_url: String
+  icon: String
+  image: String
+  symbol: String
+  decimals: BigInt
+  background_color: String
 
-  # metaAttributes: [String!]
-  metaAttributes: [NFTAttributes!]! @derivedFrom(field: "protonNft")
+  attributes: [NFTAttributes!]! @derivedFrom(field: "protonNft")
 }
 
 type NFTAttributes @entity {
