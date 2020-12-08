@@ -1,6 +1,6 @@
 {
   "name": "@charged-particles/protocol-subgraph",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Subgraph for the Charged Particles Protocol",
   "author": "Rob Secord <robsecord.eth>",
   "license": "MIT",
@@ -39,6 +39,7 @@
     "deploy:ropsten-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ropsten-secord-universe subgraph.ropsten.yaml",
     "deploy:kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-universe subgraph.kovan.yaml",
     "deploy:kovan-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-secord-universe subgraph.kovan.yaml",
+    "pub:beta": "yarn publish --tag beta --access public",
     "codegen": "graph codegen",
     "build": "graph build",
     "auth": "graph auth https://api.thegraph.com/deploy/"
