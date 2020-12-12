@@ -1,23 +1,23 @@
 {
   "network": "ropsten",
   "universe": {
-    "address": "0xe331282130f6A6D9cad2521664317e216d9cd19C",
-    "startBlock": "9219825"
+    "address": "",
+    "startBlock": "1000000"
   },
   "chargedParticles": {
-    "address": "0x562966726f4519e701C3b68FfD7112e42F89912f",
-    "startBlock": "9219825"
+    "address": "",
+    "startBlock": "1000000"
   },
   "aaveWalletManager": {
-    "address": "0x0FAaA8bad2beD1d5280D50C164482548E6cAc282",
-    "startBlock": "9219825"
+    "address": "",
+    "startBlock": "1000000"
   },
   "proton": {
-    "address": "0x4B65B58d2D41E9959e14c05443Dd0C7C8992C419",
-    "startBlock": "9219825"
+    "address": "",
+    "startBlock": "1000000"
   },
   "ion": {
-    "address": "0xf66E4F361bcb78Da932075Bbd070089735086C3D",
-    "startBlock": "9219825"
+    "address": "",
+    "startBlock": "1000000"
   }
 }

@@ -1490,6 +1490,40 @@ export class ProtonNFT extends Entity {
     this.set("burnToRelease", Value.fromBoolean(value));
   }
 
+  get salePrice(): BigInt | null {
+    let value = this.get("salePrice");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set salePrice(value: BigInt | null) {
+    if (value === null) {
+      this.unset("salePrice");
+    } else {
+      this.set("salePrice", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get resaleRoyalties(): BigInt | null {
+    let value = this.get("resaleRoyalties");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set resaleRoyalties(value: BigInt | null) {
+    if (value === null) {
+      this.unset("resaleRoyalties");
+    } else {
+      this.set("resaleRoyalties", Value.fromBigInt(value as BigInt));
+    }
+  }
+
   get metadataUri(): string | null {
     let value = this.get("metadataUri");
     if (value === null) {

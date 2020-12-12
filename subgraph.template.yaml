@@ -19,6 +19,8 @@ dataSources:
       abis:
         - name: Universe
           file: ./abis/Universe.json
+        - name: Ion
+          file: ./abis/Ion.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: ERC721
@@ -174,6 +176,10 @@ dataSources:
           handler: handleChargedParticlesSet
         - event: MintFeeSet(uint256)
           handler: handleMintFeeSet
+        - event: SalePriceSet(indexed uint256,uint256)
+          handler: handleSalePriceSet
+        - event: CreatorRoyaltiesSet(indexed uint256,uint256)
+          handler: handleCreatorRoyaltiesSet
         - event: FeesWithdrawn(indexed address,uint256)
           handler: handleFeesWithdrawn
         - event: Transfer(indexed address,indexed address,indexed uint256)

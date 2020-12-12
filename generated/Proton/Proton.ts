@@ -80,6 +80,28 @@ export class ChargedParticlesSet__Params {
   }
 }
 
+export class CreatorRoyaltiesSet extends ethereum.Event {
+  get params(): CreatorRoyaltiesSet__Params {
+    return new CreatorRoyaltiesSet__Params(this);
+  }
+}
+
+export class CreatorRoyaltiesSet__Params {
+  _event: CreatorRoyaltiesSet;
+
+  constructor(event: CreatorRoyaltiesSet) {
+    this._event = event;
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get royaltiesPct(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class FeesWithdrawn extends ethereum.Event {
   get params(): FeesWithdrawn__Params {
     return new FeesWithdrawn__Params(this);
@@ -142,6 +164,66 @@ export class OwnershipTransferred__Params {
   }
 }
 
+export class ProtonSold extends ethereum.Event {
+  get params(): ProtonSold__Params {
+    return new ProtonSold__Params(this);
+  }
+}
+
+export class ProtonSold__Params {
+  _event: ProtonSold;
+
+  constructor(event: ProtonSold) {
+    this._event = event;
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get oldOwner(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get newOwner(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get salePrice(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get creator(): Address {
+    return this._event.parameters[4].value.toAddress();
+  }
+
+  get creatorRoyalties(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
+  }
+}
+
+export class SalePriceSet extends ethereum.Event {
+  get params(): SalePriceSet__Params {
+    return new SalePriceSet__Params(this);
+  }
+}
+
+export class SalePriceSet__Params {
+  _event: SalePriceSet;
+
+  constructor(event: SalePriceSet) {
+    this._event = event;
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get salePrice(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class Transfer extends ethereum.Event {
   get params(): Transfer__Params {
     return new Transfer__Params(this);
@@ -165,6 +247,24 @@ export class Transfer__Params {
 
   get tokenId(): BigInt {
     return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class UniverseSet extends ethereum.Event {
+  get params(): UniverseSet__Params {
+    return new UniverseSet__Params(this);
+  }
+}
+
+export class UniverseSet__Params {
+  _event: UniverseSet;
+
+  constructor(event: UniverseSet) {
+    this._event = event;
+  }
+
+  get universe(): Address {
+    return this._event.parameters[0].value.toAddress();
   }
 }
 
@@ -591,20 +691,54 @@ export class ApproveCall__Outputs {
   }
 }
 
-export class ChargedParticleCall extends ethereum.Call {
-  get inputs(): ChargedParticleCall__Inputs {
-    return new ChargedParticleCall__Inputs(this);
+export class BuyProtonCall extends ethereum.Call {
+  get inputs(): BuyProtonCall__Inputs {
+    return new BuyProtonCall__Inputs(this);
   }
 
-  get outputs(): ChargedParticleCall__Outputs {
-    return new ChargedParticleCall__Outputs(this);
+  get outputs(): BuyProtonCall__Outputs {
+    return new BuyProtonCall__Outputs(this);
   }
 }
 
-export class ChargedParticleCall__Inputs {
-  _call: ChargedParticleCall;
+export class BuyProtonCall__Inputs {
+  _call: BuyProtonCall;
 
-  constructor(call: ChargedParticleCall) {
+  constructor(call: BuyProtonCall) {
+    this._call = call;
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class BuyProtonCall__Outputs {
+  _call: BuyProtonCall;
+
+  constructor(call: BuyProtonCall) {
+    this._call = call;
+  }
+
+  get value0(): boolean {
+    return this._call.outputValues[0].value.toBoolean();
+  }
+}
+
+export class ChargeParticleCall extends ethereum.Call {
+  get inputs(): ChargeParticleCall__Inputs {
+    return new ChargeParticleCall__Inputs(this);
+  }
+
+  get outputs(): ChargeParticleCall__Outputs {
+    return new ChargeParticleCall__Outputs(this);
+  }
+}
+
+export class ChargeParticleCall__Inputs {
+  _call: ChargeParticleCall;
+
+  constructor(call: ChargeParticleCall) {
     this._call = call;
   }
 
@@ -625,10 +759,10 @@ export class ChargedParticleCall__Inputs {
   }
 }
 
-export class ChargedParticleCall__Outputs {
-  _call: ChargedParticleCall;
+export class ChargeParticleCall__Outputs {
+  _call: ChargeParticleCall;
 
-  constructor(call: ChargedParticleCall) {
+  constructor(call: ChargeParticleCall) {
     this._call = call;
   }
 }
@@ -991,6 +1125,104 @@ export class SetMintFeeCall__Outputs {
   _call: SetMintFeeCall;
 
   constructor(call: SetMintFeeCall) {
+    this._call = call;
+  }
+}
+
+export class SetRoyaltiesPctCall extends ethereum.Call {
+  get inputs(): SetRoyaltiesPctCall__Inputs {
+    return new SetRoyaltiesPctCall__Inputs(this);
+  }
+
+  get outputs(): SetRoyaltiesPctCall__Outputs {
+    return new SetRoyaltiesPctCall__Outputs(this);
+  }
+}
+
+export class SetRoyaltiesPctCall__Inputs {
+  _call: SetRoyaltiesPctCall;
+
+  constructor(call: SetRoyaltiesPctCall) {
+    this._call = call;
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get royaltiesPct(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class SetRoyaltiesPctCall__Outputs {
+  _call: SetRoyaltiesPctCall;
+
+  constructor(call: SetRoyaltiesPctCall) {
+    this._call = call;
+  }
+}
+
+export class SetSalePriceCall extends ethereum.Call {
+  get inputs(): SetSalePriceCall__Inputs {
+    return new SetSalePriceCall__Inputs(this);
+  }
+
+  get outputs(): SetSalePriceCall__Outputs {
+    return new SetSalePriceCall__Outputs(this);
+  }
+}
+
+export class SetSalePriceCall__Inputs {
+  _call: SetSalePriceCall;
+
+  constructor(call: SetSalePriceCall) {
+    this._call = call;
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get salePrice(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class SetSalePriceCall__Outputs {
+  _call: SetSalePriceCall;
+
+  constructor(call: SetSalePriceCall) {
+    this._call = call;
+  }
+}
+
+export class SetUniverseCall extends ethereum.Call {
+  get inputs(): SetUniverseCall__Inputs {
+    return new SetUniverseCall__Inputs(this);
+  }
+
+  get outputs(): SetUniverseCall__Outputs {
+    return new SetUniverseCall__Outputs(this);
+  }
+}
+
+export class SetUniverseCall__Inputs {
+  _call: SetUniverseCall;
+
+  constructor(call: SetUniverseCall) {
+    this._call = call;
+  }
+
+  get universe(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetUniverseCall__Outputs {
+  _call: SetUniverseCall;
+
+  constructor(call: SetUniverseCall) {
     this._call = call;
   }
 }

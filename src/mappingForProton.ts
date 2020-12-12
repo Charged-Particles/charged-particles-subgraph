@@ -9,6 +9,8 @@ import {
   OwnershipTransferred,
   ChargedParticlesSet,
   MintFeeSet,
+  SalePriceSet,
+  CreatorRoyaltiesSet,
   FeesWithdrawn,
   Transfer,
   Approval,
@@ -38,6 +40,18 @@ export function handleMintFeeSet(event: MintFeeSet): void {
   const _proton = loadOrCreateProton(event.address);
   _proton.mintFee = event.params.fee;
   _proton.save();
+}
+
+export function handleSalePriceSet(event: SalePriceSet): void {
+  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
+  _nft.salePrice = event.params.salePrice;
+  _nft.save();
+}
+
+export function handleCreatorRoyaltiesSet(event: CreatorRoyaltiesSet): void {
+  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
+  _nft.resaleRoyalties = event.params.royaltiesPct;
+  _nft.save();
 }
 
 export function handleFeesWithdrawn(event: FeesWithdrawn): void {

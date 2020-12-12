@@ -9,6 +9,7 @@ import {
 } from '../../generated/Proton/Proton';
 
 import { protonNftId } from './idTemplates';
+import { ZERO } from './common';
 
 
 export function loadOrCreateProtonNFT(
@@ -27,6 +28,9 @@ export function loadOrCreateProtonNFT(
     _nft.owner = boundProton.ownerOf(tokenId);
     _nft.creator = boundProton.creatorOf(tokenId);
     _nft.metadataUri = boundProton.tokenURI(tokenId);
+
+    _nft.salePrice = ZERO;
+    _nft.resaleRoyalties = ZERO;
 
     _nft.save();
   }
