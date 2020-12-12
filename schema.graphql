@@ -199,6 +199,9 @@ type ProtonNFT @entity {
   creatorAnnuity: BigInt
   burnToRelease: Boolean
 
+  salePrice: BigInt
+  resaleRoyalties: BigInt
+
   metadataUri: String
   name: String
   description: String

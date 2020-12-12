@@ -297,6 +297,60 @@ export class OnEnergizeCall__Outputs {
   }
 }
 
+export class OnProtonSaleCall extends ethereum.Call {
+  get inputs(): OnProtonSaleCall__Inputs {
+    return new OnProtonSaleCall__Inputs(this);
+  }
+
+  get outputs(): OnProtonSaleCall__Outputs {
+    return new OnProtonSaleCall__Outputs(this);
+  }
+}
+
+export class OnProtonSaleCall__Inputs {
+  _call: OnProtonSaleCall;
+
+  constructor(call: OnProtonSaleCall) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get oldOwner(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get salePrice(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get creator(): Address {
+    return this._call.inputValues[5].value.toAddress();
+  }
+
+  get creatorRoyalties(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
+  }
+}
+
+export class OnProtonSaleCall__Outputs {
+  _call: OnProtonSaleCall;
+
+  constructor(call: OnProtonSaleCall) {
+    this._call = call;
+  }
+}
+
 export class OnReleaseCall extends ethereum.Call {
   get inputs(): OnReleaseCall__Inputs {
     return new OnReleaseCall__Inputs(this);
