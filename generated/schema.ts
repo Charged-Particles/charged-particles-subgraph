@@ -877,13 +877,22 @@ export class AaveSmartWallet extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get tokenUuid(): BigInt {
-    let value = this.get("tokenUuid");
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
     return value.toBigInt();
   }
 
-  set tokenUuid(value: BigInt) {
-    this.set("tokenUuid", Value.fromBigInt(value));
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
   }
 
   get address(): Bytes | null {
@@ -1017,6 +1026,24 @@ export class AaveAssetTokenBalance extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
   get assetToken(): Bytes {
     let value = this.get("assetToken");
     return value.toBytes();
@@ -1024,15 +1051,6 @@ export class AaveAssetTokenBalance extends Entity {
 
   set assetToken(value: Bytes) {
     this.set("assetToken", Value.fromBytes(value));
-  }
-
-  get tokenUuid(): BigInt {
-    let value = this.get("tokenUuid");
-    return value.toBigInt();
-  }
-
-  set tokenUuid(value: BigInt) {
-    this.set("tokenUuid", Value.fromBigInt(value));
   }
 
   get smartWallet(): string | null {
@@ -1792,5 +1810,81 @@ export class NFTAttributes extends Entity {
     } else {
       this.set("value", Value.fromString(value as string));
     }
+  }
+}
+
+export class NftTxHistory extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save NftTxHistory entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save NftTxHistory entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("NftTxHistory", id.toString(), this);
+  }
+
+  static load(id: string): NftTxHistory | null {
+    return store.get("NftTxHistory", id) as NftTxHistory | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get timestamp(): BigInt {
+    let value = this.get("timestamp");
+    return value.toBigInt();
+  }
+
+  set timestamp(value: BigInt) {
+    this.set("timestamp", Value.fromBigInt(value));
+  }
+
+  get eventType(): string {
+    let value = this.get("eventType");
+    return value.toString();
+  }
+
+  set eventType(value: string) {
+    this.set("eventType", Value.fromString(value));
+  }
+
+  get eventData(): string {
+    let value = this.get("eventData");
+    return value.toString();
+  }
+
+  set eventData(value: string) {
+    this.set("eventData", Value.fromString(value));
   }
 }

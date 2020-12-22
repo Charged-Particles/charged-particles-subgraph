@@ -59,20 +59,24 @@ export class NewSmartWallet__Params {
     this._event = event;
   }
 
-  get uuid(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 
   get smartWallet(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get creator(): Address {
     return this._event.parameters[2].value.toAddress();
   }
 
+  get creator(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
   get annuityPct(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
+    return this._event.parameters[4].value.toBigInt();
   }
 }
 
@@ -129,20 +133,24 @@ export class WalletDischarged__Params {
     this._event = event;
   }
 
-  get uuid(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 
   get assetToken(): Address {
-    return this._event.parameters[1].value.toAddress();
+    return this._event.parameters[2].value.toAddress();
   }
 
   get creatorAmount(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
+    return this._event.parameters[3].value.toBigInt();
   }
 
   get receiverAmount(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
+    return this._event.parameters[4].value.toBigInt();
   }
 }
 
@@ -159,24 +167,28 @@ export class WalletEnergized__Params {
     this._event = event;
   }
 
-  get uuid(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 
   get assetToken(): Address {
-    return this._event.parameters[1].value.toAddress();
+    return this._event.parameters[2].value.toAddress();
   }
 
   get assetAmount(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
-  }
-
-  get depositFee(): BigInt {
     return this._event.parameters[3].value.toBigInt();
   }
 
-  get yieldTokensAmount(): BigInt {
+  get depositFee(): BigInt {
     return this._event.parameters[4].value.toBigInt();
+  }
+
+  get yieldTokensAmount(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
   }
 }
 
@@ -193,28 +205,32 @@ export class WalletReleased__Params {
     this._event = event;
   }
 
-  get uuid(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 
   get receiver(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get assetToken(): Address {
     return this._event.parameters[2].value.toAddress();
   }
 
-  get principalAmount(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
+  get assetToken(): Address {
+    return this._event.parameters[3].value.toAddress();
   }
 
-  get creatorAmount(): BigInt {
+  get principalAmount(): BigInt {
     return this._event.parameters[4].value.toBigInt();
   }
 
-  get receiverAmount(): BigInt {
+  get creatorAmount(): BigInt {
     return this._event.parameters[5].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._event.parameters[6].value.toBigInt();
   }
 }
 
@@ -231,20 +247,24 @@ export class WalletRewarded__Params {
     this._event = event;
   }
 
-  get uuid(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 
   get receiver(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get rewardsToken(): Address {
     return this._event.parameters[2].value.toAddress();
   }
 
+  get rewardsToken(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
   get rewardsAmount(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
+    return this._event.parameters[4].value.toBigInt();
   }
 }
 
@@ -347,17 +367,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   discharge(
-    _receiver: Address,
-    _uuid: BigInt,
-    _assetToken: Address
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): AaveWalletManager__dischargeResult {
     let result = super.call(
       "discharge",
-      "discharge(address,uint256,address):(uint256,uint256)",
+      "discharge(address,address,uint256,address):(uint256,uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
 
@@ -368,17 +390,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_discharge(
-    _receiver: Address,
-    _uuid: BigInt,
-    _assetToken: Address
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): ethereum.CallResult<AaveWalletManager__dischargeResult> {
     let result = super.tryCall(
       "discharge",
-      "discharge(address,uint256,address):(uint256,uint256)",
+      "discharge(address,address,uint256,address):(uint256,uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
     if (result.reverted) {
@@ -394,19 +418,21 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   dischargeAmount(
-    _receiver: Address,
-    _uuid: BigInt,
-    _assetToken: Address,
-    _assetAmount: BigInt
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address,
+    assetAmount: BigInt
   ): AaveWalletManager__dischargeAmountResult {
     let result = super.call(
       "dischargeAmount",
-      "dischargeAmount(address,uint256,address,uint256):(uint256,uint256)",
+      "dischargeAmount(address,address,uint256,address,uint256):(uint256,uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken),
-        ethereum.Value.fromUnsignedBigInt(_assetAmount)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
     );
 
@@ -417,19 +443,21 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_dischargeAmount(
-    _receiver: Address,
-    _uuid: BigInt,
-    _assetToken: Address,
-    _assetAmount: BigInt
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address,
+    assetAmount: BigInt
   ): ethereum.CallResult<AaveWalletManager__dischargeAmountResult> {
     let result = super.tryCall(
       "dischargeAmount",
-      "dischargeAmount(address,uint256,address,uint256):(uint256,uint256)",
+      "dischargeAmount(address,address,uint256,address,uint256):(uint256,uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken),
-        ethereum.Value.fromUnsignedBigInt(_assetAmount)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
     );
     if (result.reverted) {
@@ -445,19 +473,21 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   energize(
-    _uuid: BigInt,
-    _assetToken: Address,
-    _assetAmount: BigInt,
-    _depositFee: BigInt
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address,
+    assetAmount: BigInt,
+    depositFee: BigInt
   ): BigInt {
     let result = super.call(
       "energize",
-      "energize(uint256,address,uint256,uint256):(uint256)",
+      "energize(address,uint256,address,uint256,uint256):(uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken),
-        ethereum.Value.fromUnsignedBigInt(_assetAmount),
-        ethereum.Value.fromUnsignedBigInt(_depositFee)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromUnsignedBigInt(depositFee)
       ]
     );
 
@@ -465,19 +495,21 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_energize(
-    _uuid: BigInt,
-    _assetToken: Address,
-    _assetAmount: BigInt,
-    _depositFee: BigInt
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address,
+    assetAmount: BigInt,
+    depositFee: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "energize",
-      "energize(uint256,address,uint256,uint256):(uint256)",
+      "energize(address,uint256,address,uint256,uint256):(uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken),
-        ethereum.Value.fromUnsignedBigInt(_assetAmount),
-        ethereum.Value.fromUnsignedBigInt(_depositFee)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromUnsignedBigInt(depositFee)
       ]
     );
     if (result.reverted) {
@@ -488,17 +520,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   executeForAccount(
-    _uuid: BigInt,
     contractAddress: Address,
+    tokenId: BigInt,
+    externalAddress: Address,
     ethValue: BigInt,
     encodedParams: Bytes
   ): Bytes {
     let result = super.call(
       "executeForAccount",
-      "executeForAccount(uint256,address,uint256,bytes):(bytes)",
+      "executeForAccount(address,uint256,address,uint256,bytes):(bytes)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
         ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(externalAddress),
         ethereum.Value.fromUnsignedBigInt(ethValue),
         ethereum.Value.fromBytes(encodedParams)
       ]
@@ -508,17 +542,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_executeForAccount(
-    _uuid: BigInt,
     contractAddress: Address,
+    tokenId: BigInt,
+    externalAddress: Address,
     ethValue: BigInt,
     encodedParams: Bytes
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "executeForAccount",
-      "executeForAccount(uint256,address,uint256,bytes):(bytes)",
+      "executeForAccount(address,uint256,address,uint256,bytes):(bytes)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
         ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(externalAddress),
         ethereum.Value.fromUnsignedBigInt(ethValue),
         ethereum.Value.fromBytes(encodedParams)
       ]
@@ -531,15 +567,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   getInterest(
-    _uuid: BigInt,
-    _assetToken: Address
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): AaveWalletManager__getInterestResult {
     let result = super.call(
       "getInterest",
-      "getInterest(uint256,address):(uint256,uint256)",
+      "getInterest(address,uint256,address):(uint256,uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
 
@@ -550,15 +588,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_getInterest(
-    _uuid: BigInt,
-    _assetToken: Address
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): ethereum.CallResult<AaveWalletManager__getInterestResult> {
     let result = super.tryCall(
       "getInterest",
-      "getInterest(uint256,address):(uint256,uint256)",
+      "getInterest(address,uint256,address):(uint256,uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
     if (result.reverted) {
@@ -573,13 +613,18 @@ export class AaveWalletManager extends ethereum.SmartContract {
     );
   }
 
-  getPrincipal(_uuid: BigInt, _assetToken: Address): BigInt {
+  getPrincipal(
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
+  ): BigInt {
     let result = super.call(
       "getPrincipal",
-      "getPrincipal(uint256,address):(uint256)",
+      "getPrincipal(address,uint256,address):(uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
 
@@ -587,15 +632,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_getPrincipal(
-    _uuid: BigInt,
-    _assetToken: Address
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getPrincipal",
-      "getPrincipal(uint256,address):(uint256)",
+      "getPrincipal(address,uint256,address):(uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
     if (result.reverted) {
@@ -605,13 +652,18 @@ export class AaveWalletManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getReserveInterestToken(_uuid: BigInt, _assetToken: Address): Address {
+  getReserveInterestToken(
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
+  ): Address {
     let result = super.call(
       "getReserveInterestToken",
-      "getReserveInterestToken(uint256,address):(address)",
+      "getReserveInterestToken(address,uint256,address):(address)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
 
@@ -619,15 +671,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_getReserveInterestToken(
-    _uuid: BigInt,
-    _assetToken: Address
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "getReserveInterestToken",
-      "getReserveInterestToken(uint256,address):(address)",
+      "getReserveInterestToken(address,uint256,address):(address)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
     if (result.reverted) {
@@ -637,12 +691,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getRewards(_uuid: BigInt, _rewardToken: Address): BigInt {
+  getRewards(
+    contractAddress: Address,
+    tokenId: BigInt,
+    _rewardToken: Address
+  ): BigInt {
     let result = super.call(
       "getRewards",
-      "getRewards(uint256,address):(uint256)",
+      "getRewards(address,uint256,address):(uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(_rewardToken)
       ]
     );
@@ -651,14 +710,16 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_getRewards(
-    _uuid: BigInt,
+    contractAddress: Address,
+    tokenId: BigInt,
     _rewardToken: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getRewards",
-      "getRewards(uint256,address):(uint256)",
+      "getRewards(address,uint256,address):(uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(_rewardToken)
       ]
     );
@@ -669,25 +730,36 @@ export class AaveWalletManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getTotal(_uuid: BigInt, _assetToken: Address): BigInt {
-    let result = super.call("getTotal", "getTotal(uint256,address):(uint256)", [
-      ethereum.Value.fromUnsignedBigInt(_uuid),
-      ethereum.Value.fromAddress(_assetToken)
-    ]);
+  getTotal(
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
+  ): BigInt {
+    let result = super.call(
+      "getTotal",
+      "getTotal(address,uint256,address):(uint256)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
+      ]
+    );
 
     return result[0].toBigInt();
   }
 
   try_getTotal(
-    _uuid: BigInt,
-    _assetToken: Address
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getTotal",
-      "getTotal(uint256,address):(uint256)",
+      "getTotal(address,uint256,address):(uint256)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
     if (result.reverted) {
@@ -698,15 +770,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   getWalletAddressById(
-    _uuid: BigInt,
+    contractAddress: Address,
+    tokenId: BigInt,
     creator: Address,
     annuityPct: BigInt
   ): Address {
     let result = super.call(
       "getWalletAddressById",
-      "getWalletAddressById(uint256,address,uint256):(address)",
+      "getWalletAddressById(address,uint256,address,uint256):(address)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(creator),
         ethereum.Value.fromUnsignedBigInt(annuityPct)
       ]
@@ -716,15 +790,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_getWalletAddressById(
-    _uuid: BigInt,
+    contractAddress: Address,
+    tokenId: BigInt,
     creator: Address,
     annuityPct: BigInt
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "getWalletAddressById",
-      "getWalletAddressById(uint256,address,uint256):(address)",
+      "getWalletAddressById(address,uint256,address,uint256):(address)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(creator),
         ethereum.Value.fromUnsignedBigInt(annuityPct)
       ]
@@ -751,13 +827,18 @@ export class AaveWalletManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  isReserveActive(_uuid: BigInt, _assetToken: Address): boolean {
+  isReserveActive(
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
+  ): boolean {
     let result = super.call(
       "isReserveActive",
-      "isReserveActive(uint256,address):(bool)",
+      "isReserveActive(address,uint256,address):(bool)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
 
@@ -765,15 +846,17 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_isReserveActive(
-    _uuid: BigInt,
-    _assetToken: Address
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): ethereum.CallResult<boolean> {
     let result = super.tryCall(
       "isReserveActive",
-      "isReserveActive(uint256,address):(bool)",
+      "isReserveActive(address,uint256,address):(bool)",
       [
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
     if (result.reverted) {
@@ -799,17 +882,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   release(
-    _receiver: Address,
-    _uuid: BigInt,
-    _assetToken: Address
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): AaveWalletManager__releaseResult {
     let result = super.call(
       "release",
-      "release(address,uint256,address):(uint256,uint256,uint256)",
+      "release(address,address,uint256,address):(uint256,uint256,uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
 
@@ -821,17 +906,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_release(
-    _receiver: Address,
-    _uuid: BigInt,
-    _assetToken: Address
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address
   ): ethereum.CallResult<AaveWalletManager__releaseResult> {
     let result = super.tryCall(
       "release",
-      "release(address,uint256,address):(uint256,uint256,uint256)",
+      "release(address,address,uint256,address):(uint256,uint256,uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_assetToken)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken)
       ]
     );
     if (result.reverted) {
@@ -871,19 +958,21 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   withdrawRewards(
-    _receiver: Address,
-    _uuid: BigInt,
-    _rewardsToken: Address,
-    _rewardsAmount: BigInt
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    rewardsToken: Address,
+    rewardsAmount: BigInt
   ): BigInt {
     let result = super.call(
       "withdrawRewards",
-      "withdrawRewards(address,uint256,address,uint256):(uint256)",
+      "withdrawRewards(address,address,uint256,address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_rewardsToken),
-        ethereum.Value.fromUnsignedBigInt(_rewardsAmount)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(rewardsToken),
+        ethereum.Value.fromUnsignedBigInt(rewardsAmount)
       ]
     );
 
@@ -891,19 +980,21 @@ export class AaveWalletManager extends ethereum.SmartContract {
   }
 
   try_withdrawRewards(
-    _receiver: Address,
-    _uuid: BigInt,
-    _rewardsToken: Address,
-    _rewardsAmount: BigInt
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    rewardsToken: Address,
+    rewardsAmount: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "withdrawRewards",
-      "withdrawRewards(address,uint256,address,uint256):(uint256)",
+      "withdrawRewards(address,address,uint256,address,uint256):(uint256)",
       [
-        ethereum.Value.fromAddress(_receiver),
-        ethereum.Value.fromUnsignedBigInt(_uuid),
-        ethereum.Value.fromAddress(_rewardsToken),
-        ethereum.Value.fromUnsignedBigInt(_rewardsAmount)
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(rewardsToken),
+        ethereum.Value.fromUnsignedBigInt(rewardsAmount)
       ]
     );
     if (result.reverted) {
@@ -957,16 +1048,20 @@ export class DischargeCall__Inputs {
     this._call = call;
   }
 
-  get _receiver(): Address {
+  get receiver(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
   }
 
-  get _assetToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[3].value.toAddress();
   }
 }
 
@@ -1003,20 +1098,24 @@ export class DischargeAmountCall__Inputs {
     this._call = call;
   }
 
-  get _receiver(): Address {
+  get receiver(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
   }
 
-  get _assetToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
   }
 
-  get _assetAmount(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
+  get assetToken(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get assetAmount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
   }
 }
 
@@ -1053,20 +1152,24 @@ export class EnergizeCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
   }
 
-  get _assetToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
   }
 
-  get _assetAmount(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+  get assetToken(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 
-  get _depositFee(): BigInt {
+  get assetAmount(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get depositFee(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
   }
 }
 
@@ -1099,20 +1202,24 @@ export class ExecuteForAccountCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
   }
 
-  get contractAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get externalAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 
   get ethValue(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+    return this._call.inputValues[3].value.toBigInt();
   }
 
   get encodedParams(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
+    return this._call.inputValues[4].value.toBytes();
   }
 }
 
@@ -1145,12 +1252,16 @@ export class GetInterestCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
   }
 
-  get _assetToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 
@@ -1187,12 +1298,16 @@ export class GetPrincipalCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
   }
 
-  get _assetToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 
@@ -1225,12 +1340,16 @@ export class GetRewardsCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
   }
 
   get _rewardToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 
@@ -1263,12 +1382,16 @@ export class GetTotalCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
   }
 
-  get _assetToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 
@@ -1301,16 +1424,20 @@ export class GetWalletAddressByIdCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
   }
 
   get creator(): Address {
-    return this._call.inputValues[1].value.toAddress();
+    return this._call.inputValues[2].value.toAddress();
   }
 
   get annuityPct(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+    return this._call.inputValues[3].value.toBigInt();
   }
 }
 
@@ -1343,16 +1470,20 @@ export class ReleaseCall__Inputs {
     this._call = call;
   }
 
-  get _receiver(): Address {
+  get receiver(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
   }
 
-  get _assetToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[3].value.toAddress();
   }
 }
 
@@ -1539,11 +1670,11 @@ export class SetWhitelistedRewardsTokenCall__Inputs {
     this._call = call;
   }
 
-  get _rewardsToken(): Address {
+  get rewardsToken(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _state(): boolean {
+  get state(): boolean {
     return this._call.inputValues[1].value.toBoolean();
   }
 }
@@ -1603,16 +1734,20 @@ export class WithdrawEtherCall__Inputs {
     this._call = call;
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
   }
 
   get receiver(): Address {
-    return this._call.inputValues[1].value.toAddress();
+    return this._call.inputValues[2].value.toAddress();
   }
 
   get amount(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+    return this._call.inputValues[3].value.toBigInt();
   }
 }
 
@@ -1641,20 +1776,24 @@ export class WithdrawRewardsCall__Inputs {
     this._call = call;
   }
 
-  get _receiver(): Address {
+  get receiver(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _uuid(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
   }
 
-  get _rewardsToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
   }
 
-  get _rewardsAmount(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
+  get rewardsToken(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get rewardsAmount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
   }
 }
 

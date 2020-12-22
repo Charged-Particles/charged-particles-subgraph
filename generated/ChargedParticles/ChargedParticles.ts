@@ -83,16 +83,12 @@ export class FeesWithdrawn__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get liquidityProviderId(): string {
-    return this._event.parameters[2].value.toString();
-  }
-
   get assetToken(): Address {
-    return this._event.parameters[3].value.toAddress();
+    return this._event.parameters[2].value.toAddress();
   }
 
   get amount(): BigInt {
-    return this._event.parameters[4].value.toBigInt();
+    return this._event.parameters[3].value.toBigInt();
   }
 }
 
@@ -403,23 +399,6 @@ export class ChargedParticles__dischargeParticleAmountResult {
 }
 
 export class ChargedParticles__finalizeReleaseResult {
-  value0: BigInt;
-  value1: BigInt;
-
-  constructor(value0: BigInt, value1: BigInt) {
-    this.value0 = value0;
-    this.value1 = value1;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
-    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
-    return map;
-  }
-}
-
-export class ChargedParticles__getCollectedFeesResult {
   value0: BigInt;
   value1: BigInt;
 
@@ -846,38 +825,28 @@ export class ChargedParticles extends ethereum.SmartContract {
     );
   }
 
-  getCollectedFees(
-    contractAddress: Address,
-    liquidityProviderId: string,
-    assetToken: Address
-  ): ChargedParticles__getCollectedFeesResult {
+  getCollectedFees(contractAddress: Address, assetToken: Address): BigInt {
     let result = super.call(
       "getCollectedFees",
-      "getCollectedFees(address,string,address):(uint256,uint256)",
+      "getCollectedFees(address,address):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromString(liquidityProviderId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
 
-    return new ChargedParticles__getCollectedFeesResult(
-      result[0].toBigInt(),
-      result[1].toBigInt()
-    );
+    return result[0].toBigInt();
   }
 
   try_getCollectedFees(
     contractAddress: Address,
-    liquidityProviderId: string,
     assetToken: Address
-  ): ethereum.CallResult<ChargedParticles__getCollectedFeesResult> {
+  ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getCollectedFees",
-      "getCollectedFees(address,string,address):(uint256,uint256)",
+      "getCollectedFees(address,address):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromString(liquidityProviderId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -885,12 +854,7 @@ export class ChargedParticles extends ethereum.SmartContract {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new ChargedParticles__getCollectedFeesResult(
-        value[0].toBigInt(),
-        value[1].toBigInt()
-      )
-    );
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   getFeesForDeposit(
@@ -1420,45 +1384,6 @@ export class ChargedParticles extends ethereum.SmartContract {
     );
   }
 
-  storeCollectedFees(
-    contractAddress: Address,
-    liquidityProviderId: string,
-    assetToken: Address
-  ): BigInt {
-    let result = super.call(
-      "storeCollectedFees",
-      "storeCollectedFees(address,string,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromString(liquidityProviderId),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_storeCollectedFees(
-    contractAddress: Address,
-    liquidityProviderId: string,
-    assetToken: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "storeCollectedFees",
-      "storeCollectedFees(address,string,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromString(liquidityProviderId),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   trustedForwarder(): Address {
     let result = super.call(
       "trustedForwarder",
@@ -1527,16 +1452,14 @@ export class ChargedParticles extends ethereum.SmartContract {
   withdrawContractFees(
     contractAddress: Address,
     receiver: Address,
-    liquidityProviderId: string,
     assetToken: Address
   ): BigInt {
     let result = super.call(
       "withdrawContractFees",
-      "withdrawContractFees(address,address,string,address):(uint256)",
+      "withdrawContractFees(address,address,address):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromString(liquidityProviderId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -1547,16 +1470,14 @@ export class ChargedParticles extends ethereum.SmartContract {
   try_withdrawContractFees(
     contractAddress: Address,
     receiver: Address,
-    liquidityProviderId: string,
     assetToken: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "withdrawContractFees",
-      "withdrawContractFees(address,address,string,address):(uint256)",
+      "withdrawContractFees(address,address,address):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromString(liquidityProviderId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -1943,12 +1864,8 @@ export class GetCollectedFeesCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get liquidityProviderId(): string {
-    return this._call.inputValues[1].value.toString();
-  }
-
   get assetToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
+    return this._call.inputValues[1].value.toAddress();
   }
 }
 
@@ -1959,12 +1876,8 @@ export class GetCollectedFeesCall__Outputs {
     this._call = call;
   }
 
-  get balance(): BigInt {
+  get value0(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
-  }
-
-  get interestAccrued(): BigInt {
-    return this._call.outputValues[1].value.toBigInt();
   }
 }
 
@@ -2504,48 +2417,6 @@ export class SetUniverseCall__Outputs {
   }
 }
 
-export class StoreCollectedFeesCall extends ethereum.Call {
-  get inputs(): StoreCollectedFeesCall__Inputs {
-    return new StoreCollectedFeesCall__Inputs(this);
-  }
-
-  get outputs(): StoreCollectedFeesCall__Outputs {
-    return new StoreCollectedFeesCall__Outputs(this);
-  }
-}
-
-export class StoreCollectedFeesCall__Inputs {
-  _call: StoreCollectedFeesCall;
-
-  constructor(call: StoreCollectedFeesCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get liquidityProviderId(): string {
-    return this._call.inputValues[1].value.toString();
-  }
-
-  get assetToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class StoreCollectedFeesCall__Outputs {
-  _call: StoreCollectedFeesCall;
-
-  constructor(call: StoreCollectedFeesCall) {
-    this._call = call;
-  }
-
-  get amountStored(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
-}
-
 export class TransferOwnershipCall extends ethereum.Call {
   get inputs(): TransferOwnershipCall__Inputs {
     return new TransferOwnershipCall__Inputs(this);
@@ -2635,12 +2506,8 @@ export class WithdrawContractFeesCall__Inputs {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get liquidityProviderId(): string {
-    return this._call.inputValues[2].value.toString();
-  }
-
   get assetToken(): Address {
-    return this._call.inputValues[3].value.toAddress();
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 

@@ -115,6 +115,52 @@ export class Ion extends ethereum.SmartContract {
     return new Ion("Ion", address);
   }
 
+  DOMAIN_SEPARATOR(): Bytes {
+    let result = super.call(
+      "DOMAIN_SEPARATOR",
+      "DOMAIN_SEPARATOR():(bytes32)",
+      []
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_DOMAIN_SEPARATOR(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "DOMAIN_SEPARATOR",
+      "DOMAIN_SEPARATOR():(bytes32)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  PERMIT_TYPEHASH(): Bytes {
+    let result = super.call(
+      "PERMIT_TYPEHASH",
+      "PERMIT_TYPEHASH():(bytes32)",
+      []
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_PERMIT_TYPEHASH(): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "PERMIT_TYPEHASH",
+      "PERMIT_TYPEHASH():(bytes32)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
   allowance(owner: Address, spender: Address): BigInt {
     let result = super.call(
       "allowance",
@@ -497,6 +543,25 @@ export class Ion extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
+  nonces(param0: Address): BigInt {
+    let result = super.call("nonces", "nonces(address):(uint256)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+
+    return result[0].toBigInt();
+  }
+
+  try_nonces(param0: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall("nonces", "nonces(address):(uint256)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   owner(): Address {
@@ -969,6 +1034,60 @@ export class MintToUniverseCall__Outputs {
 
   get value0(): boolean {
     return this._call.outputValues[0].value.toBoolean();
+  }
+}
+
+export class PermitCall extends ethereum.Call {
+  get inputs(): PermitCall__Inputs {
+    return new PermitCall__Inputs(this);
+  }
+
+  get outputs(): PermitCall__Outputs {
+    return new PermitCall__Outputs(this);
+  }
+}
+
+export class PermitCall__Inputs {
+  _call: PermitCall;
+
+  constructor(call: PermitCall) {
+    this._call = call;
+  }
+
+  get owner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get spender(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get deadline(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get v(): i32 {
+    return this._call.inputValues[4].value.toI32();
+  }
+
+  get r(): Bytes {
+    return this._call.inputValues[5].value.toBytes();
+  }
+
+  get s(): Bytes {
+    return this._call.inputValues[6].value.toBytes();
+  }
+}
+
+export class PermitCall__Outputs {
+  _call: PermitCall;
+
+  constructor(call: PermitCall) {
+    this._call = call;
   }
 }
 
