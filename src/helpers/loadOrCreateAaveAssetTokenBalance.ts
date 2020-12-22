@@ -11,15 +11,17 @@ import { assetTokenBalanceId } from './idTemplates';
 export function loadOrCreateAaveAssetTokenBalance(
   aaveSmartWalletId: string,
   assetTokenAddress: Address,
-  tokenUuid: BigInt
+  contractAddress: Address,
+  tokenId: BigInt
 ): AaveAssetTokenBalance {
-  const id = assetTokenBalanceId(assetTokenAddress.toHex(), tokenUuid.toString());
+  const id = assetTokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
   let _assetTokenBalance = AaveAssetTokenBalance.load(id);
 
   if (!_assetTokenBalance) {
     _assetTokenBalance = new AaveAssetTokenBalance(id);
     _assetTokenBalance.assetToken = assetTokenAddress;
-    _assetTokenBalance.tokenUuid = tokenUuid;
+    _assetTokenBalance.tokenId = tokenId;
+    _assetTokenBalance.contractAddress = contractAddress;
     _assetTokenBalance.smartWallet = aaveSmartWalletId;
     _assetTokenBalance.principal = ZERO;
     _assetTokenBalance.ownerInterestDischarged = ZERO;

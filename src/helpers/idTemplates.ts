@@ -12,8 +12,12 @@ export function chargedNftStateId(contractAddress: string, tokenId: string): str
   return contractAddress + '-' + tokenId;
 }
 
-export function assetTokenBalanceId(assetTokenAddress: string, tokenUuid: string): string {
-  return assetTokenAddress + '-' + tokenUuid;
+export function assetTokenBalanceId(assetTokenAddress: string, contractAddress: string, tokenId: string): string {
+  return assetTokenAddress + '-' + contractAddress + '-' + tokenId;
+}
+
+export function smartWalletId(contractAddress: string, tokenId: string): string {
+  return contractAddress + '-' + tokenId;
 }
 
 export function whitelistedNftContractId(chargedParticlesAdress: string, contractAddress: string): string {

@@ -80,7 +80,7 @@ dataSources:
           handler: handleTokenDischargeTimelock
         - event: TokenReleaseTimelock(indexed address,indexed uint256,indexed address,uint256)
           handler: handleTokenReleaseTimelock
-        - event: FeesWithdrawn(indexed address,indexed address,string,address,uint256)
+        - event: FeesWithdrawn(indexed address,indexed address,address,uint256)
           handler: handleFeesWithdrawn
         - event: UpdateContractWhitelist(indexed address,bool)
           handler: handleUpdateContractWhitelist
@@ -112,15 +112,15 @@ dataSources:
           handler: handleControllerSet
         - event: PausedStateSet(bool)
           handler: handlePausedStateSet
-        - event: NewSmartWallet(indexed uint256,indexed address,indexed address,uint256)
+        - event: NewSmartWallet(indexed address,indexed uint256,indexed address,address,uint256)
           handler: handleNewSmartWallet
-        - event: WalletEnergized(indexed uint256,indexed address,uint256,uint256,uint256)
+        - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256,uint256)
           handler: handleWalletEnergized
-        - event: WalletDischarged(indexed uint256,indexed address,uint256,uint256)
+        - event: WalletDischarged(indexed address,indexed uint256,indexed address,uint256,uint256)
           handler: handleWalletDischarged
-        - event: WalletReleased(indexed uint256,indexed address,indexed address,uint256,uint256,uint256)
+        - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
           handler: handleWalletReleased
-        - event: WalletRewarded(indexed uint256,indexed address,indexed address,uint256)
+        - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
           handler: handleWalletRewarded
   - name: Ion
     kind: ethereum/contract
@@ -180,6 +180,8 @@ dataSources:
           handler: handleSalePriceSet
         - event: CreatorRoyaltiesSet(indexed uint256,uint256)
           handler: handleCreatorRoyaltiesSet
+        - event: ProtonSold(indexed uint256,indexed address,indexed address,uint256,address,uint256)
+          handler: handleProtonSold
         - event: FeesWithdrawn(indexed address,uint256)
           handler: handleFeesWithdrawn
         - event: Transfer(indexed address,indexed address,indexed uint256)

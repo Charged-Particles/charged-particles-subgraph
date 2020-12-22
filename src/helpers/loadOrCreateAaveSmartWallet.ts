@@ -4,16 +4,19 @@ import {
   AaveSmartWallet,
 } from '../../generated/schema';
 
+import { smartWalletId } from './idTemplates';
 
 export function loadOrCreateAaveSmartWallet(
-  tokenUuid: BigInt
+  contractAddress: Address,
+  tokenId: BigInt
 ): AaveSmartWallet {
-  const id = tokenUuid.toString();
+  const id = smartWalletId(contractAddress.toHex(), tokenId.toString());
   let _aaveSmartWallet = AaveSmartWallet.load(id);
 
   if (!_aaveSmartWallet) {
     _aaveSmartWallet = new AaveSmartWallet(id);
-    _aaveSmartWallet.tokenUuid = tokenUuid;
+    _aaveSmartWallet.tokenId = tokenId;
+    _aaveSmartWallet.contractAddress = contractAddress;
     _aaveSmartWallet.save();
   }
 

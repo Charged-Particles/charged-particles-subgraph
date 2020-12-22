@@ -23,6 +23,7 @@ import { loadOrCreateChargedNftState } from './helpers/loadOrCreateChargedNftSta
 import { loadOrCreateWhitelistedNftContract } from './helpers/loadOrCreateWhitelistedNftContract';
 import { loadOrCreateTieredDepositFees } from './helpers/loadOrCreateTieredDepositFees';
 
+import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { trackLastKnownOwner } from './helpers/nftState';
 
 
@@ -67,6 +68,14 @@ export function handleTokenCreatorConfigsSet(event: TokenCreatorConfigsSet): voi
   _nftCreatorSettings.annuityPercent = event.params.annuityPercent;
   _nftCreatorSettings.burnToRelease = event.params.burnToRelease;
   _nftCreatorSettings.save();
+
+  var eventData = new Array<string>(5);
+  eventData[0] = event.params.contractAddress.toHex();
+  eventData[1] = event.params.tokenId.toString();
+  eventData[2] = event.params.creatorAddress.toHex();
+  eventData[3] = event.params.annuityPercent.toString();
+  eventData[4] = event.params.burnToRelease ? 'true' : 'false';
+  trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'TokenCreatorConfigsSet', eventData.join('-'));
 }
 
 export function handleDischargeApproval(event: DischargeApproval): void {

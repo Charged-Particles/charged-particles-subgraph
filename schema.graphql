@@ -111,10 +111,12 @@ type AaveWalletManager @entity {
   wallets: [AaveSmartWallet!]! @derivedFrom(field: "walletManager")
 }
 
-# ID: `${tokenUuid}`
+# ID: `${contractAddress}-${tokenId}`
 type AaveSmartWallet @entity {
   id: ID!
-  tokenUuid: BigInt!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
 
   address: Bytes
   walletManager: AaveWalletManager
@@ -127,12 +129,15 @@ type AaveSmartWallet @entity {
   assetBalances: [AaveAssetTokenBalance!]! @derivedFrom(field: "smartWallet")
 }
 
-# ID: `${assetToken.address}-${tokenUuid}`
+# ID: `${assetToken.address}-${contractAddress}-${tokenId}`
 # dynamically generated type, not mapped to a specific contract
 type AaveAssetTokenBalance @entity {
   id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
   assetToken: Bytes!
-  tokenUuid: BigInt!
   smartWallet: AaveSmartWallet
 
   principal: BigInt!
@@ -222,4 +227,17 @@ type NFTAttributes @entity {
   protonNft: ProtonNFT!
   name: String
   value: String
+}
+
+# ID: `${transaction.hash}`
+# dynamically generated type, not mapped to a specific contract
+type NftTxHistory @entity {
+  id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
+  timestamp: BigInt!
+  eventType: String!
+  eventData: String!
 }

@@ -1,4 +1,4 @@
-import { Address, BigInt, TypedMap, ipfs, json, Bytes, JSONValue, Value, log, Entity, ByteArray } from '@graphprotocol/graph-ts';
+import { ipfs, json, Bytes, JSONValue, Value, log } from '@graphprotocol/graph-ts';
 
 import {
   ProtonNFT,
@@ -11,6 +11,7 @@ import {
   MintFeeSet,
   SalePriceSet,
   CreatorRoyaltiesSet,
+  ProtonSold,
   FeesWithdrawn,
   Transfer,
   Approval,
@@ -20,6 +21,7 @@ import {
 import { nftAttributeId } from './helpers/idTemplates';
 import { loadOrCreateProton } from './helpers/loadOrCreateProton';
 import { loadOrCreateProtonNFT } from './helpers/loadOrCreateProtonNFT';
+import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 
 import { ADDRESS_ZERO } from './helpers/common';
 
@@ -46,12 +48,33 @@ export function handleSalePriceSet(event: SalePriceSet): void {
   const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
   _nft.salePrice = event.params.salePrice;
   _nft.save();
+
+  var eventData = new Array<string>(2);
+  eventData[0] = event.params.tokenId.toString();
+  eventData[1] = event.params.salePrice.toString();
+  trackNftTxHistory(event, event.address, event.params.tokenId, 'SalePriceSet', eventData.join('-'));
 }
 
 export function handleCreatorRoyaltiesSet(event: CreatorRoyaltiesSet): void {
   const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
   _nft.resaleRoyalties = event.params.royaltiesPct;
   _nft.save();
+
+  var eventData = new Array<string>(2);
+  eventData[0] = event.params.tokenId.toString();
+  eventData[1] = event.params.royaltiesPct.toString();
+  trackNftTxHistory(event, event.address, event.params.tokenId, 'CreatorRoyaltiesSet', eventData.join('-'));
+}
+
+export function handleProtonSold(event: ProtonSold): void {
+  var eventData = new Array<string>(6);
+  eventData[0] = event.params.tokenId.toString();
+  eventData[1] = event.params.oldOwner.toHex();
+  eventData[2] = event.params.newOwner.toHex();
+  eventData[3] = event.params.salePrice.toString();
+  eventData[4] = event.params.creator.toHex();
+  eventData[5] = event.params.creatorRoyalties.toString();
+  trackNftTxHistory(event, event.address, event.params.tokenId, 'ProtonSold', eventData.join('-'));
 }
 
 export function handleFeesWithdrawn(event: FeesWithdrawn): void {
@@ -62,6 +85,12 @@ export function handleTransfer(event: Transfer): void {
   const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
   _nft.owner = event.params.to;
   _nft.save();
+
+  var eventData = new Array<string>(3);
+  eventData[0] = event.params.tokenId.toString();
+  eventData[1] = event.params.from.toHex();
+  eventData[2] = event.params.to.toHex();
+  trackNftTxHistory(event, event.address, event.params.tokenId, 'Transfer', eventData.join('-'));
 
   if (event.params.from.toHex() == ADDRESS_ZERO) {
     const ipfsHashParts = _nft.metadataUri.split('/');
