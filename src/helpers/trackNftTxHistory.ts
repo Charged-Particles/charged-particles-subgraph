@@ -1,11 +1,11 @@
-import { ethereum, Address, BigInt } from '@graphprotocol/graph-ts';
+import { ethereum, Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
   NftTxHistory,
   NftTxCount,
 } from '../../generated/schema';
 
-import { nftId } from './idTemplates';
+import { nftId, nftTxId } from './idTemplates';
 import { ZERO, ONE } from './common';
 
 export function trackNftTxHistory(
@@ -15,8 +15,9 @@ export function trackNftTxHistory(
   eventType: string,
   eventData: string
 ): void {
-  const id = event.transaction.hash.toHex();
-  const tx = new NftTxHistory(id);
+  const hash = event.transaction.hash.toHex();
+  const id = nftId(contractAddress.toHex(), tokenId.toString());
+  const tx = new NftTxHistory(nftTxId(id, hash, eventType));
 
   tx.tokenId = tokenId;
   tx.contractAddress = contractAddress;
@@ -26,10 +27,9 @@ export function trackNftTxHistory(
   tx.save();
 
   // Track Transaction Count
-  const txCountId = nftId(contractAddress.toHex(), tokenId.toString());
-  let nftTxCount = NftTxCount.load(txCountId);
+  let nftTxCount = NftTxCount.load(id);
   if (!nftTxCount) {
-    nftTxCount = new NftTxCount(txCountId);
+    nftTxCount = new NftTxCount(id);
     nftTxCount.tokenId = tokenId;
     nftTxCount.contractAddress = contractAddress;
     nftTxCount.count = ZERO;

@@ -229,7 +229,7 @@ type NFTAttributes @entity {
   value: String
 }
 
-# ID: `${transaction.hash}`
+# ID: `${contractAddress}-${tokenId}`
 # dynamically generated type, not mapped to a specific contract
 type NftTxHistory @entity {
   id: ID!
