@@ -241,3 +241,15 @@ type NftTxHistory @entity {
   eventType: String!
   eventData: String!
 }
+
+# ID: `${contractAddress}-${tokenId}`
+# dynamically generated type, not mapped to a specific contract
+type NftTxCount @entity {
+  id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
+  count: BigInt!
+}
+

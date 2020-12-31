@@ -39,3 +39,7 @@ export function protonNftId(protonAddress: string, tokenId: string): string {
 export function nftAttributeId(protonNftId: string, attrIndex: string): string {
   return protonNftId + '-' + attrIndex;
 }
+
+export function nftId(contractAddress: string, tokenId: string): string {
+  return contractAddress + '-' + tokenId;
+}
