@@ -26,7 +26,6 @@ export function loadOrCreateAaveAssetTokenBalance(
     _assetTokenBalance.principal = ZERO;
     _assetTokenBalance.ownerInterestDischarged = ZERO;
     _assetTokenBalance.creatorInterestDischarged = ZERO;
-    _assetTokenBalance.depositFee = ZERO;
     _assetTokenBalance.save();
   }
 

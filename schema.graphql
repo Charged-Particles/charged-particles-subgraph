@@ -19,7 +19,6 @@ type ChargedParticles @entity {
   # liquidityProviders: [String!]
 
   whitelisted: [WhitelistedNftContract!]! @derivedFrom(field: "chargedParticles")
-  tieredDepositFee: [TieredDepositFees!]! @derivedFrom(field: "chargedParticles")
 
   externalContractSettings: [ExternalContractSettings!]! @derivedFrom(field: "chargedParticles")
   nftCreatorSettings: [NftCreatorSettings!]! @derivedFrom(field: "chargedParticles")
@@ -38,7 +37,6 @@ type ExternalContractSettings @entity {
   contractAddress: Bytes!
 
   liquidityProvider: Bytes
-  assetDepositFee: BigInt
   assetDepositMin: BigInt
   assetDepositMax: BigInt
 }
@@ -54,7 +52,6 @@ type NftCreatorSettings @entity {
   creatorAddress: Bytes!
 
   annuityPercent: BigInt
-  burnToRelease: Boolean
 }
 
 # ID: `${contractAddress.address}-${tokenId}`
@@ -84,16 +81,6 @@ type WhitelistedNftContract @entity {
 
   contractAddress: Bytes!
   state: Boolean!
-}
-
-# ID: `${chargedParticles.address}-${limit}`
-# dynamically generated type, not mapped to a specific contract
-type TieredDepositFees @entity {
-  id: ID!
-  chargedParticles: ChargedParticles!
-
-  limit: BigInt!
-  fee: BigInt
 }
 
 
@@ -143,7 +130,6 @@ type AaveAssetTokenBalance @entity {
   principal: BigInt!
   ownerInterestDischarged: BigInt!
   creatorInterestDischarged: BigInt!
-  depositFee: BigInt!
 }
 
 
@@ -202,7 +188,6 @@ type ProtonNFT @entity {
 
   particleType: String
   creatorAnnuity: BigInt
-  burnToRelease: Boolean
 
   salePrice: BigInt
   resaleRoyalties: BigInt

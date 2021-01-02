@@ -123,7 +123,6 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   const _nft = ProtonNFT.load(protonNftId);
   _nft.particleType = protonMetadata.get('particleType').toString();
   _nft.creatorAnnuity = protonMetadata.get('creatorAnnuity').toBigInt();
-  _nft.burnToRelease = protonMetadata.get('burnToRelease').toBool();
 
   _nft.name = protonMetadata.get('name').toString();
   _nft.description = protonMetadata.get('description').toString();

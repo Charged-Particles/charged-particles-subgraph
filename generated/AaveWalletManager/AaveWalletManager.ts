@@ -183,12 +183,8 @@ export class WalletEnergized__Params {
     return this._event.parameters[3].value.toBigInt();
   }
 
-  get depositFee(): BigInt {
-    return this._event.parameters[4].value.toBigInt();
-  }
-
   get yieldTokensAmount(): BigInt {
-    return this._event.parameters[5].value.toBigInt();
+    return this._event.parameters[4].value.toBigInt();
   }
 }
 
@@ -476,18 +472,16 @@ export class AaveWalletManager extends ethereum.SmartContract {
     contractAddress: Address,
     tokenId: BigInt,
     assetToken: Address,
-    assetAmount: BigInt,
-    depositFee: BigInt
+    assetAmount: BigInt
   ): BigInt {
     let result = super.call(
       "energize",
-      "energize(address,uint256,address,uint256,uint256):(uint256)",
+      "energize(address,uint256,address,uint256):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(assetToken),
-        ethereum.Value.fromUnsignedBigInt(assetAmount),
-        ethereum.Value.fromUnsignedBigInt(depositFee)
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
     );
 
@@ -498,18 +492,16 @@ export class AaveWalletManager extends ethereum.SmartContract {
     contractAddress: Address,
     tokenId: BigInt,
     assetToken: Address,
-    assetAmount: BigInt,
-    depositFee: BigInt
+    assetAmount: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "energize",
-      "energize(address,uint256,address,uint256,uint256):(uint256)",
+      "energize(address,uint256,address,uint256):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(assetToken),
-        ethereum.Value.fromUnsignedBigInt(assetAmount),
-        ethereum.Value.fromUnsignedBigInt(depositFee)
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
     );
     if (result.reverted) {
@@ -1166,10 +1158,6 @@ export class EnergizeCall__Inputs {
 
   get assetAmount(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
-  }
-
-  get depositFee(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
   }
 }
 

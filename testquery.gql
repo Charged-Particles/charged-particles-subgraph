@@ -5,7 +5,6 @@
     chargedParticles {
       id
       owner
-      depositFee
       whitelisted {
         id
         contractAddress
@@ -15,7 +14,6 @@
         id
         contractAddress
         liquidityProvider
-        assetDepositFee
         assetDepositMin
         assetDepositMax
       }
@@ -25,7 +23,6 @@
         tokenId
         creatorAddress
         annuityPercent
-        burnToRelease
       }
       chargedNftState {
         id
@@ -49,14 +46,16 @@
         wallets {
           id
           address
-          tokenUuid
+          contractAddress
+          tokenId
           assetTokens
           nftCreator
           nftCreatorAnnuityPct
           assetBalances {
             id
             assetToken
-            tokenUuid
+          	contractAddress
+          	tokenId
             principal
             ownerInterestDischarged
             creatorInterestDischarged
@@ -90,56 +89,38 @@
     creator
     metadataUri
 
-      particleType
-      creatorAnnuity
-      burnToRelease
-
-      metaName
-      metaDescription
-      metaExternalUrl
-      metaAnimationUrl
-      metaYoutubeUrl
-      metaIcon
-      metaImage
-      metaSymbol
-      metaDecimals
-      metaBgColor
-      metaAttributes {
-        name
-        value
-      }
-  }
-
-  protons {
-    id
-    tokens {
+    particleType
+    creatorAnnuity
+		salePrice
+    resaleRoyalties
+    
+    name
+    decimals
+    symbol
+    description
+    external_url
+    animation_url
+    youtube_url
+    icon
+    image
+    background_color
+    
+    attributes {
       id
-      tokenId
-      owner
-      creator
-      metadataUri
-
-      particleType
-      creatorAnnuity
-      burnToRelease
-
-      metaName
-      metaDescription
-      metaExternalUrl
-      metaAnimationUrl
-      metaYoutubeUrl
-      metaIcon
-      metaImage
-      metaSymbol
-      metaDecimals
-      metaBgColor
-      metaAttributes {
-        name
-        value
-      }
+      name
+      value
     }
   }
 
+  nftTxHistories {
+    id
+    contractAddress
+    tokenId
+    timestamp
+    eventType
+    eventData
+  }
+  
   ionHolders(where: {
     address_in: [
     	"0x6ad155dec215c9ee3a6edebcde8e3c528dc2d0ef",
@@ -149,5 +130,4 @@
     id
     address
   }
-
 }

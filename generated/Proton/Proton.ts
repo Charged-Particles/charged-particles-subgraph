@@ -268,23 +268,6 @@ export class UniverseSet__Params {
   }
 }
 
-export class Proton__releaseParticleResult {
-  value0: BigInt;
-  value1: BigInt;
-
-  constructor(value0: BigInt, value1: BigInt) {
-    this.value0 = value0;
-    this.value1 = value1;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
-    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
-    return map;
-  }
-}
-
 export class Proton extends ethereum.SmartContract {
   static bind(address: Address): Proton {
     return new Proton("Proton", address);
@@ -362,6 +345,73 @@ export class Proton extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getCreatorRoyalties(tokenId: BigInt): BigInt {
+    let result = super.call(
+      "getCreatorRoyalties",
+      "getCreatorRoyalties(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCreatorRoyalties(tokenId: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCreatorRoyalties",
+      "getCreatorRoyalties(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getLastSellPrice(tokenId: BigInt): BigInt {
+    let result = super.call(
+      "getLastSellPrice",
+      "getLastSellPrice(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getLastSellPrice(tokenId: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getLastSellPrice",
+      "getLastSellPrice(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getSalePrice(tokenId: BigInt): BigInt {
+    let result = super.call("getSalePrice", "getSalePrice(uint256):(uint256)", [
+      ethereum.Value.fromUnsignedBigInt(tokenId)
+    ]);
+
+    return result[0].toBigInt();
+  }
+
+  try_getSalePrice(tokenId: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getSalePrice",
+      "getSalePrice(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(tokenId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   isApprovedForAll(owner: Address, operator: Address): boolean {
@@ -452,57 +502,6 @@ export class Proton extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  releaseParticle(
-    receiver: Address,
-    tokenId: BigInt,
-    liquidityProviderId: string,
-    assetToken: Address
-  ): Proton__releaseParticleResult {
-    let result = super.call(
-      "releaseParticle",
-      "releaseParticle(address,uint256,string,address):(uint256,uint256)",
-      [
-        ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-
-    return new Proton__releaseParticleResult(
-      result[0].toBigInt(),
-      result[1].toBigInt()
-    );
-  }
-
-  try_releaseParticle(
-    receiver: Address,
-    tokenId: BigInt,
-    liquidityProviderId: string,
-    assetToken: Address
-  ): ethereum.CallResult<Proton__releaseParticleResult> {
-    let result = super.tryCall(
-      "releaseParticle",
-      "releaseParticle(address,uint256,string,address):(uint256,uint256)",
-      [
-        ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new Proton__releaseParticleResult(
-        value[0].toBigInt(),
-        value[1].toBigInt()
-      )
-    );
   }
 
   supportsInterface(interfaceId: Bytes): boolean {
@@ -725,48 +724,6 @@ export class BuyProtonCall__Outputs {
   }
 }
 
-export class ChargeParticleCall extends ethereum.Call {
-  get inputs(): ChargeParticleCall__Inputs {
-    return new ChargeParticleCall__Inputs(this);
-  }
-
-  get outputs(): ChargeParticleCall__Outputs {
-    return new ChargeParticleCall__Outputs(this);
-  }
-}
-
-export class ChargeParticleCall__Inputs {
-  _call: ChargeParticleCall;
-
-  constructor(call: ChargeParticleCall) {
-    this._call = call;
-  }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-
-  get liquidityProviderId(): string {
-    return this._call.inputValues[1].value.toString();
-  }
-
-  get assetToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-
-  get assetAmount(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-}
-
-export class ChargeParticleCall__Outputs {
-  _call: ChargeParticleCall;
-
-  constructor(call: ChargeParticleCall) {
-    this._call = call;
-  }
-}
-
 export class CreateChargedParticleCall extends ethereum.Call {
   get inputs(): CreateChargedParticleCall__Inputs {
     return new CreateChargedParticleCall__Inputs(this);
@@ -810,10 +767,6 @@ export class CreateChargedParticleCall__Inputs {
 
   get annuityPercent(): BigInt {
     return this._call.inputValues[6].value.toBigInt();
-  }
-
-  get burnToRelease(): boolean {
-    return this._call.inputValues[7].value.toBoolean();
   }
 }
 
@@ -861,10 +814,6 @@ export class CreateProtonCall__Inputs {
   get annuityPercent(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
-
-  get burnToRelease(): boolean {
-    return this._call.inputValues[4].value.toBoolean();
-  }
 }
 
 export class CreateProtonCall__Outputs {
@@ -876,56 +825,6 @@ export class CreateProtonCall__Outputs {
 
   get newTokenId(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
-  }
-}
-
-export class ReleaseParticleCall extends ethereum.Call {
-  get inputs(): ReleaseParticleCall__Inputs {
-    return new ReleaseParticleCall__Inputs(this);
-  }
-
-  get outputs(): ReleaseParticleCall__Outputs {
-    return new ReleaseParticleCall__Outputs(this);
-  }
-}
-
-export class ReleaseParticleCall__Inputs {
-  _call: ReleaseParticleCall;
-
-  constructor(call: ReleaseParticleCall) {
-    this._call = call;
-  }
-
-  get receiver(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get liquidityProviderId(): string {
-    return this._call.inputValues[2].value.toString();
-  }
-
-  get assetToken(): Address {
-    return this._call.inputValues[3].value.toAddress();
-  }
-}
-
-export class ReleaseParticleCall__Outputs {
-  _call: ReleaseParticleCall;
-
-  constructor(call: ReleaseParticleCall) {
-    this._call = call;
-  }
-
-  get creatorAmount(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
-
-  get receiverAmount(): BigInt {
-    return this._call.outputValues[1].value.toBigInt();
   }
 }
 

@@ -10,28 +10,6 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
-export class DepositFeeSet extends ethereum.Event {
-  get params(): DepositFeeSet__Params {
-    return new DepositFeeSet__Params(this);
-  }
-}
-
-export class DepositFeeSet__Params {
-  _event: DepositFeeSet;
-
-  constructor(event: DepositFeeSet) {
-    this._event = event;
-  }
-
-  get depositFeeLimit(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get depositFee(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-}
-
 export class DischargeApproval extends ethereum.Event {
   get params(): DischargeApproval__Params {
     return new DischargeApproval__Params(this);
@@ -59,36 +37,6 @@ export class DischargeApproval__Params {
 
   get operator(): Address {
     return this._event.parameters[3].value.toAddress();
-  }
-}
-
-export class FeesWithdrawn extends ethereum.Event {
-  get params(): FeesWithdrawn__Params {
-    return new FeesWithdrawn__Params(this);
-  }
-}
-
-export class FeesWithdrawn__Params {
-  _event: FeesWithdrawn;
-
-  constructor(event: FeesWithdrawn) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get receiver(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get assetToken(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get amount(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
   }
 }
 
@@ -217,16 +165,12 @@ export class TokenContractConfigsSet__Params {
     return this._event.parameters[1].value.toBytes();
   }
 
-  get assetDepositFee(): BigInt {
+  get assetDepositMin(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 
-  get assetDepositMin(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-
   get assetDepositMax(): BigInt {
-    return this._event.parameters[4].value.toBigInt();
+    return this._event.parameters[3].value.toBigInt();
   }
 }
 
@@ -257,10 +201,6 @@ export class TokenCreatorConfigsSet__Params {
 
   get annuityPercent(): BigInt {
     return this._event.parameters[3].value.toBigInt();
-  }
-
-  get burnToRelease(): boolean {
-    return this._event.parameters[4].value.toBoolean();
   }
 }
 
@@ -382,40 +322,6 @@ export class ChargedParticles__dischargeParticleResult {
 }
 
 export class ChargedParticles__dischargeParticleAmountResult {
-  value0: BigInt;
-  value1: BigInt;
-
-  constructor(value0: BigInt, value1: BigInt) {
-    this.value0 = value0;
-    this.value1 = value1;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
-    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
-    return map;
-  }
-}
-
-export class ChargedParticles__finalizeReleaseResult {
-  value0: BigInt;
-  value1: BigInt;
-
-  constructor(value0: BigInt, value1: BigInt) {
-    this.value0 = value0;
-    this.value1 = value1;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
-    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
-    return map;
-  }
-}
-
-export class ChargedParticles__getFeesForDepositResult {
   value0: BigInt;
   value1: BigInt;
 
@@ -583,32 +489,6 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  depositFeesEarned(param0: Address, param1: Address): BigInt {
-    let result = super.call(
-      "depositFeesEarned",
-      "depositFeesEarned(address,address):(uint256)",
-      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_depositFeesEarned(
-    param0: Address,
-    param1: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "depositFeesEarned",
-      "depositFeesEarned(address,address):(uint256)",
-      [ethereum.Value.fromAddress(param0), ethereum.Value.fromAddress(param1)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   dischargeParticle(
     receiver: Address,
     contractAddress: Address,
@@ -768,136 +648,6 @@ export class ChargedParticles extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  finalizeRelease(
-    receiver: Address,
-    contractAddress: Address,
-    tokenId: BigInt,
-    liquidityProviderId: string,
-    assetToken: Address
-  ): ChargedParticles__finalizeReleaseResult {
-    let result = super.call(
-      "finalizeRelease",
-      "finalizeRelease(address,address,uint256,string,address):(uint256,uint256)",
-      [
-        ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-
-    return new ChargedParticles__finalizeReleaseResult(
-      result[0].toBigInt(),
-      result[1].toBigInt()
-    );
-  }
-
-  try_finalizeRelease(
-    receiver: Address,
-    contractAddress: Address,
-    tokenId: BigInt,
-    liquidityProviderId: string,
-    assetToken: Address
-  ): ethereum.CallResult<ChargedParticles__finalizeReleaseResult> {
-    let result = super.tryCall(
-      "finalizeRelease",
-      "finalizeRelease(address,address,uint256,string,address):(uint256,uint256)",
-      [
-        ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new ChargedParticles__finalizeReleaseResult(
-        value[0].toBigInt(),
-        value[1].toBigInt()
-      )
-    );
-  }
-
-  getCollectedFees(contractAddress: Address, assetToken: Address): BigInt {
-    let result = super.call(
-      "getCollectedFees",
-      "getCollectedFees(address,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getCollectedFees(
-    contractAddress: Address,
-    assetToken: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getCollectedFees",
-      "getCollectedFees(address,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getFeesForDeposit(
-    contractAddress: Address,
-    assetAmount: BigInt
-  ): ChargedParticles__getFeesForDepositResult {
-    let result = super.call(
-      "getFeesForDeposit",
-      "getFeesForDeposit(address,uint256):(uint256,uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
-      ]
-    );
-
-    return new ChargedParticles__getFeesForDepositResult(
-      result[0].toBigInt(),
-      result[1].toBigInt()
-    );
-  }
-
-  try_getFeesForDeposit(
-    contractAddress: Address,
-    assetAmount: BigInt
-  ): ethereum.CallResult<ChargedParticles__getFeesForDepositResult> {
-    let result = super.tryCall(
-      "getFeesForDeposit",
-      "getFeesForDeposit(address,uint256):(uint256,uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new ChargedParticles__getFeesForDepositResult(
-        value[0].toBigInt(),
-        value[1].toBigInt()
-      )
-    );
   }
 
   getLiquidityProviderByIndex(index: BigInt): string {
@@ -1448,45 +1198,6 @@ export class ChargedParticles extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
-
-  withdrawContractFees(
-    contractAddress: Address,
-    receiver: Address,
-    assetToken: Address
-  ): BigInt {
-    let result = super.call(
-      "withdrawContractFees",
-      "withdrawContractFees(address,address,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_withdrawContractFees(
-    contractAddress: Address,
-    receiver: Address,
-    assetToken: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "withdrawContractFees",
-      "withdrawContractFees(address,address,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromAddress(receiver),
-        ethereum.Value.fromAddress(assetToken)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
 }
 
 export class BaseParticleMassCall extends ethereum.Call {
@@ -1789,98 +1500,6 @@ export class EnergizeParticleCall__Outputs {
   }
 }
 
-export class FinalizeReleaseCall extends ethereum.Call {
-  get inputs(): FinalizeReleaseCall__Inputs {
-    return new FinalizeReleaseCall__Inputs(this);
-  }
-
-  get outputs(): FinalizeReleaseCall__Outputs {
-    return new FinalizeReleaseCall__Outputs(this);
-  }
-}
-
-export class FinalizeReleaseCall__Inputs {
-  _call: FinalizeReleaseCall;
-
-  constructor(call: FinalizeReleaseCall) {
-    this._call = call;
-  }
-
-  get receiver(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get liquidityProviderId(): string {
-    return this._call.inputValues[3].value.toString();
-  }
-
-  get assetToken(): Address {
-    return this._call.inputValues[4].value.toAddress();
-  }
-}
-
-export class FinalizeReleaseCall__Outputs {
-  _call: FinalizeReleaseCall;
-
-  constructor(call: FinalizeReleaseCall) {
-    this._call = call;
-  }
-
-  get creatorAmount(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
-
-  get receiverAmount(): BigInt {
-    return this._call.outputValues[1].value.toBigInt();
-  }
-}
-
-export class GetCollectedFeesCall extends ethereum.Call {
-  get inputs(): GetCollectedFeesCall__Inputs {
-    return new GetCollectedFeesCall__Inputs(this);
-  }
-
-  get outputs(): GetCollectedFeesCall__Outputs {
-    return new GetCollectedFeesCall__Outputs(this);
-  }
-}
-
-export class GetCollectedFeesCall__Inputs {
-  _call: GetCollectedFeesCall;
-
-  constructor(call: GetCollectedFeesCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get assetToken(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class GetCollectedFeesCall__Outputs {
-  _call: GetCollectedFeesCall;
-
-  constructor(call: GetCollectedFeesCall) {
-    this._call = call;
-  }
-
-  get value0(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
-  }
-}
-
 export class InitializeCall extends ethereum.Call {
   get inputs(): InitializeCall__Inputs {
     return new InitializeCall__Inputs(this);
@@ -2103,50 +1722,12 @@ export class SetCreatorConfigsCall__Inputs {
   get annuityPercent(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
-
-  get burnToRelease(): boolean {
-    return this._call.inputValues[4].value.toBoolean();
-  }
 }
 
 export class SetCreatorConfigsCall__Outputs {
   _call: SetCreatorConfigsCall;
 
   constructor(call: SetCreatorConfigsCall) {
-    this._call = call;
-  }
-}
-
-export class SetDepositFeesCall extends ethereum.Call {
-  get inputs(): SetDepositFeesCall__Inputs {
-    return new SetDepositFeesCall__Inputs(this);
-  }
-
-  get outputs(): SetDepositFeesCall__Outputs {
-    return new SetDepositFeesCall__Outputs(this);
-  }
-}
-
-export class SetDepositFeesCall__Inputs {
-  _call: SetDepositFeesCall;
-
-  constructor(call: SetDepositFeesCall) {
-    this._call = call;
-  }
-
-  get limits(): Array<BigInt> {
-    return this._call.inputValues[0].value.toBigIntArray();
-  }
-
-  get fees(): Array<BigInt> {
-    return this._call.inputValues[1].value.toBigIntArray();
-  }
-}
-
-export class SetDepositFeesCall__Outputs {
-  _call: SetDepositFeesCall;
-
-  constructor(call: SetDepositFeesCall) {
     this._call = call;
   }
 }
@@ -2252,16 +1833,12 @@ export class SetExternalContractConfigsCall__Inputs {
     return this._call.inputValues[1].value.toString();
   }
 
-  get assetDepositFee(): BigInt {
+  get assetDepositMin(): BigInt {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get assetDepositMin(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-
   get assetDepositMax(): BigInt {
-    return this._call.inputValues[4].value.toBigInt();
+    return this._call.inputValues[3].value.toBigInt();
   }
 }
 
@@ -2478,47 +2055,5 @@ export class UpdateWhitelistCall__Outputs {
 
   constructor(call: UpdateWhitelistCall) {
     this._call = call;
-  }
-}
-
-export class WithdrawContractFeesCall extends ethereum.Call {
-  get inputs(): WithdrawContractFeesCall__Inputs {
-    return new WithdrawContractFeesCall__Inputs(this);
-  }
-
-  get outputs(): WithdrawContractFeesCall__Outputs {
-    return new WithdrawContractFeesCall__Outputs(this);
-  }
-}
-
-export class WithdrawContractFeesCall__Inputs {
-  _call: WithdrawContractFeesCall;
-
-  constructor(call: WithdrawContractFeesCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get receiver(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get assetToken(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class WithdrawContractFeesCall__Outputs {
-  _call: WithdrawContractFeesCall;
-
-  constructor(call: WithdrawContractFeesCall) {
-    this._call = call;
-  }
-
-  get amount(): BigInt {
-    return this._call.outputValues[0].value.toBigInt();
   }
 }

@@ -1,23 +1,23 @@
 {
   "network": "kovan",
   "universe": {
-    "address": "0x2C103483De795EF79A79E9405b42561BD27b07b1",
-    "startBlock": "22740077"
+    "address": "0xDa54bC9d86a7318a9fcA3bc019998EFc0fb0A269",
+    "startBlock": "22852559"
   },
   "chargedParticles": {
-    "address": "0xC054e2578A969396F8533B6E76f88b4bF293D04c",
-    "startBlock": "22740077"
+    "address": "0x5759f9f20C301B41E8391BB0757df00191B65236",
+    "startBlock": "22852559"
   },
   "aaveWalletManager": {
-    "address": "0x95fF0bda1A803D448b1a4f36B89b3784a2c74b44",
-    "startBlock": "22740077"
+    "address": "0x0EF7512fd4dc978B0062a21cf1f45E4d2D454992",
+    "startBlock": "22852559"
   },
   "proton": {
-    "address": "0xC55984B97c49fc362248aAE3F6D4233bFE94f8f9",
-    "startBlock": "22740077"
+    "address": "0xA49607DaD58439705EA72e2a227cB87c8893358c",
+    "startBlock": "22852559"
   },
   "ion": {
-    "address": "0x274c41BA062e41004dED4008Ab3D516b57E8eba3",
-    "startBlock": "22740077"
+    "address": "0x719D950d7a00f575891c27577939F282c73aD1AE",
+    "startBlock": "22852559"
   }
 }

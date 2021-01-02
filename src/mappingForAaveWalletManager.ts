@@ -67,16 +67,14 @@ export function handleWalletEnergized(event: WalletEnergized): void {
 
   const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
   assetTokenBalance.principal = assetTokenBalance.principal.plus(event.params.assetAmount);
-  assetTokenBalance.depositFee = assetTokenBalance.depositFee.plus(event.params.depositFee);
   assetTokenBalance.save();
 
-  var eventData = new Array<string>(6);
+  var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
   eventData[2] = event.params.assetToken.toHex();
   eventData[3] = event.params.assetAmount.toString();
-  eventData[4] = event.params.depositFee.toString();
-  eventData[5] = event.params.yieldTokensAmount.toString();
+  eventData[4] = event.params.yieldTokensAmount.toString();
   trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'WalletEnergized', eventData.join('-'));
 }
 

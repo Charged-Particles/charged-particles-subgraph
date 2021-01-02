@@ -90,6 +90,24 @@ export class OwnershipTransferred__Params {
   }
 }
 
+export class ProtonTokenSet extends ethereum.Event {
+  get params(): ProtonTokenSet__Params {
+    return new ProtonTokenSet__Params(this);
+  }
+}
+
+export class ProtonTokenSet__Params {
+  _event: ProtonTokenSet;
+
+  constructor(event: ProtonTokenSet) {
+    this._event = event;
+  }
+
+  get protonToken(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
 export class RewardIssued extends ethereum.Event {
   get params(): RewardIssued__Params {
     return new RewardIssued__Params(this);
@@ -167,6 +185,21 @@ export class Universe extends ethereum.SmartContract {
 
   try_owner(): ethereum.CallResult<Address> {
     let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  proton(): Address {
+    let result = super.call("proton", "proton():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_proton(): ethereum.CallResult<Address> {
+    let result = super.tryCall("proton", "proton():(address)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -521,6 +554,36 @@ export class SetIonTokenCall__Outputs {
   _call: SetIonTokenCall;
 
   constructor(call: SetIonTokenCall) {
+    this._call = call;
+  }
+}
+
+export class SetProtonTokenCall extends ethereum.Call {
+  get inputs(): SetProtonTokenCall__Inputs {
+    return new SetProtonTokenCall__Inputs(this);
+  }
+
+  get outputs(): SetProtonTokenCall__Outputs {
+    return new SetProtonTokenCall__Outputs(this);
+  }
+}
+
+export class SetProtonTokenCall__Inputs {
+  _call: SetProtonTokenCall;
+
+  constructor(call: SetProtonTokenCall) {
+    this._call = call;
+  }
+
+  get _protonToken(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetProtonTokenCall__Outputs {
+  _call: SetProtonTokenCall;
+
+  constructor(call: SetProtonTokenCall) {
     this._call = call;
   }
 }

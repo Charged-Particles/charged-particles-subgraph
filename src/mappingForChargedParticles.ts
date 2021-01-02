@@ -3,7 +3,6 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import {
   OwnershipTransferred,
   UniverseSet,
-  DepositFeeSet,
   LiquidityProviderRegistered,
   TokenContractConfigsSet,
   TokenCreatorConfigsSet,
@@ -12,7 +11,6 @@ import {
   TimelockApproval,
   TokenDischargeTimelock,
   TokenReleaseTimelock,
-  FeesWithdrawn,
   UpdateContractWhitelist,
 } from '../generated/ChargedParticles/ChargedParticles';
 
@@ -21,7 +19,6 @@ import { loadOrCreateExternalContractSettings } from './helpers/loadOrCreateExte
 import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreatorSettings';
 import { loadOrCreateChargedNftState } from './helpers/loadOrCreateChargedNftState';
 import { loadOrCreateWhitelistedNftContract } from './helpers/loadOrCreateWhitelistedNftContract';
-import { loadOrCreateTieredDepositFees } from './helpers/loadOrCreateTieredDepositFees';
 
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { trackLastKnownOwner } from './helpers/nftState';
@@ -39,12 +36,6 @@ export function handleUniverseSet(event: UniverseSet): void {
   _chargedParticles.save();
 }
 
-export function handleDepositFeeSet(event: DepositFeeSet): void {
-  const _tieredDepositFees = loadOrCreateTieredDepositFees(event.address, event.params.depositFeeLimit);
-  _tieredDepositFees.fee = event.params.depositFee;
-  _tieredDepositFees.save();
-}
-
 export function handleLiquidityProviderRegistered(event: LiquidityProviderRegistered): void {
   // no-op
 }
@@ -52,7 +43,6 @@ export function handleLiquidityProviderRegistered(event: LiquidityProviderRegist
 export function handleTokenContractConfigsSet(event: TokenContractConfigsSet): void {
   const _externalContractSettings = loadOrCreateExternalContractSettings(event.address, event.params.contractAddress);
   _externalContractSettings.liquidityProvider = event.params.liquidityProvider;
-  _externalContractSettings.assetDepositFee = event.params.assetDepositFee;
   _externalContractSettings.assetDepositMin = event.params.assetDepositMin;
   _externalContractSettings.assetDepositMax = event.params.assetDepositMax;
   _externalContractSettings.save();
@@ -66,15 +56,13 @@ export function handleTokenCreatorConfigsSet(event: TokenCreatorConfigsSet): voi
     event.params.creatorAddress
   );
   _nftCreatorSettings.annuityPercent = event.params.annuityPercent;
-  _nftCreatorSettings.burnToRelease = event.params.burnToRelease;
   _nftCreatorSettings.save();
 
-  var eventData = new Array<string>(5);
+  var eventData = new Array<string>(4);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
   eventData[2] = event.params.creatorAddress.toHex();
   eventData[3] = event.params.annuityPercent.toString();
-  eventData[4] = event.params.burnToRelease ? 'true' : 'false';
   trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'TokenCreatorConfigsSet', eventData.join('-'));
 }
 
@@ -129,10 +117,6 @@ export function handleTokenReleaseTimelock(event: TokenReleaseTimelock): void {
   );
   _chargedNftState.releaseTimelock = event.params.unlockBlock;
   _chargedNftState.save();
-}
-
-export function handleFeesWithdrawn(event: FeesWithdrawn): void {
-  log.info('TODO: handleFeesWithdrawn', []);
 }
 
 export function handleUpdateContractWhitelist(event: UpdateContractWhitelist): void {

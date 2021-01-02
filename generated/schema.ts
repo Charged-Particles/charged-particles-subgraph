@@ -160,15 +160,6 @@ export class ChargedParticles extends Entity {
     this.set("whitelisted", Value.fromStringArray(value));
   }
 
-  get tieredDepositFee(): Array<string> {
-    let value = this.get("tieredDepositFee");
-    return value.toStringArray();
-  }
-
-  set tieredDepositFee(value: Array<string>) {
-    this.set("tieredDepositFee", Value.fromStringArray(value));
-  }
-
   get externalContractSettings(): Array<string> {
     let value = this.get("externalContractSettings");
     return value.toStringArray();
@@ -282,23 +273,6 @@ export class ExternalContractSettings extends Entity {
       this.unset("liquidityProvider");
     } else {
       this.set("liquidityProvider", Value.fromBytes(value as Bytes));
-    }
-  }
-
-  get assetDepositFee(): BigInt | null {
-    let value = this.get("assetDepositFee");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set assetDepositFee(value: BigInt | null) {
-    if (value === null) {
-      this.unset("assetDepositFee");
-    } else {
-      this.set("assetDepositFee", Value.fromBigInt(value as BigInt));
     }
   }
 
@@ -418,15 +392,6 @@ export class NftCreatorSettings extends Entity {
     } else {
       this.set("annuityPercent", Value.fromBigInt(value as BigInt));
     }
-  }
-
-  get burnToRelease(): boolean {
-    let value = this.get("burnToRelease");
-    return value.toBoolean();
-  }
-
-  set burnToRelease(value: boolean) {
-    this.set("burnToRelease", Value.fromBoolean(value));
   }
 }
 
@@ -668,72 +633,6 @@ export class WhitelistedNftContract extends Entity {
 
   set state(value: boolean) {
     this.set("state", Value.fromBoolean(value));
-  }
-}
-
-export class TieredDepositFees extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id !== null, "Cannot save TieredDepositFees entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save TieredDepositFees entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("TieredDepositFees", id.toString(), this);
-  }
-
-  static load(id: string): TieredDepositFees | null {
-    return store.get("TieredDepositFees", id) as TieredDepositFees | null;
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get chargedParticles(): string {
-    let value = this.get("chargedParticles");
-    return value.toString();
-  }
-
-  set chargedParticles(value: string) {
-    this.set("chargedParticles", Value.fromString(value));
-  }
-
-  get limit(): BigInt {
-    let value = this.get("limit");
-    return value.toBigInt();
-  }
-
-  set limit(value: BigInt) {
-    this.set("limit", Value.fromBigInt(value));
-  }
-
-  get fee(): BigInt | null {
-    let value = this.get("fee");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set fee(value: BigInt | null) {
-    if (value === null) {
-      this.unset("fee");
-    } else {
-      this.set("fee", Value.fromBigInt(value as BigInt));
-    }
   }
 }
 
@@ -1095,15 +994,6 @@ export class AaveAssetTokenBalance extends Entity {
 
   set creatorInterestDischarged(value: BigInt) {
     this.set("creatorInterestDischarged", Value.fromBigInt(value));
-  }
-
-  get depositFee(): BigInt {
-    let value = this.get("depositFee");
-    return value.toBigInt();
-  }
-
-  set depositFee(value: BigInt) {
-    this.set("depositFee", Value.fromBigInt(value));
   }
 }
 
@@ -1497,15 +1387,6 @@ export class ProtonNFT extends Entity {
     } else {
       this.set("creatorAnnuity", Value.fromBigInt(value as BigInt));
     }
-  }
-
-  get burnToRelease(): boolean {
-    let value = this.get("burnToRelease");
-    return value.toBoolean();
-  }
-
-  set burnToRelease(value: boolean) {
-    this.set("burnToRelease", Value.fromBoolean(value));
   }
 
   get salePrice(): BigInt | null {
