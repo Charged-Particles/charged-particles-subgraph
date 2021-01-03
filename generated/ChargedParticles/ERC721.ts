@@ -88,6 +88,32 @@ export class Transfer__Params {
   }
 }
 
+export class TransferBatch extends ethereum.Event {
+  get params(): TransferBatch__Params {
+    return new TransferBatch__Params(this);
+  }
+}
+
+export class TransferBatch__Params {
+  _event: TransferBatch;
+
+  constructor(event: TransferBatch) {
+    this._event = event;
+  }
+
+  get from(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get to(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenIds(): Array<BigInt> {
+    return this._event.parameters[2].value.toBigIntArray();
+  }
+}
+
 export class ERC721 extends ethereum.SmartContract {
   static bind(address: Address): ERC721 {
     return new ERC721("ERC721", address);
@@ -110,21 +136,6 @@ export class ERC721 extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  baseURI(): string {
-    let result = super.call("baseURI", "baseURI():(string)", []);
-
-    return result[0].toString();
-  }
-
-  try_baseURI(): ethereum.CallResult<string> {
-    let result = super.tryCall("baseURI", "baseURI():(string)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toString());
   }
 
   getApproved(tokenId: BigInt): Address {

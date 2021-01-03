@@ -250,6 +250,32 @@ export class Transfer__Params {
   }
 }
 
+export class TransferBatch extends ethereum.Event {
+  get params(): TransferBatch__Params {
+    return new TransferBatch__Params(this);
+  }
+}
+
+export class TransferBatch__Params {
+  _event: TransferBatch;
+
+  constructor(event: TransferBatch) {
+    this._event = event;
+  }
+
+  get from(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get to(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenIds(): Array<BigInt> {
+    return this._event.parameters[2].value.toBigIntArray();
+  }
+}
+
 export class UniverseSet extends ethereum.Event {
   get params(): UniverseSet__Params {
     return new UniverseSet__Params(this);
@@ -290,21 +316,6 @@ export class Proton extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  baseURI(): string {
-    let result = super.call("baseURI", "baseURI():(string)", []);
-
-    return result[0].toString();
-  }
-
-  try_baseURI(): ethereum.CallResult<string> {
-    let result = super.tryCall("baseURI", "baseURI():(string)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toString());
   }
 
   creatorOf(tokenId: BigInt): Address {
@@ -724,6 +735,48 @@ export class BuyProtonCall__Outputs {
   }
 }
 
+export class CreateBasicProtonCall extends ethereum.Call {
+  get inputs(): CreateBasicProtonCall__Inputs {
+    return new CreateBasicProtonCall__Inputs(this);
+  }
+
+  get outputs(): CreateBasicProtonCall__Outputs {
+    return new CreateBasicProtonCall__Outputs(this);
+  }
+}
+
+export class CreateBasicProtonCall__Inputs {
+  _call: CreateBasicProtonCall;
+
+  constructor(call: CreateBasicProtonCall) {
+    this._call = call;
+  }
+
+  get creator(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenMetaUri(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+}
+
+export class CreateBasicProtonCall__Outputs {
+  _call: CreateBasicProtonCall;
+
+  constructor(call: CreateBasicProtonCall) {
+    this._call = call;
+  }
+
+  get newTokenId(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
 export class CreateChargedParticleCall extends ethereum.Call {
   get inputs(): CreateChargedParticleCall__Inputs {
     return new CreateChargedParticleCall__Inputs(this);
@@ -820,6 +873,60 @@ export class CreateProtonCall__Outputs {
   _call: CreateProtonCall;
 
   constructor(call: CreateProtonCall) {
+    this._call = call;
+  }
+
+  get newTokenId(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
+export class CreateProtonForSaleCall extends ethereum.Call {
+  get inputs(): CreateProtonForSaleCall__Inputs {
+    return new CreateProtonForSaleCall__Inputs(this);
+  }
+
+  get outputs(): CreateProtonForSaleCall__Outputs {
+    return new CreateProtonForSaleCall__Outputs(this);
+  }
+}
+
+export class CreateProtonForSaleCall__Inputs {
+  _call: CreateProtonForSaleCall;
+
+  constructor(call: CreateProtonForSaleCall) {
+    this._call = call;
+  }
+
+  get creator(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenMetaUri(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get annuityPercent(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get royaltiesPercent(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get salePrice(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class CreateProtonForSaleCall__Outputs {
+  _call: CreateProtonForSaleCall;
+
+  constructor(call: CreateProtonForSaleCall) {
     this._call = call;
   }
 
