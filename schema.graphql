@@ -199,6 +199,7 @@ type ProtonNFT @entity {
   animation_url: String
   youtube_url: String
   icon: String
+  thumbnail: String
   image: String
   symbol: String
   decimals: BigInt

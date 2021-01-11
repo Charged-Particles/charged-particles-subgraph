@@ -108,16 +108,42 @@ export class ProtonTokenSet__Params {
   }
 }
 
-export class RewardIssued extends ethereum.Event {
-  get params(): RewardIssued__Params {
-    return new RewardIssued__Params(this);
+export class RewardClaimed extends ethereum.Event {
+  get params(): RewardClaimed__Params {
+    return new RewardClaimed__Params(this);
   }
 }
 
-export class RewardIssued__Params {
-  _event: RewardIssued;
+export class RewardClaimed__Params {
+  _event: RewardClaimed;
 
-  constructor(event: RewardIssued) {
+  constructor(event: RewardClaimed) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get rewardToken(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get rewardAmount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class RewardEarned extends ethereum.Event {
+  get params(): RewardEarned__Params {
+    return new RewardEarned__Params(this);
+  }
+}
+
+export class RewardEarned__Params {
+  _event: RewardEarned;
+
+  constructor(event: RewardEarned) {
     this._event = event;
   }
 
@@ -160,6 +186,29 @@ export class Universe extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  claimIonTokens(amount: BigInt): BigInt {
+    let result = super.call(
+      "claimIonTokens",
+      "claimIonTokens(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(amount)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_claimIonTokens(amount: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "claimIonTokens",
+      "claimIonTokens(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(amount)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   ionToken(): Address {
@@ -205,6 +254,40 @@ export class Universe extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+}
+
+export class ClaimIonTokensCall extends ethereum.Call {
+  get inputs(): ClaimIonTokensCall__Inputs {
+    return new ClaimIonTokensCall__Inputs(this);
+  }
+
+  get outputs(): ClaimIonTokensCall__Outputs {
+    return new ClaimIonTokensCall__Outputs(this);
+  }
+}
+
+export class ClaimIonTokensCall__Inputs {
+  _call: ClaimIonTokensCall;
+
+  constructor(call: ClaimIonTokensCall) {
+    this._call = call;
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class ClaimIonTokensCall__Outputs {
+  _call: ClaimIonTokensCall;
+
+  constructor(call: ClaimIonTokensCall) {
+    this._call = call;
+  }
+
+  get ionReward(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
   }
 }
 
@@ -267,7 +350,7 @@ export class OnDischargeCall__Inputs {
     return this._call.inputValues[3].value.toAddress();
   }
 
-  get value4(): BigInt {
+  get creatorAmount(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
   }
 
@@ -280,6 +363,56 @@ export class OnDischargeCall__Outputs {
   _call: OnDischargeCall;
 
   constructor(call: OnDischargeCall) {
+    this._call = call;
+  }
+}
+
+export class OnDischargeForCreatorCall extends ethereum.Call {
+  get inputs(): OnDischargeForCreatorCall__Inputs {
+    return new OnDischargeForCreatorCall__Inputs(this);
+  }
+
+  get outputs(): OnDischargeForCreatorCall__Outputs {
+    return new OnDischargeForCreatorCall__Outputs(this);
+  }
+}
+
+export class OnDischargeForCreatorCall__Inputs {
+  _call: OnDischargeForCreatorCall;
+
+  constructor(call: OnDischargeForCreatorCall) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get value2(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get value3(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class OnDischargeForCreatorCall__Outputs {
+  _call: OnDischargeForCreatorCall;
+
+  constructor(call: OnDischargeForCreatorCall) {
     this._call = call;
   }
 }
@@ -421,7 +554,7 @@ export class OnReleaseCall__Inputs {
     return this._call.inputValues[4].value.toBigInt();
   }
 
-  get value5(): BigInt {
+  get creatorAmount(): BigInt {
     return this._call.inputValues[5].value.toBigInt();
   }
 

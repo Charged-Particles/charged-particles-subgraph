@@ -603,6 +603,57 @@ export class ChargedParticles extends ethereum.SmartContract {
     );
   }
 
+  dischargeParticleForCreator(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    liquidityProviderId: string,
+    assetToken: Address,
+    assetAmount: BigInt
+  ): BigInt {
+    let result = super.call(
+      "dischargeParticleForCreator",
+      "dischargeParticleForCreator(address,address,uint256,string,address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_dischargeParticleForCreator(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    liquidityProviderId: string,
+    assetToken: Address,
+    assetAmount: BigInt
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "dischargeParticleForCreator",
+      "dischargeParticleForCreator(address,address,uint256,string,address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
   energizeParticle(
     contractAddress: Address,
     tokenId: BigInt,
@@ -1447,6 +1498,60 @@ export class DischargeParticleAmountCall__Outputs {
 
   get receiverAmount(): BigInt {
     return this._call.outputValues[1].value.toBigInt();
+  }
+}
+
+export class DischargeParticleForCreatorCall extends ethereum.Call {
+  get inputs(): DischargeParticleForCreatorCall__Inputs {
+    return new DischargeParticleForCreatorCall__Inputs(this);
+  }
+
+  get outputs(): DischargeParticleForCreatorCall__Outputs {
+    return new DischargeParticleForCreatorCall__Outputs(this);
+  }
+}
+
+export class DischargeParticleForCreatorCall__Inputs {
+  _call: DischargeParticleForCreatorCall;
+
+  constructor(call: DischargeParticleForCreatorCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get liquidityProviderId(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get assetAmount(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class DischargeParticleForCreatorCall__Outputs {
+  _call: DischargeParticleForCreatorCall;
+
+  constructor(call: DischargeParticleForCreatorCall) {
+    this._call = call;
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
   }
 }
 

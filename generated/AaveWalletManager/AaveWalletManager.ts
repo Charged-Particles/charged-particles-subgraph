@@ -154,6 +154,40 @@ export class WalletDischarged__Params {
   }
 }
 
+export class WalletDischargedForCreator extends ethereum.Event {
+  get params(): WalletDischargedForCreator__Params {
+    return new WalletDischargedForCreator__Params(this);
+  }
+}
+
+export class WalletDischargedForCreator__Params {
+  _event: WalletDischargedForCreator;
+
+  constructor(event: WalletDischargedForCreator) {
+    this._event = event;
+  }
+
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get creator(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
 export class WalletEnergized extends ethereum.Event {
   get params(): WalletEnergized__Params {
     return new WalletEnergized__Params(this);
@@ -466,6 +500,57 @@ export class AaveWalletManager extends ethereum.SmartContract {
         value[1].toBigInt()
       )
     );
+  }
+
+  dischargeAmountForCreator(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    creator: Address,
+    assetToken: Address,
+    assetAmount: BigInt
+  ): BigInt {
+    let result = super.call(
+      "dischargeAmountForCreator",
+      "dischargeAmountForCreator(address,address,uint256,address,address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(creator),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_dischargeAmountForCreator(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    creator: Address,
+    assetToken: Address,
+    assetAmount: BigInt
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "dischargeAmountForCreator",
+      "dischargeAmountForCreator(address,address,uint256,address,address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(creator),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   energize(
@@ -1124,6 +1209,60 @@ export class DischargeAmountCall__Outputs {
 
   get receiverAmount(): BigInt {
     return this._call.outputValues[1].value.toBigInt();
+  }
+}
+
+export class DischargeAmountForCreatorCall extends ethereum.Call {
+  get inputs(): DischargeAmountForCreatorCall__Inputs {
+    return new DischargeAmountForCreatorCall__Inputs(this);
+  }
+
+  get outputs(): DischargeAmountForCreatorCall__Outputs {
+    return new DischargeAmountForCreatorCall__Outputs(this);
+  }
+}
+
+export class DischargeAmountForCreatorCall__Inputs {
+  _call: DischargeAmountForCreatorCall;
+
+  constructor(call: DischargeAmountForCreatorCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get creator(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get assetAmount(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class DischargeAmountForCreatorCall__Outputs {
+  _call: DischargeAmountForCreatorCall;
+
+  constructor(call: DischargeAmountForCreatorCall) {
+    this._call = call;
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
   }
 }
 

@@ -34,8 +34,10 @@ dataSources:
           handler: handleIonTokenSet
         - event: IonRewardsMultiplierSet(indexed address,uint256)
           handler: handleIonRewardsMultiplierSet
-        - event: RewardIssued(indexed address,address,uint256)
-          handler: handleRewardIssued
+        - event: RewardEarned(indexed address,address,uint256)
+          handler: handleRewardEarned
+        - event: RewardClaimed(indexed address,address,uint256)
+          handler: handleRewardClaimed
   - name: ChargedParticles
     kind: ethereum/contract
     network: {{network}}

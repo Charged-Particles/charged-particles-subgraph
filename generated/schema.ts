@@ -1542,6 +1542,23 @@ export class ProtonNFT extends Entity {
     }
   }
 
+  get thumbnail(): string | null {
+    let value = this.get("thumbnail");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set thumbnail(value: string | null) {
+    if (value === null) {
+      this.unset("thumbnail");
+    } else {
+      this.set("thumbnail", Value.fromString(value as string));
+    }
+  }
+
   get image(): string | null {
     let value = this.get("image");
     if (value === null) {

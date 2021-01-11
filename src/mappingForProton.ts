@@ -130,6 +130,9 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   _nft.animation_url = protonMetadata.get('animation_url').toString();
   _nft.youtube_url = protonMetadata.get('youtube_url').toString();
   _nft.icon = protonMetadata.get('icon').toString();
+  if (protonMetadata.isSet('thumbnail')) { 
+    _nft.thumbnail = protonMetadata.get('thumbnail').toString(); 
+  }
   _nft.image = protonMetadata.get('image').toString();
   _nft.symbol = protonMetadata.get('symbol').toString();
   _nft.decimals = protonMetadata.get('decimals').toBigInt();

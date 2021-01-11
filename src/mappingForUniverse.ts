@@ -5,7 +5,8 @@ import {
   ChargedParticlesSet,
   IonTokenSet,
   IonRewardsMultiplierSet,
-  RewardIssued,
+  RewardEarned,
+  RewardClaimed,
 } from '../generated/Universe/Universe';
 
 import { loadOrCreateUniverse } from './helpers/loadOrCreateUniverse';
@@ -43,6 +44,10 @@ export function handleIonRewardsMultiplierSet(event: IonRewardsMultiplierSet): v
   _ionRewardsMultiplier.save();
 }
 
-export function handleRewardIssued(event: RewardIssued): void {
-  log.info('TODO: handleRewardIssued', []);
+export function handleRewardEarned(event: RewardEarned): void {
+  log.info('TODO: handleRewardEarned', []);
+}
+
+export function handleRewardClaimed(event: RewardClaimed): void {
+  log.info('TODO: handleRewardClaimed', []);
 }
