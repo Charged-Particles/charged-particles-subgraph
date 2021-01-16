@@ -1637,6 +1637,55 @@ export class ProtonNFT extends Entity {
   }
 }
 
+export class ProtonNftCount extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ProtonNftCount entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ProtonNftCount entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ProtonNftCount", id.toString(), this);
+  }
+
+  static load(id: string): ProtonNftCount | null {
+    return store.get("ProtonNftCount", id) as ProtonNftCount | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get createdCount(): BigInt {
+    let value = this.get("createdCount");
+    return value.toBigInt();
+  }
+
+  set createdCount(value: BigInt) {
+    this.set("createdCount", Value.fromBigInt(value));
+  }
+
+  get ownedCount(): BigInt {
+    let value = this.get("ownedCount");
+    return value.toBigInt();
+  }
+
+  set ownedCount(value: BigInt) {
+    this.set("ownedCount", Value.fromBigInt(value));
+  }
+}
+
 export class NFTAttributes extends Entity {
   constructor(id: string) {
     super();

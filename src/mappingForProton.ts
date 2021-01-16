@@ -21,6 +21,7 @@ import {
 import { nftAttributeId } from './helpers/idTemplates';
 import { loadOrCreateProton } from './helpers/loadOrCreateProton';
 import { loadOrCreateProtonNFT } from './helpers/loadOrCreateProtonNFT';
+import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 
 import { ADDRESS_ZERO } from './helpers/common';
@@ -85,6 +86,8 @@ export function handleTransfer(event: Transfer): void {
   const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
   _nft.owner = event.params.to;
   _nft.save();
+
+  trackProtonNftCounts(event);
 
   var eventData = new Array<string>(3);
   eventData[0] = event.params.tokenId.toString();
