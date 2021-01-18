@@ -119,10 +119,9 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   const protonNftId = userData.toString();
   const protonMetadata = value.toObject();
   if (protonMetadata == null) {
-    log.info('NO METADATA FOUND FOR {}', [protonNftId]);
+    log.info('NO METADATA FOUND FOR PROTON {}', [protonNftId]);
   }
 
-  // Callbacks can also created entities
   const _nft = ProtonNFT.load(protonNftId);
   _nft.particleType = protonMetadata.get('particleType').toString();
   _nft.creatorAnnuity = protonMetadata.get('creatorAnnuity').toBigInt();
@@ -133,8 +132,8 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   _nft.animation_url = protonMetadata.get('animation_url').toString();
   _nft.youtube_url = protonMetadata.get('youtube_url').toString();
   _nft.icon = protonMetadata.get('icon').toString();
-  if (protonMetadata.isSet('thumbnail')) { 
-    _nft.thumbnail = protonMetadata.get('thumbnail').toString(); 
+  if (protonMetadata.isSet('thumbnail')) {
+    _nft.thumbnail = protonMetadata.get('thumbnail').toString();
   }
   _nft.image = protonMetadata.get('image').toString();
   _nft.symbol = protonMetadata.get('symbol').toString();

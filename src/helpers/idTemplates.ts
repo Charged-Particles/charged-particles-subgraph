@@ -28,6 +28,10 @@ export function ionTokenHolderId(ionTokenAddress: string, holderAddress: string)
   return ionTokenAddress + '-' + holderAddress;
 }
 
+export function photonId(photonAddress: string, accountAddress: string): string {
+  return photonAddress + '-' + accountAddress;
+}
+
 export function protonNftId(protonAddress: string, tokenId: string): string {
   return protonAddress + '-' + tokenId;
 }

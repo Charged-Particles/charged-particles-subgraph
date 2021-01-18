@@ -8,8 +8,16 @@
     "address": "0x5251ddF049829417bDf1395C1020C15205597971",
     "startBlock": "22970536"
   },
+  "genericWalletManager": {
+    "address": "0xF8471EC54F158611f9007E51Ef1146e805B0773c",
+    "startBlock": "22970536"
+  },
   "aaveWalletManager": {
     "address": "0x1b07f40C8e6e499f7a94A3f9bEB7E4dFd3447D4D",
+    "startBlock": "22970536"
+  },
+  "photon": {
+    "address": "0x3A5eD526136Ef93B3a10F041e7870FCa9693a9d6",
     "startBlock": "22970536"
   },
   "proton": {

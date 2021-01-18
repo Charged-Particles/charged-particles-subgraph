@@ -1,5 +1,5 @@
 
 ###### On Testnet:
 ```sh
-$ yarn clean && yarn prepare:rinkeby && yarn gen:rinkeby && yarn deploy:rinkeby
+$ yarn clean && yarn prepare:kovan && yarn gen:kovan && yarn deploy:kovan
 ```
