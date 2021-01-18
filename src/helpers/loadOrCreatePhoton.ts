@@ -15,8 +15,8 @@ export function loadOrCreatePhoton(
 
   if (!_photon) {
     _photon = new Photon(id);
-    _photon.proton = photonAddress.toHex();
-    _photon.account = accountAddress.toHex();
+    _photon.photon = photonAddress;
+    _photon.account = accountAddress;
     _photon.save();
   }
 
