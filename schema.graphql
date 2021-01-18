@@ -25,6 +25,7 @@ type ChargedParticles @entity {
   chargedNftState: [ChargedNftState!]! @derivedFrom(field: "chargedParticles")
 
   # Various WalletManagers listed here
+  genericWalletManager: GenericWalletManager
   aaveWalletManager: AaveWalletManager
 }
 
@@ -84,6 +85,48 @@ type WhitelistedNftContract @entity {
 }
 
 
+# ID: `${genericWalletManager.address}`
+type GenericWalletManager @entity {
+  id: ID!
+  owner: Bytes!
+  name: String!
+  address: Bytes!
+  paused: Boolean!
+
+  chargedParticles: Bytes
+
+  wallets: [GenericSmartWallet!]! @derivedFrom(field: "walletManager")
+}
+
+# ID: `${contractAddress}-${tokenId}`
+type GenericSmartWallet @entity {
+  id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
+  address: Bytes
+  walletManager: GenericWalletManager
+  assetTokens: [Bytes!]
+
+  assetBalances: [GenericAssetTokenBalance!]! @derivedFrom(field: "smartWallet")
+}
+
+# ID: `${assetToken.address}-${contractAddress}-${tokenId}`
+# dynamically generated type, not mapped to a specific contract
+type GenericAssetTokenBalance @entity {
+  id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
+  assetToken: Bytes!
+  smartWallet: GenericSmartWallet
+
+  principal: BigInt!
+}
+
+
 # ID: `${aaveWalletManager.address}`
 type AaveWalletManager @entity {
   id: ID!
@@ -112,7 +155,6 @@ type AaveSmartWallet @entity {
   nftCreator: Bytes
   nftCreatorAnnuityPct: BigInt
 
-  # balance: BigInt # ????  TODO per Asset Token
   assetBalances: [AaveAssetTokenBalance!]! @derivedFrom(field: "smartWallet")
 }
 
@@ -133,6 +175,24 @@ type AaveAssetTokenBalance @entity {
 }
 
 
+
+# ID: `${photon.address}-${account.address}`
+type Photon @entity {
+  id: ID!
+  photon: Bytes!
+  account: Bytes!
+
+  photonUri: String
+
+  name: String
+  description: String
+  thumbnail: String
+  image: String
+
+  email: String
+  twitter: String
+  website: String
+}
 
 
 
@@ -247,4 +307,3 @@ type NftTxCount @entity {
 
   count: BigInt!
 }
-

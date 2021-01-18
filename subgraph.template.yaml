@@ -82,6 +82,40 @@ dataSources:
           handler: handleTokenReleaseTimelock
         - event: UpdateContractWhitelist(indexed address,bool)
           handler: handleUpdateContractWhitelist
+  - name: GenericWalletManager
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{aaveWalletManager.address}}"
+      abi: GenericWalletManager
+      startBlock: {{aaveWalletManager.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForGenericWalletManager.ts
+      entities:
+        - GenericWalletManager
+      abis:
+        - name: GenericWalletManager
+          file: ./abis/GenericWalletManager.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ControllerSet(indexed address)
+          handler: handleControllerSet
+        - event: PausedStateSet(bool)
+          handler: handlePausedStateSet
+        - event: NewSmartWallet(indexed address,indexed uint256,indexed address,address,uint256)
+          handler: handleNewSmartWallet
+        - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256)
+          handler: handleWalletEnergized
+        - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
+          handler: handleWalletReleased
+        - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
+          handler: handleWalletRewarded
   - name: AaveWalletManager
     kind: ethereum/contract
     network: {{network}}
@@ -116,6 +150,8 @@ dataSources:
           handler: handleWalletEnergized
         - event: WalletDischarged(indexed address,indexed uint256,indexed address,uint256,uint256)
           handler: handleWalletDischarged
+        - event: WalletDischargedForCreator(indexed address,indexed uint256,indexed address,address,uint256)
+          handler: handleWalletDischargedForCreator
         - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
           handler: handleWalletReleased
         - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
@@ -148,6 +184,28 @@ dataSources:
           handler: handleApproval
         - event: LockApproval(indexed address,indexed address,uint256)
           handler: handleLockApproval
+  - name: Photon
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{photon.address}}"
+      abi: Photon
+      startBlock: {{photon.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForPhoton.ts
+      entities:
+        - Photon
+      abis:
+        - name: Photon
+          file: ./abis/Photon.json
+      eventHandlers:
+        - event: PhotonUpdated(indexed address,string)
+          handler: handlePhotonUpdated
+        - event: PhotonTransferred(indexed address,indexed address,string)
+          handler: handlePhotonTransferred
   - name: Proton
     kind: ethereum/contract
     network: {{network}}
@@ -190,25 +248,3 @@ dataSources:
           handler: handleApproval
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
-
-
-
-# templates:
-#   - name: AaveSmartWallet
-#     kind: ethereum/contract
-#     network: {{network}}
-#     source:
-#       abi: AaveSmartWallet
-#     mapping:
-#       kind: ethereum/events
-#       apiVersion: 0.0.4
-#       language: wasm/assemblyscript
-#       file: ./src/mappingForAaveSmartWallet.ts
-#       entities:
-#         - AaveSmartWallet
-#       abis:
-#         - name: AaveSmartWallet
-#           file: ./abis/AaveSmartWallet.json
-#       eventHandlers:
-#         - event: OwnershipTransferred(indexed address,indexed address)
-#           handler: handleOwnershipTransferred

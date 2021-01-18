@@ -187,6 +187,23 @@ export class ChargedParticles extends Entity {
     this.set("chargedNftState", Value.fromStringArray(value));
   }
 
+  get genericWalletManager(): string | null {
+    let value = this.get("genericWalletManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set genericWalletManager(value: string | null) {
+    if (value === null) {
+      this.unset("genericWalletManager");
+    } else {
+      this.set("genericWalletManager", Value.fromString(value as string));
+    }
+  }
+
   get aaveWalletManager(): string | null {
     let value = this.get("aaveWalletManager");
     if (value === null) {
@@ -636,6 +653,301 @@ export class WhitelistedNftContract extends Entity {
   }
 }
 
+export class GenericWalletManager extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save GenericWalletManager entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save GenericWalletManager entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("GenericWalletManager", id.toString(), this);
+  }
+
+  static load(id: string): GenericWalletManager | null {
+    return store.get("GenericWalletManager", id) as GenericWalletManager | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    return value.toBytes();
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get paused(): boolean {
+    let value = this.get("paused");
+    return value.toBoolean();
+  }
+
+  set paused(value: boolean) {
+    this.set("paused", Value.fromBoolean(value));
+  }
+
+  get chargedParticles(): Bytes | null {
+    let value = this.get("chargedParticles");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set chargedParticles(value: Bytes | null) {
+    if (value === null) {
+      this.unset("chargedParticles");
+    } else {
+      this.set("chargedParticles", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get wallets(): Array<string> {
+    let value = this.get("wallets");
+    return value.toStringArray();
+  }
+
+  set wallets(value: Array<string>) {
+    this.set("wallets", Value.fromStringArray(value));
+  }
+}
+
+export class GenericSmartWallet extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save GenericSmartWallet entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save GenericSmartWallet entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("GenericSmartWallet", id.toString(), this);
+  }
+
+  static load(id: string): GenericSmartWallet | null {
+    return store.get("GenericSmartWallet", id) as GenericSmartWallet | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get address(): Bytes | null {
+    let value = this.get("address");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set address(value: Bytes | null) {
+    if (value === null) {
+      this.unset("address");
+    } else {
+      this.set("address", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get walletManager(): string | null {
+    let value = this.get("walletManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set walletManager(value: string | null) {
+    if (value === null) {
+      this.unset("walletManager");
+    } else {
+      this.set("walletManager", Value.fromString(value as string));
+    }
+  }
+
+  get assetTokens(): Array<Bytes> | null {
+    let value = this.get("assetTokens");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytesArray();
+    }
+  }
+
+  set assetTokens(value: Array<Bytes> | null) {
+    if (value === null) {
+      this.unset("assetTokens");
+    } else {
+      this.set("assetTokens", Value.fromBytesArray(value as Array<Bytes>));
+    }
+  }
+
+  get assetBalances(): Array<string> {
+    let value = this.get("assetBalances");
+    return value.toStringArray();
+  }
+
+  set assetBalances(value: Array<string>) {
+    this.set("assetBalances", Value.fromStringArray(value));
+  }
+}
+
+export class GenericAssetTokenBalance extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save GenericAssetTokenBalance entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save GenericAssetTokenBalance entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("GenericAssetTokenBalance", id.toString(), this);
+  }
+
+  static load(id: string): GenericAssetTokenBalance | null {
+    return store.get(
+      "GenericAssetTokenBalance",
+      id
+    ) as GenericAssetTokenBalance | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get assetToken(): Bytes {
+    let value = this.get("assetToken");
+    return value.toBytes();
+  }
+
+  set assetToken(value: Bytes) {
+    this.set("assetToken", Value.fromBytes(value));
+  }
+
+  get smartWallet(): string | null {
+    let value = this.get("smartWallet");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set smartWallet(value: string | null) {
+    if (value === null) {
+      this.unset("smartWallet");
+    } else {
+      this.set("smartWallet", Value.fromString(value as string));
+    }
+  }
+
+  get principal(): BigInt {
+    let value = this.get("principal");
+    return value.toBigInt();
+  }
+
+  set principal(value: BigInt) {
+    this.set("principal", Value.fromBigInt(value));
+  }
+}
+
 export class AaveWalletManager extends Entity {
   constructor(id: string) {
     super();
@@ -994,6 +1306,191 @@ export class AaveAssetTokenBalance extends Entity {
 
   set creatorInterestDischarged(value: BigInt) {
     this.set("creatorInterestDischarged", Value.fromBigInt(value));
+  }
+}
+
+export class Photon extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Photon entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Photon entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Photon", id.toString(), this);
+  }
+
+  static load(id: string): Photon | null {
+    return store.get("Photon", id) as Photon | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get photon(): Bytes {
+    let value = this.get("photon");
+    return value.toBytes();
+  }
+
+  set photon(value: Bytes) {
+    this.set("photon", Value.fromBytes(value));
+  }
+
+  get account(): Bytes {
+    let value = this.get("account");
+    return value.toBytes();
+  }
+
+  set account(value: Bytes) {
+    this.set("account", Value.fromBytes(value));
+  }
+
+  get photonUri(): string | null {
+    let value = this.get("photonUri");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set photonUri(value: string | null) {
+    if (value === null) {
+      this.unset("photonUri");
+    } else {
+      this.set("photonUri", Value.fromString(value as string));
+    }
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (value === null) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(value as string));
+    }
+  }
+
+  get thumbnail(): string | null {
+    let value = this.get("thumbnail");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set thumbnail(value: string | null) {
+    if (value === null) {
+      this.unset("thumbnail");
+    } else {
+      this.set("thumbnail", Value.fromString(value as string));
+    }
+  }
+
+  get image(): string | null {
+    let value = this.get("image");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set image(value: string | null) {
+    if (value === null) {
+      this.unset("image");
+    } else {
+      this.set("image", Value.fromString(value as string));
+    }
+  }
+
+  get email(): string | null {
+    let value = this.get("email");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set email(value: string | null) {
+    if (value === null) {
+      this.unset("email");
+    } else {
+      this.set("email", Value.fromString(value as string));
+    }
+  }
+
+  get twitter(): string | null {
+    let value = this.get("twitter");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set twitter(value: string | null) {
+    if (value === null) {
+      this.unset("twitter");
+    } else {
+      this.set("twitter", Value.fromString(value as string));
+    }
+  }
+
+  get website(): string | null {
+    let value = this.get("website");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set website(value: string | null) {
+    if (value === null) {
+      this.unset("website");
+    } else {
+      this.set("website", Value.fromString(value as string));
+    }
   }
 }
 

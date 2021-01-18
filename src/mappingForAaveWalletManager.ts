@@ -8,6 +8,7 @@ import {
   NewSmartWallet,
   WalletEnergized,
   WalletDischarged,
+  WalletDischargedForCreator,
   WalletReleased,
   WalletRewarded,
 } from '../generated/AaveWalletManager/AaveWalletManager';
@@ -92,6 +93,10 @@ export function handleWalletDischarged(event: WalletDischarged): void {
   eventData[3] = event.params.creatorAmount.toString();
   eventData[4] = event.params.receiverAmount.toString();
   trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'WalletDischarged', eventData.join('-'));
+}
+
+export function handleWalletDischargedForCreator(event: WalletDischargedForCreator): void {
+  log.info('TODO: handleWalletDischargedForCreator', []);
 }
 
 export function handleWalletReleased(event: WalletReleased): void {
