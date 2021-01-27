@@ -5,11 +5,55 @@
       {
         "indexed": true,
         "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "CationSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
         "name": "chargedParticles",
         "type": "address"
       }
     ],
     "name": "ChargedParticlesSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "cationSource",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "energy",
+        "type": "uint256"
+      }
+    ],
+    "name": "ElectrostaticAttraction",
     "type": "event"
   },
   {
@@ -28,7 +72,7 @@
         "type": "uint256"
       }
     ],
-    "name": "IonRewardsMultiplierSet",
+    "name": "EsaMultiplierSet",
     "type": "event"
   },
   {
@@ -37,11 +81,23 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "ionToken",
+        "name": "account",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "cationSource",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "energy",
+        "type": "uint256"
       }
     ],
-    "name": "IonTokenSet",
+    "name": "MetallicBond",
     "type": "event"
   },
   {
@@ -77,54 +133,17 @@
     "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    "inputs": [],
+    "name": "cationSource",
+    "outputs": [
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "receiver",
+        "internalType": "contract IERC20Upgradeable",
+        "name": "",
         "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "rewardToken",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "rewardAmount",
-        "type": "uint256"
       }
     ],
-    "name": "RewardClaimed",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "receiver",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "rewardToken",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "rewardAmount",
-        "type": "uint256"
-      }
-    ],
-    "name": "RewardEarned",
-    "type": "event"
+    "stateMutability": "view",
+    "type": "function"
   },
   {
     "inputs": [],
@@ -147,11 +166,11 @@
         "type": "uint256"
       }
     ],
-    "name": "claimIonTokens",
+    "name": "conductMetallicBond",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "ionReward",
+        "name": "positiveEnergy",
         "type": "uint256"
       }
     ],
@@ -166,16 +185,69 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "ionToken",
-    "outputs": [
+    "inputs": [
       {
-        "internalType": "contract IERC20Upgradeable",
-        "name": "",
+        "internalType": "address",
+        "name": "contractAddress",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "managerId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "nftTokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nftTokenId",
+        "type": "uint256"
       }
     ],
-    "stateMutability": "view",
+    "name": "onCovalentBond",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "managerId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "nftTokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nftTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "onCovalentBreak",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -202,12 +274,12 @@
       },
       {
         "internalType": "uint256",
-        "name": "creatorAmount",
+        "name": "creatorEnergy",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "receiverAmount",
+        "name": "receiverEnergy",
         "type": "uint256"
       }
     ],
@@ -245,7 +317,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "receiverAmount",
+        "name": "receiverEnergy",
         "type": "uint256"
       }
     ],
@@ -258,27 +330,37 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "contractAddress",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "referrer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "",
         "type": "uint256"
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "",
         "type": "string"
       },
       {
         "internalType": "address",
-        "name": "assetToken",
+        "name": "",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "assetAmount",
+        "name": "",
         "type": "uint256"
       }
     ],
@@ -359,12 +441,12 @@
       },
       {
         "internalType": "uint256",
-        "name": "creatorAmount",
+        "name": "creatorEnergy",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "receiverAmount",
+        "name": "receiverEnergy",
         "type": "uint256"
       }
     ],
@@ -410,7 +492,25 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_chargedParticles",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "setCation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "controller",
         "type": "address"
       }
     ],
@@ -432,7 +532,7 @@
         "type": "uint256"
       }
     ],
-    "name": "setIonRewardsMultiplier",
+    "name": "setEsaMultiplier",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -441,20 +541,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_ionToken",
-        "type": "address"
-      }
-    ],
-    "name": "setIonToken",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_protonToken",
+        "name": "token",
         "type": "address"
       }
     ],
@@ -472,6 +559,70 @@
       }
     ],
     "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawERC721",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawErc20",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawEther",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

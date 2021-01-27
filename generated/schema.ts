@@ -85,13 +85,30 @@ export class Universe extends Entity {
     }
   }
 
-  get ionRewardsMultiplier(): Array<string> {
-    let value = this.get("ionRewardsMultiplier");
+  get ionMaxSupply(): BigInt | null {
+    let value = this.get("ionMaxSupply");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set ionMaxSupply(value: BigInt | null) {
+    if (value === null) {
+      this.unset("ionMaxSupply");
+    } else {
+      this.set("ionMaxSupply", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get esaMultiplier(): Array<string> {
+    let value = this.get("esaMultiplier");
     return value.toStringArray();
   }
 
-  set ionRewardsMultiplier(value: Array<string>) {
-    this.set("ionRewardsMultiplier", Value.fromStringArray(value));
+  set esaMultiplier(value: Array<string>) {
+    this.set("esaMultiplier", Value.fromStringArray(value));
   }
 }
 
@@ -185,6 +202,23 @@ export class ChargedParticles extends Entity {
 
   set chargedNftState(value: Array<string>) {
     this.set("chargedNftState", Value.fromStringArray(value));
+  }
+
+  get genericBasketManager(): string | null {
+    let value = this.get("genericBasketManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set genericBasketManager(value: string | null) {
+    if (value === null) {
+      this.unset("genericBasketManager");
+    } else {
+      this.set("genericBasketManager", Value.fromString(value as string));
+    }
   }
 
   get genericWalletManager(): string | null {
@@ -408,6 +442,23 @@ export class NftCreatorSettings extends Entity {
       this.unset("annuityPercent");
     } else {
       this.set("annuityPercent", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get annuityRedirect(): Bytes | null {
+    let value = this.get("annuityRedirect");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set annuityRedirect(value: Bytes | null) {
+    if (value === null) {
+      this.unset("annuityRedirect");
+    } else {
+      this.set("annuityRedirect", Value.fromBytes(value as Bytes));
     }
   }
 }
@@ -650,6 +701,301 @@ export class WhitelistedNftContract extends Entity {
 
   set state(value: boolean) {
     this.set("state", Value.fromBoolean(value));
+  }
+}
+
+export class GenericBasketManager extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save GenericBasketManager entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save GenericBasketManager entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("GenericBasketManager", id.toString(), this);
+  }
+
+  static load(id: string): GenericBasketManager | null {
+    return store.get("GenericBasketManager", id) as GenericBasketManager | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    return value.toBytes();
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get paused(): boolean {
+    let value = this.get("paused");
+    return value.toBoolean();
+  }
+
+  set paused(value: boolean) {
+    this.set("paused", Value.fromBoolean(value));
+  }
+
+  get chargedParticles(): Bytes | null {
+    let value = this.get("chargedParticles");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set chargedParticles(value: Bytes | null) {
+    if (value === null) {
+      this.unset("chargedParticles");
+    } else {
+      this.set("chargedParticles", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get baskets(): Array<string> {
+    let value = this.get("baskets");
+    return value.toStringArray();
+  }
+
+  set baskets(value: Array<string>) {
+    this.set("baskets", Value.fromStringArray(value));
+  }
+}
+
+export class GenericSmartBasket extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save GenericSmartBasket entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save GenericSmartBasket entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("GenericSmartBasket", id.toString(), this);
+  }
+
+  static load(id: string): GenericSmartBasket | null {
+    return store.get("GenericSmartBasket", id) as GenericSmartBasket | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get address(): Bytes | null {
+    let value = this.get("address");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set address(value: Bytes | null) {
+    if (value === null) {
+      this.unset("address");
+    } else {
+      this.set("address", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get basketManager(): string | null {
+    let value = this.get("basketManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set basketManager(value: string | null) {
+    if (value === null) {
+      this.unset("basketManager");
+    } else {
+      this.set("basketManager", Value.fromString(value as string));
+    }
+  }
+
+  get totalTokens(): BigInt {
+    let value = this.get("totalTokens");
+    return value.toBigInt();
+  }
+
+  set totalTokens(value: BigInt) {
+    this.set("totalTokens", Value.fromBigInt(value));
+  }
+
+  get tokenBalances(): Array<string> {
+    let value = this.get("tokenBalances");
+    return value.toStringArray();
+  }
+
+  set tokenBalances(value: Array<string>) {
+    this.set("tokenBalances", Value.fromStringArray(value));
+  }
+}
+
+export class GenericNftTokenBalance extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save GenericNftTokenBalance entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save GenericNftTokenBalance entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("GenericNftTokenBalance", id.toString(), this);
+  }
+
+  static load(id: string): GenericNftTokenBalance | null {
+    return store.get(
+      "GenericNftTokenBalance",
+      id
+    ) as GenericNftTokenBalance | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get contractAddress(): Bytes {
+    let value = this.get("contractAddress");
+    return value.toBytes();
+  }
+
+  set contractAddress(value: Bytes) {
+    this.set("contractAddress", Value.fromBytes(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get nftTokenAddress(): Bytes {
+    let value = this.get("nftTokenAddress");
+    return value.toBytes();
+  }
+
+  set nftTokenAddress(value: Bytes) {
+    this.set("nftTokenAddress", Value.fromBytes(value));
+  }
+
+  get smartBasket(): string | null {
+    let value = this.get("smartBasket");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set smartBasket(value: string | null) {
+    if (value === null) {
+      this.unset("smartBasket");
+    } else {
+      this.set("smartBasket", Value.fromString(value as string));
+    }
+  }
+
+  get nftTokenIds(): Array<BigInt> | null {
+    let value = this.get("nftTokenIds");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set nftTokenIds(value: Array<BigInt> | null) {
+    if (value === null) {
+      this.unset("nftTokenIds");
+    } else {
+      this.set("nftTokenIds", Value.fromBigIntArray(value as Array<BigInt>));
+    }
   }
 }
 
@@ -1191,6 +1537,23 @@ export class AaveSmartWallet extends Entity {
     }
   }
 
+  get nftCreatorAnnuityRedirect(): Bytes | null {
+    let value = this.get("nftCreatorAnnuityRedirect");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set nftCreatorAnnuityRedirect(value: Bytes | null) {
+    if (value === null) {
+      this.unset("nftCreatorAnnuityRedirect");
+    } else {
+      this.set("nftCreatorAnnuityRedirect", Value.fromBytes(value as Bytes));
+    }
+  }
+
   get assetBalances(): Array<string> {
     let value = this.get("assetBalances");
     return value.toStringArray();
@@ -1618,7 +1981,7 @@ export class IonHolder extends Entity {
   }
 }
 
-export class IonRewardsMultiplier extends Entity {
+export class ESAMultiplier extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -1626,20 +1989,17 @@ export class IonRewardsMultiplier extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(
-      id !== null,
-      "Cannot save IonRewardsMultiplier entity without an ID"
-    );
+    assert(id !== null, "Cannot save ESAMultiplier entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save IonRewardsMultiplier entity with non-string ID. " +
+      "Cannot save ESAMultiplier entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("IonRewardsMultiplier", id.toString(), this);
+    store.set("ESAMultiplier", id.toString(), this);
   }
 
-  static load(id: string): IonRewardsMultiplier | null {
-    return store.get("IonRewardsMultiplier", id) as IonRewardsMultiplier | null;
+  static load(id: string): ESAMultiplier | null {
+    return store.get("ESAMultiplier", id) as ESAMultiplier | null;
   }
 
   get id(): string {
@@ -1732,23 +2092,6 @@ export class Proton extends Entity {
       this.unset("chargedParticles");
     } else {
       this.set("chargedParticles", Value.fromString(value as string));
-    }
-  }
-
-  get mintFee(): BigInt | null {
-    let value = this.get("mintFee");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set mintFee(value: BigInt | null) {
-    if (value === null) {
-      this.unset("mintFee");
-    } else {
-      this.set("mintFee", Value.fromBigInt(value as BigInt));
     }
   }
 

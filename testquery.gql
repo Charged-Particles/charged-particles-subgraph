@@ -36,6 +36,27 @@
         releaseTimelock
         assetToBeReleasedBy
       }
+      genericBasketManager {
+        id
+        owner
+        name
+        address
+        paused
+        baskets {
+          id
+          address
+          contractAddress
+          tokenId
+          totalTokens
+          tokenBalances {
+            id
+          	contractAddress
+          	tokenId
+            nftTokenAddress
+            nftTokenIds
+          }
+        }
+      }
       genericWalletManager {
         id
         owner
@@ -72,6 +93,7 @@
           assetTokens
           nftCreator
           nftCreatorAnnuityPct
+          nftCreatorAnnuityRedirect
           assetBalances {
             id
             assetToken
@@ -93,7 +115,7 @@
         balance
       }
     }
-    ionRewardsMultiplier {
+    esaMultiplier {
       id
       assetToken
       multiplier

@@ -5,7 +5,7 @@ import {
 } from '../../generated/schema';
 
 import { ZERO } from './common';
-import { assetTokenBalanceId } from './idTemplates';
+import { tokenBalanceId } from './idTemplates';
 
 
 export function loadOrCreateGenericAssetTokenBalance(
@@ -14,7 +14,7 @@ export function loadOrCreateGenericAssetTokenBalance(
   contractAddress: Address,
   tokenId: BigInt
 ): GenericAssetTokenBalance {
-  const id = assetTokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
+  const id = tokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
   let _assetTokenBalance = GenericAssetTokenBalance.load(id);
 
   if (!_assetTokenBalance) {

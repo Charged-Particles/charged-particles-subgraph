@@ -1,6 +1,6 @@
 
 
-export function ionRewardsMultiplierId(universeAddress: string, assetTokenAddress: string): string {
+export function esaMultiplierId(universeAddress: string, assetTokenAddress: string): string {
   return universeAddress + '-' + assetTokenAddress;
 }
 
@@ -12,8 +12,8 @@ export function chargedNftStateId(contractAddress: string, tokenId: string): str
   return contractAddress + '-' + tokenId;
 }
 
-export function assetTokenBalanceId(assetTokenAddress: string, contractAddress: string, tokenId: string): string {
-  return assetTokenAddress + '-' + contractAddress + '-' + tokenId;
+export function tokenBalanceId(tokenAddress: string, contractAddress: string, tokenId: string): string {
+  return tokenAddress + '-' + contractAddress + '-' + tokenId;
 }
 
 export function smartWalletId(contractAddress: string, tokenId: string): string {

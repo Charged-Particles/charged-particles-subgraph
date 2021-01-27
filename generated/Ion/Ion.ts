@@ -1256,3 +1256,113 @@ export class TransferOwnershipCall__Outputs {
     this._call = call;
   }
 }
+
+export class WithdrawERC721Call extends ethereum.Call {
+  get inputs(): WithdrawERC721Call__Inputs {
+    return new WithdrawERC721Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC721Call__Outputs {
+    return new WithdrawERC721Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC721Call__Inputs {
+  _call: WithdrawERC721Call;
+
+  constructor(call: WithdrawERC721Call) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class WithdrawERC721Call__Outputs {
+  _call: WithdrawERC721Call;
+
+  constructor(call: WithdrawERC721Call) {
+    this._call = call;
+  }
+}
+
+export class WithdrawErc20Call extends ethereum.Call {
+  get inputs(): WithdrawErc20Call__Inputs {
+    return new WithdrawErc20Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawErc20Call__Outputs {
+    return new WithdrawErc20Call__Outputs(this);
+  }
+}
+
+export class WithdrawErc20Call__Inputs {
+  _call: WithdrawErc20Call;
+
+  constructor(call: WithdrawErc20Call) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class WithdrawErc20Call__Outputs {
+  _call: WithdrawErc20Call;
+
+  constructor(call: WithdrawErc20Call) {
+    this._call = call;
+  }
+}
+
+export class WithdrawEtherCall extends ethereum.Call {
+  get inputs(): WithdrawEtherCall__Inputs {
+    return new WithdrawEtherCall__Inputs(this);
+  }
+
+  get outputs(): WithdrawEtherCall__Outputs {
+    return new WithdrawEtherCall__Outputs(this);
+  }
+}
+
+export class WithdrawEtherCall__Inputs {
+  _call: WithdrawEtherCall;
+
+  constructor(call: WithdrawEtherCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class WithdrawEtherCall__Outputs {
+  _call: WithdrawEtherCall;
+
+  constructor(call: WithdrawEtherCall) {
+    this._call = call;
+  }
+}

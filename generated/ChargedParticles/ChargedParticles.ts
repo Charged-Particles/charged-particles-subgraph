@@ -53,11 +53,33 @@ export class LiquidityProviderRegistered__Params {
     this._event = event;
   }
 
-  get liquidityProviderId(): Bytes {
+  get walletManagerId(): Bytes {
     return this._event.parameters[0].value.toBytes();
   }
 
   get walletManager(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+}
+
+export class NftBasketRegistered extends ethereum.Event {
+  get params(): NftBasketRegistered__Params {
+    return new NftBasketRegistered__Params(this);
+  }
+}
+
+export class NftBasketRegistered__Params {
+  _event: NftBasketRegistered;
+
+  constructor(event: NftBasketRegistered) {
+    this._event = event;
+  }
+
+  get basketId(): Bytes {
+    return this._event.parameters[0].value.toBytes();
+  }
+
+  get basketManager(): Address {
     return this._event.parameters[1].value.toAddress();
   }
 }
@@ -171,6 +193,32 @@ export class TokenContractConfigsSet__Params {
 
   get assetDepositMax(): BigInt {
     return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class TokenCreatorAnnuitiesRedirected extends ethereum.Event {
+  get params(): TokenCreatorAnnuitiesRedirected__Params {
+    return new TokenCreatorAnnuitiesRedirected__Params(this);
+  }
+}
+
+export class TokenCreatorAnnuitiesRedirected__Params {
+  _event: TokenCreatorAnnuitiesRedirected;
+
+  constructor(event: TokenCreatorAnnuitiesRedirected) {
+    this._event = event;
+  }
+
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get redirectAddress(): Address {
+    return this._event.parameters[2].value.toAddress();
   }
 }
 
@@ -355,6 +403,23 @@ export class ChargedParticles__releaseParticleResult {
   }
 }
 
+export class ChargedParticles__releaseParticleAmountResult {
+  value0: BigInt;
+  value1: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+}
+
 export class ChargedParticles extends ethereum.SmartContract {
   static bind(address: Address): ChargedParticles {
     return new ChargedParticles("ChargedParticles", address);
@@ -363,7 +428,7 @@ export class ChargedParticles extends ethereum.SmartContract {
   baseParticleMass(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): BigInt {
     let result = super.call(
@@ -372,7 +437,7 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -383,7 +448,7 @@ export class ChargedParticles extends ethereum.SmartContract {
   try_baseParticleMass(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
@@ -392,7 +457,7 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -403,10 +468,108 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  breakCovalentBond(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    basketManagerId: string,
+    nftTokenAddress: Address,
+    nftTokenId: BigInt
+  ): boolean {
+    let result = super.call(
+      "breakCovalentBond",
+      "breakCovalentBond(address,address,uint256,string,address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(basketManagerId),
+        ethereum.Value.fromAddress(nftTokenAddress),
+        ethereum.Value.fromUnsignedBigInt(nftTokenId)
+      ]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_breakCovalentBond(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    basketManagerId: string,
+    nftTokenAddress: Address,
+    nftTokenId: BigInt
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "breakCovalentBond",
+      "breakCovalentBond(address,address,uint256,string,address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(basketManagerId),
+        ethereum.Value.fromAddress(nftTokenAddress),
+        ethereum.Value.fromUnsignedBigInt(nftTokenId)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  covalentBond(
+    contractAddress: Address,
+    tokenId: BigInt,
+    basketManagerId: string,
+    nftTokenAddress: Address,
+    nftTokenId: BigInt
+  ): boolean {
+    let result = super.call(
+      "covalentBond",
+      "covalentBond(address,uint256,string,address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(basketManagerId),
+        ethereum.Value.fromAddress(nftTokenAddress),
+        ethereum.Value.fromUnsignedBigInt(nftTokenId)
+      ]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_covalentBond(
+    contractAddress: Address,
+    tokenId: BigInt,
+    basketManagerId: string,
+    nftTokenAddress: Address,
+    nftTokenId: BigInt
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "covalentBond",
+      "covalentBond(address,uint256,string,address,uint256):(bool)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(basketManagerId),
+        ethereum.Value.fromAddress(nftTokenAddress),
+        ethereum.Value.fromUnsignedBigInt(nftTokenId)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   currentParticleCharge(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): BigInt {
     let result = super.call(
@@ -415,7 +578,7 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -426,7 +589,7 @@ export class ChargedParticles extends ethereum.SmartContract {
   try_currentParticleCharge(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
@@ -435,8 +598,47 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  currentParticleCovalentBonds(
+    contractAddress: Address,
+    tokenId: BigInt,
+    basketManagerId: string
+  ): BigInt {
+    let result = super.call(
+      "currentParticleCovalentBonds",
+      "currentParticleCovalentBonds(address,uint256,string):(uint256)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(basketManagerId)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_currentParticleCovalentBonds(
+    contractAddress: Address,
+    tokenId: BigInt,
+    basketManagerId: string
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "currentParticleCovalentBonds",
+      "currentParticleCovalentBonds(address,uint256,string):(uint256)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(basketManagerId)
       ]
     );
     if (result.reverted) {
@@ -449,7 +651,7 @@ export class ChargedParticles extends ethereum.SmartContract {
   currentParticleKinetics(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): BigInt {
     let result = super.call(
@@ -458,7 +660,7 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -469,7 +671,7 @@ export class ChargedParticles extends ethereum.SmartContract {
   try_currentParticleKinetics(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
@@ -478,7 +680,7 @@ export class ChargedParticles extends ethereum.SmartContract {
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -493,7 +695,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): ChargedParticles__dischargeParticleResult {
     let result = super.call(
@@ -503,7 +705,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -518,7 +720,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): ethereum.CallResult<ChargedParticles__dischargeParticleResult> {
     let result = super.tryCall(
@@ -528,7 +730,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -548,7 +750,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address,
     assetAmount: BigInt
   ): ChargedParticles__dischargeParticleAmountResult {
@@ -559,7 +761,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken),
         ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
@@ -575,7 +777,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address,
     assetAmount: BigInt
   ): ethereum.CallResult<ChargedParticles__dischargeParticleAmountResult> {
@@ -586,7 +788,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken),
         ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
@@ -607,7 +809,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address,
     assetAmount: BigInt
   ): BigInt {
@@ -618,7 +820,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken),
         ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
@@ -631,7 +833,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address,
     assetAmount: BigInt
   ): ethereum.CallResult<BigInt> {
@@ -642,7 +844,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken),
         ethereum.Value.fromUnsignedBigInt(assetAmount)
       ]
@@ -657,19 +859,21 @@ export class ChargedParticles extends ethereum.SmartContract {
   energizeParticle(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address,
-    assetAmount: BigInt
+    assetAmount: BigInt,
+    referrer: Address
   ): BigInt {
     let result = super.call(
       "energizeParticle",
-      "energizeParticle(address,uint256,string,address,uint256):(uint256)",
+      "energizeParticle(address,uint256,string,address,uint256,address):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromAddress(referrer)
       ]
     );
 
@@ -679,19 +883,21 @@ export class ChargedParticles extends ethereum.SmartContract {
   try_energizeParticle(
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address,
-    assetAmount: BigInt
+    assetAmount: BigInt,
+    referrer: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "energizeParticle",
-      "energizeParticle(address,uint256,string,address,uint256):(uint256)",
+      "energizeParticle(address,uint256,string,address,uint256,address):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromAddress(referrer)
       ]
     );
     if (result.reverted) {
@@ -701,20 +907,78 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getLiquidityProviderByIndex(index: BigInt): string {
+  getBasketManager(basketId: string): Address {
     let result = super.call(
-      "getLiquidityProviderByIndex",
-      "getLiquidityProviderByIndex(uint256):(string)",
+      "getBasketManager",
+      "getBasketManager(string):(address)",
+      [ethereum.Value.fromString(basketId)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getBasketManager(basketId: string): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getBasketManager",
+      "getBasketManager(string):(address)",
+      [ethereum.Value.fromString(basketId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getCreatorAnnuitiesRedirect(
+    contractAddress: Address,
+    tokenId: BigInt
+  ): Address {
+    let result = super.call(
+      "getCreatorAnnuitiesRedirect",
+      "getCreatorAnnuitiesRedirect(address,uint256):(address)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId)
+      ]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getCreatorAnnuitiesRedirect(
+    contractAddress: Address,
+    tokenId: BigInt
+  ): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getCreatorAnnuitiesRedirect",
+      "getCreatorAnnuitiesRedirect(address,uint256):(address)",
+      [
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getNftBasketByIndex(index: BigInt): string {
+    let result = super.call(
+      "getNftBasketByIndex",
+      "getNftBasketByIndex(uint256):(string)",
       [ethereum.Value.fromUnsignedBigInt(index)]
     );
 
     return result[0].toString();
   }
 
-  try_getLiquidityProviderByIndex(index: BigInt): ethereum.CallResult<string> {
+  try_getNftBasketByIndex(index: BigInt): ethereum.CallResult<string> {
     let result = super.tryCall(
-      "getLiquidityProviderByIndex",
-      "getLiquidityProviderByIndex(uint256):(string)",
+      "getNftBasketByIndex",
+      "getNftBasketByIndex(uint256):(string)",
       [ethereum.Value.fromUnsignedBigInt(index)]
     );
     if (result.reverted) {
@@ -724,20 +988,20 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toString());
   }
 
-  getLiquidityProvidersCount(): BigInt {
+  getNftBasketCount(): BigInt {
     let result = super.call(
-      "getLiquidityProvidersCount",
-      "getLiquidityProvidersCount():(uint256)",
+      "getNftBasketCount",
+      "getNftBasketCount():(uint256)",
       []
     );
 
     return result[0].toBigInt();
   }
 
-  try_getLiquidityProvidersCount(): ethereum.CallResult<BigInt> {
+  try_getNftBasketCount(): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
-      "getLiquidityProvidersCount",
-      "getLiquidityProvidersCount():(uint256)",
+      "getNftBasketCount",
+      "getNftBasketCount():(uint256)",
       []
     );
     if (result.reverted) {
@@ -747,12 +1011,12 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getOwnerUUID(liquidityProviderId: string, ownerAddress: Address): BigInt {
+  getOwnerUUID(walletManagerId: string, ownerAddress: Address): BigInt {
     let result = super.call(
       "getOwnerUUID",
       "getOwnerUUID(string,address):(uint256)",
       [
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(ownerAddress)
       ]
     );
@@ -761,14 +1025,14 @@ export class ChargedParticles extends ethereum.SmartContract {
   }
 
   try_getOwnerUUID(
-    liquidityProviderId: string,
+    walletManagerId: string,
     ownerAddress: Address
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getOwnerUUID",
       "getOwnerUUID(string,address):(uint256)",
       [
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(ownerAddress)
       ]
     );
@@ -811,29 +1075,73 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getWalletManager(liquidityProviderId: string): Address {
+  getWalletManager(walletManagerId: string): Address {
     let result = super.call(
       "getWalletManager",
       "getWalletManager(string):(address)",
-      [ethereum.Value.fromString(liquidityProviderId)]
+      [ethereum.Value.fromString(walletManagerId)]
     );
 
     return result[0].toAddress();
   }
 
-  try_getWalletManager(
-    liquidityProviderId: string
-  ): ethereum.CallResult<Address> {
+  try_getWalletManager(walletManagerId: string): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "getWalletManager",
       "getWalletManager(string):(address)",
-      [ethereum.Value.fromString(liquidityProviderId)]
+      [ethereum.Value.fromString(walletManagerId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getWalletManagerByIndex(index: BigInt): string {
+    let result = super.call(
+      "getWalletManagerByIndex",
+      "getWalletManagerByIndex(uint256):(string)",
+      [ethereum.Value.fromUnsignedBigInt(index)]
+    );
+
+    return result[0].toString();
+  }
+
+  try_getWalletManagerByIndex(index: BigInt): ethereum.CallResult<string> {
+    let result = super.tryCall(
+      "getWalletManagerByIndex",
+      "getWalletManagerByIndex(uint256):(string)",
+      [ethereum.Value.fromUnsignedBigInt(index)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
+  getWalletManagerCount(): BigInt {
+    let result = super.call(
+      "getWalletManagerCount",
+      "getWalletManagerCount():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getWalletManagerCount(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getWalletManagerCount",
+      "getWalletManagerCount():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   isApprovedForDischarge(
@@ -985,23 +1293,21 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  isLiquidityProviderEnabled(liquidityProviderId: string): boolean {
+  isNftBasketEnabled(basketId: string): boolean {
     let result = super.call(
-      "isLiquidityProviderEnabled",
-      "isLiquidityProviderEnabled(string):(bool)",
-      [ethereum.Value.fromString(liquidityProviderId)]
+      "isNftBasketEnabled",
+      "isNftBasketEnabled(string):(bool)",
+      [ethereum.Value.fromString(basketId)]
     );
 
     return result[0].toBoolean();
   }
 
-  try_isLiquidityProviderEnabled(
-    liquidityProviderId: string
-  ): ethereum.CallResult<boolean> {
+  try_isNftBasketEnabled(basketId: string): ethereum.CallResult<boolean> {
     let result = super.tryCall(
-      "isLiquidityProviderEnabled",
-      "isLiquidityProviderEnabled(string):(bool)",
-      [ethereum.Value.fromString(liquidityProviderId)]
+      "isNftBasketEnabled",
+      "isNftBasketEnabled(string):(bool)",
+      [ethereum.Value.fromString(basketId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1072,6 +1378,31 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
+  isWalletManagerEnabled(walletManagerId: string): boolean {
+    let result = super.call(
+      "isWalletManagerEnabled",
+      "isWalletManagerEnabled(string):(bool)",
+      [ethereum.Value.fromString(walletManagerId)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_isWalletManagerEnabled(
+    walletManagerId: string
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "isWalletManagerEnabled",
+      "isWalletManagerEnabled(string):(bool)",
+      [ethereum.Value.fromString(walletManagerId)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   onERC721Received(
     param0: Address,
     param1: Address,
@@ -1134,7 +1465,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): ChargedParticles__releaseParticleResult {
     let result = super.call(
@@ -1144,7 +1475,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -1159,7 +1490,7 @@ export class ChargedParticles extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    liquidityProviderId: string,
+    walletManagerId: string,
     assetToken: Address
   ): ethereum.CallResult<ChargedParticles__releaseParticleResult> {
     let result = super.tryCall(
@@ -1169,7 +1500,7 @@ export class ChargedParticles extends ethereum.SmartContract {
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromString(liquidityProviderId),
+        ethereum.Value.fromString(walletManagerId),
         ethereum.Value.fromAddress(assetToken)
       ]
     );
@@ -1179,6 +1510,65 @@ export class ChargedParticles extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(
       new ChargedParticles__releaseParticleResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
+      )
+    );
+  }
+
+  releaseParticleAmount(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    walletManagerId: string,
+    assetToken: Address,
+    assetAmount: BigInt
+  ): ChargedParticles__releaseParticleAmountResult {
+    let result = super.call(
+      "releaseParticleAmount",
+      "releaseParticleAmount(address,address,uint256,string,address,uint256):(uint256,uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(walletManagerId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
+      ]
+    );
+
+    return new ChargedParticles__releaseParticleAmountResult(
+      result[0].toBigInt(),
+      result[1].toBigInt()
+    );
+  }
+
+  try_releaseParticleAmount(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    walletManagerId: string,
+    assetToken: Address,
+    assetAmount: BigInt
+  ): ethereum.CallResult<ChargedParticles__releaseParticleAmountResult> {
+    let result = super.tryCall(
+      "releaseParticleAmount",
+      "releaseParticleAmount(address,address,uint256,string,address,uint256):(uint256,uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromString(walletManagerId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new ChargedParticles__releaseParticleAmountResult(
         value[0].toBigInt(),
         value[1].toBigInt()
       )
@@ -1276,7 +1666,7 @@ export class BaseParticleMassCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[2].value.toString();
   }
 
@@ -1294,6 +1684,110 @@ export class BaseParticleMassCall__Outputs {
 
   get value0(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
+export class BreakCovalentBondCall extends ethereum.Call {
+  get inputs(): BreakCovalentBondCall__Inputs {
+    return new BreakCovalentBondCall__Inputs(this);
+  }
+
+  get outputs(): BreakCovalentBondCall__Outputs {
+    return new BreakCovalentBondCall__Outputs(this);
+  }
+}
+
+export class BreakCovalentBondCall__Inputs {
+  _call: BreakCovalentBondCall;
+
+  constructor(call: BreakCovalentBondCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get basketManagerId(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+
+  get nftTokenAddress(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get nftTokenId(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class BreakCovalentBondCall__Outputs {
+  _call: BreakCovalentBondCall;
+
+  constructor(call: BreakCovalentBondCall) {
+    this._call = call;
+  }
+
+  get success(): boolean {
+    return this._call.outputValues[0].value.toBoolean();
+  }
+}
+
+export class CovalentBondCall extends ethereum.Call {
+  get inputs(): CovalentBondCall__Inputs {
+    return new CovalentBondCall__Inputs(this);
+  }
+
+  get outputs(): CovalentBondCall__Outputs {
+    return new CovalentBondCall__Outputs(this);
+  }
+}
+
+export class CovalentBondCall__Inputs {
+  _call: CovalentBondCall;
+
+  constructor(call: CovalentBondCall) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get basketManagerId(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get nftTokenAddress(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get nftTokenId(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+}
+
+export class CovalentBondCall__Outputs {
+  _call: CovalentBondCall;
+
+  constructor(call: CovalentBondCall) {
+    this._call = call;
+  }
+
+  get success(): boolean {
+    return this._call.outputValues[0].value.toBoolean();
   }
 }
 
@@ -1322,7 +1816,7 @@ export class CurrentParticleChargeCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[2].value.toString();
   }
 
@@ -1368,7 +1862,7 @@ export class CurrentParticleKineticsCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[2].value.toString();
   }
 
@@ -1418,7 +1912,7 @@ export class DischargeParticleCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[3].value.toString();
   }
 
@@ -1472,7 +1966,7 @@ export class DischargeParticleAmountCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[3].value.toString();
   }
 
@@ -1530,7 +2024,7 @@ export class DischargeParticleForCreatorCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[3].value.toString();
   }
 
@@ -1580,7 +2074,7 @@ export class EnergizeParticleCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[2].value.toString();
   }
 
@@ -1590,6 +2084,10 @@ export class EnergizeParticleCall__Inputs {
 
   get assetAmount(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get referrer(): Address {
+    return this._call.inputValues[5].value.toAddress();
   }
 }
 
@@ -1681,24 +2179,58 @@ export class OnERC721ReceivedCall__Outputs {
   }
 }
 
-export class RegisterLiquidityProviderCall extends ethereum.Call {
-  get inputs(): RegisterLiquidityProviderCall__Inputs {
-    return new RegisterLiquidityProviderCall__Inputs(this);
+export class RegisterBasketManagerCall extends ethereum.Call {
+  get inputs(): RegisterBasketManagerCall__Inputs {
+    return new RegisterBasketManagerCall__Inputs(this);
   }
 
-  get outputs(): RegisterLiquidityProviderCall__Outputs {
-    return new RegisterLiquidityProviderCall__Outputs(this);
+  get outputs(): RegisterBasketManagerCall__Outputs {
+    return new RegisterBasketManagerCall__Outputs(this);
   }
 }
 
-export class RegisterLiquidityProviderCall__Inputs {
-  _call: RegisterLiquidityProviderCall;
+export class RegisterBasketManagerCall__Inputs {
+  _call: RegisterBasketManagerCall;
 
-  constructor(call: RegisterLiquidityProviderCall) {
+  constructor(call: RegisterBasketManagerCall) {
     this._call = call;
   }
 
-  get liquidityProviderId(): string {
+  get basketId(): string {
+    return this._call.inputValues[0].value.toString();
+  }
+
+  get basketManager(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+}
+
+export class RegisterBasketManagerCall__Outputs {
+  _call: RegisterBasketManagerCall;
+
+  constructor(call: RegisterBasketManagerCall) {
+    this._call = call;
+  }
+}
+
+export class RegisterWalletManagerCall extends ethereum.Call {
+  get inputs(): RegisterWalletManagerCall__Inputs {
+    return new RegisterWalletManagerCall__Inputs(this);
+  }
+
+  get outputs(): RegisterWalletManagerCall__Outputs {
+    return new RegisterWalletManagerCall__Outputs(this);
+  }
+}
+
+export class RegisterWalletManagerCall__Inputs {
+  _call: RegisterWalletManagerCall;
+
+  constructor(call: RegisterWalletManagerCall) {
+    this._call = call;
+  }
+
+  get walletManagerId(): string {
     return this._call.inputValues[0].value.toString();
   }
 
@@ -1707,10 +2239,10 @@ export class RegisterLiquidityProviderCall__Inputs {
   }
 }
 
-export class RegisterLiquidityProviderCall__Outputs {
-  _call: RegisterLiquidityProviderCall;
+export class RegisterWalletManagerCall__Outputs {
+  _call: RegisterWalletManagerCall;
 
-  constructor(call: RegisterLiquidityProviderCall) {
+  constructor(call: RegisterWalletManagerCall) {
     this._call = call;
   }
 }
@@ -1744,7 +2276,7 @@ export class ReleaseParticleCall__Inputs {
     return this._call.inputValues[2].value.toBigInt();
   }
 
-  get liquidityProviderId(): string {
+  get walletManagerId(): string {
     return this._call.inputValues[3].value.toString();
   }
 
@@ -1757,6 +2289,64 @@ export class ReleaseParticleCall__Outputs {
   _call: ReleaseParticleCall;
 
   constructor(call: ReleaseParticleCall) {
+    this._call = call;
+  }
+
+  get creatorAmount(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[1].value.toBigInt();
+  }
+}
+
+export class ReleaseParticleAmountCall extends ethereum.Call {
+  get inputs(): ReleaseParticleAmountCall__Inputs {
+    return new ReleaseParticleAmountCall__Inputs(this);
+  }
+
+  get outputs(): ReleaseParticleAmountCall__Outputs {
+    return new ReleaseParticleAmountCall__Outputs(this);
+  }
+}
+
+export class ReleaseParticleAmountCall__Inputs {
+  _call: ReleaseParticleAmountCall;
+
+  constructor(call: ReleaseParticleAmountCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get walletManagerId(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
+
+  get assetAmount(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class ReleaseParticleAmountCall__Outputs {
+  _call: ReleaseParticleAmountCall;
+
+  constructor(call: ReleaseParticleAmountCall) {
     this._call = call;
   }
 
@@ -1791,6 +2381,44 @@ export class RenounceOwnershipCall__Outputs {
   _call: RenounceOwnershipCall;
 
   constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class SetCreatorAnnuitiesRedirectCall extends ethereum.Call {
+  get inputs(): SetCreatorAnnuitiesRedirectCall__Inputs {
+    return new SetCreatorAnnuitiesRedirectCall__Inputs(this);
+  }
+
+  get outputs(): SetCreatorAnnuitiesRedirectCall__Outputs {
+    return new SetCreatorAnnuitiesRedirectCall__Outputs(this);
+  }
+}
+
+export class SetCreatorAnnuitiesRedirectCall__Inputs {
+  _call: SetCreatorAnnuitiesRedirectCall;
+
+  constructor(call: SetCreatorAnnuitiesRedirectCall) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+}
+
+export class SetCreatorAnnuitiesRedirectCall__Outputs {
+  _call: SetCreatorAnnuitiesRedirectCall;
+
+  constructor(call: SetCreatorAnnuitiesRedirectCall) {
     this._call = call;
   }
 }
@@ -2159,6 +2787,116 @@ export class UpdateWhitelistCall__Outputs {
   _call: UpdateWhitelistCall;
 
   constructor(call: UpdateWhitelistCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawERC721Call extends ethereum.Call {
+  get inputs(): WithdrawERC721Call__Inputs {
+    return new WithdrawERC721Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC721Call__Outputs {
+    return new WithdrawERC721Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC721Call__Inputs {
+  _call: WithdrawERC721Call;
+
+  constructor(call: WithdrawERC721Call) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class WithdrawERC721Call__Outputs {
+  _call: WithdrawERC721Call;
+
+  constructor(call: WithdrawERC721Call) {
+    this._call = call;
+  }
+}
+
+export class WithdrawErc20Call extends ethereum.Call {
+  get inputs(): WithdrawErc20Call__Inputs {
+    return new WithdrawErc20Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawErc20Call__Outputs {
+    return new WithdrawErc20Call__Outputs(this);
+  }
+}
+
+export class WithdrawErc20Call__Inputs {
+  _call: WithdrawErc20Call;
+
+  constructor(call: WithdrawErc20Call) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class WithdrawErc20Call__Outputs {
+  _call: WithdrawErc20Call;
+
+  constructor(call: WithdrawErc20Call) {
+    this._call = call;
+  }
+}
+
+export class WithdrawEtherCall extends ethereum.Call {
+  get inputs(): WithdrawEtherCall__Inputs {
+    return new WithdrawEtherCall__Inputs(this);
+  }
+
+  get outputs(): WithdrawEtherCall__Outputs {
+    return new WithdrawEtherCall__Outputs(this);
+  }
+}
+
+export class WithdrawEtherCall__Inputs {
+  _call: WithdrawEtherCall;
+
+  constructor(call: WithdrawEtherCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class WithdrawEtherCall__Outputs {
+  _call: WithdrawEtherCall;
+
+  constructor(call: WithdrawEtherCall) {
     this._call = call;
   }
 }

@@ -5,7 +5,7 @@ import {
 } from '../../generated/schema';
 
 import { ZERO } from './common';
-import { assetTokenBalanceId } from './idTemplates';
+import { tokenBalanceId } from './idTemplates';
 
 
 export function loadOrCreateAaveAssetTokenBalance(
@@ -14,7 +14,7 @@ export function loadOrCreateAaveAssetTokenBalance(
   contractAddress: Address,
   tokenId: BigInt
 ): AaveAssetTokenBalance {
-  const id = assetTokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
+  const id = tokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
   let _assetTokenBalance = AaveAssetTokenBalance.load(id);
 
   if (!_assetTokenBalance) {

@@ -8,7 +8,6 @@ import {
 import {
   OwnershipTransferred,
   ChargedParticlesSet,
-  MintFeeSet,
   SalePriceSet,
   CreatorRoyaltiesSet,
   ProtonSold,
@@ -36,12 +35,6 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 export function handleChargedParticlesSet(event: ChargedParticlesSet): void {
   const _proton = loadOrCreateProton(event.address);
   _proton.chargedParticles = event.params.chargedParticles.toHex();
-  _proton.save();
-}
-
-export function handleMintFeeSet(event: MintFeeSet): void {
-  const _proton = loadOrCreateProton(event.address);
-  _proton.mintFee = event.params.fee;
   _proton.save();
 }
 

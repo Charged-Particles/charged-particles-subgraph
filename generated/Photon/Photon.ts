@@ -229,7 +229,7 @@ export class TransferCall__Inputs {
     this._call = call;
   }
 
-  get newPhoton(): Address {
+  get receiver(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 }

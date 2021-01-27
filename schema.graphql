@@ -7,7 +7,8 @@ type Universe @entity {
   chargedParticles: ChargedParticles
 
   ionToken: Ion
-  ionRewardsMultiplier: [IonRewardsMultiplier!]! @derivedFrom(field: "universe")
+  ionMaxSupply: BigInt
+  esaMultiplier: [ESAMultiplier!]! @derivedFrom(field: "universe")
 }
 
 # ID: `${chargedParticles.address}`
@@ -25,6 +26,7 @@ type ChargedParticles @entity {
   chargedNftState: [ChargedNftState!]! @derivedFrom(field: "chargedParticles")
 
   # Various WalletManagers listed here
+  genericBasketManager: GenericBasketManager
   genericWalletManager: GenericWalletManager
   aaveWalletManager: AaveWalletManager
 }
@@ -53,6 +55,7 @@ type NftCreatorSettings @entity {
   creatorAddress: Bytes!
 
   annuityPercent: BigInt
+  annuityRedirect: Bytes
 }
 
 # ID: `${contractAddress.address}-${tokenId}`
@@ -84,6 +87,47 @@ type WhitelistedNftContract @entity {
   state: Boolean!
 }
 
+# ID: `${genericBasketManager.address}`
+type GenericBasketManager @entity {
+  id: ID!
+  owner: Bytes!
+  name: String!
+  address: Bytes!
+  paused: Boolean!
+
+  chargedParticles: Bytes
+
+  baskets: [GenericSmartBasket!]! @derivedFrom(field: "basketManager")
+}
+
+# ID: `${contractAddress}-${tokenId}`
+type GenericSmartBasket @entity {
+  id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
+  address: Bytes
+  basketManager: GenericBasketManager
+  totalTokens: BigInt!
+
+  tokenBalances: [GenericNftTokenBalance!]! @derivedFrom(field: "smartBasket")
+}
+
+# ID: `${nftToken.address}-${contractAddress}-${tokenId}`
+# dynamically generated type, not mapped to a specific contract
+type GenericNftTokenBalance @entity {
+  id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+
+  nftTokenAddress: Bytes!
+
+  smartBasket: GenericSmartBasket
+
+  nftTokenIds: [BigInt!]
+}
 
 # ID: `${genericWalletManager.address}`
 type GenericWalletManager @entity {
@@ -126,7 +170,6 @@ type GenericAssetTokenBalance @entity {
   principal: BigInt!
 }
 
-
 # ID: `${aaveWalletManager.address}`
 type AaveWalletManager @entity {
   id: ID!
@@ -154,6 +197,7 @@ type AaveSmartWallet @entity {
 
   nftCreator: Bytes
   nftCreatorAnnuityPct: BigInt
+  nftCreatorAnnuityRedirect: Bytes
 
   assetBalances: [AaveAssetTokenBalance!]! @derivedFrom(field: "smartWallet")
 }
@@ -217,7 +261,7 @@ type IonHolder @entity {
 
 # ID: `${universe.address}-${assetToken.address}`
 # dynamically generated type, not mapped to a specific contract
-type IonRewardsMultiplier @entity {
+type ESAMultiplier @entity {
   id: ID!
   universe: Universe!
 
@@ -232,7 +276,6 @@ type Proton @entity {
   id: ID!
   owner: Bytes!
   chargedParticles: ChargedParticles
-  mintFee: BigInt
 
   tokens: [ProtonNFT!]! @derivedFrom(field: "proton")
 }

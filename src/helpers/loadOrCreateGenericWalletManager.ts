@@ -22,7 +22,7 @@ export function loadOrCreateGenericWalletManager(
     _genericWalletManager.owner = boundWalletManager.owner();
     _genericWalletManager.paused = boundWalletManager.isPaused();
 
-    _genericWalletManager.name = 'Generic';
+    _genericWalletManager.name = 'generic';
     _genericWalletManager.address = genericWalletManagerAddress;
 
     _genericWalletManager.save();

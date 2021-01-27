@@ -391,6 +391,26 @@ export class AaveWalletManager__releaseResult {
   }
 }
 
+export class AaveWalletManager__releaseAmountResult {
+  value0: BigInt;
+  value1: BigInt;
+  value2: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt, value2: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+    this.value2 = value2;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
+    return map;
+  }
+}
+
 export class AaveWalletManager extends ethereum.SmartContract {
   static bind(address: Address): AaveWalletManager {
     return new AaveWalletManager("AaveWalletManager", address);
@@ -400,16 +420,18 @@ export class AaveWalletManager extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    assetToken: Address
+    assetToken: Address,
+    creatorRedirect: Address
   ): AaveWalletManager__dischargeResult {
     let result = super.call(
       "discharge",
-      "discharge(address,address,uint256,address):(uint256,uint256)",
+      "discharge(address,address,uint256,address,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(assetToken)
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromAddress(creatorRedirect)
       ]
     );
 
@@ -423,16 +445,18 @@ export class AaveWalletManager extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    assetToken: Address
+    assetToken: Address,
+    creatorRedirect: Address
   ): ethereum.CallResult<AaveWalletManager__dischargeResult> {
     let result = super.tryCall(
       "discharge",
-      "discharge(address,address,uint256,address):(uint256,uint256)",
+      "discharge(address,address,uint256,address,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(assetToken)
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromAddress(creatorRedirect)
       ]
     );
     if (result.reverted) {
@@ -452,17 +476,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
     contractAddress: Address,
     tokenId: BigInt,
     assetToken: Address,
-    assetAmount: BigInt
+    assetAmount: BigInt,
+    creatorRedirect: Address
   ): AaveWalletManager__dischargeAmountResult {
     let result = super.call(
       "dischargeAmount",
-      "dischargeAmount(address,address,uint256,address,uint256):(uint256,uint256)",
+      "dischargeAmount(address,address,uint256,address,uint256,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(assetToken),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromAddress(creatorRedirect)
       ]
     );
 
@@ -477,17 +503,19 @@ export class AaveWalletManager extends ethereum.SmartContract {
     contractAddress: Address,
     tokenId: BigInt,
     assetToken: Address,
-    assetAmount: BigInt
+    assetAmount: BigInt,
+    creatorRedirect: Address
   ): ethereum.CallResult<AaveWalletManager__dischargeAmountResult> {
     let result = super.tryCall(
       "dischargeAmount",
-      "dischargeAmount(address,address,uint256,address,uint256):(uint256,uint256)",
+      "dischargeAmount(address,address,uint256,address,uint256,address):(uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(assetToken),
-        ethereum.Value.fromUnsignedBigInt(assetAmount)
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromAddress(creatorRedirect)
       ]
     );
     if (result.reverted) {
@@ -962,16 +990,18 @@ export class AaveWalletManager extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    assetToken: Address
+    assetToken: Address,
+    creatorRedirect: Address
   ): AaveWalletManager__releaseResult {
     let result = super.call(
       "release",
-      "release(address,address,uint256,address):(uint256,uint256,uint256)",
+      "release(address,address,uint256,address,address):(uint256,uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(assetToken)
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromAddress(creatorRedirect)
       ]
     );
 
@@ -986,16 +1016,18 @@ export class AaveWalletManager extends ethereum.SmartContract {
     receiver: Address,
     contractAddress: Address,
     tokenId: BigInt,
-    assetToken: Address
+    assetToken: Address,
+    creatorRedirect: Address
   ): ethereum.CallResult<AaveWalletManager__releaseResult> {
     let result = super.tryCall(
       "release",
-      "release(address,address,uint256,address):(uint256,uint256,uint256)",
+      "release(address,address,uint256,address,address):(uint256,uint256,uint256)",
       [
         ethereum.Value.fromAddress(receiver),
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(assetToken)
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromAddress(creatorRedirect)
       ]
     );
     if (result.reverted) {
@@ -1004,6 +1036,67 @@ export class AaveWalletManager extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(
       new AaveWalletManager__releaseResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt()
+      )
+    );
+  }
+
+  releaseAmount(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address,
+    assetAmount: BigInt,
+    creatorRedirect: Address
+  ): AaveWalletManager__releaseAmountResult {
+    let result = super.call(
+      "releaseAmount",
+      "releaseAmount(address,address,uint256,address,uint256,address):(uint256,uint256,uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromAddress(creatorRedirect)
+      ]
+    );
+
+    return new AaveWalletManager__releaseAmountResult(
+      result[0].toBigInt(),
+      result[1].toBigInt(),
+      result[2].toBigInt()
+    );
+  }
+
+  try_releaseAmount(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    assetToken: Address,
+    assetAmount: BigInt,
+    creatorRedirect: Address
+  ): ethereum.CallResult<AaveWalletManager__releaseAmountResult> {
+    let result = super.tryCall(
+      "releaseAmount",
+      "releaseAmount(address,address,uint256,address,uint256,address):(uint256,uint256,uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(assetToken),
+        ethereum.Value.fromUnsignedBigInt(assetAmount),
+        ethereum.Value.fromAddress(creatorRedirect)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new AaveWalletManager__releaseAmountResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
         value[2].toBigInt()
@@ -1140,6 +1233,10 @@ export class DischargeCall__Inputs {
   get assetToken(): Address {
     return this._call.inputValues[3].value.toAddress();
   }
+
+  get creatorRedirect(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
 }
 
 export class DischargeCall__Outputs {
@@ -1193,6 +1290,10 @@ export class DischargeAmountCall__Inputs {
 
   get assetAmount(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get creatorRedirect(): Address {
+    return this._call.inputValues[5].value.toAddress();
   }
 }
 
@@ -1612,12 +1713,78 @@ export class ReleaseCall__Inputs {
   get assetToken(): Address {
     return this._call.inputValues[3].value.toAddress();
   }
+
+  get creatorRedirect(): Address {
+    return this._call.inputValues[4].value.toAddress();
+  }
 }
 
 export class ReleaseCall__Outputs {
   _call: ReleaseCall;
 
   constructor(call: ReleaseCall) {
+    this._call = call;
+  }
+
+  get principalAmount(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get creatorAmount(): BigInt {
+    return this._call.outputValues[1].value.toBigInt();
+  }
+
+  get receiverAmount(): BigInt {
+    return this._call.outputValues[2].value.toBigInt();
+  }
+}
+
+export class ReleaseAmountCall extends ethereum.Call {
+  get inputs(): ReleaseAmountCall__Inputs {
+    return new ReleaseAmountCall__Inputs(this);
+  }
+
+  get outputs(): ReleaseAmountCall__Outputs {
+    return new ReleaseAmountCall__Outputs(this);
+  }
+}
+
+export class ReleaseAmountCall__Inputs {
+  _call: ReleaseAmountCall;
+
+  constructor(call: ReleaseAmountCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get assetAmount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get creatorRedirect(): Address {
+    return this._call.inputValues[5].value.toAddress();
+  }
+}
+
+export class ReleaseAmountCall__Outputs {
+  _call: ReleaseAmountCall;
+
+  constructor(call: ReleaseAmountCall) {
     this._call = call;
   }
 
@@ -1840,6 +2007,98 @@ export class TransferOwnershipCall__Outputs {
   _call: TransferOwnershipCall;
 
   constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawERC20Call extends ethereum.Call {
+  get inputs(): WithdrawERC20Call__Inputs {
+    return new WithdrawERC20Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC20Call__Outputs {
+    return new WithdrawERC20Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC20Call__Inputs {
+  _call: WithdrawERC20Call;
+
+  constructor(call: WithdrawERC20Call) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+}
+
+export class WithdrawERC20Call__Outputs {
+  _call: WithdrawERC20Call;
+
+  constructor(call: WithdrawERC20Call) {
+    this._call = call;
+  }
+}
+
+export class WithdrawERC721Call extends ethereum.Call {
+  get inputs(): WithdrawERC721Call__Inputs {
+    return new WithdrawERC721Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC721Call__Outputs {
+    return new WithdrawERC721Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC721Call__Inputs {
+  _call: WithdrawERC721Call;
+
+  constructor(call: WithdrawERC721Call) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get nftTokenAddress(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get nftTokenId(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+}
+
+export class WithdrawERC721Call__Outputs {
+  _call: WithdrawERC721Call;
+
+  constructor(call: WithdrawERC721Call) {
     this._call = call;
   }
 }

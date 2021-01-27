@@ -36,7 +36,7 @@
       {
         "indexed": true,
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -47,6 +47,25 @@
       }
     ],
     "name": "LiquidityProviderRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "basketId",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "basketManager",
+        "type": "address"
+      }
+    ],
+    "name": "NftBasketRegistered",
     "type": "event"
   },
   {
@@ -159,6 +178,31 @@
       }
     ],
     "name": "TokenContractConfigsSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "redirectAddress",
+        "type": "address"
+      }
+    ],
+    "name": "TokenCreatorAnnuitiesRedirected",
     "type": "event"
   },
   {
@@ -300,7 +344,7 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -324,6 +368,11 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "contractAddress",
         "type": "address"
       },
@@ -334,7 +383,85 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "basketManagerId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "nftTokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nftTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "breakCovalentBond",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "basketManagerId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "nftTokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nftTokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "covalentBond",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -368,7 +495,36 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "basketManagerId",
+        "type": "string"
+      }
+    ],
+    "name": "currentParticleCovalentBonds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -407,7 +563,7 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -451,7 +607,7 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -500,7 +656,7 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -539,7 +695,7 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -551,6 +707,11 @@
         "internalType": "uint256",
         "name": "assetAmount",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "referrer",
+        "type": "address"
       }
     ],
     "name": "energizeParticle",
@@ -567,12 +728,55 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "basketId",
+        "type": "string"
+      }
+    ],
+    "name": "getBasketManager",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCreatorAnnuitiesRedirect",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "index",
         "type": "uint256"
       }
     ],
-    "name": "getLiquidityProviderByIndex",
+    "name": "getNftBasketByIndex",
     "outputs": [
       {
         "internalType": "string",
@@ -585,7 +789,7 @@
   },
   {
     "inputs": [],
-    "name": "getLiquidityProvidersCount",
+    "name": "getNftBasketCount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -600,7 +804,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -648,7 +852,7 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       }
     ],
@@ -658,6 +862,38 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "getWalletManagerByIndex",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getWalletManagerCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -791,11 +1027,11 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "basketId",
         "type": "string"
       }
     ],
-    "name": "isLiquidityProviderEnabled",
+    "name": "isNftBasketEnabled",
     "outputs": [
       {
         "internalType": "bool",
@@ -857,6 +1093,25 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "walletManagerId",
+        "type": "string"
+      }
+    ],
+    "name": "isWalletManagerEnabled",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
@@ -905,7 +1160,25 @@
     "inputs": [
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "basketId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "basketManager",
+        "type": "address"
+      }
+    ],
+    "name": "registerBasketManager",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -914,7 +1187,7 @@
         "type": "address"
       }
     ],
-    "name": "registerLiquidityProvider",
+    "name": "registerWalletManager",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -938,7 +1211,7 @@
       },
       {
         "internalType": "string",
-        "name": "liquidityProviderId",
+        "name": "walletManagerId",
         "type": "string"
       },
       {
@@ -964,8 +1237,80 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "walletManagerId",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "assetToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "assetAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "releaseParticleAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "creatorAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "receiverAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      }
+    ],
+    "name": "setCreatorAnnuitiesRedirect",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1228,6 +1573,70 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawERC721",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawErc20",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address payable",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawEther",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

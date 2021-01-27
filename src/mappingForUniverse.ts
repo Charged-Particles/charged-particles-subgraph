@@ -3,15 +3,15 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import {
   OwnershipTransferred,
   ChargedParticlesSet,
-  IonTokenSet,
-  IonRewardsMultiplierSet,
-  RewardEarned,
-  RewardClaimed,
+  CationSet,
+  EsaMultiplierSet,
+  ElectrostaticAttraction,
+  MetallicBond,
 } from '../generated/Universe/Universe';
 
 import { loadOrCreateUniverse } from './helpers/loadOrCreateUniverse';
 import { loadOrCreateIonToken } from './helpers/loadOrCreateIonToken';
-import { loadOrCreateIonRewardsMultiplier } from './helpers/loadOrCreateIonRewardsMultiplier';
+import { loadOrCreateEsaMultiplier } from './helpers/loadOrCreateEsaMultiplier';
 
 
 
@@ -27,27 +27,28 @@ export function handleChargedParticlesSet(event: ChargedParticlesSet): void {
   _universe.save();
 }
 
-export function handleIonTokenSet(event: IonTokenSet): void {
-  const _ion = loadOrCreateIonToken(event.params.ionToken);
+export function handleCationSet(event: CationSet): void {
+  const _ion = loadOrCreateIonToken(event.params.token);
   const _universe = loadOrCreateUniverse(event.address);
 
   _ion.universe = _universe.id;
   _universe.ionToken = _ion.id;
+  _universe.ionMaxSupply = event.params.maxSupply;
 
   _ion.save();
   _universe.save();
 }
 
-export function handleIonRewardsMultiplierSet(event: IonRewardsMultiplierSet): void {
-  const _ionRewardsMultiplier = loadOrCreateIonRewardsMultiplier(event.address, event.params.assetToken);
-  _ionRewardsMultiplier.multiplier = event.params.multiplier;
-  _ionRewardsMultiplier.save();
+export function handleEsaMultiplierSet(event: EsaMultiplierSet): void {
+  const _esaMultiplier = loadOrCreateEsaMultiplier(event.address, event.params.assetToken);
+  _esaMultiplier.multiplier = event.params.multiplier;
+  _esaMultiplier.save();
 }
 
-export function handleRewardEarned(event: RewardEarned): void {
-  log.info('TODO: handleRewardEarned', []);
+export function handleElectrostaticAttraction(event: ElectrostaticAttraction): void {
+  log.info('TODO: handleElectrostaticAttraction', []);
 }
 
-export function handleRewardClaimed(event: RewardClaimed): void {
-  log.info('TODO: handleRewardClaimed', []);
+export function handleMetallicBond(event: MetallicBond): void {
+  log.info('TODO: handleMetallicBond', []);
 }

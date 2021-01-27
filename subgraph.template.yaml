@@ -30,14 +30,14 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: ChargedParticlesSet(indexed address)
           handler: handleChargedParticlesSet
-        - event: IonTokenSet(indexed address)
-          handler: handleIonTokenSet
-        - event: IonRewardsMultiplierSet(indexed address,uint256)
-          handler: handleIonRewardsMultiplierSet
-        - event: RewardEarned(indexed address,address,uint256)
-          handler: handleRewardEarned
-        - event: RewardClaimed(indexed address,address,uint256)
-          handler: handleRewardClaimed
+        - event: CationSet(indexed address,uint256)
+          handler: handleCationSet
+        - event: EsaMultiplierSet(indexed address,uint256)
+          handler: handleEsaMultiplierSet
+        - event: ElectrostaticAttraction(indexed address,address,uint256)
+          handler: handleElectrostaticAttraction
+        - event: MetallicBond(indexed address,address,uint256)
+          handler: handleMetallicBond
   - name: ChargedParticles
     kind: ethereum/contract
     network: {{network}}
@@ -82,13 +82,45 @@ dataSources:
           handler: handleTokenReleaseTimelock
         - event: UpdateContractWhitelist(indexed address,bool)
           handler: handleUpdateContractWhitelist
+  - name: GenericBasketManager
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{genericBasketManager.address}}"
+      abi: GenericBasketManager
+      startBlock: {{genericBasketManager.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForGenericBasketManager.ts
+      entities:
+        - GenericBasketManager
+      abis:
+        - name: GenericBasketManager
+          file: ./abis/GenericBasketManager.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ControllerSet(indexed address)
+          handler: handleControllerSet
+        - event: PausedStateSet(bool)
+          handler: handlePausedStateSet
+        - event: NewSmartBasket(indexed address,indexed uint256,indexed address)
+          handler: handleNewSmartBasket
+        - event: BasketAdd(indexed address,indexed uint256,address,uint256)
+          handler: handleBasketAdd
+        - event: BasketRemove(indexed address,indexed address,indexed uint256,address,uint256)
+          handler: handleBasketRemove
   - name: GenericWalletManager
     kind: ethereum/contract
     network: {{network}}
     source:
-      address: "{{aaveWalletManager.address}}"
+      address: "{{genericWalletManager.address}}"
       abi: GenericWalletManager
-      startBlock: {{aaveWalletManager.startBlock}}
+      startBlock: {{genericWalletManager.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -232,8 +264,6 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: ChargedParticlesSet(indexed address)
           handler: handleChargedParticlesSet
-        - event: MintFeeSet(uint256)
-          handler: handleMintFeeSet
         - event: SalePriceSet(indexed uint256,uint256)
           handler: handleSalePriceSet
         - event: CreatorRoyaltiesSet(indexed uint256,uint256)
