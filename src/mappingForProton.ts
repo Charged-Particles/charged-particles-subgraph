@@ -7,10 +7,15 @@ import {
 
 import {
   OwnershipTransferred,
+  UniverseSet,
+  ChargedStateSet,
+  ChargedSettingsSet,
   ChargedParticlesSet,
+  PausedStateSet,
   SalePriceSet,
   CreatorRoyaltiesSet,
   ProtonSold,
+  RoyaltiesClaimed,
   FeesWithdrawn,
   Transfer,
   Approval,
@@ -32,9 +37,33 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   _proton.save();
 }
 
+export function handleUniverseSet(event: UniverseSet): void {
+  const _proton = loadOrCreateProton(event.address);
+  _proton.universe = event.params.universe.toHex();
+  _proton.save();
+}
+
+export function handleChargedStateSet(event: ChargedStateSet): void {
+  const _proton = loadOrCreateProton(event.address);
+  _proton.chargedState = event.params.chargedState.toHex();
+  _proton.save();
+}
+
+export function handleChargedSettingsSet(event: ChargedSettingsSet): void {
+  const _proton = loadOrCreateProton(event.address);
+  _proton.chargedSettings = event.params.chargedSettings.toHex();
+  _proton.save();
+}
+
 export function handleChargedParticlesSet(event: ChargedParticlesSet): void {
   const _proton = loadOrCreateProton(event.address);
   _proton.chargedParticles = event.params.chargedParticles.toHex();
+  _proton.save();
+}
+
+export function handlePausedStateSet(event: PausedStateSet): void {
+  const _proton = loadOrCreateProton(event.address);
+  _proton.paused = event.params.isPaused;
   _proton.save();
 }
 
@@ -69,6 +98,10 @@ export function handleProtonSold(event: ProtonSold): void {
   eventData[4] = event.params.creator.toHex();
   eventData[5] = event.params.creatorRoyalties.toString();
   trackNftTxHistory(event, event.address, event.params.tokenId, 'ProtonSold', eventData.join('-'));
+}
+
+export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
+  log.info('TODO: handleRoyaltiesClaimed', []);
 }
 
 export function handleFeesWithdrawn(event: FeesWithdrawn): void {

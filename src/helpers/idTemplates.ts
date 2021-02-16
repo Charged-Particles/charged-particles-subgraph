@@ -8,7 +8,7 @@ export function nftCreatorSettingsId(contractAddress: string, tokenId: string, c
   return contractAddress + '-' + tokenId + '-' + creatorAddress;
 }
 
-export function chargedNftStateId(contractAddress: string, tokenId: string): string {
+export function nftStateId(contractAddress: string, tokenId: string): string {
   return contractAddress + '-' + tokenId;
 }
 
@@ -28,8 +28,8 @@ export function ionTokenHolderId(ionTokenAddress: string, holderAddress: string)
   return ionTokenAddress + '-' + holderAddress;
 }
 
-export function photonId(photonAddress: string, accountAddress: string): string {
-  return photonAddress + '-' + accountAddress;
+export function wBosonId(wBosonAddress: string, accountAddress: string): string {
+  return wBosonAddress + '-' + accountAddress;
 }
 
 export function protonNftId(protonAddress: string, tokenId: string): string {
@@ -46,4 +46,8 @@ export function nftId(contractAddress: string, tokenId: string): string {
 
 export function nftTxId(nftId: string, txHash: string, eventType: string): string {
   return nftId + '-' + txHash + '-' + eventType;
+}
+
+export function allowedAssetId(nftSettingsAddress: string, nftContractAddress: string, assetTokenAddress: string): string {
+  return nftSettingsAddress + '-' + nftContractAddress + '-' + assetTokenAddress;
 }

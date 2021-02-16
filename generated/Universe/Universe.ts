@@ -10,25 +10,21 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
-export class CationSet extends ethereum.Event {
-  get params(): CationSet__Params {
-    return new CationSet__Params(this);
+export class BosonTokenSet extends ethereum.Event {
+  get params(): BosonTokenSet__Params {
+    return new BosonTokenSet__Params(this);
   }
 }
 
-export class CationSet__Params {
-  _event: CationSet;
+export class BosonTokenSet__Params {
+  _event: BosonTokenSet;
 
-  constructor(event: CationSet) {
+  constructor(event: BosonTokenSet) {
     this._event = event;
   }
 
-  get token(): Address {
+  get bosonToken(): Address {
     return this._event.parameters[0].value.toAddress();
-  }
-
-  get maxSupply(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
   }
 }
 
@@ -67,7 +63,37 @@ export class ElectrostaticAttraction__Params {
     return this._event.parameters[0].value.toAddress();
   }
 
-  get cationSource(): Address {
+  get photonSource(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get energy(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get multiplier(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
+export class ElectrostaticDischarge extends ethereum.Event {
+  get params(): ElectrostaticDischarge__Params {
+    return new ElectrostaticDischarge__Params(this);
+  }
+}
+
+export class ElectrostaticDischarge__Params {
+  _event: ElectrostaticDischarge;
+
+  constructor(event: ElectrostaticDischarge) {
+    this._event = event;
+  }
+
+  get account(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get photonSource(): Address {
     return this._event.parameters[1].value.toAddress();
   }
 
@@ -98,29 +124,21 @@ export class EsaMultiplierSet__Params {
   }
 }
 
-export class MetallicBond extends ethereum.Event {
-  get params(): MetallicBond__Params {
-    return new MetallicBond__Params(this);
+export class LeptonTokenSet extends ethereum.Event {
+  get params(): LeptonTokenSet__Params {
+    return new LeptonTokenSet__Params(this);
   }
 }
 
-export class MetallicBond__Params {
-  _event: MetallicBond;
+export class LeptonTokenSet__Params {
+  _event: LeptonTokenSet;
 
-  constructor(event: MetallicBond) {
+  constructor(event: LeptonTokenSet) {
     this._event = event;
   }
 
-  get account(): Address {
+  get leptonToken(): Address {
     return this._event.parameters[0].value.toAddress();
-  }
-
-  get cationSource(): Address {
-    return this._event.parameters[1].value.toAddress();
-  }
-
-  get energy(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
   }
 }
 
@@ -146,6 +164,28 @@ export class OwnershipTransferred__Params {
   }
 }
 
+export class PhotonSet extends ethereum.Event {
+  get params(): PhotonSet__Params {
+    return new PhotonSet__Params(this);
+  }
+}
+
+export class PhotonSet__Params {
+  _event: PhotonSet;
+
+  constructor(event: PhotonSet) {
+    this._event = event;
+  }
+
+  get photonToken(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get maxSupply(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class ProtonTokenSet extends ethereum.Event {
   get params(): ProtonTokenSet__Params {
     return new ProtonTokenSet__Params(this);
@@ -164,19 +204,111 @@ export class ProtonTokenSet__Params {
   }
 }
 
+export class QuarkTokenSet extends ethereum.Event {
+  get params(): QuarkTokenSet__Params {
+    return new QuarkTokenSet__Params(this);
+  }
+}
+
+export class QuarkTokenSet__Params {
+  _event: QuarkTokenSet;
+
+  constructor(event: QuarkTokenSet) {
+    this._event = event;
+  }
+
+  get quarkToken(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class WithdrawStuckERC20 extends ethereum.Event {
+  get params(): WithdrawStuckERC20__Params {
+    return new WithdrawStuckERC20__Params(this);
+  }
+}
+
+export class WithdrawStuckERC20__Params {
+  _event: WithdrawStuckERC20;
+
+  constructor(event: WithdrawStuckERC20) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckERC721 extends ethereum.Event {
+  get params(): WithdrawStuckERC721__Params {
+    return new WithdrawStuckERC721__Params(this);
+  }
+}
+
+export class WithdrawStuckERC721__Params {
+  _event: WithdrawStuckERC721;
+
+  constructor(event: WithdrawStuckERC721) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckEther extends ethereum.Event {
+  get params(): WithdrawStuckEther__Params {
+    return new WithdrawStuckEther__Params(this);
+  }
+}
+
+export class WithdrawStuckEther__Params {
+  _event: WithdrawStuckEther;
+
+  constructor(event: WithdrawStuckEther) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class Universe extends ethereum.SmartContract {
   static bind(address: Address): Universe {
     return new Universe("Universe", address);
   }
 
-  cationSource(): Address {
-    let result = super.call("cationSource", "cationSource():(address)", []);
+  boson(): Address {
+    let result = super.call("boson", "boson():(address)", []);
 
     return result[0].toAddress();
   }
 
-  try_cationSource(): ethereum.CallResult<Address> {
-    let result = super.tryCall("cationSource", "cationSource():(address)", []);
+  try_boson(): ethereum.CallResult<Address> {
+    let result = super.tryCall("boson", "boson():(address)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -207,27 +339,74 @@ export class Universe extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  conductMetallicBond(amount: BigInt): BigInt {
+  conductElectrostaticDischarge(account: Address, amount: BigInt): BigInt {
     let result = super.call(
-      "conductMetallicBond",
-      "conductMetallicBond(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(amount)]
+      "conductElectrostaticDischarge",
+      "conductElectrostaticDischarge(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(account),
+        ethereum.Value.fromUnsignedBigInt(amount)
+      ]
     );
 
     return result[0].toBigInt();
   }
 
-  try_conductMetallicBond(amount: BigInt): ethereum.CallResult<BigInt> {
+  try_conductElectrostaticDischarge(
+    account: Address,
+    amount: BigInt
+  ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
-      "conductMetallicBond",
-      "conductMetallicBond(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(amount)]
+      "conductElectrostaticDischarge",
+      "conductElectrostaticDischarge(address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(account),
+        ethereum.Value.fromUnsignedBigInt(amount)
+      ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getStaticCharge(account: Address): BigInt {
+    let result = super.call(
+      "getStaticCharge",
+      "getStaticCharge(address):(uint256)",
+      [ethereum.Value.fromAddress(account)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getStaticCharge(account: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getStaticCharge",
+      "getStaticCharge(address):(uint256)",
+      [ethereum.Value.fromAddress(account)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  lepton(): Address {
+    let result = super.call("lepton", "lepton():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_lepton(): ethereum.CallResult<Address> {
+    let result = super.tryCall("lepton", "lepton():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   owner(): Address {
@@ -238,6 +417,21 @@ export class Universe extends ethereum.SmartContract {
 
   try_owner(): ethereum.CallResult<Address> {
     let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  photonSource(): Address {
+    let result = super.call("photonSource", "photonSource():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_photonSource(): ethereum.CallResult<Address> {
+    let result = super.tryCall("photonSource", "photonSource():(address)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -259,34 +453,53 @@ export class Universe extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
-}
 
-export class ConductMetallicBondCall extends ethereum.Call {
-  get inputs(): ConductMetallicBondCall__Inputs {
-    return new ConductMetallicBondCall__Inputs(this);
+  quark(): Address {
+    let result = super.call("quark", "quark():(address)", []);
+
+    return result[0].toAddress();
   }
 
-  get outputs(): ConductMetallicBondCall__Outputs {
-    return new ConductMetallicBondCall__Outputs(this);
+  try_quark(): ethereum.CallResult<Address> {
+    let result = super.tryCall("quark", "quark():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 }
 
-export class ConductMetallicBondCall__Inputs {
-  _call: ConductMetallicBondCall;
+export class ConductElectrostaticDischargeCall extends ethereum.Call {
+  get inputs(): ConductElectrostaticDischargeCall__Inputs {
+    return new ConductElectrostaticDischargeCall__Inputs(this);
+  }
 
-  constructor(call: ConductMetallicBondCall) {
+  get outputs(): ConductElectrostaticDischargeCall__Outputs {
+    return new ConductElectrostaticDischargeCall__Outputs(this);
+  }
+}
+
+export class ConductElectrostaticDischargeCall__Inputs {
+  _call: ConductElectrostaticDischargeCall;
+
+  constructor(call: ConductElectrostaticDischargeCall) {
     this._call = call;
   }
 
+  get account(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
   get amount(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
+    return this._call.inputValues[1].value.toBigInt();
   }
 }
 
-export class ConductMetallicBondCall__Outputs {
-  _call: ConductMetallicBondCall;
+export class ConductElectrostaticDischargeCall__Outputs {
+  _call: ConductElectrostaticDischargeCall;
 
-  constructor(call: ConductMetallicBondCall) {
+  constructor(call: ConductElectrostaticDischargeCall) {
     this._call = call;
   }
 
@@ -346,7 +559,7 @@ export class OnCovalentBondCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get managerId(): string {
+  get value2(): string {
     return this._call.inputValues[2].value.toString();
   }
 
@@ -392,7 +605,7 @@ export class OnCovalentBreakCall__Inputs {
     return this._call.inputValues[1].value.toBigInt();
   }
 
-  get managerId(): string {
+  get value2(): string {
     return this._call.inputValues[2].value.toString();
   }
 
@@ -400,7 +613,7 @@ export class OnCovalentBreakCall__Inputs {
     return this._call.inputValues[3].value.toAddress();
   }
 
-  get nftTokenId(): BigInt {
+  get value4(): BigInt {
     return this._call.inputValues[4].value.toBigInt();
   }
 }
@@ -701,36 +914,32 @@ export class RenounceOwnershipCall__Outputs {
   }
 }
 
-export class SetCationCall extends ethereum.Call {
-  get inputs(): SetCationCall__Inputs {
-    return new SetCationCall__Inputs(this);
+export class SetBosonTokenCall extends ethereum.Call {
+  get inputs(): SetBosonTokenCall__Inputs {
+    return new SetBosonTokenCall__Inputs(this);
   }
 
-  get outputs(): SetCationCall__Outputs {
-    return new SetCationCall__Outputs(this);
+  get outputs(): SetBosonTokenCall__Outputs {
+    return new SetBosonTokenCall__Outputs(this);
   }
 }
 
-export class SetCationCall__Inputs {
-  _call: SetCationCall;
+export class SetBosonTokenCall__Inputs {
+  _call: SetBosonTokenCall;
 
-  constructor(call: SetCationCall) {
+  constructor(call: SetBosonTokenCall) {
     this._call = call;
   }
 
   get token(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
-
-  get maxSupply(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
 }
 
-export class SetCationCall__Outputs {
-  _call: SetCationCall;
+export class SetBosonTokenCall__Outputs {
+  _call: SetBosonTokenCall;
 
-  constructor(call: SetCationCall) {
+  constructor(call: SetBosonTokenCall) {
     this._call = call;
   }
 }
@@ -799,6 +1008,70 @@ export class SetEsaMultiplierCall__Outputs {
   }
 }
 
+export class SetLeptonTokenCall extends ethereum.Call {
+  get inputs(): SetLeptonTokenCall__Inputs {
+    return new SetLeptonTokenCall__Inputs(this);
+  }
+
+  get outputs(): SetLeptonTokenCall__Outputs {
+    return new SetLeptonTokenCall__Outputs(this);
+  }
+}
+
+export class SetLeptonTokenCall__Inputs {
+  _call: SetLeptonTokenCall;
+
+  constructor(call: SetLeptonTokenCall) {
+    this._call = call;
+  }
+
+  get token(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetLeptonTokenCall__Outputs {
+  _call: SetLeptonTokenCall;
+
+  constructor(call: SetLeptonTokenCall) {
+    this._call = call;
+  }
+}
+
+export class SetPhotonCall extends ethereum.Call {
+  get inputs(): SetPhotonCall__Inputs {
+    return new SetPhotonCall__Inputs(this);
+  }
+
+  get outputs(): SetPhotonCall__Outputs {
+    return new SetPhotonCall__Outputs(this);
+  }
+}
+
+export class SetPhotonCall__Inputs {
+  _call: SetPhotonCall;
+
+  constructor(call: SetPhotonCall) {
+    this._call = call;
+  }
+
+  get token(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get maxSupply(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class SetPhotonCall__Outputs {
+  _call: SetPhotonCall;
+
+  constructor(call: SetPhotonCall) {
+    this._call = call;
+  }
+}
+
 export class SetProtonTokenCall extends ethereum.Call {
   get inputs(): SetProtonTokenCall__Inputs {
     return new SetProtonTokenCall__Inputs(this);
@@ -825,6 +1098,36 @@ export class SetProtonTokenCall__Outputs {
   _call: SetProtonTokenCall;
 
   constructor(call: SetProtonTokenCall) {
+    this._call = call;
+  }
+}
+
+export class SetQuarkTokenCall extends ethereum.Call {
+  get inputs(): SetQuarkTokenCall__Inputs {
+    return new SetQuarkTokenCall__Inputs(this);
+  }
+
+  get outputs(): SetQuarkTokenCall__Outputs {
+    return new SetQuarkTokenCall__Outputs(this);
+  }
+}
+
+export class SetQuarkTokenCall__Inputs {
+  _call: SetQuarkTokenCall;
+
+  constructor(call: SetQuarkTokenCall) {
+    this._call = call;
+  }
+
+  get token(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetQuarkTokenCall__Outputs {
+  _call: SetQuarkTokenCall;
+
+  constructor(call: SetQuarkTokenCall) {
     this._call = call;
   }
 }

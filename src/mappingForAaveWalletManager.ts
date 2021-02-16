@@ -34,13 +34,8 @@ export function handleAaveBridgeSet(event: AaveBridgeSet): void {
 
 export function handleControllerSet(event: ControllerSet): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address);
-  const chargedParticles = loadOrCreateChargedParticles(event.params.controller);
-
-  aaveWalletManager.chargedParticles = event.params.controller; // chargedParticles.id;
-  chargedParticles.aaveWalletManager = aaveWalletManager.id;
-
+  aaveWalletManager.chargedParticles = event.params.controller;
   aaveWalletManager.save();
-  chargedParticles.save();
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {

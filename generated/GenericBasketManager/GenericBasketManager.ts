@@ -158,6 +158,80 @@ export class PausedStateSet__Params {
   }
 }
 
+export class WithdrawStuckERC20 extends ethereum.Event {
+  get params(): WithdrawStuckERC20__Params {
+    return new WithdrawStuckERC20__Params(this);
+  }
+}
+
+export class WithdrawStuckERC20__Params {
+  _event: WithdrawStuckERC20;
+
+  constructor(event: WithdrawStuckERC20) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckERC721 extends ethereum.Event {
+  get params(): WithdrawStuckERC721__Params {
+    return new WithdrawStuckERC721__Params(this);
+  }
+}
+
+export class WithdrawStuckERC721__Params {
+  _event: WithdrawStuckERC721;
+
+  constructor(event: WithdrawStuckERC721) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckEther extends ethereum.Event {
+  get params(): WithdrawStuckEther__Params {
+    return new WithdrawStuckEther__Params(this);
+  }
+}
+
+export class WithdrawStuckEther__Params {
+  _event: WithdrawStuckEther;
+
+  constructor(event: WithdrawStuckEther) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class GenericBasketManager extends ethereum.SmartContract {
   static bind(address: Address): GenericBasketManager {
     return new GenericBasketManager("GenericBasketManager", address);
@@ -285,150 +359,40 @@ export class GenericBasketManager extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getTokenByContractByIndex(
+  getTokenCountByType(
     contractAddress: Address,
     tokenId: BigInt,
     basketTokenAddress: Address,
-    index: BigInt
+    basketTokenId: BigInt
   ): BigInt {
     let result = super.call(
-      "getTokenByContractByIndex",
-      "getTokenByContractByIndex(address,uint256,address,uint256):(uint256)",
+      "getTokenCountByType",
+      "getTokenCountByType(address,uint256,address,uint256):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(basketTokenAddress),
-        ethereum.Value.fromUnsignedBigInt(index)
+        ethereum.Value.fromUnsignedBigInt(basketTokenId)
       ]
     );
 
     return result[0].toBigInt();
   }
 
-  try_getTokenByContractByIndex(
+  try_getTokenCountByType(
     contractAddress: Address,
     tokenId: BigInt,
     basketTokenAddress: Address,
-    index: BigInt
+    basketTokenId: BigInt
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
-      "getTokenByContractByIndex",
-      "getTokenByContractByIndex(address,uint256,address,uint256):(uint256)",
+      "getTokenCountByType",
+      "getTokenCountByType(address,uint256,address,uint256):(uint256)",
       [
         ethereum.Value.fromAddress(contractAddress),
         ethereum.Value.fromUnsignedBigInt(tokenId),
         ethereum.Value.fromAddress(basketTokenAddress),
-        ethereum.Value.fromUnsignedBigInt(index)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getTokenContractByIndex(
-    contractAddress: Address,
-    tokenId: BigInt,
-    index: BigInt
-  ): Address {
-    let result = super.call(
-      "getTokenContractByIndex",
-      "getTokenContractByIndex(address,uint256,uint256):(address)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromUnsignedBigInt(index)
-      ]
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getTokenContractByIndex(
-    contractAddress: Address,
-    tokenId: BigInt,
-    index: BigInt
-  ): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getTokenContractByIndex",
-      "getTokenContractByIndex(address,uint256,uint256):(address)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromUnsignedBigInt(index)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getTokenContractCount(contractAddress: Address, tokenId: BigInt): BigInt {
-    let result = super.call(
-      "getTokenContractCount",
-      "getTokenContractCount(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getTokenContractCount(
-    contractAddress: Address,
-    tokenId: BigInt
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getTokenContractCount",
-      "getTokenContractCount(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getTokenCountByContract(
-    contractAddress: Address,
-    tokenId: BigInt,
-    basketTokenAddress: Address
-  ): BigInt {
-    let result = super.call(
-      "getTokenCountByContract",
-      "getTokenCountByContract(address,uint256,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(basketTokenAddress)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getTokenCountByContract(
-    contractAddress: Address,
-    tokenId: BigInt,
-    basketTokenAddress: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getTokenCountByContract",
-      "getTokenCountByContract(address,uint256,address):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(basketTokenAddress)
+        ethereum.Value.fromUnsignedBigInt(basketTokenId)
       ]
     );
     if (result.reverted) {
@@ -705,6 +669,52 @@ export class GetBasketAddressByIdCall__Outputs {
 
   get value0(): Address {
     return this._call.outputValues[0].value.toAddress();
+  }
+}
+
+export class GetTokenCountByTypeCall extends ethereum.Call {
+  get inputs(): GetTokenCountByTypeCall__Inputs {
+    return new GetTokenCountByTypeCall__Inputs(this);
+  }
+
+  get outputs(): GetTokenCountByTypeCall__Outputs {
+    return new GetTokenCountByTypeCall__Outputs(this);
+  }
+}
+
+export class GetTokenCountByTypeCall__Inputs {
+  _call: GetTokenCountByTypeCall;
+
+  constructor(call: GetTokenCountByTypeCall) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get basketTokenAddress(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get basketTokenId(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class GetTokenCountByTypeCall__Outputs {
+  _call: GetTokenCountByTypeCall;
+
+  constructor(call: GetTokenCountByTypeCall) {
+    this._call = call;
+  }
+
+  get value0(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
   }
 }
 

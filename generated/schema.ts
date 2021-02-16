@@ -102,6 +102,40 @@ export class Universe extends Entity {
     }
   }
 
+  get protonToken(): string | null {
+    let value = this.get("protonToken");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set protonToken(value: string | null) {
+    if (value === null) {
+      this.unset("protonToken");
+    } else {
+      this.set("protonToken", Value.fromString(value as string));
+    }
+  }
+
+  get leptonToken(): string | null {
+    let value = this.get("leptonToken");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set leptonToken(value: string | null) {
+    if (value === null) {
+      this.unset("leptonToken");
+    } else {
+      this.set("leptonToken", Value.fromString(value as string));
+    }
+  }
+
   get esaMultiplier(): Array<string> {
     let value = this.get("esaMultiplier");
     return value.toStringArray();
@@ -168,22 +202,130 @@ export class ChargedParticles extends Entity {
     }
   }
 
-  get whitelisted(): Array<string> {
-    let value = this.get("whitelisted");
+  get chargedSettings(): string | null {
+    let value = this.get("chargedSettings");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set chargedSettings(value: string | null) {
+    if (value === null) {
+      this.unset("chargedSettings");
+    } else {
+      this.set("chargedSettings", Value.fromString(value as string));
+    }
+  }
+
+  get chargedState(): string | null {
+    let value = this.get("chargedState");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set chargedState(value: string | null) {
+    if (value === null) {
+      this.unset("chargedState");
+    } else {
+      this.set("chargedState", Value.fromString(value as string));
+    }
+  }
+
+  get leptonToken(): string | null {
+    let value = this.get("leptonToken");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set leptonToken(value: string | null) {
+    if (value === null) {
+      this.unset("leptonToken");
+    } else {
+      this.set("leptonToken", Value.fromString(value as string));
+    }
+  }
+}
+
+export class ChargedSettings extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ChargedSettings entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ChargedSettings entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ChargedSettings", id.toString(), this);
+  }
+
+  static load(id: string): ChargedSettings | null {
+    return store.get("ChargedSettings", id) as ChargedSettings | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get depositCaps(): Array<string> {
+    let value = this.get("depositCaps");
     return value.toStringArray();
   }
 
-  set whitelisted(value: Array<string>) {
-    this.set("whitelisted", Value.fromStringArray(value));
+  set depositCaps(value: Array<string>) {
+    this.set("depositCaps", Value.fromStringArray(value));
   }
 
-  get externalContractSettings(): Array<string> {
-    let value = this.get("externalContractSettings");
+  get tempLockExpiryBlocks(): BigInt | null {
+    let value = this.get("tempLockExpiryBlocks");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tempLockExpiryBlocks(value: BigInt | null) {
+    if (value === null) {
+      this.unset("tempLockExpiryBlocks");
+    } else {
+      this.set("tempLockExpiryBlocks", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get nftSettings(): Array<string> {
+    let value = this.get("nftSettings");
     return value.toStringArray();
   }
 
-  set externalContractSettings(value: Array<string>) {
-    this.set("externalContractSettings", Value.fromStringArray(value));
+  set nftSettings(value: Array<string>) {
+    this.set("nftSettings", Value.fromStringArray(value));
   }
 
   get nftCreatorSettings(): Array<string> {
@@ -193,15 +335,6 @@ export class ChargedParticles extends Entity {
 
   set nftCreatorSettings(value: Array<string>) {
     this.set("nftCreatorSettings", Value.fromStringArray(value));
-  }
-
-  get chargedNftState(): Array<string> {
-    let value = this.get("chargedNftState");
-    return value.toStringArray();
-  }
-
-  set chargedNftState(value: Array<string>) {
-    this.set("chargedNftState", Value.fromStringArray(value));
   }
 
   get genericBasketManager(): string | null {
@@ -256,7 +389,7 @@ export class ChargedParticles extends Entity {
   }
 }
 
-export class ExternalContractSettings extends Entity {
+export class NftSettings extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -264,23 +397,17 @@ export class ExternalContractSettings extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(
-      id !== null,
-      "Cannot save ExternalContractSettings entity without an ID"
-    );
+    assert(id !== null, "Cannot save NftSettings entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save ExternalContractSettings entity with non-string ID. " +
+      "Cannot save NftSettings entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("ExternalContractSettings", id.toString(), this);
+    store.set("NftSettings", id.toString(), this);
   }
 
-  static load(id: string): ExternalContractSettings | null {
-    return store.get(
-      "ExternalContractSettings",
-      id
-    ) as ExternalContractSettings | null;
+  static load(id: string): NftSettings | null {
+    return store.get("NftSettings", id) as NftSettings | null;
   }
 
   get id(): string {
@@ -292,13 +419,13 @@ export class ExternalContractSettings extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get chargedParticles(): string {
-    let value = this.get("chargedParticles");
+  get chargedSettings(): string {
+    let value = this.get("chargedSettings");
     return value.toString();
   }
 
-  set chargedParticles(value: string) {
-    this.set("chargedParticles", Value.fromString(value));
+  set chargedSettings(value: string) {
+    this.set("chargedSettings", Value.fromString(value));
   }
 
   get contractAddress(): Bytes {
@@ -310,21 +437,47 @@ export class ExternalContractSettings extends Entity {
     this.set("contractAddress", Value.fromBytes(value));
   }
 
-  get liquidityProvider(): Bytes | null {
-    let value = this.get("liquidityProvider");
+  get requiredWalletManager(): string | null {
+    let value = this.get("requiredWalletManager");
     if (value === null) {
       return null;
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set liquidityProvider(value: Bytes | null) {
+  set requiredWalletManager(value: string | null) {
     if (value === null) {
-      this.unset("liquidityProvider");
+      this.unset("requiredWalletManager");
     } else {
-      this.set("liquidityProvider", Value.fromBytes(value as Bytes));
+      this.set("requiredWalletManager", Value.fromString(value as string));
     }
+  }
+
+  get requiredBasketManager(): string | null {
+    let value = this.get("requiredBasketManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set requiredBasketManager(value: string | null) {
+    if (value === null) {
+      this.unset("requiredBasketManager");
+    } else {
+      this.set("requiredBasketManager", Value.fromString(value as string));
+    }
+  }
+
+  get allowedAssetTokens(): Array<string> {
+    let value = this.get("allowedAssetTokens");
+    return value.toStringArray();
+  }
+
+  set allowedAssetTokens(value: Array<string>) {
+    this.set("allowedAssetTokens", Value.fromStringArray(value));
   }
 
   get assetDepositMin(): BigInt | null {
@@ -360,6 +513,274 @@ export class ExternalContractSettings extends Entity {
       this.set("assetDepositMax", Value.fromBigInt(value as BigInt));
     }
   }
+
+  get maxNfts(): Array<string> {
+    let value = this.get("maxNfts");
+    return value.toStringArray();
+  }
+
+  set maxNfts(value: Array<string>) {
+    this.set("maxNfts", Value.fromStringArray(value));
+  }
+
+  get allowCharge(): boolean {
+    let value = this.get("allowCharge");
+    return value.toBoolean();
+  }
+
+  set allowCharge(value: boolean) {
+    this.set("allowCharge", Value.fromBoolean(value));
+  }
+
+  get allowBond(): boolean {
+    let value = this.get("allowBond");
+    return value.toBoolean();
+  }
+
+  set allowBond(value: boolean) {
+    this.set("allowBond", Value.fromBoolean(value));
+  }
+
+  get allowTimelockAnyNft(): boolean {
+    let value = this.get("allowTimelockAnyNft");
+    return value.toBoolean();
+  }
+
+  set allowTimelockAnyNft(value: boolean) {
+    this.set("allowTimelockAnyNft", Value.fromBoolean(value));
+  }
+
+  get allowTimelockOwnNft(): boolean {
+    let value = this.get("allowTimelockOwnNft");
+    return value.toBoolean();
+  }
+
+  set allowTimelockOwnNft(value: boolean) {
+    this.set("allowTimelockOwnNft", Value.fromBoolean(value));
+  }
+
+  get hasRestrictedAssets(): boolean {
+    let value = this.get("hasRestrictedAssets");
+    return value.toBoolean();
+  }
+
+  set hasRestrictedAssets(value: boolean) {
+    this.set("hasRestrictedAssets", Value.fromBoolean(value));
+  }
+}
+
+export class AllowedAssetToken extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save AllowedAssetToken entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save AllowedAssetToken entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("AllowedAssetToken", id.toString(), this);
+  }
+
+  static load(id: string): AllowedAssetToken | null {
+    return store.get("AllowedAssetToken", id) as AllowedAssetToken | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nftSettings(): string {
+    let value = this.get("nftSettings");
+    return value.toString();
+  }
+
+  set nftSettings(value: string) {
+    this.set("nftSettings", Value.fromString(value));
+  }
+
+  get assetToken(): Bytes | null {
+    let value = this.get("assetToken");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set assetToken(value: Bytes | null) {
+    if (value === null) {
+      this.unset("assetToken");
+    } else {
+      this.set("assetToken", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get isAllowed(): boolean {
+    let value = this.get("isAllowed");
+    return value.toBoolean();
+  }
+
+  set isAllowed(value: boolean) {
+    this.set("isAllowed", Value.fromBoolean(value));
+  }
+}
+
+export class DepositCap extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save DepositCap entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save DepositCap entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("DepositCap", id.toString(), this);
+  }
+
+  static load(id: string): DepositCap | null {
+    return store.get("DepositCap", id) as DepositCap | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get chargedSettings(): string {
+    let value = this.get("chargedSettings");
+    return value.toString();
+  }
+
+  set chargedSettings(value: string) {
+    this.set("chargedSettings", Value.fromString(value));
+  }
+
+  get assetToken(): Bytes | null {
+    let value = this.get("assetToken");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set assetToken(value: Bytes | null) {
+    if (value === null) {
+      this.unset("assetToken");
+    } else {
+      this.set("assetToken", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get maxDeposit(): BigInt | null {
+    let value = this.get("maxDeposit");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxDeposit(value: BigInt | null) {
+    if (value === null) {
+      this.unset("maxDeposit");
+    } else {
+      this.set("maxDeposit", Value.fromBigInt(value as BigInt));
+    }
+  }
+}
+
+export class NftLimits extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save NftLimits entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save NftLimits entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("NftLimits", id.toString(), this);
+  }
+
+  static load(id: string): NftLimits | null {
+    return store.get("NftLimits", id) as NftLimits | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nftSettings(): string {
+    let value = this.get("nftSettings");
+    return value.toString();
+  }
+
+  set nftSettings(value: string) {
+    this.set("nftSettings", Value.fromString(value));
+  }
+
+  get tokenAddress(): Bytes | null {
+    let value = this.get("tokenAddress");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set tokenAddress(value: Bytes | null) {
+    if (value === null) {
+      this.unset("tokenAddress");
+    } else {
+      this.set("tokenAddress", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get maxLimit(): BigInt | null {
+    let value = this.get("maxLimit");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxLimit(value: BigInt | null) {
+    if (value === null) {
+      this.unset("maxLimit");
+    } else {
+      this.set("maxLimit", Value.fromBigInt(value as BigInt));
+    }
+  }
 }
 
 export class NftCreatorSettings extends Entity {
@@ -392,13 +813,13 @@ export class NftCreatorSettings extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get chargedParticles(): string {
-    let value = this.get("chargedParticles");
+  get chargedSettings(): string {
+    let value = this.get("chargedSettings");
     return value.toString();
   }
 
-  set chargedParticles(value: string) {
-    this.set("chargedParticles", Value.fromString(value));
+  set chargedSettings(value: string) {
+    this.set("chargedSettings", Value.fromString(value));
   }
 
   get contractAddress(): Bytes {
@@ -463,7 +884,7 @@ export class NftCreatorSettings extends Entity {
   }
 }
 
-export class ChargedNftState extends Entity {
+export class ChargedState extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -471,17 +892,17 @@ export class ChargedNftState extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save ChargedNftState entity without an ID");
+    assert(id !== null, "Cannot save ChargedState entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save ChargedNftState entity with non-string ID. " +
+      "Cannot save ChargedState entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("ChargedNftState", id.toString(), this);
+    store.set("ChargedState", id.toString(), this);
   }
 
-  static load(id: string): ChargedNftState | null {
-    return store.get("ChargedNftState", id) as ChargedNftState | null;
+  static load(id: string): ChargedState | null {
+    return store.get("ChargedState", id) as ChargedState | null;
   }
 
   get id(): string {
@@ -493,13 +914,62 @@ export class ChargedNftState extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get chargedParticles(): string {
-    let value = this.get("chargedParticles");
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get nftState(): Array<string> {
+    let value = this.get("nftState");
+    return value.toStringArray();
+  }
+
+  set nftState(value: Array<string>) {
+    this.set("nftState", Value.fromStringArray(value));
+  }
+}
+
+export class NftState extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save NftState entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save NftState entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("NftState", id.toString(), this);
+  }
+
+  static load(id: string): NftState | null {
+    return store.get("NftState", id) as NftState | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
     return value.toString();
   }
 
-  set chargedParticles(value: string) {
-    this.set("chargedParticles", Value.fromString(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get chargedState(): string {
+    let value = this.get("chargedState");
+    return value.toString();
+  }
+
+  set chargedState(value: string) {
+    this.set("chargedState", Value.fromString(value));
   }
 
   get contractAddress(): Bytes {
@@ -571,6 +1041,23 @@ export class ChargedNftState extends Entity {
     }
   }
 
+  get breakBondApproval(): Bytes | null {
+    let value = this.get("breakBondApproval");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set breakBondApproval(value: Bytes | null) {
+    if (value === null) {
+      this.unset("breakBondApproval");
+    } else {
+      this.set("breakBondApproval", Value.fromBytes(value as Bytes));
+    }
+  }
+
   get timelockApproval(): Bytes | null {
     let value = this.get("timelockApproval");
     if (value === null) {
@@ -588,8 +1075,8 @@ export class ChargedNftState extends Entity {
     }
   }
 
-  get dischargeTimelock(): BigInt | null {
-    let value = this.get("dischargeTimelock");
+  get dischargeTimelockExpiry(): BigInt | null {
+    let value = this.get("dischargeTimelockExpiry");
     if (value === null) {
       return null;
     } else {
@@ -597,33 +1084,16 @@ export class ChargedNftState extends Entity {
     }
   }
 
-  set dischargeTimelock(value: BigInt | null) {
+  set dischargeTimelockExpiry(value: BigInt | null) {
     if (value === null) {
-      this.unset("dischargeTimelock");
+      this.unset("dischargeTimelockExpiry");
     } else {
-      this.set("dischargeTimelock", Value.fromBigInt(value as BigInt));
+      this.set("dischargeTimelockExpiry", Value.fromBigInt(value as BigInt));
     }
   }
 
-  get releaseTimelock(): BigInt | null {
-    let value = this.get("releaseTimelock");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set releaseTimelock(value: BigInt | null) {
-    if (value === null) {
-      this.unset("releaseTimelock");
-    } else {
-      this.set("releaseTimelock", Value.fromBigInt(value as BigInt));
-    }
-  }
-
-  get assetToBeReleasedBy(): Bytes | null {
-    let value = this.get("assetToBeReleasedBy");
+  get dischargeTimelockLockedBy(): Bytes | null {
+    let value = this.get("dischargeTimelockLockedBy");
     if (value === null) {
       return null;
     } else {
@@ -631,76 +1101,142 @@ export class ChargedNftState extends Entity {
     }
   }
 
-  set assetToBeReleasedBy(value: Bytes | null) {
+  set dischargeTimelockLockedBy(value: Bytes | null) {
     if (value === null) {
-      this.unset("assetToBeReleasedBy");
+      this.unset("dischargeTimelockLockedBy");
     } else {
-      this.set("assetToBeReleasedBy", Value.fromBytes(value as Bytes));
+      this.set("dischargeTimelockLockedBy", Value.fromBytes(value as Bytes));
     }
   }
-}
 
-export class WhitelistedNftContract extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
+  get releaseTimelockExpiry(): BigInt | null {
+    let value = this.get("releaseTimelockExpiry");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  save(): void {
-    let id = this.get("id");
-    assert(
-      id !== null,
-      "Cannot save WhitelistedNftContract entity without an ID"
-    );
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save WhitelistedNftContract entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("WhitelistedNftContract", id.toString(), this);
+  set releaseTimelockExpiry(value: BigInt | null) {
+    if (value === null) {
+      this.unset("releaseTimelockExpiry");
+    } else {
+      this.set("releaseTimelockExpiry", Value.fromBigInt(value as BigInt));
+    }
   }
 
-  static load(id: string): WhitelistedNftContract | null {
-    return store.get(
-      "WhitelistedNftContract",
-      id
-    ) as WhitelistedNftContract | null;
+  get releaseTimelockLockedBy(): Bytes | null {
+    let value = this.get("releaseTimelockLockedBy");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
   }
 
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
+  set releaseTimelockLockedBy(value: Bytes | null) {
+    if (value === null) {
+      this.unset("releaseTimelockLockedBy");
+    } else {
+      this.set("releaseTimelockLockedBy", Value.fromBytes(value as Bytes));
+    }
   }
 
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
+  get breakBondTimelockExpiry(): BigInt | null {
+    let value = this.get("breakBondTimelockExpiry");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  get chargedParticles(): string {
-    let value = this.get("chargedParticles");
-    return value.toString();
+  set breakBondTimelockExpiry(value: BigInt | null) {
+    if (value === null) {
+      this.unset("breakBondTimelockExpiry");
+    } else {
+      this.set("breakBondTimelockExpiry", Value.fromBigInt(value as BigInt));
+    }
   }
 
-  set chargedParticles(value: string) {
-    this.set("chargedParticles", Value.fromString(value));
+  get breakBondTimelockLockedBy(): Bytes | null {
+    let value = this.get("breakBondTimelockLockedBy");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
   }
 
-  get contractAddress(): Bytes {
-    let value = this.get("contractAddress");
-    return value.toBytes();
+  set breakBondTimelockLockedBy(value: Bytes | null) {
+    if (value === null) {
+      this.unset("breakBondTimelockLockedBy");
+    } else {
+      this.set("breakBondTimelockLockedBy", Value.fromBytes(value as Bytes));
+    }
   }
 
-  set contractAddress(value: Bytes) {
-    this.set("contractAddress", Value.fromBytes(value));
+  get tempLockExpiry(): BigInt | null {
+    let value = this.get("tempLockExpiry");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
   }
 
-  get state(): boolean {
-    let value = this.get("state");
+  set tempLockExpiry(value: BigInt | null) {
+    if (value === null) {
+      this.unset("tempLockExpiry");
+    } else {
+      this.set("tempLockExpiry", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get restrictChargeFromAny(): boolean {
+    let value = this.get("restrictChargeFromAny");
     return value.toBoolean();
   }
 
-  set state(value: boolean) {
-    this.set("state", Value.fromBoolean(value));
+  set restrictChargeFromAny(value: boolean) {
+    this.set("restrictChargeFromAny", Value.fromBoolean(value));
+  }
+
+  get allowDischargeFromAny(): boolean {
+    let value = this.get("allowDischargeFromAny");
+    return value.toBoolean();
+  }
+
+  set allowDischargeFromAny(value: boolean) {
+    this.set("allowDischargeFromAny", Value.fromBoolean(value));
+  }
+
+  get allowReleaseFromAny(): boolean {
+    let value = this.get("allowReleaseFromAny");
+    return value.toBoolean();
+  }
+
+  set allowReleaseFromAny(value: boolean) {
+    this.set("allowReleaseFromAny", Value.fromBoolean(value));
+  }
+
+  get restrictBondFromAny(): boolean {
+    let value = this.get("restrictBondFromAny");
+    return value.toBoolean();
+  }
+
+  set restrictBondFromAny(value: boolean) {
+    this.set("restrictBondFromAny", Value.fromBoolean(value));
+  }
+
+  get allowBreakBondFromAny(): boolean {
+    let value = this.get("allowBreakBondFromAny");
+    return value.toBoolean();
+  }
+
+  set allowBreakBondFromAny(value: boolean) {
+    this.set("allowBreakBondFromAny", Value.fromBoolean(value));
   }
 }
 
@@ -1672,7 +2208,7 @@ export class AaveAssetTokenBalance extends Entity {
   }
 }
 
-export class Photon extends Entity {
+export class WBoson extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -1680,17 +2216,17 @@ export class Photon extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Photon entity without an ID");
+    assert(id !== null, "Cannot save WBoson entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save Photon entity with non-string ID. " +
+      "Cannot save WBoson entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("Photon", id.toString(), this);
+    store.set("WBoson", id.toString(), this);
   }
 
-  static load(id: string): Photon | null {
-    return store.get("Photon", id) as Photon | null;
+  static load(id: string): WBoson | null {
+    return store.get("WBoson", id) as WBoson | null;
   }
 
   get id(): string {
@@ -1702,13 +2238,13 @@ export class Photon extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get photon(): Bytes {
-    let value = this.get("photon");
+  get wBoson(): Bytes {
+    let value = this.get("wBoson");
     return value.toBytes();
   }
 
-  set photon(value: Bytes) {
-    this.set("photon", Value.fromBytes(value));
+  set wBoson(value: Bytes) {
+    this.set("wBoson", Value.fromBytes(value));
   }
 
   get account(): Bytes {
@@ -1720,8 +2256,8 @@ export class Photon extends Entity {
     this.set("account", Value.fromBytes(value));
   }
 
-  get photonUri(): string | null {
-    let value = this.get("photonUri");
+  get wBosonUri(): string | null {
+    let value = this.get("wBosonUri");
     if (value === null) {
       return null;
     } else {
@@ -1729,11 +2265,11 @@ export class Photon extends Entity {
     }
   }
 
-  set photonUri(value: string | null) {
+  set wBosonUri(value: string | null) {
     if (value === null) {
-      this.unset("photonUri");
+      this.unset("wBosonUri");
     } else {
-      this.set("photonUri", Value.fromString(value as string));
+      this.set("wBosonUri", Value.fromString(value as string));
     }
   }
 
@@ -2078,6 +2614,66 @@ export class Proton extends Entity {
     this.set("owner", Value.fromBytes(value));
   }
 
+  get paused(): boolean {
+    let value = this.get("paused");
+    return value.toBoolean();
+  }
+
+  set paused(value: boolean) {
+    this.set("paused", Value.fromBoolean(value));
+  }
+
+  get universe(): string | null {
+    let value = this.get("universe");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set universe(value: string | null) {
+    if (value === null) {
+      this.unset("universe");
+    } else {
+      this.set("universe", Value.fromString(value as string));
+    }
+  }
+
+  get chargedSettings(): string | null {
+    let value = this.get("chargedSettings");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set chargedSettings(value: string | null) {
+    if (value === null) {
+      this.unset("chargedSettings");
+    } else {
+      this.set("chargedSettings", Value.fromString(value as string));
+    }
+  }
+
+  get chargedState(): string | null {
+    let value = this.get("chargedState");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set chargedState(value: string | null) {
+    if (value === null) {
+      this.unset("chargedState");
+    } else {
+      this.set("chargedState", Value.fromString(value as string));
+    }
+  }
+
   get chargedParticles(): string | null {
     let value = this.get("chargedParticles");
     if (value === null) {
@@ -2246,6 +2842,23 @@ export class ProtonNFT extends Entity {
     }
   }
 
+  get lastSalePrice(): BigInt | null {
+    let value = this.get("lastSalePrice");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastSalePrice(value: BigInt | null) {
+    if (value === null) {
+      this.unset("lastSalePrice");
+    } else {
+      this.set("lastSalePrice", Value.fromBigInt(value as BigInt));
+    }
+  }
+
   get resaleRoyalties(): BigInt | null {
     let value = this.get("resaleRoyalties");
     if (value === null) {
@@ -2260,6 +2873,40 @@ export class ProtonNFT extends Entity {
       this.unset("resaleRoyalties");
     } else {
       this.set("resaleRoyalties", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get resaleRoyaltiesRedirect(): Bytes | null {
+    let value = this.get("resaleRoyaltiesRedirect");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set resaleRoyaltiesRedirect(value: Bytes | null) {
+    if (value === null) {
+      this.unset("resaleRoyaltiesRedirect");
+    } else {
+      this.set("resaleRoyaltiesRedirect", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get claimableRoyalties(): BigInt | null {
+    let value = this.get("claimableRoyalties");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set claimableRoyalties(value: BigInt | null) {
+    if (value === null) {
+      this.unset("claimableRoyalties");
+    } else {
+      this.set("claimableRoyalties", Value.fromBigInt(value as BigInt));
     }
   }
 
@@ -2596,6 +3243,410 @@ export class NFTAttributes extends Entity {
       this.unset("value");
     } else {
       this.set("value", Value.fromString(value as string));
+    }
+  }
+}
+
+export class Lepton extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Lepton entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Lepton entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Lepton", id.toString(), this);
+  }
+
+  static load(id: string): Lepton | null {
+    return store.get("Lepton", id) as Lepton | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get paused(): boolean {
+    let value = this.get("paused");
+    return value.toBoolean();
+  }
+
+  set paused(value: boolean) {
+    this.set("paused", Value.fromBoolean(value));
+  }
+
+  get typeIndex(): BigInt | null {
+    let value = this.get("typeIndex");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set typeIndex(value: BigInt | null) {
+    if (value === null) {
+      this.unset("typeIndex");
+    } else {
+      this.set("typeIndex", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get maxSupply(): BigInt | null {
+    let value = this.get("maxSupply");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxSupply(value: BigInt | null) {
+    if (value === null) {
+      this.unset("maxSupply");
+    } else {
+      this.set("maxSupply", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get maxMintPerTx(): BigInt | null {
+    let value = this.get("maxMintPerTx");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxMintPerTx(value: BigInt | null) {
+    if (value === null) {
+      this.unset("maxMintPerTx");
+    } else {
+      this.set("maxMintPerTx", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get tokens(): Array<string> {
+    let value = this.get("tokens");
+    return value.toStringArray();
+  }
+
+  set tokens(value: Array<string>) {
+    this.set("tokens", Value.fromStringArray(value));
+  }
+}
+
+export class LeptonNFT extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save LeptonNFT entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save LeptonNFT entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("LeptonNFT", id.toString(), this);
+  }
+
+  static load(id: string): LeptonNFT | null {
+    return store.get("LeptonNFT", id) as LeptonNFT | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get lepton(): string | null {
+    let value = this.get("lepton");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set lepton(value: string | null) {
+    if (value === null) {
+      this.unset("lepton");
+    } else {
+      this.set("lepton", Value.fromString(value as string));
+    }
+  }
+
+  get owner(): Bytes | null {
+    let value = this.get("owner");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set owner(value: Bytes | null) {
+    if (value === null) {
+      this.unset("owner");
+    } else {
+      this.set("owner", Value.fromBytes(value as Bytes));
+    }
+  }
+
+  get price(): BigInt | null {
+    let value = this.get("price");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set price(value: BigInt | null) {
+    if (value === null) {
+      this.unset("price");
+    } else {
+      this.set("price", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get supply(): BigInt | null {
+    let value = this.get("supply");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set supply(value: BigInt | null) {
+    if (value === null) {
+      this.unset("supply");
+    } else {
+      this.set("supply", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get multiplier(): BigInt | null {
+    let value = this.get("multiplier");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set multiplier(value: BigInt | null) {
+    if (value === null) {
+      this.unset("multiplier");
+    } else {
+      this.set("multiplier", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get bonus(): BigInt | null {
+    let value = this.get("bonus");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set bonus(value: BigInt | null) {
+    if (value === null) {
+      this.unset("bonus");
+    } else {
+      this.set("bonus", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get metadataUri(): string | null {
+    let value = this.get("metadataUri");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metadataUri(value: string | null) {
+    if (value === null) {
+      this.unset("metadataUri");
+    } else {
+      this.set("metadataUri", Value.fromString(value as string));
+    }
+  }
+
+  get name(): string | null {
+    let value = this.get("name");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set name(value: string | null) {
+    if (value === null) {
+      this.unset("name");
+    } else {
+      this.set("name", Value.fromString(value as string));
+    }
+  }
+
+  get description(): string | null {
+    let value = this.get("description");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string | null) {
+    if (value === null) {
+      this.unset("description");
+    } else {
+      this.set("description", Value.fromString(value as string));
+    }
+  }
+
+  get external_url(): string | null {
+    let value = this.get("external_url");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set external_url(value: string | null) {
+    if (value === null) {
+      this.unset("external_url");
+    } else {
+      this.set("external_url", Value.fromString(value as string));
+    }
+  }
+
+  get animation_url(): string | null {
+    let value = this.get("animation_url");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set animation_url(value: string | null) {
+    if (value === null) {
+      this.unset("animation_url");
+    } else {
+      this.set("animation_url", Value.fromString(value as string));
+    }
+  }
+
+  get youtube_url(): string | null {
+    let value = this.get("youtube_url");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set youtube_url(value: string | null) {
+    if (value === null) {
+      this.unset("youtube_url");
+    } else {
+      this.set("youtube_url", Value.fromString(value as string));
+    }
+  }
+
+  get thumbnail(): string | null {
+    let value = this.get("thumbnail");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set thumbnail(value: string | null) {
+    if (value === null) {
+      this.unset("thumbnail");
+    } else {
+      this.set("thumbnail", Value.fromString(value as string));
+    }
+  }
+
+  get image(): string | null {
+    let value = this.get("image");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set image(value: string | null) {
+    if (value === null) {
+      this.unset("image");
+    } else {
+      this.set("image", Value.fromString(value as string));
+    }
+  }
+
+  get symbol(): string | null {
+    let value = this.get("symbol");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set symbol(value: string | null) {
+    if (value === null) {
+      this.unset("symbol");
+    } else {
+      this.set("symbol", Value.fromString(value as string));
     }
   }
 }

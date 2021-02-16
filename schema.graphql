@@ -5,9 +5,10 @@ type Universe @entity {
   owner: Bytes!
 
   chargedParticles: ChargedParticles
-
   ionToken: Ion
   ionMaxSupply: BigInt
+  protonToken: Proton
+  leptonToken: Lepton
   esaMultiplier: [ESAMultiplier!]! @derivedFrom(field: "universe")
 }
 
@@ -15,15 +16,23 @@ type Universe @entity {
 type ChargedParticles @entity {
   id: ID!
   owner: Bytes!
+
   universe: Universe
+  chargedSettings: ChargedSettings
+  chargedState: ChargedState
+  leptonToken: Lepton
+}
 
-  # liquidityProviders: [String!]
+# ID: `${chargedSettings.address}`
+type ChargedSettings @entity {
+  id: ID!
+  owner: Bytes!
 
-  whitelisted: [WhitelistedNftContract!]! @derivedFrom(field: "chargedParticles")
+  depositCaps: [DepositCap!]! @derivedFrom(field: "chargedSettings")
+  tempLockExpiryBlocks: BigInt
 
-  externalContractSettings: [ExternalContractSettings!]! @derivedFrom(field: "chargedParticles")
-  nftCreatorSettings: [NftCreatorSettings!]! @derivedFrom(field: "chargedParticles")
-  chargedNftState: [ChargedNftState!]! @derivedFrom(field: "chargedParticles")
+  nftSettings: [NftSettings!]! @derivedFrom(field: "chargedSettings")
+  nftCreatorSettings: [NftCreatorSettings!]! @derivedFrom(field: "chargedSettings")
 
   # Various WalletManagers listed here
   genericBasketManager: GenericBasketManager
@@ -33,24 +42,69 @@ type ChargedParticles @entity {
 
 # ID: `${contractAddress.address}`
 # dynamically generated type, not mapped to a specific contract
-type ExternalContractSettings @entity {
+type NftSettings @entity {
   id: ID!
-  chargedParticles: ChargedParticles!
-
+  chargedSettings: ChargedSettings!
   contractAddress: Bytes!
 
-  liquidityProvider: Bytes
+  requiredWalletManager: String
+  requiredBasketManager: String
+
+  allowedAssetTokens: [AllowedAssetToken!]! @derivedFrom(field: "nftSettings")
   assetDepositMin: BigInt
   assetDepositMax: BigInt
+
+  maxNfts: [NftLimits!]! @derivedFrom(field: "nftSettings")
+
+  # Action Perms
+  allowCharge: Boolean
+  allowBond: Boolean
+  allowTimelockAnyNft: Boolean
+  allowTimelockOwnNft: Boolean
+  hasRestrictedAssets: Boolean
 }
+
+
+# ID: `${contractAddress.address}-${assetToken.address}`
+# dynamically generated type, not mapped to a specific contract
+type AllowedAssetToken @entity {
+  id: ID!
+  nftSettings: NftSettings!
+
+  assetToken: Bytes
+  isAllowed: Boolean
+}
+
+
+# ID: `${chargedSettings.address}-${assetToken.address}`
+# dynamically generated type, not mapped to a specific contract
+type DepositCap @entity {
+  id: ID!
+  chargedSettings: ChargedSettings!
+
+  assetToken: Bytes
+  maxDeposit: BigInt
+}
+
+
+# ID: `${chargedSettings.address}-${assetToken.address}`
+# dynamically generated type, not mapped to a specific contract
+type NftLimits @entity {
+  id: ID!
+  nftSettings: NftSettings!
+
+  tokenAddress: Bytes
+  maxLimit: BigInt
+}
+
 
 # ID: `${contractAddress.address}-${tokenId}-${creatorAddress.address}`
 # dynamically generated type, not mapped to a specific contract
 type NftCreatorSettings @entity {
   id: ID!
-  chargedParticles: ChargedParticles!
-
+  chargedSettings: ChargedSettings!
   contractAddress: Bytes!
+
   tokenId: BigInt!
   creatorAddress: Bytes!
 
@@ -58,34 +112,49 @@ type NftCreatorSettings @entity {
   annuityRedirect: Bytes
 }
 
+
+# ID: `${chargedState.address}`
+type ChargedState @entity {
+  id: ID!
+  owner: Bytes!
+
+  nftState: [NftState!]! @derivedFrom(field: "chargedState")
+}
+
 # ID: `${contractAddress.address}-${tokenId}`
 # dynamically generated type, not mapped to a specific contract
-type ChargedNftState @entity {
+type NftState @entity {
   id: ID!
-  chargedParticles: ChargedParticles!
+  chargedState: ChargedState!
 
   contractAddress: Bytes!
   tokenId: BigInt!
-
   lastKnownOwner: Bytes
+
   dischargeApproval: Bytes
   releaseApproval: Bytes
+  breakBondApproval: Bytes
   timelockApproval: Bytes
 
-  dischargeTimelock: BigInt
-  releaseTimelock: BigInt
-  assetToBeReleasedBy: Bytes
+  dischargeTimelockExpiry: BigInt
+  dischargeTimelockLockedBy: Bytes
+
+  releaseTimelockExpiry: BigInt
+  releaseTimelockLockedBy: Bytes
+
+  breakBondTimelockExpiry: BigInt
+  breakBondTimelockLockedBy: Bytes
+
+  tempLockExpiry: BigInt
+
+  # Action Perms
+  restrictChargeFromAny: Boolean
+  allowDischargeFromAny: Boolean
+  allowReleaseFromAny: Boolean
+  restrictBondFromAny: Boolean
+  allowBreakBondFromAny: Boolean
 }
 
-# ID: `${chargedParticles.address}-${contractAddress.address}`
-# dynamically generated type, not mapped to a specific contract
-type WhitelistedNftContract @entity {
-  id: ID!
-  chargedParticles: ChargedParticles!
-
-  contractAddress: Bytes!
-  state: Boolean!
-}
 
 # ID: `${genericBasketManager.address}`
 type GenericBasketManager @entity {
@@ -220,13 +289,13 @@ type AaveAssetTokenBalance @entity {
 
 
 
-# ID: `${photon.address}-${account.address}`
-type Photon @entity {
+# ID: `${wBoson.address}-${account.address}`
+type WBoson @entity {
   id: ID!
-  photon: Bytes!
+  wBoson: Bytes!
   account: Bytes!
 
-  photonUri: String
+  wBosonUri: String
 
   name: String
   description: String
@@ -275,6 +344,11 @@ type ESAMultiplier @entity {
 type Proton @entity {
   id: ID!
   owner: Bytes!
+  paused: Boolean
+
+  universe: Universe
+  chargedSettings: ChargedSettings
+  chargedState: ChargedState
   chargedParticles: ChargedParticles
 
   tokens: [ProtonNFT!]! @derivedFrom(field: "proton")
@@ -293,7 +367,11 @@ type ProtonNFT @entity {
   creatorAnnuity: BigInt
 
   salePrice: BigInt
+  lastSalePrice: BigInt
+
   resaleRoyalties: BigInt
+  resaleRoyaltiesRedirect: Bytes
+  claimableRoyalties: BigInt
 
   metadataUri: String
   name: String
@@ -326,6 +404,45 @@ type NFTAttributes @entity {
   name: String
   value: String
 }
+
+
+# ID: `${lepton.address}`
+type Lepton @entity {
+  id: ID!
+  owner: Bytes!
+  paused: Boolean
+
+  typeIndex: BigInt
+  maxSupply: BigInt
+  maxMintPerTx: BigInt
+
+  tokens: [LeptonNFT!]! @derivedFrom(field: "lepton")
+}
+
+# ID: `${lepton.address}-${nft.id}`
+# dynamically generated type, not mapped to a specific contract
+type LeptonNFT @entity {
+  id: ID!
+  tokenId: BigInt!
+  lepton: Lepton
+  owner: Bytes
+
+  price: BigInt
+  supply: BigInt
+  multiplier: BigInt
+  bonus: BigInt
+
+  metadataUri: String
+  name: String
+  description: String
+  external_url: String
+  animation_url: String
+  youtube_url: String
+  thumbnail: String
+  image: String
+  symbol: String
+}
+
 
 # ID: `${contractAddress}-${tokenId}`
 # dynamically generated type, not mapped to a specific contract

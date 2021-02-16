@@ -21,6 +21,8 @@ dataSources:
           file: ./abis/Universe.json
         - name: Ion
           file: ./abis/Ion.json
+        - name: Lepton
+          file: ./abis/Lepton.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: ERC721
@@ -30,14 +32,18 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: ChargedParticlesSet(indexed address)
           handler: handleChargedParticlesSet
-        - event: CationSet(indexed address,uint256)
-          handler: handleCationSet
+        - event: PhotonSet(indexed address,uint256)
+          handler: handlePhotonSet
+        - event: ProtonTokenSet(indexed address)
+          handler: handleProtonTokenSet
+        - event: LeptonTokenSet(indexed address)
+          handler: handleLeptonTokenSet
         - event: EsaMultiplierSet(indexed address,uint256)
           handler: handleEsaMultiplierSet
-        - event: ElectrostaticAttraction(indexed address,address,uint256)
+        - event: ElectrostaticAttraction(indexed address,address,uint256,uint256)
           handler: handleElectrostaticAttraction
-        - event: MetallicBond(indexed address,address,uint256)
-          handler: handleMetallicBond
+        - event: ElectrostaticDischarge(indexed address,address,uint256)
+          handler: handleElectrostaticDischarge
   - name: ChargedParticles
     kind: ethereum/contract
     network: {{network}}
@@ -55,6 +61,8 @@ dataSources:
       abis:
         - name: ChargedParticles
           file: ./abis/ChargedParticles.json
+        - name: Lepton
+          file: ./abis/Lepton.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: ERC721
@@ -64,24 +72,120 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: UniverseSet(indexed address)
           handler: handleUniverseSet
-        - event: LiquidityProviderRegistered(indexed string,indexed address)
-          handler: handleLiquidityProviderRegistered
-        - event: TokenContractConfigsSet(indexed address,indexed string,uint256,uint256)
-          handler: handleTokenContractConfigsSet
-        - event: TokenCreatorConfigsSet(indexed address,indexed uint256,indexed address,uint256)
-          handler: handleTokenCreatorConfigsSet
+        - event: ChargedStateSet(indexed address)
+          handler: handleChargedStateSet
+        - event: ChargedSettingsSet(indexed address)
+          handler: handleChargedSettingsSet
+        - event: LeptonTokenSet(indexed address)
+          handler: handleLeptonTokenSet
+  - name: ChargedState
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{chargedState.address}}"
+      abi: ChargedState
+      startBlock: {{chargedState.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForChargedState.ts
+      entities:
+        - ChargedState
+      abis:
+        - name: ChargedState
+          file: ./abis/ChargedState.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ChargedSettingsSet(indexed address)
+          handler: handleChargedSettingsSet
         - event: DischargeApproval(indexed address,indexed uint256,indexed address,address)
           handler: handleDischargeApproval
         - event: ReleaseApproval(indexed address,indexed uint256,indexed address,address)
           handler: handleReleaseApproval
+        - event: BreakBondApproval(indexed address,indexed uint256,indexed address,address)
+          handler: handleBreakBondApproval
         - event: TimelockApproval(indexed address,indexed uint256,indexed address,address)
           handler: handleTimelockApproval
         - event: TokenDischargeTimelock(indexed address,indexed uint256,indexed address,uint256)
           handler: handleTokenDischargeTimelock
         - event: TokenReleaseTimelock(indexed address,indexed uint256,indexed address,uint256)
           handler: handleTokenReleaseTimelock
-        - event: UpdateContractWhitelist(indexed address,bool)
-          handler: handleUpdateContractWhitelist
+        - event: TokenBreakBondTimelock(indexed address,indexed uint256,indexed address,uint256)
+          handler: handleTokenBreakBondTimelock
+        - event: TokenTempLock(indexed address,indexed uint256,uint256)
+          handler: handleTokenTempLock
+        - event: PermsSetForRestrictCharge(indexed address,indexed uint256,bool)
+          handler: handlePermsSetForRestrictCharge
+        - event: PermsSetForAllowDischarge(indexed address,indexed uint256,bool)
+          handler: handlePermsSetForAllowDischarge
+        - event: PermsSetForAllowRelease(indexed address,indexed uint256,bool)
+          handler: handlePermsSetForAllowRelease
+        - event: PermsSetForRestrictBond(indexed address,indexed uint256,bool)
+          handler: handlePermsSetForRestrictBond
+        - event: PermsSetForAllowBreakBond(indexed address,indexed uint256,bool)
+          handler: handlePermsSetForAllowBreakBond
+  - name: ChargedSettings
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{chargedSettings.address}}"
+      abi: ChargedSettings
+      startBlock: {{chargedSettings.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForChargedSettings.ts
+      entities:
+        - ChargedSettings
+      abis:
+        - name: ChargedSettings
+          file: ./abis/ChargedSettings.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: DepositCapSet(address,uint256)
+          handler: handleDepositCapSet
+        - event: TempLockExpirySet(uint256)
+          handler: handleTempLockExpirySet
+        - event: WalletManagerRegistered(indexed string,indexed address)
+          handler: handleWalletManagerRegistered
+        - event: BasketManagerRegistered(indexed string,indexed address)
+          handler: handleBasketManagerRegistered
+        - event: RequiredWalletManagerSet(indexed address,string)
+          handler: handleRequiredWalletManagerSet
+        - event: RequiredBasketManagerSet(indexed address,string)
+          handler: handleRequiredBasketManagerSet
+        - event: AssetTokenRestrictionsSet(indexed address,bool)
+          handler: handleAssetTokenRestrictionsSet
+        - event: AllowedAssetTokenSet(indexed address,address,bool)
+          handler: handleAllowedAssetTokenSet
+        - event: AssetTokenLimitsSet(indexed address,address,uint256,uint256)
+          handler: handleAssetTokenLimitsSet
+        - event: MaxNftsSet(indexed address,indexed address,uint256)
+          handler: handleMaxNftsSet
+        - event: TokenCreatorConfigsSet(indexed address,indexed uint256,indexed address,uint256)
+          handler: handleTokenCreatorConfigsSet
+        - event: TokenCreatorAnnuitiesRedirected(indexed address,indexed uint256,indexed address)
+          handler: handleTokenCreatorAnnuitiesRedirected
+        - event: PermsSetForCharge(indexed address,bool)
+          handler: handlePermsSetForCharge
+        - event: PermsSetForBasket(indexed address,bool)
+          handler: handlePermsSetForBasket
+        - event: PermsSetForTimelockAny(indexed address,bool)
+          handler: handlePermsSetForTimelockAny
+        - event: PermsSetForTimelockSelf(indexed address,bool)
+          handler: handlePermsSetForTimelockSelf
   - name: GenericBasketManager
     kind: ethereum/contract
     network: {{network}}
@@ -144,6 +248,10 @@ dataSources:
           handler: handleNewSmartWallet
         - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256)
           handler: handleWalletEnergized
+        - event: WalletDischarged(indexed address,indexed uint256,indexed address,uint256,uint256)
+          handler: handleWalletDischarged
+        - event: WalletDischargedForCreator(indexed address,indexed uint256,indexed address,address,uint256)
+          handler: handleWalletDischargedForCreator
         - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
           handler: handleWalletReleased
         - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
@@ -216,28 +324,28 @@ dataSources:
           handler: handleApproval
         - event: LockApproval(indexed address,indexed address,uint256)
           handler: handleLockApproval
-  - name: Photon
+  - name: WBoson
     kind: ethereum/contract
     network: {{network}}
     source:
-      address: "{{photon.address}}"
-      abi: Photon
-      startBlock: {{photon.startBlock}}
+      address: "{{wBoson.address}}"
+      abi: WBoson
+      startBlock: {{wBoson.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/mappingForPhoton.ts
+      file: ./src/mappingForWBoson.ts
       entities:
-        - Photon
+        - WBoson
       abis:
-        - name: Photon
-          file: ./abis/Photon.json
+        - name: WBoson
+          file: ./abis/WBoson.json
       eventHandlers:
-        - event: PhotonUpdated(indexed address,string)
-          handler: handlePhotonUpdated
-        - event: PhotonTransferred(indexed address,indexed address,string)
-          handler: handlePhotonTransferred
+        - event: WBosonUpdated(indexed address,string)
+          handler: handleWBosonUpdated
+        - event: WBosonTransferred(indexed address,indexed address,string)
+          handler: handleWBosonTransferred
   - name: Proton
     kind: ethereum/contract
     network: {{network}}
@@ -262,18 +370,70 @@ dataSources:
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
+        - event: UniverseSet(indexed address)
+          handler: handleUniverseSet
+        - event: ChargedStateSet(indexed address)
+          handler: handleChargedStateSet
+        - event: ChargedSettingsSet(indexed address)
+          handler: handleChargedSettingsSet
         - event: ChargedParticlesSet(indexed address)
           handler: handleChargedParticlesSet
+        - event: PausedStateSet(bool)
+          handler: handlePausedStateSet
         - event: SalePriceSet(indexed uint256,uint256)
           handler: handleSalePriceSet
         - event: CreatorRoyaltiesSet(indexed uint256,uint256)
           handler: handleCreatorRoyaltiesSet
         - event: ProtonSold(indexed uint256,indexed address,indexed address,uint256,address,uint256)
           handler: handleProtonSold
+        - event: RoyaltiesClaimed(indexed address,uint256)
+          handler: handleRoyaltiesClaimed
         - event: FeesWithdrawn(indexed address,uint256)
           handler: handleFeesWithdrawn
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+  - name: Lepton
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{lepton.address}}"
+      abi: Lepton
+      startBlock: {{lepton.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForLepton.ts
+      entities:
+        - Lepton
+      abis:
+        - name: Lepton
+          file: ./abis/Lepton.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: MaxMintPerTxSet(uint256)
+          handler: handleMaxMintPerTxSet
+        - event: LeptonTypeAdded(string,uint256,uint32,uint32,uint32,uint256)
+          handler: handleLeptonTypeAdded
+        - event: LeptonTypeUpdated(uint256,string,uint256,uint32,uint32,uint32,uint256)
+          handler: handleLeptonTypeUpdated
+        - event: LeptonMinted(indexed address,indexed uint256,uint256,uint32)
+          handler: handleLeptonMinted
+        - event: LeptonBatchMinted(indexed address,indexed uint256,uint256,uint256,uint32)
+          handler: handleLeptonBatchMinted
+        - event: PausedStateSet(bool)
+          handler: handlePausedStateSet
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: TransferBatch(indexed address,indexed address,uint256,uint256)
+          handler: handleTransferBatch
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
         - event: ApprovalForAll(indexed address,indexed address,bool)

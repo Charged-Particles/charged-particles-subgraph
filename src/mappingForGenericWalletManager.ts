@@ -25,13 +25,8 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 
 export function handleControllerSet(event: ControllerSet): void {
   const genericWalletManager = loadOrCreateGenericWalletManager(event.address);
-  const chargedParticles = loadOrCreateChargedParticles(event.params.controller);
-
-  genericWalletManager.chargedParticles = event.params.controller; // chargedParticles.id;
-  chargedParticles.genericWalletManager = genericWalletManager.id;
-
+  genericWalletManager.chargedParticles = event.params.controller;
   genericWalletManager.save();
-  chargedParticles.save();
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {

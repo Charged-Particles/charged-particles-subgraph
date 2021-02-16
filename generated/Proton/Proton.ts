@@ -80,6 +80,42 @@ export class ChargedParticlesSet__Params {
   }
 }
 
+export class ChargedSettingsSet extends ethereum.Event {
+  get params(): ChargedSettingsSet__Params {
+    return new ChargedSettingsSet__Params(this);
+  }
+}
+
+export class ChargedSettingsSet__Params {
+  _event: ChargedSettingsSet;
+
+  constructor(event: ChargedSettingsSet) {
+    this._event = event;
+  }
+
+  get chargedSettings(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class ChargedStateSet extends ethereum.Event {
+  get params(): ChargedStateSet__Params {
+    return new ChargedStateSet__Params(this);
+  }
+}
+
+export class ChargedStateSet__Params {
+  _event: ChargedStateSet;
+
+  constructor(event: ChargedStateSet) {
+    this._event = event;
+  }
+
+  get chargedState(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
 export class CreatorRoyaltiesSet extends ethereum.Event {
   get params(): CreatorRoyaltiesSet__Params {
     return new CreatorRoyaltiesSet__Params(this);
@@ -124,24 +160,6 @@ export class FeesWithdrawn__Params {
   }
 }
 
-export class MintFeeSet extends ethereum.Event {
-  get params(): MintFeeSet__Params {
-    return new MintFeeSet__Params(this);
-  }
-}
-
-export class MintFeeSet__Params {
-  _event: MintFeeSet;
-
-  constructor(event: MintFeeSet) {
-    this._event = event;
-  }
-
-  get fee(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-}
-
 export class OwnershipTransferred extends ethereum.Event {
   get params(): OwnershipTransferred__Params {
     return new OwnershipTransferred__Params(this);
@@ -161,6 +179,24 @@ export class OwnershipTransferred__Params {
 
   get newOwner(): Address {
     return this._event.parameters[1].value.toAddress();
+  }
+}
+
+export class PausedStateSet extends ethereum.Event {
+  get params(): PausedStateSet__Params {
+    return new PausedStateSet__Params(this);
+  }
+}
+
+export class PausedStateSet__Params {
+  _event: PausedStateSet;
+
+  constructor(event: PausedStateSet) {
+    this._event = event;
+  }
+
+  get isPaused(): boolean {
+    return this._event.parameters[0].value.toBoolean();
   }
 }
 
@@ -199,6 +235,28 @@ export class ProtonSold__Params {
 
   get creatorRoyalties(): BigInt {
     return this._event.parameters[5].value.toBigInt();
+  }
+}
+
+export class RoyaltiesClaimed extends ethereum.Event {
+  get params(): RoyaltiesClaimed__Params {
+    return new RoyaltiesClaimed__Params(this);
+  }
+}
+
+export class RoyaltiesClaimed__Params {
+  _event: RoyaltiesClaimed;
+
+  constructor(event: RoyaltiesClaimed) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get amountClaimed(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 }
 
@@ -271,8 +329,12 @@ export class TransferBatch__Params {
     return this._event.parameters[1].value.toAddress();
   }
 
-  get tokenIds(): Array<BigInt> {
-    return this._event.parameters[2].value.toBigIntArray();
+  get startTokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get count(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
   }
 }
 
@@ -294,6 +356,80 @@ export class UniverseSet__Params {
   }
 }
 
+export class WithdrawStuckERC20 extends ethereum.Event {
+  get params(): WithdrawStuckERC20__Params {
+    return new WithdrawStuckERC20__Params(this);
+  }
+}
+
+export class WithdrawStuckERC20__Params {
+  _event: WithdrawStuckERC20;
+
+  constructor(event: WithdrawStuckERC20) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckERC721 extends ethereum.Event {
+  get params(): WithdrawStuckERC721__Params {
+    return new WithdrawStuckERC721__Params(this);
+  }
+}
+
+export class WithdrawStuckERC721__Params {
+  _event: WithdrawStuckERC721;
+
+  constructor(event: WithdrawStuckERC721) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckEther extends ethereum.Event {
+  get params(): WithdrawStuckEther__Params {
+    return new WithdrawStuckEther__Params(this);
+  }
+}
+
+export class WithdrawStuckEther__Params {
+  _event: WithdrawStuckEther;
+
+  constructor(event: WithdrawStuckEther) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+}
+
 export class Proton extends ethereum.SmartContract {
   static bind(address: Address): Proton {
     return new Proton("Proton", address);
@@ -311,6 +447,29 @@ export class Proton extends ethereum.SmartContract {
     let result = super.tryCall("balanceOf", "balanceOf(address):(uint256)", [
       ethereum.Value.fromAddress(owner)
     ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  claimCreatorRoyalties(): BigInt {
+    let result = super.call(
+      "claimCreatorRoyalties",
+      "claimCreatorRoyalties():(uint256)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_claimCreatorRoyalties(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "claimCreatorRoyalties",
+      "claimCreatorRoyalties():(uint256)",
+      []
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -550,20 +709,43 @@ export class Proton extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getCreatorRoyalties(tokenId: BigInt): BigInt {
+  getCreatorRoyalties(account: Address): BigInt {
     let result = super.call(
       "getCreatorRoyalties",
-      "getCreatorRoyalties(uint256):(uint256)",
+      "getCreatorRoyalties(address):(uint256)",
+      [ethereum.Value.fromAddress(account)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCreatorRoyalties(account: Address): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCreatorRoyalties",
+      "getCreatorRoyalties(address):(uint256)",
+      [ethereum.Value.fromAddress(account)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getCreatorRoyaltiesPct(tokenId: BigInt): BigInt {
+    let result = super.call(
+      "getCreatorRoyaltiesPct",
+      "getCreatorRoyaltiesPct(uint256):(uint256)",
       [ethereum.Value.fromUnsignedBigInt(tokenId)]
     );
 
     return result[0].toBigInt();
   }
 
-  try_getCreatorRoyalties(tokenId: BigInt): ethereum.CallResult<BigInt> {
+  try_getCreatorRoyaltiesPct(tokenId: BigInt): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
-      "getCreatorRoyalties",
-      "getCreatorRoyalties(uint256):(uint256)",
+      "getCreatorRoyaltiesPct",
+      "getCreatorRoyaltiesPct(uint256):(uint256)",
       [ethereum.Value.fromUnsignedBigInt(tokenId)]
     );
     if (result.reverted) {
@@ -1052,6 +1234,36 @@ export class BuyProtonCall__Outputs {
   }
 }
 
+export class ClaimCreatorRoyaltiesCall extends ethereum.Call {
+  get inputs(): ClaimCreatorRoyaltiesCall__Inputs {
+    return new ClaimCreatorRoyaltiesCall__Inputs(this);
+  }
+
+  get outputs(): ClaimCreatorRoyaltiesCall__Outputs {
+    return new ClaimCreatorRoyaltiesCall__Outputs(this);
+  }
+}
+
+export class ClaimCreatorRoyaltiesCall__Inputs {
+  _call: ClaimCreatorRoyaltiesCall;
+
+  constructor(call: ClaimCreatorRoyaltiesCall) {
+    this._call = call;
+  }
+}
+
+export class ClaimCreatorRoyaltiesCall__Outputs {
+  _call: ClaimCreatorRoyaltiesCall;
+
+  constructor(call: ClaimCreatorRoyaltiesCall) {
+    this._call = call;
+  }
+
+  get value0(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
 export class CreateBasicProtonCall extends ethereum.Call {
   get inputs(): CreateBasicProtonCall__Inputs {
     return new CreateBasicProtonCall__Inputs(this);
@@ -1426,6 +1638,66 @@ export class SetChargedParticlesCall__Outputs {
   }
 }
 
+export class SetChargedSettingsCall extends ethereum.Call {
+  get inputs(): SetChargedSettingsCall__Inputs {
+    return new SetChargedSettingsCall__Inputs(this);
+  }
+
+  get outputs(): SetChargedSettingsCall__Outputs {
+    return new SetChargedSettingsCall__Outputs(this);
+  }
+}
+
+export class SetChargedSettingsCall__Inputs {
+  _call: SetChargedSettingsCall;
+
+  constructor(call: SetChargedSettingsCall) {
+    this._call = call;
+  }
+
+  get settings(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetChargedSettingsCall__Outputs {
+  _call: SetChargedSettingsCall;
+
+  constructor(call: SetChargedSettingsCall) {
+    this._call = call;
+  }
+}
+
+export class SetChargedStateCall extends ethereum.Call {
+  get inputs(): SetChargedStateCall__Inputs {
+    return new SetChargedStateCall__Inputs(this);
+  }
+
+  get outputs(): SetChargedStateCall__Outputs {
+    return new SetChargedStateCall__Outputs(this);
+  }
+}
+
+export class SetChargedStateCall__Inputs {
+  _call: SetChargedStateCall;
+
+  constructor(call: SetChargedStateCall) {
+    this._call = call;
+  }
+
+  get stateController(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetChargedStateCall__Outputs {
+  _call: SetChargedStateCall;
+
+  constructor(call: SetChargedStateCall) {
+    this._call = call;
+  }
+}
+
 export class SetCreatorRoyaltiesReceiverCall extends ethereum.Call {
   get inputs(): SetCreatorRoyaltiesReceiverCall__Inputs {
     return new SetCreatorRoyaltiesReceiverCall__Inputs(this);
@@ -1456,6 +1728,36 @@ export class SetCreatorRoyaltiesReceiverCall__Outputs {
   _call: SetCreatorRoyaltiesReceiverCall;
 
   constructor(call: SetCreatorRoyaltiesReceiverCall) {
+    this._call = call;
+  }
+}
+
+export class SetPausedStateCall extends ethereum.Call {
+  get inputs(): SetPausedStateCall__Inputs {
+    return new SetPausedStateCall__Inputs(this);
+  }
+
+  get outputs(): SetPausedStateCall__Outputs {
+    return new SetPausedStateCall__Outputs(this);
+  }
+}
+
+export class SetPausedStateCall__Inputs {
+  _call: SetPausedStateCall;
+
+  constructor(call: SetPausedStateCall) {
+    this._call = call;
+  }
+
+  get state(): boolean {
+    return this._call.inputValues[0].value.toBoolean();
+  }
+}
+
+export class SetPausedStateCall__Outputs {
+  _call: SetPausedStateCall;
+
+  constructor(call: SetPausedStateCall) {
     this._call = call;
   }
 }

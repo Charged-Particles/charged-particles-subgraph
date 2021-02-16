@@ -1,12 +1,12 @@
 import { Address } from '@graphprotocol/graph-ts';
 
 import {
-  ChargedNftState,
+  NftState,
 } from '../../generated/schema';
 
 import { ADDRESS_ZERO } from './common';
 
-export function trackLastKnownOwner(chargedNftState: ChargedNftState, owner: Address): void {
+export function trackLastKnownOwner(chargedNftState: NftState, owner: Address): void {
   if (chargedNftState.lastKnownOwner != owner) {
     chargedNftState.lastKnownOwner = owner;
 

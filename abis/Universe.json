@@ -5,17 +5,11 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "token",
+        "name": "bosonToken",
         "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "maxSupply",
-        "type": "uint256"
       }
     ],
-    "name": "CationSet",
+    "name": "BosonTokenSet",
     "type": "event"
   },
   {
@@ -43,7 +37,38 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "cationSource",
+        "name": "photonSource",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "energy",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "multiplier",
+        "type": "uint256"
+      }
+    ],
+    "name": "ElectrostaticAttraction",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "photonSource",
         "type": "address"
       },
       {
@@ -53,7 +78,7 @@
         "type": "uint256"
       }
     ],
-    "name": "ElectrostaticAttraction",
+    "name": "ElectrostaticDischarge",
     "type": "event"
   },
   {
@@ -81,23 +106,11 @@
       {
         "indexed": true,
         "internalType": "address",
-        "name": "account",
+        "name": "leptonToken",
         "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "cationSource",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "energy",
-        "type": "uint256"
       }
     ],
-    "name": "MetallicBond",
+    "name": "LeptonTokenSet",
     "type": "event"
   },
   {
@@ -125,6 +138,25 @@
       {
         "indexed": true,
         "internalType": "address",
+        "name": "photonToken",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "maxSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "PhotonSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
         "name": "protonToken",
         "type": "address"
       }
@@ -133,11 +165,93 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "quarkToken",
+        "type": "address"
+      }
+    ],
+    "name": "QuarkTokenSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawStuckERC20",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawStuckERC721",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "WithdrawStuckEther",
+    "type": "event"
+  },
+  {
     "inputs": [],
-    "name": "cationSource",
+    "name": "boson",
     "outputs": [
       {
-        "internalType": "contract IERC20Upgradeable",
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -161,12 +275,17 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
         "name": "amount",
         "type": "uint256"
       }
     ],
-    "name": "conductMetallicBond",
+    "name": "conductElectrostaticDischarge",
     "outputs": [
       {
         "internalType": "uint256",
@@ -178,10 +297,42 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "getStaticCharge",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "positiveEnergy",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "lepton",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -198,7 +349,7 @@
       },
       {
         "internalType": "string",
-        "name": "managerId",
+        "name": "",
         "type": "string"
       },
       {
@@ -231,7 +382,7 @@
       },
       {
         "internalType": "string",
-        "name": "managerId",
+        "name": "",
         "type": "string"
       },
       {
@@ -241,7 +392,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "nftTokenId",
+        "name": "",
         "type": "uint256"
       }
     ],
@@ -470,7 +621,33 @@
   },
   {
     "inputs": [],
+    "name": "photonSource",
+    "outputs": [
+      {
+        "internalType": "contract IERC20Upgradeable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "proton",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "quark",
     "outputs": [
       {
         "internalType": "address",
@@ -494,14 +671,9 @@
         "internalType": "address",
         "name": "token",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "maxSupply",
-        "type": "uint256"
       }
     ],
-    "name": "setCation",
+    "name": "setBosonToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -545,7 +717,51 @@
         "type": "address"
       }
     ],
+    "name": "setLeptonToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "setPhoton",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
     "name": "setProtonToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "token",
+        "type": "address"
+      }
+    ],
+    "name": "setQuarkToken",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

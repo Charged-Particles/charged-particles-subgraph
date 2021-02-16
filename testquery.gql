@@ -122,12 +122,12 @@
     }
   }
 
-  photons {
+  wBosons {
     id
-    photon
+    wBoson
     account
 
-    photonUri
+    wBosonUri
 
     name
     description

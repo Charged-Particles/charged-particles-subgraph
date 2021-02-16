@@ -1,35 +1,47 @@
 {
   "network": "kovan",
   "universe": {
-    "address": "0xe32531515d92495a9E27f89FD577398B8b07A9B1",
-    "startBlock": "23176659"
+    "address": "0x9adA35E199635ADEF3E122B271977ED65f4E1903",
+    "startBlock": "23503504"
+  },
+  "chargedState": {
+    "address": "0xc9584d9fef62FdEE4D6f7849016CB1b19AAceb31",
+    "startBlock": "23503504"
+  },
+  "chargedSettings": {
+    "address": "0x4E59088c558553c2c224980aF3eBD6e5dd377abb",
+    "startBlock": "23503504"
   },
   "chargedParticles": {
-    "address": "0x9fd3af8ff63BAdB8AeF48Dbf03b2f07E7fC508BB",
-    "startBlock": "23176659"
-  },
-  "genericBasketManager": {
-    "address": "0x4F81943c40CbD13E64143f52914222088976323d",
-    "startBlock": "23176659"
+    "address": "0xe5D1C71253E1B732050c1135a7e36f63433c2135",
+    "startBlock": "23503504"
   },
   "genericWalletManager": {
-    "address": "0x3c68c5cf98C410Cf35d99811F41e1572FA32850d",
-    "startBlock": "23176659"
+    "address": "0x2Ef52150616090362DC893172F5690985beA204C",
+    "startBlock": "23503504"
+  },
+  "genericBasketManager": {
+    "address": "0x9a815EF42F0681d0B86E1eE23aC761534f392c6a",
+    "startBlock": "23503504"
   },
   "aaveWalletManager": {
-    "address": "0x187A7A9C98195C266C72C1493aFE9854e9c06e40",
-    "startBlock": "23176659"
+    "address": "0xabBD00fA4432E79289eD6806389436884689BC4E",
+    "startBlock": "23503504"
   },
-  "photon": {
-    "address": "0xf3a285EA72f400F8d8CD0bb9C6C98a735c877771",
-    "startBlock": "23176659"
+  "wBoson": {
+    "address": "0x404113A4407352054A0504645B0999E231e57f9f",
+    "startBlock": "23503504"
   },
   "proton": {
-    "address": "0xd60C04E4454cF2aA5142727C76B48616B7df18Dc",
-    "startBlock": "23176659"
+    "address": "0xbaa4eCBe6905c0C0841a16853C0B6BD469dF9f9D",
+    "startBlock": "23503504"
+  },
+  "lepton": {
+    "address": "0x826dbb2709d736C8c0a64c30FBD55f02bCF09cab",
+    "startBlock": "23503504"
   },
   "ion": {
-    "address": "0x8bb6A917E13fBA83148d5b2CC1c7CB7d4aA58d95",
-    "startBlock": "23176659"
+    "address": "0x0a6ecBAaA0444a683Da1f666252da120561B11cD",
+    "startBlock": "23503504"
   }
 }

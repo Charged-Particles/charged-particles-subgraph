@@ -10,6 +10,7 @@ import {
 } from '../generated/GenericBasketManager/GenericBasketManager';
 
 import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
+import { loadOrCreateChargedSettings } from './helpers/loadOrCreateChargedSettings';
 import { loadOrCreateGenericBasketManager } from './helpers/loadOrCreateGenericBasketManager';
 import { loadOrCreateGenericSmartBasket } from './helpers/loadOrCreateGenericSmartBasket';
 import { loadOrCreateGenericNftTokenBalance } from './helpers/loadOrCreateGenericNftTokenBalance';
@@ -25,13 +26,8 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 
 export function handleControllerSet(event: ControllerSet): void {
   const genericBasketManager = loadOrCreateGenericBasketManager(event.address);
-  const chargedParticles = loadOrCreateChargedParticles(event.params.controller);
-
-  genericBasketManager.chargedParticles = event.params.controller; // chargedParticles.id;
-  chargedParticles.genericBasketManager = genericBasketManager.id;
-
+  genericBasketManager.chargedParticles = event.params.controller;
   genericBasketManager.save();
-  chargedParticles.save();
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {

@@ -2,22 +2,46 @@
   "network": "mainnet",
   "universe": {
     "address": "",
-    "startBlock": "1000000"
+    "startBlock": ""
+  },
+  "chargedState": {
+    "address": "",
+    "startBlock": ""
+  },
+  "chargedSettings": {
+    "address": "",
+    "startBlock": ""
   },
   "chargedParticles": {
     "address": "",
-    "startBlock": "1000000"
+    "startBlock": ""
+  },
+  "genericWalletManager": {
+    "address": "",
+    "startBlock": ""
+  },
+  "genericBasketManager": {
+    "address": "",
+    "startBlock": ""
   },
   "aaveWalletManager": {
     "address": "",
-    "startBlock": "1000000"
+    "startBlock": ""
   },
-  "ion": {
+  "wBoson": {
     "address": "",
-    "startBlock": "1000000"
+    "startBlock": ""
   },
   "proton": {
     "address": "",
-    "startBlock": "1000000"
+    "startBlock": ""
+  },
+  "lepton": {
+    "address": "",
+    "startBlock": ""
+  },
+  "ion": {
+    "address": "",
+    "startBlock": ""
   }
 }

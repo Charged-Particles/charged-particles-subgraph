@@ -120,6 +120,28 @@ export class PausedStateSet__Params {
   }
 }
 
+export class ValidRewardsTokenSet extends ethereum.Event {
+  get params(): ValidRewardsTokenSet__Params {
+    return new ValidRewardsTokenSet__Params(this);
+  }
+}
+
+export class ValidRewardsTokenSet__Params {
+  _event: ValidRewardsTokenSet;
+
+  constructor(event: ValidRewardsTokenSet) {
+    this._event = event;
+  }
+
+  get rewardsToken(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get state(): boolean {
+    return this._event.parameters[1].value.toBoolean();
+  }
+}
+
 export class WalletDischarged extends ethereum.Event {
   get params(): WalletDischarged__Params {
     return new WalletDischarged__Params(this);
@@ -298,25 +320,77 @@ export class WalletRewarded__Params {
   }
 }
 
-export class WhitelistedRewardsTokenSet extends ethereum.Event {
-  get params(): WhitelistedRewardsTokenSet__Params {
-    return new WhitelistedRewardsTokenSet__Params(this);
+export class WithdrawStuckERC20 extends ethereum.Event {
+  get params(): WithdrawStuckERC20__Params {
+    return new WithdrawStuckERC20__Params(this);
   }
 }
 
-export class WhitelistedRewardsTokenSet__Params {
-  _event: WhitelistedRewardsTokenSet;
+export class WithdrawStuckERC20__Params {
+  _event: WithdrawStuckERC20;
 
-  constructor(event: WhitelistedRewardsTokenSet) {
+  constructor(event: WithdrawStuckERC20) {
     this._event = event;
   }
 
-  get rewardsToken(): Address {
+  get receiver(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
-  get state(): boolean {
-    return this._event.parameters[1].value.toBoolean();
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckERC721 extends ethereum.Event {
+  get params(): WithdrawStuckERC721__Params {
+    return new WithdrawStuckERC721__Params(this);
+  }
+}
+
+export class WithdrawStuckERC721__Params {
+  _event: WithdrawStuckERC721;
+
+  constructor(event: WithdrawStuckERC721) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckEther extends ethereum.Event {
+  get params(): WithdrawStuckEther__Params {
+    return new WithdrawStuckEther__Params(this);
+  }
+}
+
+export class WithdrawStuckEther__Params {
+  _event: WithdrawStuckEther;
+
+  constructor(event: WithdrawStuckEther) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 }
 
@@ -1947,20 +2021,20 @@ export class SetReferralCodeCall__Outputs {
   }
 }
 
-export class SetWhitelistedRewardsTokenCall extends ethereum.Call {
-  get inputs(): SetWhitelistedRewardsTokenCall__Inputs {
-    return new SetWhitelistedRewardsTokenCall__Inputs(this);
+export class SetValidRewardsTokenCall extends ethereum.Call {
+  get inputs(): SetValidRewardsTokenCall__Inputs {
+    return new SetValidRewardsTokenCall__Inputs(this);
   }
 
-  get outputs(): SetWhitelistedRewardsTokenCall__Outputs {
-    return new SetWhitelistedRewardsTokenCall__Outputs(this);
+  get outputs(): SetValidRewardsTokenCall__Outputs {
+    return new SetValidRewardsTokenCall__Outputs(this);
   }
 }
 
-export class SetWhitelistedRewardsTokenCall__Inputs {
-  _call: SetWhitelistedRewardsTokenCall;
+export class SetValidRewardsTokenCall__Inputs {
+  _call: SetValidRewardsTokenCall;
 
-  constructor(call: SetWhitelistedRewardsTokenCall) {
+  constructor(call: SetValidRewardsTokenCall) {
     this._call = call;
   }
 
@@ -1973,10 +2047,10 @@ export class SetWhitelistedRewardsTokenCall__Inputs {
   }
 }
 
-export class SetWhitelistedRewardsTokenCall__Outputs {
-  _call: SetWhitelistedRewardsTokenCall;
+export class SetValidRewardsTokenCall__Outputs {
+  _call: SetValidRewardsTokenCall;
 
-  constructor(call: SetWhitelistedRewardsTokenCall) {
+  constructor(call: SetValidRewardsTokenCall) {
     this._call = call;
   }
 }

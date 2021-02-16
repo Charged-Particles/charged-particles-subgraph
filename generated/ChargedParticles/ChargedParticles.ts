@@ -10,77 +10,57 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
-export class DischargeApproval extends ethereum.Event {
-  get params(): DischargeApproval__Params {
-    return new DischargeApproval__Params(this);
+export class ChargedSettingsSet extends ethereum.Event {
+  get params(): ChargedSettingsSet__Params {
+    return new ChargedSettingsSet__Params(this);
   }
 }
 
-export class DischargeApproval__Params {
-  _event: DischargeApproval;
+export class ChargedSettingsSet__Params {
+  _event: ChargedSettingsSet;
 
-  constructor(event: DischargeApproval) {
+  constructor(event: ChargedSettingsSet) {
     this._event = event;
   }
 
-  get contractAddress(): Address {
+  get chargedSettings(): Address {
     return this._event.parameters[0].value.toAddress();
   }
+}
 
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get owner(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get operator(): Address {
-    return this._event.parameters[3].value.toAddress();
+export class ChargedStateSet extends ethereum.Event {
+  get params(): ChargedStateSet__Params {
+    return new ChargedStateSet__Params(this);
   }
 }
 
-export class LiquidityProviderRegistered extends ethereum.Event {
-  get params(): LiquidityProviderRegistered__Params {
-    return new LiquidityProviderRegistered__Params(this);
-  }
-}
+export class ChargedStateSet__Params {
+  _event: ChargedStateSet;
 
-export class LiquidityProviderRegistered__Params {
-  _event: LiquidityProviderRegistered;
-
-  constructor(event: LiquidityProviderRegistered) {
+  constructor(event: ChargedStateSet) {
     this._event = event;
   }
 
-  get walletManagerId(): Bytes {
-    return this._event.parameters[0].value.toBytes();
-  }
-
-  get walletManager(): Address {
-    return this._event.parameters[1].value.toAddress();
+  get chargedState(): Address {
+    return this._event.parameters[0].value.toAddress();
   }
 }
 
-export class NftBasketRegistered extends ethereum.Event {
-  get params(): NftBasketRegistered__Params {
-    return new NftBasketRegistered__Params(this);
+export class LeptonTokenSet extends ethereum.Event {
+  get params(): LeptonTokenSet__Params {
+    return new LeptonTokenSet__Params(this);
   }
 }
 
-export class NftBasketRegistered__Params {
-  _event: NftBasketRegistered;
+export class LeptonTokenSet__Params {
+  _event: LeptonTokenSet;
 
-  constructor(event: NftBasketRegistered) {
+  constructor(event: LeptonTokenSet) {
     this._event = event;
   }
 
-  get basketId(): Bytes {
-    return this._event.parameters[0].value.toBytes();
-  }
-
-  get basketManager(): Address {
-    return this._event.parameters[1].value.toAddress();
+  get leptonToken(): Address {
+    return this._event.parameters[0].value.toAddress();
   }
 }
 
@@ -106,212 +86,6 @@ export class OwnershipTransferred__Params {
   }
 }
 
-export class ReleaseApproval extends ethereum.Event {
-  get params(): ReleaseApproval__Params {
-    return new ReleaseApproval__Params(this);
-  }
-}
-
-export class ReleaseApproval__Params {
-  _event: ReleaseApproval;
-
-  constructor(event: ReleaseApproval) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get owner(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get operator(): Address {
-    return this._event.parameters[3].value.toAddress();
-  }
-}
-
-export class TimelockApproval extends ethereum.Event {
-  get params(): TimelockApproval__Params {
-    return new TimelockApproval__Params(this);
-  }
-}
-
-export class TimelockApproval__Params {
-  _event: TimelockApproval;
-
-  constructor(event: TimelockApproval) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get owner(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get operator(): Address {
-    return this._event.parameters[3].value.toAddress();
-  }
-}
-
-export class TokenContractConfigsSet extends ethereum.Event {
-  get params(): TokenContractConfigsSet__Params {
-    return new TokenContractConfigsSet__Params(this);
-  }
-}
-
-export class TokenContractConfigsSet__Params {
-  _event: TokenContractConfigsSet;
-
-  constructor(event: TokenContractConfigsSet) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get liquidityProvider(): Bytes {
-    return this._event.parameters[1].value.toBytes();
-  }
-
-  get assetDepositMin(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
-  }
-
-  get assetDepositMax(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-}
-
-export class TokenCreatorAnnuitiesRedirected extends ethereum.Event {
-  get params(): TokenCreatorAnnuitiesRedirected__Params {
-    return new TokenCreatorAnnuitiesRedirected__Params(this);
-  }
-}
-
-export class TokenCreatorAnnuitiesRedirected__Params {
-  _event: TokenCreatorAnnuitiesRedirected;
-
-  constructor(event: TokenCreatorAnnuitiesRedirected) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get redirectAddress(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-}
-
-export class TokenCreatorConfigsSet extends ethereum.Event {
-  get params(): TokenCreatorConfigsSet__Params {
-    return new TokenCreatorConfigsSet__Params(this);
-  }
-}
-
-export class TokenCreatorConfigsSet__Params {
-  _event: TokenCreatorConfigsSet;
-
-  constructor(event: TokenCreatorConfigsSet) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get creatorAddress(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get annuityPercent(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-}
-
-export class TokenDischargeTimelock extends ethereum.Event {
-  get params(): TokenDischargeTimelock__Params {
-    return new TokenDischargeTimelock__Params(this);
-  }
-}
-
-export class TokenDischargeTimelock__Params {
-  _event: TokenDischargeTimelock;
-
-  constructor(event: TokenDischargeTimelock) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get operator(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get unlockBlock(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-}
-
-export class TokenReleaseTimelock extends ethereum.Event {
-  get params(): TokenReleaseTimelock__Params {
-    return new TokenReleaseTimelock__Params(this);
-  }
-}
-
-export class TokenReleaseTimelock__Params {
-  _event: TokenReleaseTimelock;
-
-  constructor(event: TokenReleaseTimelock) {
-    this._event = event;
-  }
-
-  get contractAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-
-  get operator(): Address {
-    return this._event.parameters[2].value.toAddress();
-  }
-
-  get unlockBlock(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
-  }
-}
-
 export class UniverseSet extends ethereum.Event {
   get params(): UniverseSet__Params {
     return new UniverseSet__Params(this);
@@ -330,25 +104,77 @@ export class UniverseSet__Params {
   }
 }
 
-export class UpdateContractWhitelist extends ethereum.Event {
-  get params(): UpdateContractWhitelist__Params {
-    return new UpdateContractWhitelist__Params(this);
+export class WithdrawStuckERC20 extends ethereum.Event {
+  get params(): WithdrawStuckERC20__Params {
+    return new WithdrawStuckERC20__Params(this);
   }
 }
 
-export class UpdateContractWhitelist__Params {
-  _event: UpdateContractWhitelist;
+export class WithdrawStuckERC20__Params {
+  _event: WithdrawStuckERC20;
 
-  constructor(event: UpdateContractWhitelist) {
+  constructor(event: WithdrawStuckERC20) {
     this._event = event;
   }
 
-  get contractAddress(): Address {
+  get receiver(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
-  get state(): boolean {
-    return this._event.parameters[1].value.toBoolean();
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckERC721 extends ethereum.Event {
+  get params(): WithdrawStuckERC721__Params {
+    return new WithdrawStuckERC721__Params(this);
+  }
+}
+
+export class WithdrawStuckERC721__Params {
+  _event: WithdrawStuckERC721;
+
+  constructor(event: WithdrawStuckERC721) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckEther extends ethereum.Event {
+  get params(): WithdrawStuckEther__Params {
+    return new WithdrawStuckEther__Params(this);
+  }
+}
+
+export class WithdrawStuckEther__Params {
+  _event: WithdrawStuckEther;
+
+  constructor(event: WithdrawStuckEther) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 }
 
@@ -907,21 +733,21 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getBasketManager(basketId: string): Address {
+  getSettingsAddress(): Address {
     let result = super.call(
-      "getBasketManager",
-      "getBasketManager(string):(address)",
-      [ethereum.Value.fromString(basketId)]
+      "getSettingsAddress",
+      "getSettingsAddress():(address)",
+      []
     );
 
     return result[0].toAddress();
   }
 
-  try_getBasketManager(basketId: string): ethereum.CallResult<Address> {
+  try_getSettingsAddress(): ethereum.CallResult<Address> {
     let result = super.tryCall(
-      "getBasketManager",
-      "getBasketManager(string):(address)",
-      [ethereum.Value.fromString(basketId)]
+      "getSettingsAddress",
+      "getSettingsAddress():(address)",
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -930,429 +756,27 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  getCreatorAnnuitiesRedirect(
-    contractAddress: Address,
-    tokenId: BigInt
-  ): Address {
+  getStateAddress(): Address {
     let result = super.call(
-      "getCreatorAnnuitiesRedirect",
-      "getCreatorAnnuitiesRedirect(address,uint256):(address)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId)
-      ]
+      "getStateAddress",
+      "getStateAddress():(address)",
+      []
     );
 
     return result[0].toAddress();
   }
 
-  try_getCreatorAnnuitiesRedirect(
-    contractAddress: Address,
-    tokenId: BigInt
-  ): ethereum.CallResult<Address> {
+  try_getStateAddress(): ethereum.CallResult<Address> {
     let result = super.tryCall(
-      "getCreatorAnnuitiesRedirect",
-      "getCreatorAnnuitiesRedirect(address,uint256):(address)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId)
-      ]
+      "getStateAddress",
+      "getStateAddress():(address)",
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getNftBasketByIndex(index: BigInt): string {
-    let result = super.call(
-      "getNftBasketByIndex",
-      "getNftBasketByIndex(uint256):(string)",
-      [ethereum.Value.fromUnsignedBigInt(index)]
-    );
-
-    return result[0].toString();
-  }
-
-  try_getNftBasketByIndex(index: BigInt): ethereum.CallResult<string> {
-    let result = super.tryCall(
-      "getNftBasketByIndex",
-      "getNftBasketByIndex(uint256):(string)",
-      [ethereum.Value.fromUnsignedBigInt(index)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toString());
-  }
-
-  getNftBasketCount(): BigInt {
-    let result = super.call(
-      "getNftBasketCount",
-      "getNftBasketCount():(uint256)",
-      []
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getNftBasketCount(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getNftBasketCount",
-      "getNftBasketCount():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getOwnerUUID(walletManagerId: string, ownerAddress: Address): BigInt {
-    let result = super.call(
-      "getOwnerUUID",
-      "getOwnerUUID(string,address):(uint256)",
-      [
-        ethereum.Value.fromString(walletManagerId),
-        ethereum.Value.fromAddress(ownerAddress)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getOwnerUUID(
-    walletManagerId: string,
-    ownerAddress: Address
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getOwnerUUID",
-      "getOwnerUUID(string,address):(uint256)",
-      [
-        ethereum.Value.fromString(walletManagerId),
-        ethereum.Value.fromAddress(ownerAddress)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getTokenUUID(contractAddress: Address, tokenId: BigInt): BigInt {
-    let result = super.call(
-      "getTokenUUID",
-      "getTokenUUID(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getTokenUUID(
-    contractAddress: Address,
-    tokenId: BigInt
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getTokenUUID",
-      "getTokenUUID(address,uint256):(uint256)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getWalletManager(walletManagerId: string): Address {
-    let result = super.call(
-      "getWalletManager",
-      "getWalletManager(string):(address)",
-      [ethereum.Value.fromString(walletManagerId)]
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_getWalletManager(walletManagerId: string): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "getWalletManager",
-      "getWalletManager(string):(address)",
-      [ethereum.Value.fromString(walletManagerId)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
-  getWalletManagerByIndex(index: BigInt): string {
-    let result = super.call(
-      "getWalletManagerByIndex",
-      "getWalletManagerByIndex(uint256):(string)",
-      [ethereum.Value.fromUnsignedBigInt(index)]
-    );
-
-    return result[0].toString();
-  }
-
-  try_getWalletManagerByIndex(index: BigInt): ethereum.CallResult<string> {
-    let result = super.tryCall(
-      "getWalletManagerByIndex",
-      "getWalletManagerByIndex(uint256):(string)",
-      [ethereum.Value.fromUnsignedBigInt(index)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toString());
-  }
-
-  getWalletManagerCount(): BigInt {
-    let result = super.call(
-      "getWalletManagerCount",
-      "getWalletManagerCount():(uint256)",
-      []
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_getWalletManagerCount(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "getWalletManagerCount",
-      "getWalletManagerCount():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  isApprovedForDischarge(
-    contractAddress: Address,
-    tokenId: BigInt,
-    operator: Address
-  ): boolean {
-    let result = super.call(
-      "isApprovedForDischarge",
-      "isApprovedForDischarge(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(operator)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isApprovedForDischarge(
-    contractAddress: Address,
-    tokenId: BigInt,
-    operator: Address
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isApprovedForDischarge",
-      "isApprovedForDischarge(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(operator)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isApprovedForRelease(
-    contractAddress: Address,
-    tokenId: BigInt,
-    operator: Address
-  ): boolean {
-    let result = super.call(
-      "isApprovedForRelease",
-      "isApprovedForRelease(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(operator)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isApprovedForRelease(
-    contractAddress: Address,
-    tokenId: BigInt,
-    operator: Address
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isApprovedForRelease",
-      "isApprovedForRelease(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(operator)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isApprovedForTimelock(
-    contractAddress: Address,
-    tokenId: BigInt,
-    operator: Address
-  ): boolean {
-    let result = super.call(
-      "isApprovedForTimelock",
-      "isApprovedForTimelock(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(operator)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isApprovedForTimelock(
-    contractAddress: Address,
-    tokenId: BigInt,
-    operator: Address
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isApprovedForTimelock",
-      "isApprovedForTimelock(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(operator)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isContractOwner(contractAddress: Address, account: Address): boolean {
-    let result = super.call(
-      "isContractOwner",
-      "isContractOwner(address,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromAddress(account)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isContractOwner(
-    contractAddress: Address,
-    account: Address
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isContractOwner",
-      "isContractOwner(address,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromAddress(account)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isNftBasketEnabled(basketId: string): boolean {
-    let result = super.call(
-      "isNftBasketEnabled",
-      "isNftBasketEnabled(string):(bool)",
-      [ethereum.Value.fromString(basketId)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isNftBasketEnabled(basketId: string): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isNftBasketEnabled",
-      "isNftBasketEnabled(string):(bool)",
-      [ethereum.Value.fromString(basketId)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isTokenCreator(
-    contractAddress: Address,
-    tokenId: BigInt,
-    account: Address
-  ): boolean {
-    let result = super.call(
-      "isTokenCreator",
-      "isTokenCreator(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(account)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isTokenCreator(
-    contractAddress: Address,
-    tokenId: BigInt,
-    account: Address
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isTokenCreator",
-      "isTokenCreator(address,uint256,address):(bool)",
-      [
-        ethereum.Value.fromAddress(contractAddress),
-        ethereum.Value.fromUnsignedBigInt(tokenId),
-        ethereum.Value.fromAddress(account)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   isTrustedForwarder(forwarder: Address): boolean {
@@ -1370,31 +794,6 @@ export class ChargedParticles extends ethereum.SmartContract {
       "isTrustedForwarder",
       "isTrustedForwarder(address):(bool)",
       [ethereum.Value.fromAddress(forwarder)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  isWalletManagerEnabled(walletManagerId: string): boolean {
-    let result = super.call(
-      "isWalletManagerEnabled",
-      "isWalletManagerEnabled(string):(bool)",
-      [ethereum.Value.fromString(walletManagerId)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_isWalletManagerEnabled(
-    walletManagerId: string
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "isWalletManagerEnabled",
-      "isWalletManagerEnabled(string):(bool)",
-      [ethereum.Value.fromString(walletManagerId)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -1619,25 +1018,6 @@ export class ChargedParticles extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toString());
-  }
-
-  whitelisted(param0: Address): boolean {
-    let result = super.call("whitelisted", "whitelisted(address):(bool)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-
-    return result[0].toBoolean();
-  }
-
-  try_whitelisted(param0: Address): ethereum.CallResult<boolean> {
-    let result = super.tryCall("whitelisted", "whitelisted(address):(bool)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 }
 
@@ -2179,74 +1559,6 @@ export class OnERC721ReceivedCall__Outputs {
   }
 }
 
-export class RegisterBasketManagerCall extends ethereum.Call {
-  get inputs(): RegisterBasketManagerCall__Inputs {
-    return new RegisterBasketManagerCall__Inputs(this);
-  }
-
-  get outputs(): RegisterBasketManagerCall__Outputs {
-    return new RegisterBasketManagerCall__Outputs(this);
-  }
-}
-
-export class RegisterBasketManagerCall__Inputs {
-  _call: RegisterBasketManagerCall;
-
-  constructor(call: RegisterBasketManagerCall) {
-    this._call = call;
-  }
-
-  get basketId(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-
-  get basketManager(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class RegisterBasketManagerCall__Outputs {
-  _call: RegisterBasketManagerCall;
-
-  constructor(call: RegisterBasketManagerCall) {
-    this._call = call;
-  }
-}
-
-export class RegisterWalletManagerCall extends ethereum.Call {
-  get inputs(): RegisterWalletManagerCall__Inputs {
-    return new RegisterWalletManagerCall__Inputs(this);
-  }
-
-  get outputs(): RegisterWalletManagerCall__Outputs {
-    return new RegisterWalletManagerCall__Outputs(this);
-  }
-}
-
-export class RegisterWalletManagerCall__Inputs {
-  _call: RegisterWalletManagerCall;
-
-  constructor(call: RegisterWalletManagerCall) {
-    this._call = call;
-  }
-
-  get walletManagerId(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-
-  get walletManager(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class RegisterWalletManagerCall__Outputs {
-  _call: RegisterWalletManagerCall;
-
-  constructor(call: RegisterWalletManagerCall) {
-    this._call = call;
-  }
-}
-
 export class ReleaseParticleCall extends ethereum.Call {
   get inputs(): ReleaseParticleCall__Inputs {
     return new ReleaseParticleCall__Inputs(this);
@@ -2385,314 +1697,122 @@ export class RenounceOwnershipCall__Outputs {
   }
 }
 
-export class SetCreatorAnnuitiesRedirectCall extends ethereum.Call {
-  get inputs(): SetCreatorAnnuitiesRedirectCall__Inputs {
-    return new SetCreatorAnnuitiesRedirectCall__Inputs(this);
+export class SetChargedSettingsCall extends ethereum.Call {
+  get inputs(): SetChargedSettingsCall__Inputs {
+    return new SetChargedSettingsCall__Inputs(this);
   }
 
-  get outputs(): SetCreatorAnnuitiesRedirectCall__Outputs {
-    return new SetCreatorAnnuitiesRedirectCall__Outputs(this);
+  get outputs(): SetChargedSettingsCall__Outputs {
+    return new SetChargedSettingsCall__Outputs(this);
   }
 }
 
-export class SetCreatorAnnuitiesRedirectCall__Inputs {
-  _call: SetCreatorAnnuitiesRedirectCall;
+export class SetChargedSettingsCall__Inputs {
+  _call: SetChargedSettingsCall;
 
-  constructor(call: SetCreatorAnnuitiesRedirectCall) {
+  constructor(call: SetChargedSettingsCall) {
     this._call = call;
   }
 
-  get contractAddress(): Address {
+  get settingsController(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get receiver(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
 }
 
-export class SetCreatorAnnuitiesRedirectCall__Outputs {
-  _call: SetCreatorAnnuitiesRedirectCall;
+export class SetChargedSettingsCall__Outputs {
+  _call: SetChargedSettingsCall;
 
-  constructor(call: SetCreatorAnnuitiesRedirectCall) {
+  constructor(call: SetChargedSettingsCall) {
     this._call = call;
   }
 }
 
-export class SetCreatorConfigsCall extends ethereum.Call {
-  get inputs(): SetCreatorConfigsCall__Inputs {
-    return new SetCreatorConfigsCall__Inputs(this);
+export class SetChargedStateCall extends ethereum.Call {
+  get inputs(): SetChargedStateCall__Inputs {
+    return new SetChargedStateCall__Inputs(this);
   }
 
-  get outputs(): SetCreatorConfigsCall__Outputs {
-    return new SetCreatorConfigsCall__Outputs(this);
+  get outputs(): SetChargedStateCall__Outputs {
+    return new SetChargedStateCall__Outputs(this);
   }
 }
 
-export class SetCreatorConfigsCall__Inputs {
-  _call: SetCreatorConfigsCall;
+export class SetChargedStateCall__Inputs {
+  _call: SetChargedStateCall;
 
-  constructor(call: SetCreatorConfigsCall) {
+  constructor(call: SetChargedStateCall) {
     this._call = call;
   }
 
-  get contractAddress(): Address {
+  get stateController(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get creator(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-
-  get annuityPercent(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
 }
 
-export class SetCreatorConfigsCall__Outputs {
-  _call: SetCreatorConfigsCall;
+export class SetChargedStateCall__Outputs {
+  _call: SetChargedStateCall;
 
-  constructor(call: SetCreatorConfigsCall) {
+  constructor(call: SetChargedStateCall) {
     this._call = call;
   }
 }
 
-export class SetDischargeApprovalCall extends ethereum.Call {
-  get inputs(): SetDischargeApprovalCall__Inputs {
-    return new SetDischargeApprovalCall__Inputs(this);
+export class SetLeptonTokenCall extends ethereum.Call {
+  get inputs(): SetLeptonTokenCall__Inputs {
+    return new SetLeptonTokenCall__Inputs(this);
   }
 
-  get outputs(): SetDischargeApprovalCall__Outputs {
-    return new SetDischargeApprovalCall__Outputs(this);
+  get outputs(): SetLeptonTokenCall__Outputs {
+    return new SetLeptonTokenCall__Outputs(this);
   }
 }
 
-export class SetDischargeApprovalCall__Inputs {
-  _call: SetDischargeApprovalCall;
+export class SetLeptonTokenCall__Inputs {
+  _call: SetLeptonTokenCall;
 
-  constructor(call: SetDischargeApprovalCall) {
+  constructor(call: SetLeptonTokenCall) {
     this._call = call;
   }
 
-  get contractAddress(): Address {
+  get token(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get operator(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
 }
 
-export class SetDischargeApprovalCall__Outputs {
-  _call: SetDischargeApprovalCall;
+export class SetLeptonTokenCall__Outputs {
+  _call: SetLeptonTokenCall;
 
-  constructor(call: SetDischargeApprovalCall) {
+  constructor(call: SetLeptonTokenCall) {
     this._call = call;
   }
 }
 
-export class SetDischargeTimelockCall extends ethereum.Call {
-  get inputs(): SetDischargeTimelockCall__Inputs {
-    return new SetDischargeTimelockCall__Inputs(this);
+export class SetTrustedForwarderCall extends ethereum.Call {
+  get inputs(): SetTrustedForwarderCall__Inputs {
+    return new SetTrustedForwarderCall__Inputs(this);
   }
 
-  get outputs(): SetDischargeTimelockCall__Outputs {
-    return new SetDischargeTimelockCall__Outputs(this);
+  get outputs(): SetTrustedForwarderCall__Outputs {
+    return new SetTrustedForwarderCall__Outputs(this);
   }
 }
 
-export class SetDischargeTimelockCall__Inputs {
-  _call: SetDischargeTimelockCall;
+export class SetTrustedForwarderCall__Inputs {
+  _call: SetTrustedForwarderCall;
 
-  constructor(call: SetDischargeTimelockCall) {
+  constructor(call: SetTrustedForwarderCall) {
     this._call = call;
   }
 
-  get contractAddress(): Address {
+  get _trustedForwarder(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get unlockBlock(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
 }
 
-export class SetDischargeTimelockCall__Outputs {
-  _call: SetDischargeTimelockCall;
+export class SetTrustedForwarderCall__Outputs {
+  _call: SetTrustedForwarderCall;
 
-  constructor(call: SetDischargeTimelockCall) {
-    this._call = call;
-  }
-}
-
-export class SetExternalContractConfigsCall extends ethereum.Call {
-  get inputs(): SetExternalContractConfigsCall__Inputs {
-    return new SetExternalContractConfigsCall__Inputs(this);
-  }
-
-  get outputs(): SetExternalContractConfigsCall__Outputs {
-    return new SetExternalContractConfigsCall__Outputs(this);
-  }
-}
-
-export class SetExternalContractConfigsCall__Inputs {
-  _call: SetExternalContractConfigsCall;
-
-  constructor(call: SetExternalContractConfigsCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get liquidityProvider(): string {
-    return this._call.inputValues[1].value.toString();
-  }
-
-  get assetDepositMin(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-
-  get assetDepositMax(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
-  }
-}
-
-export class SetExternalContractConfigsCall__Outputs {
-  _call: SetExternalContractConfigsCall;
-
-  constructor(call: SetExternalContractConfigsCall) {
-    this._call = call;
-  }
-}
-
-export class SetReleaseApprovalCall extends ethereum.Call {
-  get inputs(): SetReleaseApprovalCall__Inputs {
-    return new SetReleaseApprovalCall__Inputs(this);
-  }
-
-  get outputs(): SetReleaseApprovalCall__Outputs {
-    return new SetReleaseApprovalCall__Outputs(this);
-  }
-}
-
-export class SetReleaseApprovalCall__Inputs {
-  _call: SetReleaseApprovalCall;
-
-  constructor(call: SetReleaseApprovalCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get operator(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class SetReleaseApprovalCall__Outputs {
-  _call: SetReleaseApprovalCall;
-
-  constructor(call: SetReleaseApprovalCall) {
-    this._call = call;
-  }
-}
-
-export class SetReleaseTimelockCall extends ethereum.Call {
-  get inputs(): SetReleaseTimelockCall__Inputs {
-    return new SetReleaseTimelockCall__Inputs(this);
-  }
-
-  get outputs(): SetReleaseTimelockCall__Outputs {
-    return new SetReleaseTimelockCall__Outputs(this);
-  }
-}
-
-export class SetReleaseTimelockCall__Inputs {
-  _call: SetReleaseTimelockCall;
-
-  constructor(call: SetReleaseTimelockCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get unlockBlock(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
-}
-
-export class SetReleaseTimelockCall__Outputs {
-  _call: SetReleaseTimelockCall;
-
-  constructor(call: SetReleaseTimelockCall) {
-    this._call = call;
-  }
-}
-
-export class SetTimelockApprovalCall extends ethereum.Call {
-  get inputs(): SetTimelockApprovalCall__Inputs {
-    return new SetTimelockApprovalCall__Inputs(this);
-  }
-
-  get outputs(): SetTimelockApprovalCall__Outputs {
-    return new SetTimelockApprovalCall__Outputs(this);
-  }
-}
-
-export class SetTimelockApprovalCall__Inputs {
-  _call: SetTimelockApprovalCall;
-
-  constructor(call: SetTimelockApprovalCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get tokenId(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get operator(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-}
-
-export class SetTimelockApprovalCall__Outputs {
-  _call: SetTimelockApprovalCall;
-
-  constructor(call: SetTimelockApprovalCall) {
+  constructor(call: SetTrustedForwarderCall) {
     this._call = call;
   }
 }
@@ -2753,40 +1873,6 @@ export class TransferOwnershipCall__Outputs {
   _call: TransferOwnershipCall;
 
   constructor(call: TransferOwnershipCall) {
-    this._call = call;
-  }
-}
-
-export class UpdateWhitelistCall extends ethereum.Call {
-  get inputs(): UpdateWhitelistCall__Inputs {
-    return new UpdateWhitelistCall__Inputs(this);
-  }
-
-  get outputs(): UpdateWhitelistCall__Outputs {
-    return new UpdateWhitelistCall__Outputs(this);
-  }
-}
-
-export class UpdateWhitelistCall__Inputs {
-  _call: UpdateWhitelistCall;
-
-  constructor(call: UpdateWhitelistCall) {
-    this._call = call;
-  }
-
-  get contractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get state(): boolean {
-    return this._call.inputValues[1].value.toBoolean();
-  }
-}
-
-export class UpdateWhitelistCall__Outputs {
-  _call: UpdateWhitelistCall;
-
-  constructor(call: UpdateWhitelistCall) {
     this._call = call;
   }
 }
