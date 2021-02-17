@@ -46,15 +46,10 @@ export function handleTempLockExpirySet(event: TempLockExpirySet): void {
 
 export function handleWalletManagerRegistered(event: WalletManagerRegistered): void {
   const _chargedSettings = loadOrCreateChargedSettings(event.address);
-
-
-  log.info('>>>>> NOTE: handleWalletManagerRegistered {}', [event.params.walletManager.toHex()]);
-
-
-  if (event.params.walletManager.toHex() == "0xa66b72b2eb4164f0bc2586c978e24c479d4e6a47" || event.params.walletManager.toHex() == "0xA66B72B2eB4164f0bc2586c978e24c479d4E6a47") {
+  if (event.params.walletManager.toHex() == "0xa66b72b2eb4164f0bc2586c978e24c479d4e6a47" || event.params.walletManager.toHex() == "0x7a8f5b15cfbff4eaac055524ec139ed75ef6d40a") {
     _chargedSettings.genericWalletManager = event.params.walletManager.toHex();
   }
-  if (event.params.walletManager.toHex() == "0x02ab819a76a1053380b1c9016be195a5926bd17c" || event.params.walletManager.toHex() == "0x54b32b288d7904D5d98Be1910975a80e45DA5e8d") {
+  if (event.params.walletManager.toHex() == "0x02ab819a76a1053380b1c9016be195a5926bd17c" || event.params.walletManager.toHex() == "0x54b32b288d7904d5d98be1910975a80e45da5e8d") {
     _chargedSettings.aaveWalletManager = event.params.walletManager.toHex();
   }
   _chargedSettings.save();
