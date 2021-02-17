@@ -36,6 +36,14 @@ export function protonNftId(protonAddress: string, tokenId: string): string {
   return protonAddress + '-' + tokenId;
 }
 
+export function leptonNftId(leptonAddress: string, tokenId: string): string {
+  return leptonAddress + '-' + tokenId;
+}
+
+export function leptonClassificationId(leptonAddress: string, typeId: string): string {
+  return leptonAddress + '-' + typeId;
+}
+
 export function nftAttributeId(protonNftId: string, attrIndex: string): string {
   return protonNftId + '-' + attrIndex;
 }

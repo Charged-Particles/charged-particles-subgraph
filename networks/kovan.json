@@ -1,47 +1,47 @@
 {
   "network": "kovan",
   "universe": {
-    "address": "0x9adA35E199635ADEF3E122B271977ED65f4E1903",
-    "startBlock": "23503504"
+    "address": "0x53312E76EeB7DECE618A7712506B75FC6d10fdcb",
+    "startBlock": "23514855"
   },
   "chargedState": {
-    "address": "0xc9584d9fef62FdEE4D6f7849016CB1b19AAceb31",
-    "startBlock": "23503504"
+    "address": "0xd9921fF23a7BC4A674be592F8C309cC5E0324f6D",
+    "startBlock": "23514855"
   },
   "chargedSettings": {
-    "address": "0x4E59088c558553c2c224980aF3eBD6e5dd377abb",
-    "startBlock": "23503504"
+    "address": "0x1022Cf41C45f84739592855f90c06aa6d9CD56C5",
+    "startBlock": "23514855"
   },
   "chargedParticles": {
-    "address": "0xe5D1C71253E1B732050c1135a7e36f63433c2135",
-    "startBlock": "23503504"
+    "address": "0xD9e2140363EFFFbdb2aEcC11cbE629254c30dA69",
+    "startBlock": "23514855"
   },
   "genericWalletManager": {
-    "address": "0x2Ef52150616090362DC893172F5690985beA204C",
-    "startBlock": "23503504"
+    "address": "0xA66B72B2eB4164f0bc2586c978e24c479d4E6a47",
+    "startBlock": "23514855"
   },
   "genericBasketManager": {
-    "address": "0x9a815EF42F0681d0B86E1eE23aC761534f392c6a",
-    "startBlock": "23503504"
+    "address": "0xfFb0F79fdE1ccB56FB8782Ca430e97BC7e53d7DF",
+    "startBlock": "23514855"
   },
   "aaveWalletManager": {
-    "address": "0xabBD00fA4432E79289eD6806389436884689BC4E",
-    "startBlock": "23503504"
+    "address": "0x02AB819a76A1053380B1C9016BE195A5926bD17c",
+    "startBlock": "23514855"
   },
   "wBoson": {
-    "address": "0x404113A4407352054A0504645B0999E231e57f9f",
-    "startBlock": "23503504"
+    "address": "0xe9BD508eCAA9E235Fb50977b5d3897fB8fe025f5",
+    "startBlock": "23514855"
   },
   "proton": {
-    "address": "0xbaa4eCBe6905c0C0841a16853C0B6BD469dF9f9D",
-    "startBlock": "23503504"
+    "address": "0x0e2B0E6E19E2012998888B0eE5f1B74C9041F1D6",
+    "startBlock": "23514855"
   },
   "lepton": {
-    "address": "0x826dbb2709d736C8c0a64c30FBD55f02bCF09cab",
-    "startBlock": "23503504"
+    "address": "0xbb06768B99a72dE027d1D7CeeB2207EcF14Ff4c4",
+    "startBlock": "23514855"
   },
   "ion": {
-    "address": "0x0a6ecBAaA0444a683Da1f666252da120561B11cD",
-    "startBlock": "23503504"
+    "address": "0xF4DB8652b1AE0737308eFcE6145846acc5986f20",
+    "startBlock": "23514855"
   }
 }

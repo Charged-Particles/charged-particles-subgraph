@@ -8,6 +8,7 @@ import {
   Lepton as LeptonContract,
 } from '../../generated/Lepton/Lepton';
 
+import { ZERO } from './common';
 
 export function loadOrCreateLepton(
   leptonAddress: Address
@@ -19,6 +20,9 @@ export function loadOrCreateLepton(
     _lepton = new Lepton(id);
     const boundLepton = LeptonContract.bind(leptonAddress);
     _lepton.owner = boundLepton.owner();
+    _lepton.typeIndex = ZERO;
+    _lepton.maxSupply = ZERO;
+    _lepton.totalMinted = ZERO;
     _lepton.save();
   }
 

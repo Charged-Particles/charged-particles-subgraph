@@ -1,107 +1,128 @@
 {
-  universes(first: 1) {
+  universes(first: 5) {
     id
     owner
     chargedParticles {
       id
-      owner
-      whitelisted {
+      universe {
         id
-        contractAddress
-        state
       }
-      externalContractSettings {
+      chargedState {
         id
-        contractAddress
-        liquidityProvider
-        assetDepositMin
-        assetDepositMax
-      }
-      nftCreatorSettings {
-        id
-        contractAddress
-        tokenId
-        creatorAddress
-        annuityPercent
-      }
-      chargedNftState {
-        id
-        contractAddress
-        tokenId
-        lastKnownOwner
-        dischargeApproval
-        releaseApproval
-        timelockApproval
-        dischargeTimelock
-        releaseTimelock
-        assetToBeReleasedBy
-      }
-      genericBasketManager {
-        id
-        owner
-        name
-        address
-        paused
-        baskets {
+        nftState {
           id
-          address
           contractAddress
           tokenId
-          totalTokens
-          tokenBalances {
-            id
-          	contractAddress
-          	tokenId
-            nftTokenAddress
-            nftTokenIds
-          }
+          lastKnownOwner
+          dischargeApproval
+          releaseApproval
+          breakBondApproval
+          timelockApproval
+          dischargeTimelockExpiry
+          dischargeTimelockLockedBy
+          releaseTimelockExpiry
+          releaseTimelockLockedBy
+          breakBondTimelockExpiry
+          breakBondTimelockLockedBy
+          tempLockExpiry
+          restrictChargeFromAny
+          allowDischargeFromAny
+          allowReleaseFromAny
+          restrictBondFromAny
+          allowBreakBondFromAny
         }
       }
-      genericWalletManager {
+      chargedSettings {
         id
-        owner
-        name
-        address
-        paused
-        wallets {
+        depositCaps {
           id
-          address
+          assetToken
+          maxDeposit
+        }
+        tempLockExpiryBlocks
+        nftSettings {
+          id
+          contractAddress
+          requiredWalletManager
+          requiredBasketManager
+          allowedAssetTokens {
+            id
+          }
+          assetDepositMin
+          assetDepositMax
+          maxNfts {
+            id
+          }
+          allowCharge
+          allowBond
+          allowTimelockAnyNft
+          allowTimelockOwnNft
+          hasRestrictedAssets
+        }
+        nftCreatorSettings {
+          id
           contractAddress
           tokenId
-          assetTokens
-          assetBalances {
+          creatorAddress
+          annuityPercent
+          annuityRedirect
+        }
+        genericBasketManager {
+          id
+          name
+          address
+          paused
+          baskets {
             id
-            assetToken
-          	contractAddress
-          	tokenId
-            principal
+            contractAddress
+            tokenId
+            address
+            totalTokens
+            tokenBalances {
+              id
+              nftTokenAddress
+              nftTokenIds
+            }
           }
         }
-      }
-      aaveWalletManager {
-        id
-        owner
-        name
-        address
-        paused
-        aaveBridge
-        wallets {
+        genericWalletManager {
           id
+          name
           address
-          contractAddress
-          tokenId
-          assetTokens
-          nftCreator
-          nftCreatorAnnuityPct
-          nftCreatorAnnuityRedirect
-          assetBalances {
+          paused
+          wallets {
             id
-            assetToken
-          	contractAddress
-          	tokenId
-            principal
-            ownerInterestDischarged
-            creatorInterestDischarged
+            contractAddress
+            tokenId
+            address
+            assetTokens
+            assetBalances {
+              id
+              assetToken
+              principal
+            }
+          }
+        }
+        aaveWalletManager {
+          id
+          name
+          address
+          paused
+          aaveBridge
+          wallets {
+            id
+            contractAddress
+            tokenId
+            address
+            nftCreator
+            nftCreatorAnnuityPct
+            nftCreatorAnnuityRedirect
+            assetTokens
+            assetBalances {
+              id
+              assetToken
+              principal
+            }
           }
         }
       }
@@ -115,79 +136,73 @@
         balance
       }
     }
+    ionMaxSupply
+    protonToken {
+      id
+      owner
+      paused
+      tokens {
+        id
+        tokenId
+        owner
+        creator
+        particleType
+        creatorAnnuity
+        salePrice
+        lastSalePrice
+        resaleRoyalties
+        resaleRoyaltiesRedirect
+        claimableRoyalties
+
+        metadataUri
+        name
+        description
+        external_url
+        animation_url
+        youtube_url
+        icon
+        thumbnail
+        image
+        symbol
+        decimals
+        background_color
+        attributes {
+          id
+          name
+          value
+        }
+      }
+    }
+    leptonToken {
+      id
+      owner
+      paused
+      typeIndex
+      maxSupply
+      maxMintPerTx
+      tokens {
+        id
+        tokenId
+        owner
+        price
+        supply
+        multiplier
+        bonus
+        metadataUri
+        name
+        description
+        external_url
+        animation_url
+        youtube_url
+        thumbnail
+        image
+        symbol
+      }
+    }
     esaMultiplier {
       id
       assetToken
       multiplier
     }
-  }
-
-  wBosons {
-    id
-    wBoson
-    account
-
-    wBosonUri
-
-    name
-    description
-    thumbnail
-    image
-
-    email
-    twitter
-    website
-  }
-
-  protonNFTs {
-    id
-    tokenId
-    proton {
-      id
-    }
-    owner
-    creator
-    metadataUri
-
-    particleType
-    creatorAnnuity
-		salePrice
-    resaleRoyalties
-
-    name
-    decimals
-    symbol
-    description
-    external_url
-    animation_url
-    youtube_url
-    icon
-    image
-    background_color
-
-    attributes {
-      id
-      name
-      value
-    }
-  }
-
-  nftTxHistories {
-    id
-    contractAddress
-    tokenId
-    timestamp
-    eventType
-    eventData
-  }
-
-  ionHolders(where: {
-    address_in: [
-    	"0x6ad155dec215c9ee3a6edebcde8e3c528dc2d0ef",
-      "0xfc15c29fac2b19f29bbf9fdcc6f8e441604d8c27"
-    ]}
-  ) {
-    id
-    address
   }
 }

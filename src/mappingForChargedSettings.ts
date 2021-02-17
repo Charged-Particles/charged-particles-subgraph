@@ -46,10 +46,15 @@ export function handleTempLockExpirySet(event: TempLockExpirySet): void {
 
 export function handleWalletManagerRegistered(event: WalletManagerRegistered): void {
   const _chargedSettings = loadOrCreateChargedSettings(event.address);
-  if (event.params.walletManagerId.toString() == 'generic') {
+
+
+  log.info('>>>>> NOTE: handleWalletManagerRegistered {}', [event.params.walletManager.toHex()]);
+
+
+  if (event.params.walletManager.toHex() == "0xa66b72b2eb4164f0bc2586c978e24c479d4e6a47" || event.params.walletManager.toHex() == "0xA66B72B2eB4164f0bc2586c978e24c479d4E6a47") {
     _chargedSettings.genericWalletManager = event.params.walletManager.toHex();
   }
-  if (event.params.walletManagerId.toString() == 'aave') {
+  if (event.params.walletManager.toHex() == "0x02ab819a76a1053380b1c9016be195a5926bd17c" || event.params.walletManager.toHex() == "0x54b32b288d7904D5d98Be1910975a80e45DA5e8d") {
     _chargedSettings.aaveWalletManager = event.params.walletManager.toHex();
   }
   _chargedSettings.save();
@@ -115,17 +120,38 @@ export function handleTokenCreatorAnnuitiesRedirected(event: TokenCreatorAnnuiti
 }
 
 export function handlePermsSetForCharge(event: PermsSetForCharge): void {
-  log.info('TODO: handlePermsSetForCharge', []);
+  const _nftSettings = loadOrCreateNftSettings(
+    event.address,
+    event.params.contractAddress,
+  );
+  _nftSettings.allowCharge = event.params.state;
+  _nftSettings.save();
 }
 
 export function handlePermsSetForBasket(event: PermsSetForBasket): void {
   log.info('TODO: handlePermsSetForBasket', []);
+  const _nftSettings = loadOrCreateNftSettings(
+    event.address,
+    event.params.contractAddress,
+  );
+  _nftSettings.allowBond = event.params.state;
+  _nftSettings.save();
 }
 
 export function handlePermsSetForTimelockAny(event: PermsSetForTimelockAny): void {
-  log.info('TODO: handlePermsSetForTimelockAny', []);
+  const _nftSettings = loadOrCreateNftSettings(
+    event.address,
+    event.params.contractAddress,
+  );
+  _nftSettings.allowTimelockAnyNft = event.params.state;
+  _nftSettings.save();
 }
 
 export function handlePermsSetForTimelockSelf(event: PermsSetForTimelockSelf): void {
-  log.info('TODO: handlePermsSetForTimelockSelf', []);
+  const _nftSettings = loadOrCreateNftSettings(
+    event.address,
+    event.params.contractAddress,
+  );
+  _nftSettings.allowTimelockOwnNft = event.params.state;
+  _nftSettings.save();
 }

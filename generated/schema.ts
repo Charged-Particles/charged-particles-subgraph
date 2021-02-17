@@ -3295,6 +3295,23 @@ export class Lepton extends Entity {
     this.set("paused", Value.fromBoolean(value));
   }
 
+  get totalMinted(): BigInt | null {
+    let value = this.get("totalMinted");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set totalMinted(value: BigInt | null) {
+    if (value === null) {
+      this.unset("totalMinted");
+    } else {
+      this.set("totalMinted", Value.fromBigInt(value as BigInt));
+    }
+  }
+
   get typeIndex(): BigInt | null {
     let value = this.get("typeIndex");
     if (value === null) {
@@ -3346,6 +3363,15 @@ export class Lepton extends Entity {
     }
   }
 
+  get types(): Array<string> {
+    let value = this.get("types");
+    return value.toStringArray();
+  }
+
+  set types(value: Array<string>) {
+    this.set("types", Value.fromStringArray(value));
+  }
+
   get tokens(): Array<string> {
     let value = this.get("tokens");
     return value.toStringArray();
@@ -3353,6 +3379,159 @@ export class Lepton extends Entity {
 
   set tokens(value: Array<string>) {
     this.set("tokens", Value.fromStringArray(value));
+  }
+}
+
+export class LeptonClassification extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save LeptonClassification entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save LeptonClassification entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("LeptonClassification", id.toString(), this);
+  }
+
+  static load(id: string): LeptonClassification | null {
+    return store.get("LeptonClassification", id) as LeptonClassification | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get lepton(): string | null {
+    let value = this.get("lepton");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set lepton(value: string | null) {
+    if (value === null) {
+      this.unset("lepton");
+    } else {
+      this.set("lepton", Value.fromString(value as string));
+    }
+  }
+
+  get metadataUri(): string | null {
+    let value = this.get("metadataUri");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set metadataUri(value: string | null) {
+    if (value === null) {
+      this.unset("metadataUri");
+    } else {
+      this.set("metadataUri", Value.fromString(value as string));
+    }
+  }
+
+  get price(): BigInt | null {
+    let value = this.get("price");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set price(value: BigInt | null) {
+    if (value === null) {
+      this.unset("price");
+    } else {
+      this.set("price", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get supply(): BigInt | null {
+    let value = this.get("supply");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set supply(value: BigInt | null) {
+    if (value === null) {
+      this.unset("supply");
+    } else {
+      this.set("supply", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get multiplier(): BigInt | null {
+    let value = this.get("multiplier");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set multiplier(value: BigInt | null) {
+    if (value === null) {
+      this.unset("multiplier");
+    } else {
+      this.set("multiplier", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get bonus(): BigInt | null {
+    let value = this.get("bonus");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set bonus(value: BigInt | null) {
+    if (value === null) {
+      this.unset("bonus");
+    } else {
+      this.set("bonus", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get upperBounds(): BigInt | null {
+    let value = this.get("upperBounds");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set upperBounds(value: BigInt | null) {
+    if (value === null) {
+      this.unset("upperBounds");
+    } else {
+      this.set("upperBounds", Value.fromBigInt(value as BigInt));
+    }
   }
 }
 
