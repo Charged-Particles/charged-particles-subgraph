@@ -28,7 +28,7 @@ import { loadOrCreateProtonNFT } from './helpers/loadOrCreateProtonNFT';
 import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 
-import { ADDRESS_ZERO } from './helpers/common';
+import { ZERO, ADDRESS_ZERO } from './helpers/common';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -90,6 +90,10 @@ export function handleCreatorRoyaltiesSet(event: CreatorRoyaltiesSet): void {
 }
 
 export function handleProtonSold(event: ProtonSold): void {
+  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
+  _nft.salePrice = ZERO;
+  _nft.save();
+
   var eventData = new Array<string>(6);
   eventData[0] = event.params.tokenId.toString();
   eventData[1] = event.params.oldOwner.toHex();
@@ -111,6 +115,7 @@ export function handleFeesWithdrawn(event: FeesWithdrawn): void {
 export function handleTransfer(event: Transfer): void {
   const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
   _nft.owner = event.params.to;
+  _nft.salePrice = ZERO;
   _nft.save();
 
   trackProtonNftCounts(event);

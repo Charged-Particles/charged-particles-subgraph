@@ -77,13 +77,13 @@ export function handleLeptonMinted(event: LeptonMinted): void {
 }
 
 export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
-  let startTokenId = event.params.tokenId;
+  // let startTokenId = event.params.tokenId;
 
-  for (let i = 0; i < event.params.count.toI32(); i++) {
-    let _nft = loadOrCreateLeptonNFT(event.address, startTokenId.plus(BigInt.fromI32(i)));
-    _nft.owner = event.params.receiver;
-    _nft.save();
-  }
+  // for (let i = 0; i < event.params.count.toI32(); i++) {
+  //   let _nft = loadOrCreateLeptonNFT(event.address, startTokenId.plus(BigInt.fromI32(i)));
+  //   _nft.owner = event.params.receiver;
+  //   _nft.save();
+  // }
 
   const _lepton = loadOrCreateLepton(event.address);
   _lepton.totalMinted = _lepton.totalMinted.plus(event.params.count);
