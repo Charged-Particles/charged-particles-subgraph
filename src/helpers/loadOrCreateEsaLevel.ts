@@ -18,7 +18,7 @@ export function loadOrCreateEsaLevel(
   if (!_esaLevel) {
     _esaLevel = new ESALevel(id);
     _esaLevel.universe = universeAddress.toHex();
-    _esaLevel.address = accountAddress;
+    _esaLevel.accountAddress = accountAddress;
     _esaLevel.level = ZERO;
     _esaLevel.save();
   }
