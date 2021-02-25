@@ -10,6 +10,7 @@ type Universe @entity {
   protonToken: Proton
   leptonToken: Lepton
   esaMultiplier: [ESAMultiplier!]! @derivedFrom(field: "universe")
+  esaLevel: [ESALevel!]! @derivedFrom(field: "universe")
 }
 
 # ID: `${chargedParticles.address}`
@@ -338,7 +339,15 @@ type ESAMultiplier @entity {
   multiplier: BigInt!
 }
 
+# ID: `${universe.address-${accountAddress}`
+# dynamically generated type, not mapped to a specific contract
+type ESALevel @entity {
+  id: ID!
+  universe: Universe!
 
+  accountAddress: Bytes!
+  level: BigInt!
+}
 
 # ID: `${proton.address}`
 type Proton @entity {

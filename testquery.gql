@@ -204,5 +204,10 @@
       assetToken
       multiplier
     }
+    esaLevel {
+      id
+      address
+      level
+    }
   }
 }
