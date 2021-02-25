@@ -16,6 +16,7 @@ import { loadOrCreateIonToken } from './helpers/loadOrCreateIonToken';
 import { loadOrCreateProton } from './helpers/loadOrCreateProton';
 import { loadOrCreateLepton } from './helpers/loadOrCreateLepton';
 import { loadOrCreateEsaMultiplier } from './helpers/loadOrCreateEsaMultiplier';
+import { loadOrCreateEsaLevel } from './helpers/loadOrCreateEsaLevel';
 
 
 
@@ -68,7 +69,9 @@ export function handleEsaMultiplierSet(event: EsaMultiplierSet): void {
 }
 
 export function handleElectrostaticAttraction(event: ElectrostaticAttraction): void {
-  log.info('TODO: handleElectrostaticAttraction', []);
+  const _esaLevel = loadOrCreateEsaLevel(event.address, event.params.account);
+  _esaLevel.level = _esaLevel.level.plus(event.params.energy);
+  _esaLevel.save();
 }
 
 export function handleElectrostaticDischarge(event: ElectrostaticDischarge): void {

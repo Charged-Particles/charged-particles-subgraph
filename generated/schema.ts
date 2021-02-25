@@ -144,6 +144,15 @@ export class Universe extends Entity {
   set esaMultiplier(value: Array<string>) {
     this.set("esaMultiplier", Value.fromStringArray(value));
   }
+
+  get esaLevel(): Array<string> {
+    let value = this.get("esaLevel");
+    return value.toStringArray();
+  }
+
+  set esaLevel(value: Array<string>) {
+    this.set("esaLevel", Value.fromStringArray(value));
+  }
 }
 
 export class ChargedParticles extends Entity {
@@ -2572,6 +2581,64 @@ export class ESAMultiplier extends Entity {
 
   set multiplier(value: BigInt) {
     this.set("multiplier", Value.fromBigInt(value));
+  }
+}
+
+export class ESALevel extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ESALevel entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ESALevel entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ESALevel", id.toString(), this);
+  }
+
+  static load(id: string): ESALevel | null {
+    return store.get("ESALevel", id) as ESALevel | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get universe(): string {
+    let value = this.get("universe");
+    return value.toString();
+  }
+
+  set universe(value: string) {
+    this.set("universe", Value.fromString(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    return value.toBytes();
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get level(): BigInt {
+    let value = this.get("level");
+    return value.toBigInt();
+  }
+
+  set level(value: BigInt) {
+    this.set("level", Value.fromBigInt(value));
   }
 }
 
