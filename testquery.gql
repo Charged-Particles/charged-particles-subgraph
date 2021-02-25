@@ -205,9 +205,9 @@
       multiplier
     }
     esaLevel {
-    id
-    address
-    level
+      id
+      address
+      level
     }
   }
 }

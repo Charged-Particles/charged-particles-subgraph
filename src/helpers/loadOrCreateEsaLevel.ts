@@ -10,15 +10,15 @@ import { ZERO } from './common';
 
 export function loadOrCreateEsaLevel(
   universeAddress: Address,
-  address: Address,
+  accountAddress: Address,
 ): ESALevel {
-  const id = esaLevelId(universeAddress.toHex(), address.toHex());
+  const id = esaLevelId(universeAddress.toHex(), accountAddress.toHex());
   let _esaLevel = ESALevel.load(id);
 
   if (!_esaLevel) {
     _esaLevel = new ESALevel(id);
     _esaLevel.universe = universeAddress.toHex();
-    _esaLevel.address = address;
+    _esaLevel.address = accountAddress;
     _esaLevel.level = ZERO;
     _esaLevel.save();
   }

@@ -4,8 +4,8 @@ export function esaMultiplierId(universeAddress: string, assetTokenAddress: stri
   return universeAddress + '-' + assetTokenAddress;
 }
 
-export function esaLevelId(universeAddress: string, address: string): string {
-  return universeAddress + '-' + address;
+export function esaLevelId(universeAddress: string, accountAddress: string): string {
+  return universeAddress + '-' + accountAddress;
 }
 
 export function nftCreatorSettingsId(contractAddress: string, tokenId: string, creatorAddress: string): string {

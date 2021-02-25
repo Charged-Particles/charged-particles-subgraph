@@ -2623,13 +2623,13 @@ export class ESALevel extends Entity {
     this.set("universe", Value.fromString(value));
   }
 
-  get address(): Bytes {
-    let value = this.get("address");
+  get accountAddress(): Bytes {
+    let value = this.get("accountAddress");
     return value.toBytes();
   }
 
-  set address(value: Bytes) {
-    this.set("address", Value.fromBytes(value));
+  set accountAddress(value: Bytes) {
+    this.set("accountAddress", Value.fromBytes(value));
   }
 
   get level(): BigInt {

@@ -339,13 +339,13 @@ type ESAMultiplier @entity {
   multiplier: BigInt!
 }
 
-# ID: `${universe.address-${address}`
+# ID: `${universe.address-${accountAddress}`
 # dynamically generated type, not mapped to a specific contract
 type ESALevel @entity {
   id: ID!
   universe: Universe!
 
-  address: Bytes!
+  accountAddress: Bytes!
   level: BigInt!
 }
 
