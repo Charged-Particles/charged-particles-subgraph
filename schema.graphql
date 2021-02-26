@@ -493,3 +493,13 @@ type NftTxCount @entity {
 
   count: BigInt!
 }
+
+# ID: `${accountAddress}`
+# dynamically generated type, not mapped to a specific contract
+type RoyaltiesClaimedByAccount @entity {
+  id: ID!
+
+  accountAddress: Bytes!
+
+  royaltiesClaimed: BigInt!
+}

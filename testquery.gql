@@ -209,5 +209,10 @@
       address
       level
     }
+    royaltiesClaimedByAccount {
+      id
+      accountAddress
+      royaltiesClaimed
+    }
   }
 }

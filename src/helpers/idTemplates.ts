@@ -63,3 +63,7 @@ export function nftTxId(nftId: string, txHash: string, eventType: string): strin
 export function allowedAssetId(nftSettingsAddress: string, nftContractAddress: string, assetTokenAddress: string): string {
   return nftSettingsAddress + '-' + nftContractAddress + '-' + assetTokenAddress;
 }
+
+export function royaltiesClaimedId(accountAddress: string): string {
+  return accountAddress;
+}
