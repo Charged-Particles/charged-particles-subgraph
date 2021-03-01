@@ -1,4 +1,4 @@
-import { ipfs, json, Bytes, JSONValue, Value, log } from '@graphprotocol/graph-ts';
+import { ipfs, json, Bytes, JSONValue, Value, log, BigInt } from '@graphprotocol/graph-ts';
 
 import {
   ProtonNFT,
@@ -27,9 +27,11 @@ import { loadOrCreateProton } from './helpers/loadOrCreateProton';
 import { loadOrCreateProtonNFT } from './helpers/loadOrCreateProtonNFT';
 import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
+import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 
 import { ZERO, ADDRESS_ZERO } from './helpers/common';
 import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
+
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -142,11 +144,25 @@ export function handleTransfer(event: Transfer): void {
 }
 
 export function handleApproval(event: Approval): void {
-  log.info('TODO: handleApproval', []);
+  const assetAddress = event.address;
+  const ownerAddress = event.params.owner;
+  const operatorAddress = event.params.approved;
+  const tokenId = event.params.tokenId;
+
+  const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
+  _approvedOperator.tokenIds.push(tokenId);
+  _approvedOperator.save();
 }
 
 export function handleApprovalForAll(event: ApprovalForAll): void {
-  log.info('TODO: handleApprovalForAll', []);
+  const assetAddress = event.address;
+  const ownerAddress = event.params.owner;
+  const operatorAddress = event.params.operator;
+
+  const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
+  const _approvedAllIndicator = BigInt.fromI32(-1);
+  _approvedOperator.tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  _approvedOperator.save();
 }
 
 
