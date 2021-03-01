@@ -68,6 +68,6 @@ export function royaltiesClaimedId(accountAddress: string): string {
   return accountAddress;
 }
 
-export function approvedOperatorId(assetAddress: string, ownerAddress: string, operatorAddress: string): string {
-  return assetAddress + '-' + ownerAddress + '-' + operatorAddress;
+export function approvedOperatorId(assetAddress: string, ownerAddress: string): string {
+  return assetAddress + '-' + ownerAddress;
 }

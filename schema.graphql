@@ -504,7 +504,7 @@ type RoyaltiesClaimedByAccount @entity {
   royaltiesClaimed: BigInt!
 }
 
-# ID: `${contractAddress}-${ownerAddress}-${operatorAddress}`
+# ID: `${contractAddress}-${ownerAddress}`
 # dynamically generated type, not mapped to a specific contract
 type ApprovedOperator @entity {
   id: ID!

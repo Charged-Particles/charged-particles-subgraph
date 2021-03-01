@@ -12,7 +12,7 @@ export function loadOrCreateApprovedOperator(
   ownerAddress: Address,
   operatorAddress: Address,
 ): ApprovedOperator {
-  const id = approvedOperatorId(assetAddress.toHex(), ownerAddress.toHex(), operatorAddress.toHex());
+  const id = approvedOperatorId(assetAddress.toHex(), ownerAddress.toHex());
   let _approvedOperator = ApprovedOperator.load(id);
 
   if (!_approvedOperator) {
