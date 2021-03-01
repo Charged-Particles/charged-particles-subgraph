@@ -4030,3 +4030,58 @@ export class NftTxCount extends Entity {
     this.set("count", Value.fromBigInt(value));
   }
 }
+
+export class RoyaltiesClaimedByAccount extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save RoyaltiesClaimedByAccount entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save RoyaltiesClaimedByAccount entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("RoyaltiesClaimedByAccount", id.toString(), this);
+  }
+
+  static load(id: string): RoyaltiesClaimedByAccount | null {
+    return store.get(
+      "RoyaltiesClaimedByAccount",
+      id
+    ) as RoyaltiesClaimedByAccount | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get accountAddress(): Bytes {
+    let value = this.get("accountAddress");
+    return value.toBytes();
+  }
+
+  set accountAddress(value: Bytes) {
+    this.set("accountAddress", Value.fromBytes(value));
+  }
+
+  get royaltiesClaimed(): BigInt {
+    let value = this.get("royaltiesClaimed");
+    return value.toBigInt();
+  }
+
+  set royaltiesClaimed(value: BigInt) {
+    this.set("royaltiesClaimed", Value.fromBigInt(value));
+  }
+}

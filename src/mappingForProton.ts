@@ -29,6 +29,7 @@ import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 
 import { ZERO, ADDRESS_ZERO } from './helpers/common';
+import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -105,7 +106,10 @@ export function handleProtonSold(event: ProtonSold): void {
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
-  log.info('TODO: handleRoyaltiesClaimed', []);
+  const _royaltiesClaimedByAccount = loadOrCreateGenericRoyaltiesClaimedByAccount(event.params.receiver);
+
+  _royaltiesClaimedByAccount.royaltiesClaimed.plus(event.params.amountClaimed);
+  _royaltiesClaimedByAccount.save();
 }
 
 export function handleFeesWithdrawn(event: FeesWithdrawn): void {
