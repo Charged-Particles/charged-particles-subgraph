@@ -96,7 +96,7 @@ export function handleWalletDischargedForCreator(event: WalletDischargedForCreat
   assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.receiverAmount);
   assetTokenBalance.save();
 
-  var eventData = new Array<string>(5);
+  var eventData = new Array<string>(4);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
   eventData[2] = event.params.assetToken.toHex();
