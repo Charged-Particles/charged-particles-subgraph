@@ -75,5 +75,7 @@ export function handleElectrostaticAttraction(event: ElectrostaticAttraction): v
 }
 
 export function handleElectrostaticDischarge(event: ElectrostaticDischarge): void {
-  log.info('TODO: handleElectrostaticDischarge', []);
+  const _esaLevel = loadOrCreateEsaLevel(event.address, event.params.account);
+  _esaLevel.level = _esaLevel.level.minus(event.params.energy)
+  _esaLevel.save();
 }
