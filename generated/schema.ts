@@ -4085,3 +4085,78 @@ export class RoyaltiesClaimedByAccount extends Entity {
     this.set("royaltiesClaimed", Value.fromBigInt(value));
   }
 }
+
+export class ApprovedOperator extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ApprovedOperator entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ApprovedOperator entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ApprovedOperator", id.toString(), this);
+  }
+
+  static load(id: string): ApprovedOperator | null {
+    return store.get("ApprovedOperator", id) as ApprovedOperator | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get operatorAddress(): Bytes {
+    let value = this.get("operatorAddress");
+    return value.toBytes();
+  }
+
+  set operatorAddress(value: Bytes) {
+    this.set("operatorAddress", Value.fromBytes(value));
+  }
+
+  get ownerAddress(): Bytes {
+    let value = this.get("ownerAddress");
+    return value.toBytes();
+  }
+
+  set ownerAddress(value: Bytes) {
+    this.set("ownerAddress", Value.fromBytes(value));
+  }
+
+  get assetAddress(): Bytes {
+    let value = this.get("assetAddress");
+    return value.toBytes();
+  }
+
+  set assetAddress(value: Bytes) {
+    this.set("assetAddress", Value.fromBytes(value));
+  }
+
+  get tokenIds(): Array<BigInt> | null {
+    let value = this.get("tokenIds");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set tokenIds(value: Array<BigInt> | null) {
+    if (value === null) {
+      this.unset("tokenIds");
+    } else {
+      this.set("tokenIds", Value.fromBigIntArray(value as Array<BigInt>));
+    }
+  }
+}
