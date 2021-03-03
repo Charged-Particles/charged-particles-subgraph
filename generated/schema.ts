@@ -4031,11 +4031,7 @@ export class NftTxCount extends Entity {
   }
 }
 
-<<<<<<< HEAD
 export class RoyaltiesClaimedByAccount extends Entity {
-=======
-export class ApprovedOperator extends Entity {
->>>>>>> Approval/Approval for all handlers
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -4043,7 +4039,6 @@ export class ApprovedOperator extends Entity {
 
   save(): void {
     let id = this.get("id");
-<<<<<<< HEAD
     assert(
       id !== null,
       "Cannot save RoyaltiesClaimedByAccount entity without an ID"
@@ -4061,19 +4056,6 @@ export class ApprovedOperator extends Entity {
       "RoyaltiesClaimedByAccount",
       id
     ) as RoyaltiesClaimedByAccount | null;
-=======
-    assert(id !== null, "Cannot save ApprovedOperator entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save ApprovedOperator entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("ApprovedOperator", id.toString(), this);
-  }
-
-  static load(id: string): ApprovedOperator | null {
-    return store.get("ApprovedOperator", id) as ApprovedOperator | null;
->>>>>>> Approval/Approval for all handlers
   }
 
   get id(): string {
@@ -4085,7 +4067,6 @@ export class ApprovedOperator extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-<<<<<<< HEAD
   get accountAddress(): Bytes {
     let value = this.get("accountAddress");
     return value.toBytes();
@@ -4102,7 +4083,39 @@ export class ApprovedOperator extends Entity {
 
   set royaltiesClaimed(value: BigInt) {
     this.set("royaltiesClaimed", Value.fromBigInt(value));
-=======
+  }
+}
+
+export class ApprovedOperator extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ApprovedOperator entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ApprovedOperator entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ApprovedOperator", id.toString(), this);
+  }
+
+  static load(id: string): ApprovedOperator | null {
+    return store.get("ApprovedOperator", id) as ApprovedOperator | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
   get operatorAddress(): Bytes {
     let value = this.get("operatorAddress");
     return value.toBytes();
@@ -4145,6 +4158,5 @@ export class ApprovedOperator extends Entity {
     } else {
       this.set("tokenIds", Value.fromBigIntArray(value as Array<BigInt>));
     }
->>>>>>> Approval/Approval for all handlers
   }
 }
