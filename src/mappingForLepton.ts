@@ -104,7 +104,7 @@ export function handleTransfer(event: Transfer): void {
 
   if (event.params.from.toHex() == ADDRESS_ZERO) {
     const ipfsHashParts = _nft.metadataUri.split('/');
-    const ipfsHash = ipfsHashParts[ipfsHashParts.length-1];
+    const ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
     // ipfs.mapJSON(ipfsHash, 'processProtonMetadata', Value.fromString(_nft.id));
     let data = ipfs.cat(ipfsHash)
     if (data) {
@@ -114,7 +114,21 @@ export function handleTransfer(event: Transfer): void {
 }
 
 export function handleTransferBatch(event: TransferBatch): void {
-  log.info('TODO: handleTransferBatch', []);
+  // Duplicating handleTransfer functionality except passing in each tokenId via loop increment
+  for (let i = event.params.startTokenId; i <= event.params.count; i.plus(ONE)) {
+    const _nft = loadOrCreateLeptonNFT(event.address, i);
+    _nft.owner = event.params.to;
+    _nft.save();
+
+    if (event.params.from.toHex() == ADDRESS_ZERO) {
+      const ipfsHashParts = _nft.metadataUri.split('/');
+      const ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
+      let data = ipfs.cat(ipfsHash)
+      if (data) {
+        processLeptonMetadata(json.fromBytes(data as Bytes), Value.fromString(_nft.id));
+      }
+    }
+  }
 }
 
 export function handleApproval(event: Approval): void {
