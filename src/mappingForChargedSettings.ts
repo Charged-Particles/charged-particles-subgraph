@@ -26,6 +26,7 @@ import { loadOrCreateAllowedAsset } from './helpers/loadOrCreateAllowedAsset';
 
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { trackLastKnownOwner } from './helpers/nftState';
+import { loadOrCreateDepositCap } from './helpers/loadOrCreateDepositCap';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -35,7 +36,9 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function handleDepositCapSet(event: DepositCapSet): void {
-  log.info('TODO: handleDepositCapSet', []);
+  const _depositCap = loadOrCreateDepositCap(event.address, event.params.assetToken);
+  _depositCap.maxDeposit = event.params.depositCap;
+  _depositCap.save();
 }
 
 export function handleTempLockExpirySet(event: TempLockExpirySet): void {

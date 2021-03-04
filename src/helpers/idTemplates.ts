@@ -71,3 +71,7 @@ export function royaltiesClaimedId(accountAddress: string): string {
 export function approvedOperatorId(assetAddress: string, ownerAddress: string): string {
   return assetAddress + '-' + ownerAddress;
 }
+
+export function depositCapId(chargedSettingsAddress: string, assetTokenAddress: string): string {
+  return chargedSettingsAddress + assetTokenAddress;
+}
