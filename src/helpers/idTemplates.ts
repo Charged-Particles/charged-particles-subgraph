@@ -75,3 +75,7 @@ export function approvedOperatorId(assetAddress: string, ownerAddress: string): 
 export function depositCapId(chargedSettingsAddress: string, assetTokenAddress: string): string {
   return chargedSettingsAddress + assetTokenAddress;
 }
+
+export function NftLimitsId(contractAddress: string, assetTokenAddress: string): string {
+  return contractAddress + assetTokenAddress;
+}

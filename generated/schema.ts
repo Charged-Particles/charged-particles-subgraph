@@ -774,8 +774,8 @@ export class NftLimits extends Entity {
     }
   }
 
-  get maxLimit(): BigInt | null {
-    let value = this.get("maxLimit");
+  get maxNfts(): BigInt | null {
+    let value = this.get("maxNfts");
     if (value === null) {
       return null;
     } else {
@@ -783,11 +783,11 @@ export class NftLimits extends Entity {
     }
   }
 
-  set maxLimit(value: BigInt | null) {
+  set maxNfts(value: BigInt | null) {
     if (value === null) {
-      this.unset("maxLimit");
+      this.unset("maxNfts");
     } else {
-      this.set("maxLimit", Value.fromBigInt(value as BigInt));
+      this.set("maxNfts", Value.fromBigInt(value as BigInt));
     }
   }
 }

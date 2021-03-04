@@ -88,14 +88,14 @@ type DepositCap @entity {
 }
 
 
-# ID: `${chargedSettings.address}-${assetToken.address}`
+# ID: `${contract.address}-${assetToken.address}`
 # dynamically generated type, not mapped to a specific contract
 type NftLimits @entity {
   id: ID!
   nftSettings: NftSettings!
 
   tokenAddress: Bytes
-  maxLimit: BigInt
+  maxNfts: BigInt
 }
 
 
