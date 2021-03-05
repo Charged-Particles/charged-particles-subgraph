@@ -91,7 +91,17 @@ export function handleWalletDischarged(event: WalletDischarged): void {
 }
 
 export function handleWalletDischargedForCreator(event: WalletDischargedForCreator): void {
-  log.info('TODO: handleWalletDischargedForCreator', []);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
+  assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.receiverAmount);
+  assetTokenBalance.save();
+
+  var eventData = new Array<string>(4);
+  eventData[0] = event.params.contractAddress.toHex();
+  eventData[1] = event.params.tokenId.toString();
+  eventData[2] = event.params.assetToken.toHex();
+  eventData[3] = event.params.receiverAmount.toString();
+  trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'WalletDischargedForCreator', eventData.join('-'));
 }
 
 export function handleWalletReleased(event: WalletReleased): void {
