@@ -489,40 +489,6 @@ export class NftSettings extends Entity {
     this.set("allowedAssetTokens", Value.fromStringArray(value));
   }
 
-  get assetDepositMin(): BigInt | null {
-    let value = this.get("assetDepositMin");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set assetDepositMin(value: BigInt | null) {
-    if (value === null) {
-      this.unset("assetDepositMin");
-    } else {
-      this.set("assetDepositMin", Value.fromBigInt(value as BigInt));
-    }
-  }
-
-  get assetDepositMax(): BigInt | null {
-    let value = this.get("assetDepositMax");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set assetDepositMax(value: BigInt | null) {
-    if (value === null) {
-      this.unset("assetDepositMax");
-    } else {
-      this.set("assetDepositMax", Value.fromBigInt(value as BigInt));
-    }
-  }
-
   get maxNfts(): Array<string> {
     let value = this.get("maxNfts");
     return value.toStringArray();
@@ -641,6 +607,40 @@ export class AllowedAssetToken extends Entity {
 
   set isAllowed(value: boolean) {
     this.set("isAllowed", Value.fromBoolean(value));
+  }
+
+  get assetDepositMin(): BigInt | null {
+    let value = this.get("assetDepositMin");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set assetDepositMin(value: BigInt | null) {
+    if (value === null) {
+      this.unset("assetDepositMin");
+    } else {
+      this.set("assetDepositMin", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get assetDepositMax(): BigInt | null {
+    let value = this.get("assetDepositMax");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set assetDepositMax(value: BigInt | null) {
+    if (value === null) {
+      this.unset("assetDepositMax");
+    } else {
+      this.set("assetDepositMax", Value.fromBigInt(value as BigInt));
+    }
   }
 }
 
