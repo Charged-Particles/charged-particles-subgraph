@@ -18,7 +18,7 @@ export function loadOrCreateNftCreatorSettings(
 
   if (!_nftCreatorSettings) {
     _nftCreatorSettings = new NftCreatorSettings(id);
-    _nftCreatorSettings.chargedParticles = chargedParticlesAddress.toHex();
+    _nftCreatorSettings.chargedSettings = chargedParticlesAddress.toHex();
     _nftCreatorSettings.contractAddress = contractAddress;
     _nftCreatorSettings.tokenId = tokenId;
     _nftCreatorSettings.creatorAddress = creatorAddress;

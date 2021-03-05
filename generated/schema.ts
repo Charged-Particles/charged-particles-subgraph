@@ -718,7 +718,7 @@ export class DepositCap extends Entity {
   }
 }
 
-export class NftLimits extends Entity {
+export class MaxNfts extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -726,17 +726,17 @@ export class NftLimits extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save NftLimits entity without an ID");
+    assert(id !== null, "Cannot save MaxNfts entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save NftLimits entity with non-string ID. " +
+      "Cannot save MaxNfts entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("NftLimits", id.toString(), this);
+    store.set("MaxNfts", id.toString(), this);
   }
 
-  static load(id: string): NftLimits | null {
-    return store.get("NftLimits", id) as NftLimits | null;
+  static load(id: string): MaxNfts | null {
+    return store.get("MaxNfts", id) as MaxNfts | null;
   }
 
   get id(): string {
@@ -774,8 +774,8 @@ export class NftLimits extends Entity {
     }
   }
 
-  get maxLimit(): BigInt | null {
-    let value = this.get("maxLimit");
+  get maxNfts(): BigInt | null {
+    let value = this.get("maxNfts");
     if (value === null) {
       return null;
     } else {
@@ -783,11 +783,11 @@ export class NftLimits extends Entity {
     }
   }
 
-  set maxLimit(value: BigInt | null) {
+  set maxNfts(value: BigInt | null) {
     if (value === null) {
-      this.unset("maxLimit");
+      this.unset("maxNfts");
     } else {
-      this.set("maxLimit", Value.fromBigInt(value as BigInt));
+      this.set("maxNfts", Value.fromBigInt(value as BigInt));
     }
   }
 }

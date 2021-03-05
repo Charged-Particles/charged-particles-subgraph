@@ -23,9 +23,11 @@ import {
 import { loadOrCreateChargedSettings } from './helpers/loadOrCreateChargedSettings';
 import { loadOrCreateNftSettings } from './helpers/loadOrCreateNftSettings';
 import { loadOrCreateAllowedAsset } from './helpers/loadOrCreateAllowedAsset';
-
+import { loadOrCreateMaxNfts } from './helpers/loadOrCreateMaxNfts';
+import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreatorSettings';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { trackLastKnownOwner } from './helpers/nftState';
+import { loadOrCreateDepositCap } from './helpers/loadOrCreateDepositCap';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -35,7 +37,9 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function handleDepositCapSet(event: DepositCapSet): void {
-  log.info('TODO: handleDepositCapSet', []);
+  const _depositCap = loadOrCreateDepositCap(event.address, event.params.assetToken);
+  _depositCap.maxDeposit = event.params.depositCap;
+  _depositCap.save();
 }
 
 export function handleTempLockExpirySet(event: TempLockExpirySet): void {
@@ -99,19 +103,28 @@ export function handleAllowedAssetTokenSet(event: AllowedAssetTokenSet): void {
 }
 
 export function handleAssetTokenLimitsSet(event: AssetTokenLimitsSet): void {
-  log.info('TODO: handleAssetTokenLimitsSet', []);
+  const _nftSettings = loadOrCreateNftSettings(event.address, event.params.contractAddress);
+  _nftSettings.assetDepositMax = event.params.assetDepositMax;
+  _nftSettings.assetDepositMin = event.params.assetDepositMin;
+  _nftSettings.save();
 }
 
 export function handleMaxNftsSet(event: MaxNftsSet): void {
-  log.info('TODO: handleMaxNftsSet', []);
+  const _maxNfts = loadOrCreateMaxNfts(event.address, event.params.nftTokenAddress);
+  _maxNfts.maxNfts = event.params.maxNfts;
+  _maxNfts.save();
 }
 
 export function handleTokenCreatorConfigsSet(event: TokenCreatorConfigsSet): void {
-  log.info('TODO: handleTokenCreatorConfigsSet', []);
+  const _nftCreatorSettings = loadOrCreateNftCreatorSettings(event.address, event.params.contractAddress, event.params.tokenId, event.params.creatorAddress);
+  _nftCreatorSettings.annuityPercent = event.params.annuityPercent;
+  _nftCreatorSettings.save();
 }
 
 export function handleTokenCreatorAnnuitiesRedirected(event: TokenCreatorAnnuitiesRedirected): void {
-  log.info('TODO: handleTokenCreatorAnnuitiesRedirected', []);
+  const _nftCreatorSettings = loadOrCreateNftCreatorSettings(event.address, event.params.contractAddress, event.params.tokenId, event.params.redirectAddress);
+  _nftCreatorSettings.annuityRedirect = event.params.redirectAddress;
+  _nftCreatorSettings.save();
 }
 
 export function handlePermsSetForCharge(event: PermsSetForCharge): void {
@@ -124,7 +137,6 @@ export function handlePermsSetForCharge(event: PermsSetForCharge): void {
 }
 
 export function handlePermsSetForBasket(event: PermsSetForBasket): void {
-  log.info('TODO: handlePermsSetForBasket', []);
   const _nftSettings = loadOrCreateNftSettings(
     event.address,
     event.params.contractAddress,

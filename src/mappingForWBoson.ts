@@ -50,18 +50,16 @@ export function processWBosonMetadata(value: JSONValue, userData: Value): void {
   const wBosonId = userData.toString();
   const wBosonMetadata = value.toObject();
   if (wBosonMetadata == null) {
-    log.info('NO METADATA FOUND FOR PHOTON {}', [wBosonId]);
+    log.info('NO METADATA FOUND FOR WBOSON {}', [wBosonId]);
   }
 
   const _wBoson = WBoson.load(wBosonId);
-  _wBoson.name = wBosonMetadata.get('name').toString();
-  _wBoson.description = wBosonMetadata.get('description').toString();
-  _wBoson.image = wBosonMetadata.get('image').toString();
-  if (wBosonMetadata.isSet('thumbnail')) {
-    _wBoson.thumbnail = wBosonMetadata.get('thumbnail').toString();
-  }
-  _wBoson.email = wBosonMetadata.get('email').toString();
-  _wBoson.twitter = wBosonMetadata.get('twitter').toString();
-  _wBoson.website = wBosonMetadata.get('website').toString();
+  _wBoson.name = (wBosonMetadata.isSet('name')) ? wBosonMetadata.get('name').toString() : '';
+  _wBoson.name = (wBosonMetadata.isSet('description')) ? wBosonMetadata.get('description').toString() : '';
+  _wBoson.name = (wBosonMetadata.isSet('image')) ? wBosonMetadata.get('image').toString() : '';
+  _wBoson.name = (wBosonMetadata.isSet('thumbnail')) ? wBosonMetadata.get('thumbnail').toString() : '';
+  _wBoson.name = (wBosonMetadata.isSet('email')) ? wBosonMetadata.get('email').toString() : '';
+  _wBoson.name = (wBosonMetadata.isSet('twitter')) ? wBosonMetadata.get('twitter').toString() : '';
+  _wBoson.name = (wBosonMetadata.isSet('website')) ? wBosonMetadata.get('website').toString() : '';
   _wBoson.save();
 }
