@@ -51,15 +51,21 @@ export function processWBosonMetadata(value: JSONValue, userData: Value): void {
   const wBosonMetadata = value.toObject();
   if (wBosonMetadata == null) {
     log.info('NO METADATA FOUND FOR WBOSON {}', [wBosonId]);
+    return;
   }
 
   const _wBoson = WBoson.load(wBosonId);
+  if (!_wBoson) {
+    log.info('FAILED TO LOAD OBJECT FOR WBOSON {}', [wBosonId]);
+    return;
+  }
+
   _wBoson.name = (wBosonMetadata.isSet('name')) ? wBosonMetadata.get('name').toString() : '';
-  _wBoson.name = (wBosonMetadata.isSet('description')) ? wBosonMetadata.get('description').toString() : '';
-  _wBoson.name = (wBosonMetadata.isSet('image')) ? wBosonMetadata.get('image').toString() : '';
-  _wBoson.name = (wBosonMetadata.isSet('thumbnail')) ? wBosonMetadata.get('thumbnail').toString() : '';
-  _wBoson.name = (wBosonMetadata.isSet('email')) ? wBosonMetadata.get('email').toString() : '';
-  _wBoson.name = (wBosonMetadata.isSet('twitter')) ? wBosonMetadata.get('twitter').toString() : '';
-  _wBoson.name = (wBosonMetadata.isSet('website')) ? wBosonMetadata.get('website').toString() : '';
+  _wBoson.description = (wBosonMetadata.isSet('description')) ? wBosonMetadata.get('description').toString() : '';
+  _wBoson.image = (wBosonMetadata.isSet('image')) ? wBosonMetadata.get('image').toString() : '';
+  _wBoson.thumbnail = (wBosonMetadata.isSet('thumbnail')) ? wBosonMetadata.get('thumbnail').toString() : '';
+  _wBoson.email = (wBosonMetadata.isSet('email')) ? wBosonMetadata.get('email').toString() : '';
+  _wBoson.twitter = (wBosonMetadata.isSet('twitter')) ? wBosonMetadata.get('twitter').toString() : '';
+  _wBoson.website = (wBosonMetadata.isSet('website')) ? wBosonMetadata.get('website').toString() : '';
   _wBoson.save();
 }
