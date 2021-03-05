@@ -102,7 +102,10 @@ export function handleAllowedAssetTokenSet(event: AllowedAssetTokenSet): void {
 }
 
 export function handleAssetTokenLimitsSet(event: AssetTokenLimitsSet): void {
-  log.info('TODO: handleAssetTokenLimitsSet', []);
+  const _allowedAsset = loadOrCreateAllowedAsset(event.address, event.params.contractAddress, event.params.assetToken);
+  _allowedAsset.assetDepositMax = event.params.assetDepositMax;
+  _allowedAsset.assetDepositMin = event.params.assetDepositMin;
+  _allowedAsset.save();
 }
 
 export function handleMaxNftsSet(event: MaxNftsSet): void {

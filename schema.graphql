@@ -52,8 +52,6 @@ type NftSettings @entity {
   requiredBasketManager: String
 
   allowedAssetTokens: [AllowedAssetToken!]! @derivedFrom(field: "nftSettings")
-  assetDepositMin: BigInt
-  assetDepositMax: BigInt
 
   maxNfts: [NftLimits!]! @derivedFrom(field: "nftSettings")
 
@@ -74,6 +72,8 @@ type AllowedAssetToken @entity {
 
   assetToken: Bytes
   isAllowed: Boolean
+  assetDepositMin: BigInt
+  assetDepositMax: BigInt
 }
 
 
