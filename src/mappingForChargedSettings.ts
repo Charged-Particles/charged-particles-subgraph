@@ -137,7 +137,6 @@ export function handlePermsSetForCharge(event: PermsSetForCharge): void {
 }
 
 export function handlePermsSetForBasket(event: PermsSetForBasket): void {
-  log.info('TODO: handlePermsSetForBasket', []);
   const _nftSettings = loadOrCreateNftSettings(
     event.address,
     event.params.contractAddress,
