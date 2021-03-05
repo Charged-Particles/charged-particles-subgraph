@@ -76,6 +76,6 @@ export function depositCapId(chargedSettingsAddress: string, assetTokenAddress: 
   return chargedSettingsAddress + assetTokenAddress;
 }
 
-export function NftLimitsId(contractAddress: string, assetTokenAddress: string): string {
+export function maxNftsId(contractAddress: string, assetTokenAddress: string): string {
   return contractAddress + assetTokenAddress;
 }

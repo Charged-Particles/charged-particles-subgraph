@@ -47,10 +47,10 @@
           requiredBasketManager
           allowedAssetTokens {
             id
-            assetDepositMin
-            assetDepositMax
           }
-          nftLimits {
+          assetDepositMin
+          assetDepositMax
+          maxNfts {
             id
             maxNfts
           }

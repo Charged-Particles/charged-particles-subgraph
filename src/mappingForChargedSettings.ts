@@ -23,7 +23,7 @@ import {
 import { loadOrCreateChargedSettings } from './helpers/loadOrCreateChargedSettings';
 import { loadOrCreateNftSettings } from './helpers/loadOrCreateNftSettings';
 import { loadOrCreateAllowedAsset } from './helpers/loadOrCreateAllowedAsset';
-import { loadOrCreateNftLimits } from './helpers/loadOrCreateNftLimits';
+import { loadOrCreateMaxNfts } from './helpers/loadOrCreateMaxNfts';
 import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreatorSettings';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { trackLastKnownOwner } from './helpers/nftState';
@@ -103,16 +103,16 @@ export function handleAllowedAssetTokenSet(event: AllowedAssetTokenSet): void {
 }
 
 export function handleAssetTokenLimitsSet(event: AssetTokenLimitsSet): void {
-  const _allowedAsset = loadOrCreateAllowedAsset(event.address, event.params.contractAddress, event.params.assetToken);
-  _allowedAsset.assetDepositMax = event.params.assetDepositMax;
-  _allowedAsset.assetDepositMin = event.params.assetDepositMin;
-  _allowedAsset.save();
+  const _nftSettings = loadOrCreateNftSettings(event.address, event.params.contractAddress);
+  _nftSettings.assetDepositMax = event.params.assetDepositMax;
+  _nftSettings.assetDepositMin = event.params.assetDepositMin;
+  _nftSettings.save();
 }
 
 export function handleMaxNftsSet(event: MaxNftsSet): void {
-  const _nftLimits = loadOrCreateNftLimits(event.address, event.params.nftTokenAddress);
-  _nftLimits.maxNfts = event.params.maxNfts;
-  _nftLimits.save();
+  const _maxNfts = loadOrCreateMaxNfts(event.address, event.params.nftTokenAddress);
+  _maxNfts.maxNfts = event.params.maxNfts;
+  _maxNfts.save();
 }
 
 export function handleTokenCreatorConfigsSet(event: TokenCreatorConfigsSet): void {

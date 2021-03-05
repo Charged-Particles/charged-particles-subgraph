@@ -52,8 +52,10 @@ type NftSettings @entity {
   requiredBasketManager: String
 
   allowedAssetTokens: [AllowedAssetToken!]! @derivedFrom(field: "nftSettings")
+  assetDepositMin: BigInt
+  assetDepositMax: BigInt
 
-  nftLimits: [NftLimits!]! @derivedFrom(field: "nftSettings")
+  maxNfts: [MaxNfts!]! @derivedFrom(field: "nftSettings")
 
   # Action Perms
   allowCharge: Boolean
@@ -72,8 +74,6 @@ type AllowedAssetToken @entity {
 
   assetToken: Bytes
   isAllowed: Boolean
-  assetDepositMin: BigInt
-  assetDepositMax: BigInt
 }
 
 
@@ -90,7 +90,7 @@ type DepositCap @entity {
 
 # ID: `${contract.address}-${assetToken.address}`
 # dynamically generated type, not mapped to a specific contract
-type NftLimits @entity {
+type MaxNfts @entity {
   id: ID!
   nftSettings: NftSettings!
 
