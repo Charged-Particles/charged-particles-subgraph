@@ -8,6 +8,7 @@ import { nftCreatorSettingsId } from './idTemplates';
 
 
 export function loadOrCreateNftCreatorSettings(
+  chargedParticlesAddress: Address,
   contractAddress: Address,
   tokenId: BigInt,
   creatorAddress: Address,
@@ -17,6 +18,7 @@ export function loadOrCreateNftCreatorSettings(
 
   if (!_nftCreatorSettings) {
     _nftCreatorSettings = new NftCreatorSettings(id);
+    _nftCreatorSettings.chargedSettings = chargedParticlesAddress.toHex();
     _nftCreatorSettings.contractAddress = contractAddress;
     _nftCreatorSettings.tokenId = tokenId;
     _nftCreatorSettings.creatorAddress = creatorAddress;

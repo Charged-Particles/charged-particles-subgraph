@@ -116,13 +116,15 @@ export function handleMaxNftsSet(event: MaxNftsSet): void {
 }
 
 export function handleTokenCreatorConfigsSet(event: TokenCreatorConfigsSet): void {
-  const _nftCreatorSettings = loadOrCreateNftCreatorSettings(event.params.contractAddress, event.params.tokenId, event.params.creatorAddress);
+  const _nftCreatorSettings = loadOrCreateNftCreatorSettings(event.address, event.params.contractAddress, event.params.tokenId, event.params.creatorAddress);
   _nftCreatorSettings.annuityPercent = event.params.annuityPercent;
   _nftCreatorSettings.save();
 }
 
 export function handleTokenCreatorAnnuitiesRedirected(event: TokenCreatorAnnuitiesRedirected): void {
-  log.info('TODO: handleTokenCreatorAnnuitiesRedirected', []);
+  const _nftCreatorSettings = loadOrCreateNftCreatorSettings(event.address, event.params.contractAddress, event.params.tokenId, event.params.redirectAddress);
+  _nftCreatorSettings.annuityRedirect = event.params.redirectAddress;
+  _nftCreatorSettings.save();
 }
 
 export function handlePermsSetForCharge(event: PermsSetForCharge): void {
