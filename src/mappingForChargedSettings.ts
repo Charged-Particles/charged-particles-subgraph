@@ -24,6 +24,7 @@ import { loadOrCreateChargedSettings } from './helpers/loadOrCreateChargedSettin
 import { loadOrCreateNftSettings } from './helpers/loadOrCreateNftSettings';
 import { loadOrCreateAllowedAsset } from './helpers/loadOrCreateAllowedAsset';
 import { loadOrCreateNftLimits } from './helpers/loadOrCreateNftLimits';
+import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreatorSettings';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { trackLastKnownOwner } from './helpers/nftState';
 import { loadOrCreateDepositCap } from './helpers/loadOrCreateDepositCap';
@@ -115,7 +116,9 @@ export function handleMaxNftsSet(event: MaxNftsSet): void {
 }
 
 export function handleTokenCreatorConfigsSet(event: TokenCreatorConfigsSet): void {
-  log.info('TODO: handleTokenCreatorConfigsSet', []);
+  const _nftCreatorSettings = loadOrCreateNftCreatorSettings(event.params.contractAddress, event.params.tokenId, event.params.creatorAddress);
+  _nftCreatorSettings.annuityPercent = event.params.annuityPercent;
+  _nftCreatorSettings.save();
 }
 
 export function handleTokenCreatorAnnuitiesRedirected(event: TokenCreatorAnnuitiesRedirected): void {
