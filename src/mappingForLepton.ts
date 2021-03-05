@@ -28,7 +28,7 @@ import { loadOrCreateLeptonNFT } from './helpers/loadOrCreateLeptonNFT';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 
-import { ADDRESS_ZERO, ONE, NEG_ONE, getStringValue } from './helpers/common';
+import { ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, ZERO } from './helpers/common';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -85,6 +85,14 @@ export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
   //
   // WARNING: Event Param: tokenId is INCORRECT in this event - do not rely on it!
   //
+  let startTokenId = event.params.tokenId;
+
+  for (let i = 0, n = event.params.count.toI32(); i < n; i++) {
+     let _nft = loadOrCreateLeptonNFT(event.address, startTokenId.plus(BigInt.fromI32(i)));
+     _nft.owner = event.params.receiver;
+     _nft.save();
+   }
+
   const _lepton = loadOrCreateLepton(event.address);
   _lepton.totalMinted = _lepton.totalMinted.plus(event.params.count);
   _lepton.save();
