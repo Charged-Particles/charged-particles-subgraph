@@ -489,13 +489,13 @@ export class NftSettings extends Entity {
     this.set("allowedAssetTokens", Value.fromStringArray(value));
   }
 
-  get maxNfts(): Array<string> {
-    let value = this.get("maxNfts");
+  get nftLimits(): Array<string> {
+    let value = this.get("nftLimits");
     return value.toStringArray();
   }
 
-  set maxNfts(value: Array<string>) {
-    this.set("maxNfts", Value.fromStringArray(value));
+  set nftLimits(value: Array<string>) {
+    this.set("nftLimits", Value.fromStringArray(value));
   }
 
   get allowCharge(): boolean {

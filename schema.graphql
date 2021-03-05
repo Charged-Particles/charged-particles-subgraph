@@ -53,7 +53,7 @@ type NftSettings @entity {
 
   allowedAssetTokens: [AllowedAssetToken!]! @derivedFrom(field: "nftSettings")
 
-  maxNfts: [NftLimits!]! @derivedFrom(field: "nftSettings")
+  nftLimits: [NftLimits!]! @derivedFrom(field: "nftSettings")
 
   # Action Perms
   allowCharge: Boolean

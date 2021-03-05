@@ -23,7 +23,7 @@ import {
 import { loadOrCreateChargedSettings } from './helpers/loadOrCreateChargedSettings';
 import { loadOrCreateNftSettings } from './helpers/loadOrCreateNftSettings';
 import { loadOrCreateAllowedAsset } from './helpers/loadOrCreateAllowedAsset';
-
+import { loadOrCreateNftLimits } from './helpers/loadOrCreateNftLimits';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { trackLastKnownOwner } from './helpers/nftState';
 import { loadOrCreateDepositCap } from './helpers/loadOrCreateDepositCap';
@@ -109,7 +109,9 @@ export function handleAssetTokenLimitsSet(event: AssetTokenLimitsSet): void {
 }
 
 export function handleMaxNftsSet(event: MaxNftsSet): void {
-  log.info('TODO: handleMaxNftsSet', []);
+  const _nftLimits = loadOrCreateNftLimits(event.address, event.params.nftTokenAddress);
+  _nftLimits.maxNfts = event.params.maxNfts;
+  _nftLimits.save();
 }
 
 export function handleTokenCreatorConfigsSet(event: TokenCreatorConfigsSet): void {

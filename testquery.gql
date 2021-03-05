@@ -47,11 +47,12 @@
           requiredBasketManager
           allowedAssetTokens {
             id
+            assetDepositMin
+            assetDepositMax
           }
-          assetDepositMin
-          assetDepositMax
-          maxNfts {
+          nftLimits {
             id
+            maxNfts
           }
           allowCharge
           allowBond
