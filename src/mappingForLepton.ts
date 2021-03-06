@@ -69,8 +69,12 @@ export function handleLeptonTypeUpdated(event: LeptonTypeUpdated): void {
 
 export function handleLeptonMinted(event: LeptonMinted): void {
   const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
-  _nft.owner = event.params.receiver;
-  _nft.save();
+  const ipfsHashParts = _nft.metadataUri.split('/');
+  const ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
+  let data = ipfs.cat(ipfsHash)
+  if (data) {
+    processLeptonMetadata(json.fromBytes(data as Bytes), Value.fromString(_nft.id));
+  }
 
   const _lepton = loadOrCreateLepton(event.address);
   _lepton.totalMinted = _lepton.totalMinted.plus(ONE);
@@ -78,14 +82,9 @@ export function handleLeptonMinted(event: LeptonMinted): void {
 }
 
 export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
-  // let startTokenId = event.params.tokenId;
-
-  // for (let i = 0; i < event.params.count.toI32(); i++) {
-  //   let _nft = loadOrCreateLeptonNFT(event.address, startTokenId.plus(BigInt.fromI32(i)));
-  //   _nft.owner = event.params.receiver;
-  //   _nft.save();
-  // }
-
+  //
+  // WARNING: Event Param: tokenId is INCORRECT in this event - do not rely on it!
+  //
   const _lepton = loadOrCreateLepton(event.address);
   _lepton.totalMinted = _lepton.totalMinted.plus(event.params.count);
   _lepton.save();
@@ -101,31 +100,26 @@ export function handleTransfer(event: Transfer): void {
   const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
   _nft.owner = event.params.to;
   _nft.save();
-
-  if (event.params.from.toHex() == ADDRESS_ZERO) {
-    const ipfsHashParts = _nft.metadataUri.split('/');
-    const ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
-    // ipfs.mapJSON(ipfsHash, 'processProtonMetadata', Value.fromString(_nft.id));
-    let data = ipfs.cat(ipfsHash)
-    if (data) {
-      processLeptonMetadata(json.fromBytes(data as Bytes), Value.fromString(_nft.id));
-    }
-  }
 }
 
 export function handleTransferBatch(event: TransferBatch): void {
-  // Duplicating handleTransfer functionality except passing in each tokenId via loop increment
-  for (let i = event.params.startTokenId; i <= event.params.count; i.plus(ONE)) {
-    const _nft = loadOrCreateLeptonNFT(event.address, i);
-    _nft.owner = event.params.to;
-    _nft.save();
+  let nft: LeptonNFT;
+  let tokenId: BigInt;
+  let ipfsHashParts: string[];
+  let ipfsHash: string;
+  let data: Bytes;
+  for (let i = 0, n = event.params.count.toI32(); i < n; i++) {
+    tokenId = event.params.startTokenId.plus(BigInt.fromI32(i));
+    nft = loadOrCreateLeptonNFT(event.address, tokenId);
+    nft.owner = event.params.to;
+    nft.save();
 
     if (event.params.from.toHex() == ADDRESS_ZERO) {
-      const ipfsHashParts = _nft.metadataUri.split('/');
-      const ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
-      let data = ipfs.cat(ipfsHash)
+      ipfsHashParts = nft.metadataUri.split('/');
+      ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
+      data = ipfs.cat(ipfsHash) as Bytes;
       if (data) {
-        processLeptonMetadata(json.fromBytes(data as Bytes), Value.fromString(_nft.id));
+        processLeptonMetadata(json.fromBytes(data as Bytes), Value.fromString(nft.id));
       }
     }
   }
