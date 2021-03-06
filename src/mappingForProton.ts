@@ -1,4 +1,4 @@
-import { ipfs, json, Bytes, JSONValue, Value, log, BigInt } from '@graphprotocol/graph-ts';
+import { ipfs, json, Bytes, TypedMap, JSONValue, Value, log, BigInt } from '@graphprotocol/graph-ts';
 
 import {
   ProtonNFT,
@@ -29,7 +29,7 @@ import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 
-import { ZERO, ADDRESS_ZERO } from './helpers/common';
+import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue } from './helpers/common';
 import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
 
 
@@ -160,7 +160,7 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
   const operatorAddress = event.params.operator;
 
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
-  const _approvedAllIndicator = BigInt.fromI32(-1);
+  const _approvedAllIndicator = NEG_ONE;
   _approvedOperator.tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
   _approvedOperator.save();
 }
@@ -171,25 +171,30 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   const protonMetadata = value.toObject();
   if (protonMetadata == null) {
     log.info('NO METADATA FOUND FOR PROTON {}', [protonNftId]);
+    return;
   }
 
   const _nft = ProtonNFT.load(protonNftId);
-  _nft.particleType = protonMetadata.get('particleType').toString();
-  _nft.creatorAnnuity = protonMetadata.get('creatorAnnuity').toBigInt();
-
-  _nft.name = protonMetadata.get('name').toString();
-  _nft.description = protonMetadata.get('description').toString();
-  _nft.external_url = protonMetadata.get('external_url').toString();
-  _nft.animation_url = protonMetadata.get('animation_url').toString();
-  _nft.youtube_url = protonMetadata.get('youtube_url').toString();
-  _nft.icon = protonMetadata.get('icon').toString();
-  if (protonMetadata.isSet('thumbnail')) {
-    _nft.thumbnail = protonMetadata.get('thumbnail').toString();
+  if (!_nft) {
+    log.info('FAILED TO LOAD OBJECT FOR PROTON {}', [protonNftId]);
+    return;
   }
-  _nft.image = protonMetadata.get('image').toString();
-  _nft.symbol = protonMetadata.get('symbol').toString();
-  _nft.decimals = protonMetadata.get('decimals').toBigInt();
-  _nft.background_color = protonMetadata.get('background_color').toString();
+
+  _nft.creatorAnnuity   = getBigIntValue(protonMetadata, 'creatorAnnuity');
+  _nft.decimals         = getBigIntValue(protonMetadata, 'decimals');
+
+  _nft.particleType     = getStringValue(protonMetadata, 'particleType');
+  _nft.name             = getStringValue(protonMetadata, 'name');
+  _nft.description      = getStringValue(protonMetadata, 'description');
+  _nft.external_url     = getStringValue(protonMetadata, 'external_url');
+  _nft.animation_url    = getStringValue(protonMetadata, 'animation_url');
+  _nft.youtube_url      = getStringValue(protonMetadata, 'youtube_url');
+  _nft.icon             = getStringValue(protonMetadata, 'icon');
+  _nft.thumbnail        = getStringValue(protonMetadata, 'thumbnail');
+  _nft.image            = getStringValue(protonMetadata, 'image');
+  _nft.symbol           = getStringValue(protonMetadata, 'symbol');
+  _nft.background_color = getStringValue(protonMetadata, 'background_color');
+
   _nft.save();
 
   const attributes = protonMetadata.get('attributes').toArray();

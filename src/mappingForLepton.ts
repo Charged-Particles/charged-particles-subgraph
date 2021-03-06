@@ -28,7 +28,7 @@ import { loadOrCreateLeptonNFT } from './helpers/loadOrCreateLeptonNFT';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 
-import { ADDRESS_ZERO, ONE } from './helpers/common';
+import { ADDRESS_ZERO, ONE, NEG_ONE, getStringValue } from './helpers/common';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -148,7 +148,7 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
   const operatorAddress = event.params.operator;
 
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
-  const _approvedAllIndicator = BigInt.fromI32(-1);
+  const _approvedAllIndicator = NEG_ONE;
   _approvedOperator.tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
   _approvedOperator.save();
 }
@@ -160,18 +160,23 @@ export function processLeptonMetadata(value: JSONValue, userData: Value): void {
   const leptonMetadata = value.toObject();
   if (leptonMetadata == null) {
     log.info('NO METADATA FOUND FOR LEPTON {}', [leptonNftId]);
+    return;
   }
 
   const _nft = LeptonNFT.load(leptonNftId);
-  _nft.name = leptonMetadata.get('name').toString();
-  _nft.description = leptonMetadata.get('description').toString();
-  _nft.external_url = leptonMetadata.get('external_url').toString();
-  _nft.animation_url = leptonMetadata.get('animation_url').toString();
-  _nft.youtube_url = leptonMetadata.get('youtube_url').toString();
-  if (leptonMetadata.isSet('thumbnail')) {
-    _nft.thumbnail = leptonMetadata.get('thumbnail').toString();
+  if (!_nft) {
+    log.info('FAILED TO LOAD OBJECT FOR LEPTON {}', [leptonNftId]);
+    return;
   }
-  _nft.image = leptonMetadata.get('image').toString();
-  _nft.symbol = leptonMetadata.get('symbol').toString();
+
+  _nft.name = getStringValue(leptonMetadata, 'name');
+  _nft.description = getStringValue(leptonMetadata, 'description');
+  _nft.external_url = getStringValue(leptonMetadata, 'external_url');
+  _nft.animation_url = getStringValue(leptonMetadata, 'animation_url');
+  _nft.youtube_url = getStringValue(leptonMetadata, 'youtube_url');
+  _nft.thumbnail = getStringValue(leptonMetadata, 'thumbnail');
+  _nft.image = getStringValue(leptonMetadata, 'image');
+  _nft.symbol = getStringValue(leptonMetadata, 'symbol');
+
   _nft.save();
 }

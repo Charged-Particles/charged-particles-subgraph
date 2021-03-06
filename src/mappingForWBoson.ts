@@ -10,6 +10,7 @@ import {
 } from '../generated/WBoson/WBoson';
 
 import { loadOrCreateWBoson } from './helpers/loadOrCreateWBoson';
+import { getStringValue } from './helpers/common';
 
 
 export function handleWBosonUpdated(event: WBosonUpdated): void {
@@ -60,12 +61,13 @@ export function processWBosonMetadata(value: JSONValue, userData: Value): void {
     return;
   }
 
-  _wBoson.name = (wBosonMetadata.isSet('name')) ? wBosonMetadata.get('name').toString() : '';
-  _wBoson.description = (wBosonMetadata.isSet('description')) ? wBosonMetadata.get('description').toString() : '';
-  _wBoson.image = (wBosonMetadata.isSet('image')) ? wBosonMetadata.get('image').toString() : '';
-  _wBoson.thumbnail = (wBosonMetadata.isSet('thumbnail')) ? wBosonMetadata.get('thumbnail').toString() : '';
-  _wBoson.email = (wBosonMetadata.isSet('email')) ? wBosonMetadata.get('email').toString() : '';
-  _wBoson.twitter = (wBosonMetadata.isSet('twitter')) ? wBosonMetadata.get('twitter').toString() : '';
-  _wBoson.website = (wBosonMetadata.isSet('website')) ? wBosonMetadata.get('website').toString() : '';
+  _wBoson.name        = getStringValue(wBosonMetadata, 'name');
+  _wBoson.description = getStringValue(wBosonMetadata, 'description');
+  _wBoson.image       = getStringValue(wBosonMetadata, 'image');
+  _wBoson.thumbnail   = getStringValue(wBosonMetadata, 'thumbnail');
+  _wBoson.email       = getStringValue(wBosonMetadata, 'email');
+  _wBoson.twitter     = getStringValue(wBosonMetadata, 'twitter');
+  _wBoson.website     = getStringValue(wBosonMetadata, 'website');
+
   _wBoson.save();
 }

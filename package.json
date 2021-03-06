@@ -35,6 +35,7 @@
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/mainnet-universe subgraph.mainnet.yaml",
     "deploy:kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-universe subgraph.kovan.yaml",
     "deploy:kovan-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/dev-universe subgraph.kovan.yaml",
+    "deploy:kovan-secord": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ robsecord/kovan-universe subgraph.kovan.yaml",
     "pub:beta": "yarn publish --tag beta --access public",
     "codegen": "graph codegen",
     "build": "graph build",
