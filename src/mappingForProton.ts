@@ -29,9 +29,10 @@ import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
+import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue } from './helpers/common';
+import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
+import { updateNftAnalytics } from './helpers/updateNftAnalytics';
 
-import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue, parseJsonFromIpfs } from './helpers/common';
-import { loadOrCreateClaimedRoyalties } from './helpers/loadOrCreateClaimedRoyalties';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -114,6 +115,7 @@ export function handleProtonSold(event: ProtonSold): void {
   eventData[4] = event.params.creator.toHex();
   eventData[5] = event.params.creatorRoyalties.toString();
   trackNftTxHistory(event, event.address, event.params.tokenId, 'ProtonSold', eventData.join('-'));
+  updateNftAnalytics(event.address, event.params.tokenId, true, event.params.creatorRoyalties);
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {

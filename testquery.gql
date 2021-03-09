@@ -222,5 +222,12 @@
       operatorAddress
       tokenIds
     }
+    nftAnalytics {
+      id
+      contractAddress
+      tokenId
+      totalSales
+      totalRoyalties
+    }
   }
 }
