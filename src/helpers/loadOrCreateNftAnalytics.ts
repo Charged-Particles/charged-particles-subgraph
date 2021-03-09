@@ -24,5 +24,5 @@ export function loadOrCreateNftAnalytics(
         _nftAnalytics.save();
     }
 
-    return _nftAnalytics;    
+    return _nftAnalytics as NftAnalytics;    
   }
