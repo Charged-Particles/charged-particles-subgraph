@@ -31,6 +31,7 @@ import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOper
 
 import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue } from './helpers/common';
 import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
+import { updateNftAnalytics } from './helpers/updateNftAnalytics';
 
 
 
@@ -105,6 +106,7 @@ export function handleProtonSold(event: ProtonSold): void {
   eventData[4] = event.params.creator.toHex();
   eventData[5] = event.params.creatorRoyalties.toString();
   trackNftTxHistory(event, event.address, event.params.tokenId, 'ProtonSold', eventData.join('-'));
+  updateNftAnalytics(event.address, event.params.tokenId, true, event.params.creatorRoyalties);
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
