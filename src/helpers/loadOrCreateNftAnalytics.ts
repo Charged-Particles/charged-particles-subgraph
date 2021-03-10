@@ -16,7 +16,7 @@ export function loadOrCreateNftAnalytics(
     let _nftAnalytics = NftAnalytics.load(id);
 
     if (!_nftAnalytics) {
-        _nftAnalytics.id = id;
+        _nftAnalytics = new NftAnalytics(id);
         _nftAnalytics.contractAddress = contractAddress;
         _nftAnalytics.tokenId = tokenId;
         _nftAnalytics.totalRoyalties = ZERO;

@@ -15,8 +15,8 @@ export function updateNftAnalytics(
     tokenSold: boolean,
     royaltiesClaimed: BigInt
 ): void {
-    const id = nftAnalyticsId(contractAddress.toHex(), tokenId.toString())
-    let _nftAnalytics = NftAnalytics.load(id);
+
+    let _nftAnalytics = loadOrCreateNftAnalytics(contractAddress, tokenId);
     
     if (tokenSold) {
         _nftAnalytics.totalSales.plus(ONE);
