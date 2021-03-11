@@ -7,6 +7,7 @@ import {
 import { ONE, ZERO } from './common';
 
 import { loadOrCreateNftAnalytics } from './loadOrCreateNftAnalytics';
+import { nftId } from './idTemplates';
 
 export function updateNftAnalytics(
     contractAddress: Address,
@@ -15,9 +16,17 @@ export function updateNftAnalytics(
     royaltiesClaimed: BigInt
 ): void {
 
-    let _nftAnalytics = loadOrCreateNftAnalytics(contractAddress, tokenId);
+    let id = nftId(contractAddress.toHex(), tokenId.toString());
+    let _nftAnalytics = NftAnalytics.load(id);
     
-    if (tokenSold) {
+    if (!_nftAnalytics) {
+        _nftAnalytics = new NftAnalytics(id);
+        _nftAnalytics.contractAddress = contractAddress;
+        _nftAnalytics.tokenId = tokenId;
+        _nftAnalytics.totalSales = ZERO;
+        _nftAnalytics.totalRoyalties = ZERO;
+    }
+    if (tokenSold === true) {
         _nftAnalytics.totalSales.plus(ONE);
     }
 
