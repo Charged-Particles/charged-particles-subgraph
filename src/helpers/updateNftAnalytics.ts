@@ -6,7 +6,6 @@ import {
 
 import { ONE, ZERO } from './common';
 
-import { loadOrCreateNftAnalytics } from './loadOrCreateNftAnalytics';
 import { nftId } from './idTemplates';
 
 export function updateNftAnalytics(
