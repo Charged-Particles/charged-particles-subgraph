@@ -5,7 +5,6 @@ import {
 } from '../../generated/schema';
 
 import { ONE, ZERO } from './common';
-import { nftAnalyticsId } from './idTemplates';
 
 import { loadOrCreateNftAnalytics } from './loadOrCreateNftAnalytics';
 

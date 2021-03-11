@@ -6,13 +6,13 @@ import {
 
 import { ZERO } from './common';
 
-import { nftAnalyticsId } from './idTemplates';
+import { nftId } from './idTemplates';
 
 
 export function loadOrCreateNftAnalytics(
   contractAddress: Address,
   tokenId: BigInt): NftAnalytics {
-    const id = nftAnalyticsId(contractAddress.toHex(), tokenId.toString());
+    const id = nftId(contractAddress.toHex(), tokenId.toString());
     let _nftAnalytics = NftAnalytics.load(id);
 
     if (!_nftAnalytics) {
