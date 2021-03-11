@@ -15,7 +15,7 @@ export function updateNftAnalytics(
     royaltiesClaimed: BigInt
 ): void {
 
-    let id = nftId(contractAddress.toHex(), tokenId.toString());
+    const id = nftId(contractAddress.toHex(), tokenId.toString());
     let _nftAnalytics = NftAnalytics.load(id);
     
     if (!_nftAnalytics) {
@@ -29,7 +29,7 @@ export function updateNftAnalytics(
         _nftAnalytics.totalSales.plus(ONE);
     }
 
-    if (royaltiesClaimed > ZERO) {
+    if (royaltiesClaimed) {
         _nftAnalytics.totalRoyalties.plus(royaltiesClaimed);
     }
 
