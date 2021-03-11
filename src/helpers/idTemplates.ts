@@ -75,7 +75,3 @@ export function depositCapId(chargedSettingsAddress: string, assetTokenAddress: 
 export function maxNftsId(contractAddress: string, assetTokenAddress: string): string {
   return contractAddress + '-' + assetTokenAddress;
 }
-
-export function nftAnalyticsId(contractAddress: string, tokenId: string): string {
-  return contractAddress + '-' + tokenId;
-}
