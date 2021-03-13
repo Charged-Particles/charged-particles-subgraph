@@ -238,6 +238,7 @@ type GenericAssetTokenBalance @entity {
   smartWallet: GenericSmartWallet
 
   principal: BigInt!
+  # TODO: need decimals
 }
 
 # ID: `${aaveWalletManager.address}`
@@ -371,6 +372,8 @@ type ProtonNFT @entity {
   proton: Proton
   creator: Bytes
   owner: Bytes
+
+  overallSalesTotal: BigInt!
 
   particleType: String
   creatorAnnuity: BigInt

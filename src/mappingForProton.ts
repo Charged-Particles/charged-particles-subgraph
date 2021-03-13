@@ -26,12 +26,12 @@ import { nftAttributeId } from './helpers/idTemplates';
 import { loadOrCreateProton } from './helpers/loadOrCreateProton';
 import { loadOrCreateProtonNFT } from './helpers/loadOrCreateProtonNFT';
 import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
+import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 
 import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue } from './helpers/common';
 import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
-
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -94,8 +94,17 @@ export function handleCreatorRoyaltiesSet(event: CreatorRoyaltiesSet): void {
 
 export function handleProtonSold(event: ProtonSold): void {
   const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId);
-  _nft.salePrice = ZERO;
+  _nft.overallSalesTotal = _nft.overallSalesTotal.plus(event.params.salePrice);
   _nft.save();
+
+  const _proton = loadOrCreateProton(event.address);
+  const _nftState = loadOrCreateNftState(
+    _proton.chargedState.id,
+    event.address,
+    event.params.tokenId,
+  );
+  _nftState.tempLockExpiry = ZERO;
+  _nftState.save();
 
   var eventData = new Array<string>(6);
   eventData[0] = event.params.tokenId.toString();

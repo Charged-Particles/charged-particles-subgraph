@@ -31,6 +31,7 @@ export function loadOrCreateProtonNFT(
 
     _nft.salePrice = ZERO;
     _nft.resaleRoyalties = ZERO;
+    _nft.overallSalesTotal = ZERO;
 
     _nft.save();
   }
