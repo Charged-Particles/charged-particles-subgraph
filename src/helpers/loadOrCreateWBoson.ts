@@ -17,6 +17,7 @@ export function loadOrCreateWBoson(
     _wBoson = new WBoson(id);
     _wBoson.wBoson = wBosonAddress;
     _wBoson.account = accountAddress;
+    _wBoson.discarded = false;
     _wBoson.save();
   }
 

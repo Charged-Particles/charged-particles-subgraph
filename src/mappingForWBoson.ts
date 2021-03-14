@@ -1,4 +1,4 @@
-import { ipfs, json, Bytes, JSONValue, Value, log } from '@graphprotocol/graph-ts';
+import { JSONValue, Value, Wrapped } from '@graphprotocol/graph-ts';
 
 import {
   WBoson
@@ -10,7 +10,7 @@ import {
 } from '../generated/WBoson/WBoson';
 
 import { loadOrCreateWBoson } from './helpers/loadOrCreateWBoson';
-import { getStringValue } from './helpers/common';
+import { getStringValue, parseJsonFromIpfs } from './helpers/common';
 
 
 export function handleWBosonUpdated(event: WBosonUpdated): void {
@@ -18,11 +18,11 @@ export function handleWBosonUpdated(event: WBosonUpdated): void {
   _wBoson.wBosonUri = event.params.wBosonURI;
   _wBoson.save();
 
-  const ipfsHashParts = _wBoson.wBosonUri.split('/');
-  const ipfsHash = ipfsHashParts[ipfsHashParts.length-1];
-  let data = ipfs.cat(ipfsHash)
-  if (data) {
-    processWBosonMetadata(json.fromBytes(data as Bytes), Value.fromString(_wBoson.id));
+  if (event.params.wBosonURI.length < 1) { return; }
+
+  const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(event.params.wBosonURI);
+  if (jsonData != null) {
+    processWBosonMetadata(jsonData.inner, Value.fromString(_wBoson.id));
   }
 }
 
@@ -34,32 +34,17 @@ export function handleWBosonTransferred(event: WBosonTransferred): void {
 
   // Old WBoson
   _wBoson = loadOrCreateWBoson(event.address, event.params.oldOwner);
-  _wBoson.wBosonUri = '';
-
-  _wBoson.name = '';
-  _wBoson.description = '';
-  _wBoson.thumbnail = '';
-  _wBoson.image = '';
-
-  _wBoson.email = '';
-  _wBoson.twitter = '';
-  _wBoson.website = '';
+  _wBoson.discarded = true;
   _wBoson.save();
 }
 
 export function processWBosonMetadata(value: JSONValue, userData: Value): void {
   const wBosonId = userData.toString();
   const wBosonMetadata = value.toObject();
-  if (wBosonMetadata == null) {
-    log.info('NO METADATA FOUND FOR WBOSON {}', [wBosonId]);
-    return;
-  }
+  if (!wBosonMetadata) { return; }
 
   const _wBoson = WBoson.load(wBosonId);
-  if (!_wBoson) {
-    log.info('FAILED TO LOAD OBJECT FOR WBOSON {}', [wBosonId]);
-    return;
-  }
+  if (!_wBoson) { return; }
 
   _wBoson.name        = getStringValue(wBosonMetadata, 'name');
   _wBoson.description = getStringValue(wBosonMetadata, 'description');

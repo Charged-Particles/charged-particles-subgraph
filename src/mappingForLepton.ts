@@ -1,4 +1,4 @@
-import { ipfs, json, BigInt, Bytes, JSONValue, Value, log } from '@graphprotocol/graph-ts';
+import { Wrapped, BigInt, JSONValue, Value } from '@graphprotocol/graph-ts';
 
 import {
   Lepton,
@@ -28,7 +28,7 @@ import { loadOrCreateLeptonNFT } from './helpers/loadOrCreateLeptonNFT';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 
-import { ADDRESS_ZERO, ONE, NEG_ONE, getStringValue } from './helpers/common';
+import { ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, parseJsonFromIpfs } from './helpers/common';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -69,11 +69,10 @@ export function handleLeptonTypeUpdated(event: LeptonTypeUpdated): void {
 
 export function handleLeptonMinted(event: LeptonMinted): void {
   const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
-  const ipfsHashParts = _nft.metadataUri.split('/');
-  const ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
-  let data = ipfs.cat(ipfsHash)
-  if (data) {
-    processLeptonMetadata(json.fromBytes(data as Bytes), Value.fromString(_nft.id));
+
+  const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
+  if (jsonData != null) {
+    processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
   }
 
   const _lepton = loadOrCreateLepton(event.address);
@@ -105,9 +104,8 @@ export function handleTransfer(event: Transfer): void {
 export function handleTransferBatch(event: TransferBatch): void {
   let nft: LeptonNFT;
   let tokenId: BigInt;
-  let ipfsHashParts: string[];
-  let ipfsHash: string;
-  let data: Bytes;
+  let jsonData: Wrapped<JSONValue> | null;
+
   for (let i = 0, n = event.params.count.toI32(); i < n; i++) {
     tokenId = event.params.startTokenId.plus(BigInt.fromI32(i));
     nft = loadOrCreateLeptonNFT(event.address, tokenId);
@@ -115,11 +113,9 @@ export function handleTransferBatch(event: TransferBatch): void {
     nft.save();
 
     if (event.params.from.toHex() == ADDRESS_ZERO) {
-      ipfsHashParts = nft.metadataUri.split('/');
-      ipfsHash = ipfsHashParts[ipfsHashParts.length - 1];
-      data = ipfs.cat(ipfsHash) as Bytes;
-      if (data) {
-        processLeptonMetadata(json.fromBytes(data as Bytes), Value.fromString(nft.id));
+      jsonData = parseJsonFromIpfs(nft.metadataUri);
+      if (jsonData != null) {
+        processLeptonMetadata(jsonData.inner, Value.fromString(nft.id));
       }
     }
   }
@@ -152,16 +148,10 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
 export function processLeptonMetadata(value: JSONValue, userData: Value): void {
   const leptonNftId = userData.toString();
   const leptonMetadata = value.toObject();
-  if (leptonMetadata == null) {
-    log.info('NO METADATA FOUND FOR LEPTON {}', [leptonNftId]);
-    return;
-  }
+  if (leptonMetadata == null) { return; }
 
   const _nft = LeptonNFT.load(leptonNftId);
-  if (!_nft) {
-    log.info('FAILED TO LOAD OBJECT FOR LEPTON {}', [leptonNftId]);
-    return;
-  }
+  if (!_nft) { return; }
 
   _nft.name = getStringValue(leptonMetadata, 'name');
   _nft.description = getStringValue(leptonMetadata, 'description');

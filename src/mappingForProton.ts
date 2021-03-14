@@ -1,4 +1,4 @@
-import { ipfs, json, Bytes, TypedMap, JSONValue, Value, log, BigInt } from '@graphprotocol/graph-ts';
+import { Address, Wrapped, JSONValue, Value, log } from '@graphprotocol/graph-ts';
 
 import {
   ProtonNFT,
@@ -30,8 +30,8 @@ import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 
-import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue } from './helpers/common';
-import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
+import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue, parseJsonFromIpfs } from './helpers/common';
+import { loadOrCreateClaimedRoyalties } from './helpers/loadOrCreateClaimedRoyalties';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -99,7 +99,7 @@ export function handleProtonSold(event: ProtonSold): void {
 
   const _proton = loadOrCreateProton(event.address);
   const _nftState = loadOrCreateNftState(
-    _proton.chargedState.id,
+    Address.fromString(_proton.chargedState),
     event.address,
     event.params.tokenId,
   );
@@ -117,9 +117,9 @@ export function handleProtonSold(event: ProtonSold): void {
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
-  const _royaltiesClaimedByAccount = loadOrCreateGenericRoyaltiesClaimedByAccount(event.params.receiver);
+  const _royaltiesClaimedByAccount = loadOrCreateClaimedRoyalties(event.params.receiver);
 
-  _royaltiesClaimedByAccount.royaltiesClaimed.plus(event.params.amountClaimed);
+  _royaltiesClaimedByAccount.royaltiesClaimed = _royaltiesClaimedByAccount.royaltiesClaimed.plus(event.params.amountClaimed);
   _royaltiesClaimedByAccount.save();
 }
 
@@ -142,12 +142,9 @@ export function handleTransfer(event: Transfer): void {
   trackNftTxHistory(event, event.address, event.params.tokenId, 'Transfer', eventData.join('-'));
 
   if (event.params.from.toHex() == ADDRESS_ZERO) {
-    const ipfsHashParts = _nft.metadataUri.split('/');
-    const ipfsHash = ipfsHashParts[ipfsHashParts.length-1];
-    // ipfs.mapJSON(ipfsHash, 'processProtonMetadata', Value.fromString(_nft.id));
-    let data = ipfs.cat(ipfsHash)
-    if (data) {
-      processProtonMetadata(json.fromBytes(data as Bytes), Value.fromString(_nft.id));
+    const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
+    if (jsonData != null) {
+      processProtonMetadata(jsonData.inner, Value.fromString(_nft.id));
     }
   }
 }
@@ -178,16 +175,10 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
 export function processProtonMetadata(value: JSONValue, userData: Value): void {
   const protonNftId = userData.toString();
   const protonMetadata = value.toObject();
-  if (protonMetadata == null) {
-    log.info('NO METADATA FOUND FOR PROTON {}', [protonNftId]);
-    return;
-  }
+  if (protonMetadata == null) { return; }
 
   const _nft = ProtonNFT.load(protonNftId);
-  if (!_nft) {
-    log.info('FAILED TO LOAD OBJECT FOR PROTON {}', [protonNftId]);
-    return;
-  }
+  if (!_nft) { return; }
 
   _nft.creatorAnnuity   = getBigIntValue(protonMetadata, 'creatorAnnuity');
   _nft.decimals         = getBigIntValue(protonMetadata, 'decimals');

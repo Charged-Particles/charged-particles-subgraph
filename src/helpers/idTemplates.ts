@@ -64,10 +64,6 @@ export function allowedAssetId(nftSettingsAddress: string, nftContractAddress: s
   return nftSettingsAddress + '-' + nftContractAddress + '-' + assetTokenAddress;
 }
 
-export function royaltiesClaimedId(accountAddress: string): string {
-  return accountAddress;
-}
-
 export function approvedOperatorId(assetAddress: string, ownerAddress: string): string {
   return assetAddress + '-' + ownerAddress;
 }

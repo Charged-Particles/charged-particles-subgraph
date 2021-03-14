@@ -46,7 +46,7 @@ export function handleNewSmartBasket(event: NewSmartBasket): void {
 
 export function handleBasketAdd(event: BasketAdd): void {
   const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId);
-  genericSmartBasket.totalTokens.plus(ONE);
+  genericSmartBasket.totalTokens = genericSmartBasket.totalTokens.plus(ONE);
   genericSmartBasket.save();
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);

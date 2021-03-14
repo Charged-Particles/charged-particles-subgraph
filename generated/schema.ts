@@ -2265,6 +2265,15 @@ export class WBoson extends Entity {
     this.set("account", Value.fromBytes(value));
   }
 
+  get discarded(): boolean {
+    let value = this.get("discarded");
+    return value.toBoolean();
+  }
+
+  set discarded(value: boolean) {
+    this.set("discarded", Value.fromBoolean(value));
+  }
+
   get wBosonUri(): string | null {
     let value = this.get("wBosonUri");
     if (value === null) {
@@ -2856,6 +2865,15 @@ export class ProtonNFT extends Entity {
     } else {
       this.set("owner", Value.fromBytes(value as Bytes));
     }
+  }
+
+  get overallSalesTotal(): BigInt {
+    let value = this.get("overallSalesTotal");
+    return value.toBigInt();
+  }
+
+  set overallSalesTotal(value: BigInt) {
+    this.set("overallSalesTotal", Value.fromBigInt(value));
   }
 
   get particleType(): string | null {
@@ -4031,7 +4049,7 @@ export class NftTxCount extends Entity {
   }
 }
 
-export class RoyaltiesClaimedByAccount extends Entity {
+export class ClaimedRoyalties extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -4039,23 +4057,17 @@ export class RoyaltiesClaimedByAccount extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(
-      id !== null,
-      "Cannot save RoyaltiesClaimedByAccount entity without an ID"
-    );
+    assert(id !== null, "Cannot save ClaimedRoyalties entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save RoyaltiesClaimedByAccount entity with non-string ID. " +
+      "Cannot save ClaimedRoyalties entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("RoyaltiesClaimedByAccount", id.toString(), this);
+    store.set("ClaimedRoyalties", id.toString(), this);
   }
 
-  static load(id: string): RoyaltiesClaimedByAccount | null {
-    return store.get(
-      "RoyaltiesClaimedByAccount",
-      id
-    ) as RoyaltiesClaimedByAccount | null;
+  static load(id: string): ClaimedRoyalties | null {
+    return store.get("ClaimedRoyalties", id) as ClaimedRoyalties | null;
   }
 
   get id(): string {

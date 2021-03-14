@@ -296,6 +296,7 @@ type WBoson @entity {
   id: ID!
   wBoson: Bytes!
   account: Bytes!
+  discarded: Boolean!
 
   wBosonUri: String
 
@@ -499,7 +500,7 @@ type NftTxCount @entity {
 
 # ID: `${accountAddress}`
 # dynamically generated type, not mapped to a specific contract
-type RoyaltiesClaimedByAccount @entity {
+type ClaimedRoyalties @entity {
   id: ID!
 
   accountAddress: Bytes!
