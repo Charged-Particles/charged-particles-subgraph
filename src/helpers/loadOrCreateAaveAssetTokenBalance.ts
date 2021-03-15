@@ -4,6 +4,10 @@ import {
   AaveAssetTokenBalance,
 } from '../../generated/schema';
 
+import {
+  ERC20 as AssetContract,
+} from '../../generated/AaveWalletManager/ERC20';
+
 import { ZERO } from './common';
 import { tokenBalanceId } from './idTemplates';
 
@@ -26,6 +30,10 @@ export function loadOrCreateAaveAssetTokenBalance(
     _assetTokenBalance.principal = ZERO;
     _assetTokenBalance.ownerInterestDischarged = ZERO;
     _assetTokenBalance.creatorInterestDischarged = ZERO;
+
+    const boundAssetToken = AssetContract.bind(assetTokenAddress);
+    _assetTokenBalance.decimals = BigInt.fromI32(boundAssetToken.decimals());
+
     _assetTokenBalance.save();
   }
 

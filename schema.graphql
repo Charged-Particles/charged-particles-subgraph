@@ -235,6 +235,7 @@ type GenericAssetTokenBalance @entity {
   tokenId: BigInt!
 
   assetToken: Bytes!
+  decimals: BigInt!
   smartWallet: GenericSmartWallet
 
   principal: BigInt!
@@ -282,6 +283,7 @@ type AaveAssetTokenBalance @entity {
   tokenId: BigInt!
 
   assetToken: Bytes!
+  decimals: BigInt!
   smartWallet: AaveSmartWallet
 
   principal: BigInt!

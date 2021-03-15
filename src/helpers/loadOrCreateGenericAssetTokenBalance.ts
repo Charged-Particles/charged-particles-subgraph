@@ -4,6 +4,10 @@ import {
   GenericAssetTokenBalance,
 } from '../../generated/schema';
 
+import {
+  ERC20 as AssetContract,
+} from '../../generated/GenericWalletManager/ERC20';
+
 import { ZERO } from './common';
 import { tokenBalanceId } from './idTemplates';
 
@@ -24,6 +28,10 @@ export function loadOrCreateGenericAssetTokenBalance(
     _assetTokenBalance.contractAddress = contractAddress;
     _assetTokenBalance.smartWallet = genericSmartWalletId;
     _assetTokenBalance.principal = ZERO;
+
+    const boundAssetToken = AssetContract.bind(assetTokenAddress);
+    _assetTokenBalance.decimals = BigInt.fromI32(boundAssetToken.decimals());
+
     _assetTokenBalance.save();
   }
 

@@ -1812,6 +1812,15 @@ export class GenericAssetTokenBalance extends Entity {
     this.set("assetToken", Value.fromBytes(value));
   }
 
+  get decimals(): BigInt {
+    let value = this.get("decimals");
+    return value.toBigInt();
+  }
+
+  set decimals(value: BigInt) {
+    this.set("decimals", Value.fromBigInt(value));
+  }
+
   get smartWallet(): string | null {
     let value = this.get("smartWallet");
     if (value === null) {
@@ -2170,6 +2179,15 @@ export class AaveAssetTokenBalance extends Entity {
 
   set assetToken(value: Bytes) {
     this.set("assetToken", Value.fromBytes(value));
+  }
+
+  get decimals(): BigInt {
+    let value = this.get("decimals");
+    return value.toBigInt();
+  }
+
+  set decimals(value: BigInt) {
+    this.set("decimals", Value.fromBigInt(value));
   }
 
   get smartWallet(): string | null {
