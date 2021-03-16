@@ -7,6 +7,7 @@ import {
 import { ONE, ZERO } from './common';
 
 import { nftId } from './idTemplates';
+import { loadOrCreateNftAnalytics } from './loadOrCreateNftAnalytics';
 
 export function updateNftAnalytics(
     contractAddress: Address,
@@ -15,22 +16,14 @@ export function updateNftAnalytics(
     royaltiesClaimed: BigInt
 ): void {
 
-    const id = nftId(contractAddress.toHex(), tokenId.toString());
-    let _nftAnalytics = NftAnalytics.load(id);
+    let _nftAnalytics = loadOrCreateNftAnalytics(contractAddress, tokenId)
     
-    if (!_nftAnalytics) {
-        _nftAnalytics = new NftAnalytics(id);
-        _nftAnalytics.contractAddress = contractAddress;
-        _nftAnalytics.tokenId = tokenId;
-        _nftAnalytics.totalSales = ZERO;
-        _nftAnalytics.totalRoyalties = ZERO;
-    }
     if (tokenSold === true) {
-        _nftAnalytics.totalSales.plus(ONE);
+       _nftAnalytics.totalSales = _nftAnalytics.totalSales.plus(ONE);
     }
 
     if (royaltiesClaimed) {
-        _nftAnalytics.totalRoyalties.plus(royaltiesClaimed);
+        _nftAnalytics.totalRoyalties = _nftAnalytics.totalRoyalties.plus(royaltiesClaimed);
     }
 
     _nftAnalytics.save();
