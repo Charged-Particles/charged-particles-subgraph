@@ -29,8 +29,8 @@ import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
-import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue } from './helpers/common';
-import { loadOrCreateGenericRoyaltiesClaimedByAccount } from './helpers/loadOrCreateRoyaltiesClaimedByAccount';
+import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue, parseJsonFromIpfs } from './helpers/common';
+import { loadOrCreateClaimedRoyalties } from './helpers/loadOrCreateClaimedRoyalties';
 import { updateNftAnalytics } from './helpers/updateNftAnalytics';
 
 

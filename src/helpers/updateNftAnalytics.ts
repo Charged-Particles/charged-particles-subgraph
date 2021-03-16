@@ -1,12 +1,7 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { Address, BigInt } from '@graphprotocol/graph-ts';
 
-import {
-  NftAnalytics,
-} from '../../generated/schema';
+import { ONE } from './common';
 
-import { ONE, ZERO } from './common';
-
-import { nftId } from './idTemplates';
 import { loadOrCreateNftAnalytics } from './loadOrCreateNftAnalytics';
 
 export function updateNftAnalytics(
