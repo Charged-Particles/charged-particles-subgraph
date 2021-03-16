@@ -233,13 +233,14 @@ type GenericAssetTokenBalance @entity {
 
   contractAddress: Bytes!
   tokenId: BigInt!
-
-  assetToken: Bytes!
-  decimals: BigInt!
   smartWallet: GenericSmartWallet
 
+  assetToken: Bytes!
+  name: String!
+  symbol: String!
+  decimals: BigInt!
+
   principal: BigInt!
-  # TODO: need decimals
 }
 
 # ID: `${aaveWalletManager.address}`
@@ -281,10 +282,12 @@ type AaveAssetTokenBalance @entity {
 
   contractAddress: Bytes!
   tokenId: BigInt!
+  smartWallet: AaveSmartWallet
 
   assetToken: Bytes!
+  name: String!
+  symbol: String!
   decimals: BigInt!
-  smartWallet: AaveSmartWallet
 
   principal: BigInt!
   ownerInterestDischarged: BigInt!

@@ -30,6 +30,8 @@ export function loadOrCreateGenericAssetTokenBalance(
     _assetTokenBalance.principal = ZERO;
 
     const boundAssetToken = AssetContract.bind(assetTokenAddress);
+    _assetTokenBalance.name = boundAssetToken.name();
+    _assetTokenBalance.symbol = boundAssetToken.symbol();
     _assetTokenBalance.decimals = BigInt.fromI32(boundAssetToken.decimals());
 
     _assetTokenBalance.save();
