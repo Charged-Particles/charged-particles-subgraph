@@ -1803,24 +1803,6 @@ export class GenericAssetTokenBalance extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get assetToken(): Bytes {
-    let value = this.get("assetToken");
-    return value.toBytes();
-  }
-
-  set assetToken(value: Bytes) {
-    this.set("assetToken", Value.fromBytes(value));
-  }
-
-  get decimals(): BigInt {
-    let value = this.get("decimals");
-    return value.toBigInt();
-  }
-
-  set decimals(value: BigInt) {
-    this.set("decimals", Value.fromBigInt(value));
-  }
-
   get smartWallet(): string | null {
     let value = this.get("smartWallet");
     if (value === null) {
@@ -1836,6 +1818,42 @@ export class GenericAssetTokenBalance extends Entity {
     } else {
       this.set("smartWallet", Value.fromString(value as string));
     }
+  }
+
+  get assetToken(): Bytes {
+    let value = this.get("assetToken");
+    return value.toBytes();
+  }
+
+  set assetToken(value: Bytes) {
+    this.set("assetToken", Value.fromBytes(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get symbol(): string {
+    let value = this.get("symbol");
+    return value.toString();
+  }
+
+  set symbol(value: string) {
+    this.set("symbol", Value.fromString(value));
+  }
+
+  get decimals(): BigInt {
+    let value = this.get("decimals");
+    return value.toBigInt();
+  }
+
+  set decimals(value: BigInt) {
+    this.set("decimals", Value.fromBigInt(value));
   }
 
   get principal(): BigInt {
@@ -2172,24 +2190,6 @@ export class AaveAssetTokenBalance extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get assetToken(): Bytes {
-    let value = this.get("assetToken");
-    return value.toBytes();
-  }
-
-  set assetToken(value: Bytes) {
-    this.set("assetToken", Value.fromBytes(value));
-  }
-
-  get decimals(): BigInt {
-    let value = this.get("decimals");
-    return value.toBigInt();
-  }
-
-  set decimals(value: BigInt) {
-    this.set("decimals", Value.fromBigInt(value));
-  }
-
   get smartWallet(): string | null {
     let value = this.get("smartWallet");
     if (value === null) {
@@ -2205,6 +2205,42 @@ export class AaveAssetTokenBalance extends Entity {
     } else {
       this.set("smartWallet", Value.fromString(value as string));
     }
+  }
+
+  get assetToken(): Bytes {
+    let value = this.get("assetToken");
+    return value.toBytes();
+  }
+
+  set assetToken(value: Bytes) {
+    this.set("assetToken", Value.fromBytes(value));
+  }
+
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get symbol(): string {
+    let value = this.get("symbol");
+    return value.toString();
+  }
+
+  set symbol(value: string) {
+    this.set("symbol", Value.fromString(value));
+  }
+
+  get decimals(): BigInt {
+    let value = this.get("decimals");
+    return value.toBigInt();
+  }
+
+  set decimals(value: BigInt) {
+    this.set("decimals", Value.fromBigInt(value));
   }
 
   get principal(): BigInt {
