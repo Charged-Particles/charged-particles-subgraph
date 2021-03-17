@@ -4227,7 +4227,7 @@ export class ApprovedOperator extends Entity {
   }
 }
 
-export class AssetTokenAnalytics extends Entity {
+export class AssetTokenAnalytic extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -4235,17 +4235,17 @@ export class AssetTokenAnalytics extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save AssetTokenAnalytics entity without an ID");
+    assert(id !== null, "Cannot save AssetTokenAnalytic entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save AssetTokenAnalytics entity with non-string ID. " +
+      "Cannot save AssetTokenAnalytic entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("AssetTokenAnalytics", id.toString(), this);
+    store.set("AssetTokenAnalytic", id.toString(), this);
   }
 
-  static load(id: string): AssetTokenAnalytics | null {
-    return store.get("AssetTokenAnalytics", id) as AssetTokenAnalytics | null;
+  static load(id: string): AssetTokenAnalytic | null {
+    return store.get("AssetTokenAnalytic", id) as AssetTokenAnalytic | null;
   }
 
   get id(): string {

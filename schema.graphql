@@ -526,7 +526,7 @@ type ApprovedOperator @entity {
 
 # ID: `${assetTokenAddress}`
 # dynamically generated type, not mapped to a specific contract
-type AssetTokenAnalytics @entity {
+type AssetTokenAnalytic @entity {
   id: ID!
 
   totalAssetsLocked: BigInt!    
