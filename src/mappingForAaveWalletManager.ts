@@ -18,7 +18,7 @@ import { loadOrCreateAaveWalletManager } from './helpers/loadOrCreateAaveWalletM
 import { loadOrCreateAaveSmartWallet } from './helpers/loadOrCreateAaveSmartWallet';
 import { loadOrCreateAaveAssetTokenBalance } from './helpers/loadOrCreateAaveAssetTokenBalance';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
-
+import { loadOrCreateAssetTokenAnalytics } from './helpers/loadOrCreateAssetTokenAnalytics'
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address);
@@ -65,6 +65,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   assetTokenBalance.principal = assetTokenBalance.principal.plus(event.params.assetAmount);
   assetTokenBalance.save();
 
+  const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(assetTokenContract)
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();

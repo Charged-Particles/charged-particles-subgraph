@@ -523,3 +523,11 @@ type ApprovedOperator @entity {
   assetAddress: Bytes!
   tokenIds: [BigInt!]
 }
+
+# ID: `${assetTokenAddress}`
+# dynamically generated type, not mapped to a specific contract
+type AssetTokenAnalytics @entity {
+  id: ID!
+
+  totalAssetsLocked: BigInt!    
+}
