@@ -15,6 +15,7 @@ import { loadOrCreateGenericWalletManager } from './helpers/loadOrCreateGenericW
 import { loadOrCreateGenericSmartWallet } from './helpers/loadOrCreateGenericSmartWallet';
 import { loadOrCreateGenericAssetTokenBalance } from './helpers/loadOrCreateGenericAssetTokenBalance';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
+import { loadOrCreateAssetTokenAnalytics } from './helpers/loadOrCreateAssetTokenAnalytics';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -54,6 +55,11 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   assetTokenBalance.principal = assetTokenBalance.principal.plus(event.params.assetAmount);
   assetTokenBalance.save();
 
+  const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
+  assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.plus(event.params.assetAmount);
+  assetTokenAnalytics.save();
+  
+
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
@@ -69,6 +75,10 @@ export function handleWalletReleased(event: WalletReleased): void {
   assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
   assetTokenBalance.save();
 
+  const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
+  assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(event.params.principalAmount);
+  assetTokenAnalytics.save();
+  
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();

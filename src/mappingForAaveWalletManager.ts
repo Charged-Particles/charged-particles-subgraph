@@ -65,7 +65,10 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   assetTokenBalance.principal = assetTokenBalance.principal.plus(event.params.assetAmount);
   assetTokenBalance.save();
 
-  const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(assetTokenContract)
+  const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
+  assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.plus(event.params.assetAmount);
+  assetTokenAnalytics.save();
+
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
@@ -113,6 +116,10 @@ export function handleWalletReleased(event: WalletReleased): void {
   assetTokenBalance.ownerInterestDischarged = assetTokenBalance.ownerInterestDischarged.plus(ownerInterest);
   assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.creatorAmount);
   assetTokenBalance.save();
+
+  const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
+  assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(event.params.principalAmount);
+  assetTokenAnalytics.save();
 
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();
