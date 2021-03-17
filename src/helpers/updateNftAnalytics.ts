@@ -1,4 +1,4 @@
-import { Address, BigInt } from '@graphprotocol/graph-ts';
+import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import { ONE } from './common';
 
@@ -10,6 +10,7 @@ export function updateNftAnalytics(
     tokenSold: boolean,
     royaltiesClaimed: BigInt
 ): void {
+
 
     let _nftAnalytics = loadOrCreateNftAnalytics(contractAddress, tokenId)
     
