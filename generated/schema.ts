@@ -4275,13 +4275,13 @@ export class NftAnalytics extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get totalSales(): BigInt {
-    let value = this.get("totalSales");
+  get totalSalesVolume(): BigInt {
+    let value = this.get("totalSalesVolume");
     return value.toBigInt();
   }
 
-  set totalSales(value: BigInt) {
-    this.set("totalSales", Value.fromBigInt(value));
+  set totalSalesVolume(value: BigInt) {
+    this.set("totalSalesVolume", Value.fromBigInt(value));
   }
 
   get totalRoyalties(): BigInt {

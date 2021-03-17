@@ -20,7 +20,7 @@ export function loadOrCreateNftAnalytics(
       _nftAnalytics = new NftAnalytics(id);
       _nftAnalytics.contractAddress = contractAddress;
       _nftAnalytics.tokenId = tokenId;
-      _nftAnalytics.totalSales = ZERO;
+      _nftAnalytics.totalSalesVolume = ZERO;
       _nftAnalytics.totalRoyalties = ZERO;
   }
   return _nftAnalytics as NftAnalytics;

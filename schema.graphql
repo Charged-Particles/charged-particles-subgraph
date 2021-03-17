@@ -532,6 +532,6 @@ type NftAnalytics @entity {
   contractAddress: Bytes!
   tokenId: BigInt!
   
-  totalSales: BigInt!
+  totalSalesVolume: BigInt!
   totalRoyalties: BigInt!
 }

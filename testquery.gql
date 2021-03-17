@@ -226,7 +226,7 @@
       id
       contractAddress
       tokenId
-      totalSales
+      totalSalesVolume
       totalRoyalties
     }
   }

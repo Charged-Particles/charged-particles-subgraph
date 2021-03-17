@@ -15,7 +15,7 @@ export function updateNftAnalytics(
     let _nftAnalytics = loadOrCreateNftAnalytics(contractAddress, tokenId)
     
     if (tokenSold === true) {
-       _nftAnalytics.totalSales = _nftAnalytics.totalSales.plus(ONE);
+       _nftAnalytics.totalSalesVolume = _nftAnalytics.totalSalesVolume.plus(ONE);
     }
 
     if (royaltiesClaimed) {
