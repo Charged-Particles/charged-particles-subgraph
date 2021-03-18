@@ -1,4 +1,4 @@
-## Charged Particles Universe - Subgraph v1.0.0
+## Charged Particles Universe - Subgraph v0.1.32
 
 [![Discord](https://badgen.net/badge/definft/Charged%20Particles?icon=discord&label=discord)](https://discord.gg/Syh3gjz)
 [![Twitter Follow](https://badgen.net/twitter/follow/DeFiNFT?icon=twitter)](https://twitter.com/intent/follow?screen_name=DeFiNFT)
@@ -76,7 +76,9 @@ Join our community, share ideas and help support the project in anyway you want!
 ### Deploy:
 
   yarn auth [__your_access_token__]
+  
   yarn clean && yarn prepare:kovan && yarn gen:kovan && yarn deploy:kovan-dev
+
 
 See package.json for more scripts
 
