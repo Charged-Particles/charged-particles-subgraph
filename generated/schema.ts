@@ -4265,4 +4265,22 @@ export class AssetTokenAnalytic extends Entity {
   set totalAssetsLocked(value: BigInt) {
     this.set("totalAssetsLocked", Value.fromBigInt(value));
   }
+
+  get totalAssetsLockedAave(): BigInt {
+    let value = this.get("totalAssetsLockedAave");
+    return value.toBigInt();
+  }
+
+  set totalAssetsLockedAave(value: BigInt) {
+    this.set("totalAssetsLockedAave", Value.fromBigInt(value));
+  }
+
+  get totalAssetsLockedERC20(): BigInt {
+    let value = this.get("totalAssetsLockedERC20");
+    return value.toBigInt();
+  }
+
+  set totalAssetsLockedERC20(value: BigInt) {
+    this.set("totalAssetsLockedERC20", Value.fromBigInt(value));
+  }
 }

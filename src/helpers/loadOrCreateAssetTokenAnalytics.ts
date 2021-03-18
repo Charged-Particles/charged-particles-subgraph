@@ -19,7 +19,9 @@ export function loadOrCreateAssetTokenAnalytics(
     _assetTokenAnalytics = new AssetTokenAnalytic(id);
   
     _assetTokenAnalytics.totalAssetsLocked = ZERO;
-
+    _assetTokenAnalytics.totalAssetsLockedAave = ZERO;
+    _assetTokenAnalytics.totalAssetsLockedERC20 = ZERO;
+    
     _assetTokenAnalytics.save();
   }
 

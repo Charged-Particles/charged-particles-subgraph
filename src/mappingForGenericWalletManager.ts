@@ -57,6 +57,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
 
   const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
   assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.plus(event.params.assetAmount);
+  assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.plus(event.params.assetAmount);
   assetTokenAnalytics.save();
   
 
@@ -77,6 +78,7 @@ export function handleWalletReleased(event: WalletReleased): void {
 
   const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
   assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(event.params.principalAmount);
+  assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.minus(event.params.principalAmount);
   assetTokenAnalytics.save();
   
   var eventData = new Array<string>(7);

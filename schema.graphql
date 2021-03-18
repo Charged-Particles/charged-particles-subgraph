@@ -530,4 +530,6 @@ type AssetTokenAnalytic @entity {
   id: ID!
 
   totalAssetsLocked: BigInt!    
+  totalAssetsLockedAave: BigInt!
+  totalAssetsLockedERC20: BigInt!
 }

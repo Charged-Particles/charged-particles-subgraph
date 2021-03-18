@@ -67,6 +67,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
 
   const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
   assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.plus(event.params.assetAmount);
+  assetTokenAnalytics.totalAssetsLockedAave = assetTokenAnalytics.totalAssetsLockedAave.plus(event.params.assetAmount);
   assetTokenAnalytics.save();
 
   var eventData = new Array<string>(5);
@@ -119,6 +120,7 @@ export function handleWalletReleased(event: WalletReleased): void {
 
   const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
   assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(event.params.principalAmount);
+  assetTokenAnalytics.totalAssetsLockedAave = assetTokenAnalytics.totalAssetsLockedAave.minus(event.params.principalAmount);
   assetTokenAnalytics.save();
 
   var eventData = new Array<string>(7);
