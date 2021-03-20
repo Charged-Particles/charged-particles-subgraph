@@ -228,6 +228,7 @@
       tokenId
       totalSalesVolume
       totalRoyalties
+      numSales
     }
   }
 }

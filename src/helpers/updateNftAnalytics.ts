@@ -2,25 +2,24 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import { ONE } from './common';
 
-import { loadOrCreateNftAnalytics } from './loadOrCreateNftAnalytics';
+import { loadOrCreateNftAnalytic } from './loadOrCreateNftAnalytics';
 
 export function updateNftAnalytics(
     contractAddress: Address,
     tokenId: BigInt,
     tokenSold: boolean,
-    royaltiesClaimed: BigInt
+    royaltiesClaimed: BigInt,
+    salePrice: BigInt
 ): void {
 
 
-    let _nftAnalytics = loadOrCreateNftAnalytics(contractAddress, tokenId)
+    let _nftAnalytic = loadOrCreateNftAnalytic(contractAddress, tokenId)
     
     if (tokenSold === true) {
-       _nftAnalytics.totalSalesVolume = _nftAnalytics.totalSalesVolume.plus(ONE);
+       _nftAnalytic.numSales = _nftAnalytic.numSales.plus(ONE);
     }
+    _nftAnalytic.totalRoyalties = _nftAnalytic.totalRoyalties.plus(royaltiesClaimed);
+    _nftAnalytic.totalSalesVolume = _nftAnalytic.totalSalesVolume.plus(salePrice)
 
-    if (royaltiesClaimed) {
-        _nftAnalytics.totalRoyalties = _nftAnalytics.totalRoyalties.plus(royaltiesClaimed);
-    }
-
-    _nftAnalytics.save();
+    _nftAnalytic.save();
 }

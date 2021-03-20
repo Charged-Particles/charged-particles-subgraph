@@ -526,7 +526,7 @@ type ApprovedOperator @entity {
 
 # ID: `${contractAddress}-${tokenId}`
 # dynamically generated type, not mapped to a specific contract
-type NftAnalytics @entity {
+type NftAnalytic @entity {
   id: ID!
 
   contractAddress: Bytes!
@@ -534,4 +534,5 @@ type NftAnalytics @entity {
   
   totalSalesVolume: BigInt!
   totalRoyalties: BigInt!
+  numSales: BigInt!
 }

@@ -1,27 +1,28 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
 
 import {
-  NftAnalytics,
+  NftAnalytic,
 } from '../../generated/schema';
 
 import { nftId } from './idTemplates';
 
 import { ZERO } from './common';
 
-export function loadOrCreateNftAnalytics(
+export function loadOrCreateNftAnalytic(
   contractAddress: Address,
   tokenId: BigInt,
-): NftAnalytics {
+): NftAnalytic {
 
   const id = nftId(contractAddress.toHex(), tokenId.toString());
-  let _nftAnalytics = NftAnalytics.load(id);
+  let _nftAnalytic = NftAnalytic.load(id);
   
-  if (!_nftAnalytics) {
-      _nftAnalytics = new NftAnalytics(id);
-      _nftAnalytics.contractAddress = contractAddress;
-      _nftAnalytics.tokenId = tokenId;
-      _nftAnalytics.totalSalesVolume = ZERO;
-      _nftAnalytics.totalRoyalties = ZERO;
+  if (!_nftAnalytic) {
+    _nftAnalytic = new NftAnalytic(id);
+    _nftAnalytic.contractAddress = contractAddress;
+    _nftAnalytic.tokenId = tokenId;
+    _nftAnalytic.totalSalesVolume = ZERO;
+    _nftAnalytic.totalRoyalties = ZERO;
+    _nftAnalytic.numSales = ZERO;
   }
-  return _nftAnalytics as NftAnalytics;
+  return _nftAnalytic as NftAnalytic;
 }
