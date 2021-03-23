@@ -523,3 +523,16 @@ type ApprovedOperator @entity {
   assetAddress: Bytes!
   tokenIds: [BigInt!]
 }
+
+# ID: `${contractAddress}-${tokenId}`
+# dynamically generated type, not mapped to a specific contract
+type NftAnalytic @entity {
+  id: ID!
+
+  contractAddress: Bytes!
+  tokenId: BigInt!
+  
+  totalSalesVolume: BigInt!
+  totalRoyalties: BigInt!
+  numSales: BigInt!
+}
