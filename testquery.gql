@@ -222,6 +222,12 @@
       operatorAddress
       tokenIds
     }
+    assetTokenAnalytics {
+      id
+      totalAssetsLocked
+      totalAssetsLockedERC20
+      totalAssetsLockedAave
+    }
     nftAnalytics {
       id
       contractAddress
