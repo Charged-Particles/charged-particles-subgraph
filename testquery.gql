@@ -228,5 +228,13 @@
       totalAssetsLockedERC20
       totalAssetsLockedAave
     }
+    nftAnalytics {
+      id
+      contractAddress
+      tokenId
+      totalSalesVolume
+      totalRoyalties
+      numSales
+    }
   }
 }
