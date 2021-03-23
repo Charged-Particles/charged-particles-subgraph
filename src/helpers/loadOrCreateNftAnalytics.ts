@@ -15,7 +15,7 @@ export function loadOrCreateNftAnalytic(
 
   const id = nftId(contractAddress.toHex(), tokenId.toString());
   let _nftAnalytic = NftAnalytic.load(id);
-  
+
   if (!_nftAnalytic) {
     _nftAnalytic = new NftAnalytic(id);
     _nftAnalytic.contractAddress = contractAddress;
@@ -23,6 +23,7 @@ export function loadOrCreateNftAnalytic(
     _nftAnalytic.totalSalesVolume = ZERO;
     _nftAnalytic.totalRoyalties = ZERO;
     _nftAnalytic.numSales = ZERO;
+    _nftAnalytic.save();
   }
   return _nftAnalytic as NftAnalytic;
 }
