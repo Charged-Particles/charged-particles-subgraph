@@ -10,13 +10,18 @@ import {
   WalletRewarded,
 } from '../generated/GenericWalletManager/GenericWalletManager';
 
+import {
+  Proton as ProtonContract 
+} from '../generated/Proton/Proton';
+
 import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
 import { loadOrCreateGenericWalletManager } from './helpers/loadOrCreateGenericWalletManager';
 import { loadOrCreateGenericSmartWallet } from './helpers/loadOrCreateGenericSmartWallet';
 import { loadOrCreateGenericAssetTokenBalance } from './helpers/loadOrCreateGenericAssetTokenBalance';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateAssetTokenAnalytics } from './helpers/loadOrCreateAssetTokenAnalytics';
-
+import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
+import { ONE } from './helpers/common';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   const genericWalletManager = loadOrCreateGenericWalletManager(event.address);
@@ -60,6 +65,10 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.plus(event.params.assetAmount);
   assetTokenAnalytics.save();
   
+  const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
+  _walletOwner.energizeERC20 = _walletOwner.energizeERC20.plus(ONE);
+  _walletOwner.save();
 
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
@@ -81,6 +90,11 @@ export function handleWalletReleased(event: WalletReleased): void {
   assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.minus(event.params.principalAmount);
   assetTokenAnalytics.save();
   
+  const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
+  _walletOwner.releaseMass = _walletOwner.releaseMass.plus(ONE);
+  _walletOwner.save();
+
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();

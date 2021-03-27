@@ -13,12 +13,18 @@ import {
   WalletRewarded,
 } from '../generated/AaveWalletManager/AaveWalletManager';
 
+import {
+  Proton as ProtonContract
+} from '../generated/Proton/Proton';
+
 import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
 import { loadOrCreateAaveWalletManager } from './helpers/loadOrCreateAaveWalletManager';
 import { loadOrCreateAaveSmartWallet } from './helpers/loadOrCreateAaveSmartWallet';
 import { loadOrCreateAaveAssetTokenBalance } from './helpers/loadOrCreateAaveAssetTokenBalance';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateAssetTokenAnalytics } from './helpers/loadOrCreateAssetTokenAnalytics'
+import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
+import { ONE } from './helpers/common';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address);
@@ -70,6 +76,11 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   assetTokenAnalytics.totalAssetsLockedAave = assetTokenAnalytics.totalAssetsLockedAave.plus(event.params.assetAmount);
   assetTokenAnalytics.save();
 
+  const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
+  _walletOwner.energizeAave = _walletOwner.energizeAave.plus(ONE);
+  _walletOwner.save();
+
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
@@ -85,6 +96,11 @@ export function handleWalletDischarged(event: WalletDischarged): void {
   assetTokenBalance.ownerInterestDischarged = assetTokenBalance.ownerInterestDischarged.plus(event.params.receiverAmount);
   assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.creatorAmount);
   assetTokenBalance.save();
+
+  const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
+  _walletOwner.dischargeInterest = _walletOwner.dischargeInterest.plus(ONE);
+  _walletOwner.save();
 
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
@@ -122,6 +138,11 @@ export function handleWalletReleased(event: WalletReleased): void {
   assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(event.params.principalAmount);
   assetTokenAnalytics.totalAssetsLockedAave = assetTokenAnalytics.totalAssetsLockedAave.minus(event.params.principalAmount);
   assetTokenAnalytics.save();
+
+  const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
+  _walletOwner.releaseMass = _walletOwner.releaseMass.plus(ONE);
+  _walletOwner.save();
 
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();
