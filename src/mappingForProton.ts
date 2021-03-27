@@ -20,6 +20,7 @@ import {
   Transfer,
   Approval,
   ApprovalForAll,
+  Proton as ProtonContract
 } from '../generated/Proton/Proton';
 
 import { nftAttributeId } from './helpers/idTemplates';
@@ -29,9 +30,10 @@ import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
-import { ZERO, ADDRESS_ZERO, NEG_ONE, getStringValue, getBigIntValue, parseJsonFromIpfs } from './helpers/common';
+import { ZERO, ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, getBigIntValue, parseJsonFromIpfs } from './helpers/common';
 import { loadOrCreateClaimedRoyalties } from './helpers/loadOrCreateClaimedRoyalties';
 import { updateNftAnalytics } from './helpers/updateNftAnalytics';
+import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
 
 
 
@@ -116,6 +118,15 @@ export function handleProtonSold(event: ProtonSold): void {
   eventData[5] = event.params.creatorRoyalties.toString();
   trackNftTxHistory(event, event.address, event.params.tokenId, 'ProtonSold', eventData.join('-'));
   updateNftAnalytics(event.address, event.params.tokenId, true, event.params.creatorRoyalties, event.params.salePrice);
+
+  const _oldOwnerProfileMetric = loadOrCreateProfileMetric(event.params.oldOwner);
+  _oldOwnerProfileMetric.sellProton = _oldOwnerProfileMetric.sellProton.plus(ONE);
+  _oldOwnerProfileMetric.totalEthEarned = _oldOwnerProfileMetric.totalEthEarned.plus(event.params.salePrice);
+  _oldOwnerProfileMetric.save();
+
+  const _newOwnerProfileMetric = loadOrCreateProfileMetric(event.params.newOwner);
+  _newOwnerProfileMetric.buyProton = _newOwnerProfileMetric.buyProton.plus(ONE);
+  _newOwnerProfileMetric.save();
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
@@ -148,6 +159,10 @@ export function handleTransfer(event: Transfer): void {
     if (jsonData != null) {
       processProtonMetadata(jsonData.inner, Value.fromString(_nft.id));
     }
+    
+    const _minterProfileMetric = loadOrCreateProfileMetric(event.params.to);
+    _minterProfileMetric.mintProton = _minterProfileMetric.mintProton.plus(ONE);
+    _minterProfileMetric.save()
   }
 }
 

@@ -4360,3 +4360,191 @@ export class NftAnalytic extends Entity {
     this.set("numSales", Value.fromBigInt(value));
   }
 }
+
+export class ProfileMetric extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ProfileMetric entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ProfileMetric entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ProfileMetric", id.toString(), this);
+  }
+
+  static load(id: string): ProfileMetric | null {
+    return store.get("ProfileMetric", id) as ProfileMetric | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalEthEarned(): BigInt {
+    let value = this.get("totalEthEarned");
+    return value.toBigInt();
+  }
+
+  set totalEthEarned(value: BigInt) {
+    this.set("totalEthEarned", Value.fromBigInt(value));
+  }
+
+  get buyProton(): BigInt {
+    let value = this.get("buyProton");
+    return value.toBigInt();
+  }
+
+  set buyProton(value: BigInt) {
+    this.set("buyProton", Value.fromBigInt(value));
+  }
+
+  get sellProton(): BigInt {
+    let value = this.get("sellProton");
+    return value.toBigInt();
+  }
+
+  set sellProton(value: BigInt) {
+    this.set("sellProton", Value.fromBigInt(value));
+  }
+
+  get mintProton(): BigInt {
+    let value = this.get("mintProton");
+    return value.toBigInt();
+  }
+
+  set mintProton(value: BigInt) {
+    this.set("mintProton", Value.fromBigInt(value));
+  }
+
+  get buyLepton(): BigInt {
+    let value = this.get("buyLepton");
+    return value.toBigInt();
+  }
+
+  set buyLepton(value: BigInt) {
+    this.set("buyLepton", Value.fromBigInt(value));
+  }
+
+  get transferLepton(): BigInt {
+    let value = this.get("transferLepton");
+    return value.toBigInt();
+  }
+
+  set transferLepton(value: BigInt) {
+    this.set("transferLepton", Value.fromBigInt(value));
+  }
+
+  get energizeAave(): BigInt {
+    let value = this.get("energizeAave");
+    return value.toBigInt();
+  }
+
+  set energizeAave(value: BigInt) {
+    this.set("energizeAave", Value.fromBigInt(value));
+  }
+
+  get energizeERC20(): BigInt {
+    let value = this.get("energizeERC20");
+    return value.toBigInt();
+  }
+
+  set energizeERC20(value: BigInt) {
+    this.set("energizeERC20", Value.fromBigInt(value));
+  }
+
+  get dischargeInterest(): BigInt {
+    let value = this.get("dischargeInterest");
+    return value.toBigInt();
+  }
+
+  set dischargeInterest(value: BigInt) {
+    this.set("dischargeInterest", Value.fromBigInt(value));
+  }
+
+  get releaseMass(): BigInt {
+    let value = this.get("releaseMass");
+    return value.toBigInt();
+  }
+
+  set releaseMass(value: BigInt) {
+    this.set("releaseMass", Value.fromBigInt(value));
+  }
+
+  get royaltiesClaimed(): BigInt {
+    let value = this.get("royaltiesClaimed");
+    return value.toBigInt();
+  }
+
+  set royaltiesClaimed(value: BigInt) {
+    this.set("royaltiesClaimed", Value.fromBigInt(value));
+  }
+}
+
+export class UserTokenMetric extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save UserTokenMetric entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save UserTokenMetric entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("UserTokenMetric", id.toString(), this);
+  }
+
+  static load(id: string): UserTokenMetric | null {
+    return store.get("UserTokenMetric", id) as UserTokenMetric | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalValueLocked(): BigInt {
+    let value = this.get("totalValueLocked");
+    return value.toBigInt();
+  }
+
+  set totalValueLocked(value: BigInt) {
+    this.set("totalValueLocked", Value.fromBigInt(value));
+  }
+
+  get totalMassReleased(): BigInt {
+    let value = this.get("totalMassReleased");
+    return value.toBigInt();
+  }
+
+  set totalMassReleased(value: BigInt) {
+    this.set("totalMassReleased", Value.fromBigInt(value));
+  }
+
+  get totalInterestDischarged(): BigInt {
+    let value = this.get("totalInterestDischarged");
+    return value.toBigInt();
+  }
+
+  set totalInterestDischarged(value: BigInt) {
+    this.set("totalInterestDischarged", Value.fromBigInt(value));
+  }
+}
