@@ -554,16 +554,16 @@ type ProfileMetric @entity {
   id: ID!
 
   totalEthEarned: BigInt!
-  buyProton: BigInt!
-  sellProton: BigInt!
-  mintProton: BigInt!
-  buyLepton: BigInt!
-  transferLepton: BigInt!
-  energizeAave: BigInt!
-  energizeERC20: BigInt!
-  dischargeInterest: BigInt!
-  releaseMass: BigInt!
-  royaltiesClaimed: BigInt!
+  buyProtonCount: BigInt!
+  sellProtonCount: BigInt!
+  mintProtonCount: BigInt!
+  buyLeptonCount: BigInt!
+  transferLeptonCount: BigInt!
+  energizeAaveCount: BigInt!
+  energizeERC20Count: BigInt!
+  dischargeInterestCount: BigInt!
+  releaseMassCount: BigInt!
+  royaltiesClaimedCount: BigInt!
 }
 
 # ID: `${userAddress}-${assetTokenAddress}`

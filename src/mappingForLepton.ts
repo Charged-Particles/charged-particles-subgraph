@@ -81,7 +81,7 @@ export function handleLeptonMinted(event: LeptonMinted): void {
   _lepton.save();
 
   const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
-  _leptonBuyer.buyLepton = _leptonBuyer.buyLepton.plus(ONE);
+  _leptonBuyer.buyLeptonCount = _leptonBuyer.buyLeptonCount.plus(ONE);
   _leptonBuyer.save();
 }
 
@@ -94,7 +94,7 @@ export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
   _lepton.save();
 
   const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
-  _leptonBuyer.buyLepton = _leptonBuyer.buyLepton.plus(ONE);
+  _leptonBuyer.buyLeptonCount = _leptonBuyer.buyLeptonCount.plus(ONE);
   _leptonBuyer.save();
 }
 
@@ -111,11 +111,11 @@ export function handleTransfer(event: Transfer): void {
 
   if (event.params.from.toHex() != ADDRESS_ZERO) {
     const _leptonSeller = loadOrCreateProfileMetric(event.params.from);
-    _leptonSeller.transferLepton = _leptonSeller.transferLepton.plus(ONE);
+    _leptonSeller.transferLeptonCount = _leptonSeller.transferLeptonCount.plus(ONE);
     _leptonSeller.save();
     
     const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
-    _leptonBuyer.transferLepton = _leptonBuyer.transferLepton.plus(ONE);
+    _leptonBuyer.transferLeptonCount = _leptonBuyer.transferLeptonCount.plus(ONE);
     _leptonBuyer.save();
   }
 
@@ -140,11 +140,11 @@ export function handleTransferBatch(event: TransferBatch): void {
     }
     else {
       const _leptonSeller = loadOrCreateProfileMetric(event.params.from);
-      _leptonSeller.transferLepton = _leptonSeller.transferLepton.plus(ONE);
+      _leptonSeller.transferLeptonCount = _leptonSeller.transferLeptonCount.plus(ONE);
       _leptonSeller.save();
 
       const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
-      _leptonBuyer.transferLepton = _leptonBuyer.transferLepton.plus(ONE);
+      _leptonBuyer.transferLeptonCount = _leptonBuyer.transferLeptonCount.plus(ONE);
       _leptonBuyer.save();
     }
   }

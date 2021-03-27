@@ -67,7 +67,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   
   const boundProton = ProtonContract.bind(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
-  _walletOwner.energizeERC20 = _walletOwner.energizeERC20.plus(ONE);
+  _walletOwner.energizeERC20Count = _walletOwner.energizeERC20Count.plus(ONE);
   _walletOwner.save();
 
   var eventData = new Array<string>(5);
@@ -92,7 +92,7 @@ export function handleWalletReleased(event: WalletReleased): void {
   
   const boundProton = ProtonContract.bind(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
-  _walletOwner.releaseMass = _walletOwner.releaseMass.plus(ONE);
+  _walletOwner.releaseMassCount = _walletOwner.releaseMassCount.plus(ONE);
   _walletOwner.save();
 
   var eventData = new Array<string>(7);

@@ -120,12 +120,12 @@ export function handleProtonSold(event: ProtonSold): void {
   updateNftAnalytics(event.address, event.params.tokenId, true, event.params.creatorRoyalties, event.params.salePrice);
 
   const _oldOwnerProfileMetric = loadOrCreateProfileMetric(event.params.oldOwner);
-  _oldOwnerProfileMetric.sellProton = _oldOwnerProfileMetric.sellProton.plus(ONE);
+  _oldOwnerProfileMetric.sellProtonCount = _oldOwnerProfileMetric.sellProtonCount.plus(ONE);
   _oldOwnerProfileMetric.totalEthEarned = _oldOwnerProfileMetric.totalEthEarned.plus(event.params.salePrice);
   _oldOwnerProfileMetric.save();
 
   const _newOwnerProfileMetric = loadOrCreateProfileMetric(event.params.newOwner);
-  _newOwnerProfileMetric.buyProton = _newOwnerProfileMetric.buyProton.plus(ONE);
+  _newOwnerProfileMetric.buyProtonCount = _newOwnerProfileMetric.buyProtonCount.plus(ONE);
   _newOwnerProfileMetric.save();
 
   const _creatorProfileMetric = loadOrCreateProfileMetric(event.params.creator);
@@ -140,7 +140,7 @@ export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
   _royaltiesClaimedByAccount.save();
 
   const _creatorProfileMetric = loadOrCreateProfileMetric(event.params.receiver);
-  _creatorProfileMetric.royaltiesClaimed = _creatorProfileMetric.royaltiesClaimed.plus(ONE);
+  _creatorProfileMetric.royaltiesClaimedCount = _creatorProfileMetric.royaltiesClaimedCount.plus(ONE);
   _creatorProfileMetric.save();
 }
 
@@ -169,7 +169,7 @@ export function handleTransfer(event: Transfer): void {
     }
     
     const _minterProfileMetric = loadOrCreateProfileMetric(event.params.to);
-    _minterProfileMetric.mintProton = _minterProfileMetric.mintProton.plus(ONE);
+    _minterProfileMetric.mintProtonCount = _minterProfileMetric.mintProtonCount.plus(ONE);
     _minterProfileMetric.save()
   }
 }

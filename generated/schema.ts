@@ -4400,94 +4400,94 @@ export class ProfileMetric extends Entity {
     this.set("totalEthEarned", Value.fromBigInt(value));
   }
 
-  get buyProton(): BigInt {
-    let value = this.get("buyProton");
+  get buyProtonCount(): BigInt {
+    let value = this.get("buyProtonCount");
     return value.toBigInt();
   }
 
-  set buyProton(value: BigInt) {
-    this.set("buyProton", Value.fromBigInt(value));
+  set buyProtonCount(value: BigInt) {
+    this.set("buyProtonCount", Value.fromBigInt(value));
   }
 
-  get sellProton(): BigInt {
-    let value = this.get("sellProton");
+  get sellProtonCount(): BigInt {
+    let value = this.get("sellProtonCount");
     return value.toBigInt();
   }
 
-  set sellProton(value: BigInt) {
-    this.set("sellProton", Value.fromBigInt(value));
+  set sellProtonCount(value: BigInt) {
+    this.set("sellProtonCount", Value.fromBigInt(value));
   }
 
-  get mintProton(): BigInt {
-    let value = this.get("mintProton");
+  get mintProtonCount(): BigInt {
+    let value = this.get("mintProtonCount");
     return value.toBigInt();
   }
 
-  set mintProton(value: BigInt) {
-    this.set("mintProton", Value.fromBigInt(value));
+  set mintProtonCount(value: BigInt) {
+    this.set("mintProtonCount", Value.fromBigInt(value));
   }
 
-  get buyLepton(): BigInt {
-    let value = this.get("buyLepton");
+  get buyLeptonCount(): BigInt {
+    let value = this.get("buyLeptonCount");
     return value.toBigInt();
   }
 
-  set buyLepton(value: BigInt) {
-    this.set("buyLepton", Value.fromBigInt(value));
+  set buyLeptonCount(value: BigInt) {
+    this.set("buyLeptonCount", Value.fromBigInt(value));
   }
 
-  get transferLepton(): BigInt {
-    let value = this.get("transferLepton");
+  get transferLeptonCount(): BigInt {
+    let value = this.get("transferLeptonCount");
     return value.toBigInt();
   }
 
-  set transferLepton(value: BigInt) {
-    this.set("transferLepton", Value.fromBigInt(value));
+  set transferLeptonCount(value: BigInt) {
+    this.set("transferLeptonCount", Value.fromBigInt(value));
   }
 
-  get energizeAave(): BigInt {
-    let value = this.get("energizeAave");
+  get energizeAaveCount(): BigInt {
+    let value = this.get("energizeAaveCount");
     return value.toBigInt();
   }
 
-  set energizeAave(value: BigInt) {
-    this.set("energizeAave", Value.fromBigInt(value));
+  set energizeAaveCount(value: BigInt) {
+    this.set("energizeAaveCount", Value.fromBigInt(value));
   }
 
-  get energizeERC20(): BigInt {
-    let value = this.get("energizeERC20");
+  get energizeERC20Count(): BigInt {
+    let value = this.get("energizeERC20Count");
     return value.toBigInt();
   }
 
-  set energizeERC20(value: BigInt) {
-    this.set("energizeERC20", Value.fromBigInt(value));
+  set energizeERC20Count(value: BigInt) {
+    this.set("energizeERC20Count", Value.fromBigInt(value));
   }
 
-  get dischargeInterest(): BigInt {
-    let value = this.get("dischargeInterest");
+  get dischargeInterestCount(): BigInt {
+    let value = this.get("dischargeInterestCount");
     return value.toBigInt();
   }
 
-  set dischargeInterest(value: BigInt) {
-    this.set("dischargeInterest", Value.fromBigInt(value));
+  set dischargeInterestCount(value: BigInt) {
+    this.set("dischargeInterestCount", Value.fromBigInt(value));
   }
 
-  get releaseMass(): BigInt {
-    let value = this.get("releaseMass");
+  get releaseMassCount(): BigInt {
+    let value = this.get("releaseMassCount");
     return value.toBigInt();
   }
 
-  set releaseMass(value: BigInt) {
-    this.set("releaseMass", Value.fromBigInt(value));
+  set releaseMassCount(value: BigInt) {
+    this.set("releaseMassCount", Value.fromBigInt(value));
   }
 
-  get royaltiesClaimed(): BigInt {
-    let value = this.get("royaltiesClaimed");
+  get royaltiesClaimedCount(): BigInt {
+    let value = this.get("royaltiesClaimedCount");
     return value.toBigInt();
   }
 
-  set royaltiesClaimed(value: BigInt) {
-    this.set("royaltiesClaimed", Value.fromBigInt(value));
+  set royaltiesClaimedCount(value: BigInt) {
+    this.set("royaltiesClaimedCount", Value.fromBigInt(value));
   }
 }
 

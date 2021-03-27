@@ -16,16 +16,16 @@ export function loadOrCreateProfileMetric(
   if (!_profileMetric) {
     _profileMetric = new ProfileMetric(id);
     _profileMetric.totalEthEarned = ZERO;
-    _profileMetric.mintProton = ZERO;
-    _profileMetric.buyProton = ZERO;
-    _profileMetric.sellProton = ZERO;
-    _profileMetric.buyLepton = ZERO;
-    _profileMetric.royaltiesClaimed = ZERO;
-    _profileMetric.transferLepton = ZERO;
-    _profileMetric.releaseMass = ZERO;
-    _profileMetric.dischargeInterest = ZERO;
-    _profileMetric.energizeAave = ZERO;
-    _profileMetric.energizeERC20 = ZERO;
+    _profileMetric.mintProtonCount = ZERO;
+    _profileMetric.buyProtonCount = ZERO;
+    _profileMetric.sellProtonCount = ZERO;
+    _profileMetric.buyLeptonCount = ZERO;
+    _profileMetric.royaltiesClaimedCount = ZERO;
+    _profileMetric.transferLeptonCount = ZERO;
+    _profileMetric.releaseMassCount = ZERO;
+    _profileMetric.dischargeInterestCount = ZERO;
+    _profileMetric.energizeAaveCount = ZERO;
+    _profileMetric.energizeERC20Count = ZERO;
     _profileMetric.save();
   }
 

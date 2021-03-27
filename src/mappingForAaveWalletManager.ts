@@ -78,7 +78,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
 
   const boundProton = ProtonContract.bind(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
-  _walletOwner.energizeAave = _walletOwner.energizeAave.plus(ONE);
+  _walletOwner.energizeAaveCount = _walletOwner.energizeAaveCount.plus(ONE);
   _walletOwner.save();
 
   var eventData = new Array<string>(5);
@@ -99,7 +99,7 @@ export function handleWalletDischarged(event: WalletDischarged): void {
 
   const boundProton = ProtonContract.bind(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
-  _walletOwner.dischargeInterest = _walletOwner.dischargeInterest.plus(ONE);
+  _walletOwner.dischargeInterestCount = _walletOwner.dischargeInterestCount.plus(ONE);
   _walletOwner.save();
 
   var eventData = new Array<string>(5);
@@ -141,7 +141,7 @@ export function handleWalletReleased(event: WalletReleased): void {
 
   const boundProton = ProtonContract.bind(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
-  _walletOwner.releaseMass = _walletOwner.releaseMass.plus(ONE);
+  _walletOwner.releaseMassCount = _walletOwner.releaseMassCount.plus(ONE);
   _walletOwner.save();
 
   var eventData = new Array<string>(7);
