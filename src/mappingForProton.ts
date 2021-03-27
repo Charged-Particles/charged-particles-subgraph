@@ -127,6 +127,10 @@ export function handleProtonSold(event: ProtonSold): void {
   const _newOwnerProfileMetric = loadOrCreateProfileMetric(event.params.newOwner);
   _newOwnerProfileMetric.buyProton = _newOwnerProfileMetric.buyProton.plus(ONE);
   _newOwnerProfileMetric.save();
+
+  const _creatorProfileMetric = loadOrCreateProfileMetric(event.params.creator);
+  _creatorProfileMetric.totalEthEarned = _creatorProfileMetric.totalEthEarned.plus(event.params.creatorRoyalties);
+  _creatorProfileMetric.save();
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
@@ -134,6 +138,10 @@ export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
 
   _royaltiesClaimedByAccount.royaltiesClaimed = _royaltiesClaimedByAccount.royaltiesClaimed.plus(event.params.amountClaimed);
   _royaltiesClaimedByAccount.save();
+
+  const _creatorProfileMetric = loadOrCreateProfileMetric(event.params.receiver);
+  _creatorProfileMetric.royaltiesClaimed = _creatorProfileMetric.royaltiesClaimed.plus(ONE);
+  _creatorProfileMetric.save();
 }
 
 export function handleFeesWithdrawn(event: FeesWithdrawn): void {
