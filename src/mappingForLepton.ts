@@ -27,6 +27,7 @@ import { loadOrCreateLeptonNFT } from './helpers/loadOrCreateLeptonNFT';
 // import { trackLeptonNftCounts } from './helpers/trackLeptonNftCounts';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
+import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
 
 import { ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, parseJsonFromIpfs } from './helpers/common';
 
@@ -70,7 +71,7 @@ export function handleLeptonTypeUpdated(event: LeptonTypeUpdated): void {
 export function handleLeptonMinted(event: LeptonMinted): void {
   const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
 
-  const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
+  const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
   if (jsonData != null) {
     processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
   }
@@ -78,6 +79,10 @@ export function handleLeptonMinted(event: LeptonMinted): void {
   const _lepton = loadOrCreateLepton(event.address);
   _lepton.totalMinted = _lepton.totalMinted.plus(ONE);
   _lepton.save();
+
+  const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
+  _leptonBuyer.buyLepton = _leptonBuyer.buyLepton.plus(ONE);
+  _leptonBuyer.save();
 }
 
 export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
@@ -87,6 +92,10 @@ export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
   const _lepton = loadOrCreateLepton(event.address);
   _lepton.totalMinted = _lepton.totalMinted.plus(event.params.count);
   _lepton.save();
+
+  const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
+  _leptonBuyer.buyLepton = _leptonBuyer.buyLepton.plus(ONE);
+  _leptonBuyer.save();
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {
@@ -99,6 +108,17 @@ export function handleTransfer(event: Transfer): void {
   const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
   _nft.owner = event.params.to;
   _nft.save();
+
+  if (event.params.from.toHex() != ADDRESS_ZERO) {
+    const _leptonSeller = loadOrCreateProfileMetric(event.params.from);
+    _leptonSeller.transferLepton = _leptonSeller.transferLepton.plus(ONE);
+    _leptonSeller.save();
+    
+    const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
+    _leptonBuyer.transferLepton = _leptonBuyer.transferLepton.plus(ONE);
+    _leptonBuyer.save();
+  }
+
 }
 
 export function handleTransferBatch(event: TransferBatch): void {
@@ -117,6 +137,15 @@ export function handleTransferBatch(event: TransferBatch): void {
       if (jsonData != null) {
         processLeptonMetadata(jsonData.inner, Value.fromString(nft.id));
       }
+    }
+    else {
+      const _leptonSeller = loadOrCreateProfileMetric(event.params.from);
+      _leptonSeller.transferLepton = _leptonSeller.transferLepton.plus(ONE);
+      _leptonSeller.save();
+
+      const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
+      _leptonBuyer.transferLepton = _leptonBuyer.transferLepton.plus(ONE);
+      _leptonBuyer.save();
     }
   }
 }
