@@ -236,5 +236,19 @@
       totalRoyalties
       numSales
     }
+    profileMetrics {
+      id
+      totalEthEarned
+      mintProton
+      buyProton
+      sellProton
+      royaltiesClaimed
+      energizeERC20
+      energizeAave
+      dischargeInterest
+      releaseMass
+      buyLepton
+      transferLepton
+    }
   }
 }

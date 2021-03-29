@@ -4360,3 +4360,191 @@ export class NftAnalytic extends Entity {
     this.set("numSales", Value.fromBigInt(value));
   }
 }
+
+export class ProfileMetric extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ProfileMetric entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ProfileMetric entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ProfileMetric", id.toString(), this);
+  }
+
+  static load(id: string): ProfileMetric | null {
+    return store.get("ProfileMetric", id) as ProfileMetric | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalEthEarned(): BigInt {
+    let value = this.get("totalEthEarned");
+    return value.toBigInt();
+  }
+
+  set totalEthEarned(value: BigInt) {
+    this.set("totalEthEarned", Value.fromBigInt(value));
+  }
+
+  get buyProtonCount(): BigInt {
+    let value = this.get("buyProtonCount");
+    return value.toBigInt();
+  }
+
+  set buyProtonCount(value: BigInt) {
+    this.set("buyProtonCount", Value.fromBigInt(value));
+  }
+
+  get sellProtonCount(): BigInt {
+    let value = this.get("sellProtonCount");
+    return value.toBigInt();
+  }
+
+  set sellProtonCount(value: BigInt) {
+    this.set("sellProtonCount", Value.fromBigInt(value));
+  }
+
+  get mintProtonCount(): BigInt {
+    let value = this.get("mintProtonCount");
+    return value.toBigInt();
+  }
+
+  set mintProtonCount(value: BigInt) {
+    this.set("mintProtonCount", Value.fromBigInt(value));
+  }
+
+  get buyLeptonCount(): BigInt {
+    let value = this.get("buyLeptonCount");
+    return value.toBigInt();
+  }
+
+  set buyLeptonCount(value: BigInt) {
+    this.set("buyLeptonCount", Value.fromBigInt(value));
+  }
+
+  get transferLeptonCount(): BigInt {
+    let value = this.get("transferLeptonCount");
+    return value.toBigInt();
+  }
+
+  set transferLeptonCount(value: BigInt) {
+    this.set("transferLeptonCount", Value.fromBigInt(value));
+  }
+
+  get energizeAaveCount(): BigInt {
+    let value = this.get("energizeAaveCount");
+    return value.toBigInt();
+  }
+
+  set energizeAaveCount(value: BigInt) {
+    this.set("energizeAaveCount", Value.fromBigInt(value));
+  }
+
+  get energizeERC20Count(): BigInt {
+    let value = this.get("energizeERC20Count");
+    return value.toBigInt();
+  }
+
+  set energizeERC20Count(value: BigInt) {
+    this.set("energizeERC20Count", Value.fromBigInt(value));
+  }
+
+  get dischargeInterestCount(): BigInt {
+    let value = this.get("dischargeInterestCount");
+    return value.toBigInt();
+  }
+
+  set dischargeInterestCount(value: BigInt) {
+    this.set("dischargeInterestCount", Value.fromBigInt(value));
+  }
+
+  get releaseMassCount(): BigInt {
+    let value = this.get("releaseMassCount");
+    return value.toBigInt();
+  }
+
+  set releaseMassCount(value: BigInt) {
+    this.set("releaseMassCount", Value.fromBigInt(value));
+  }
+
+  get royaltiesClaimedCount(): BigInt {
+    let value = this.get("royaltiesClaimedCount");
+    return value.toBigInt();
+  }
+
+  set royaltiesClaimedCount(value: BigInt) {
+    this.set("royaltiesClaimedCount", Value.fromBigInt(value));
+  }
+}
+
+export class UserTokenMetric extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save UserTokenMetric entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save UserTokenMetric entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("UserTokenMetric", id.toString(), this);
+  }
+
+  static load(id: string): UserTokenMetric | null {
+    return store.get("UserTokenMetric", id) as UserTokenMetric | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get totalValueLocked(): BigInt {
+    let value = this.get("totalValueLocked");
+    return value.toBigInt();
+  }
+
+  set totalValueLocked(value: BigInt) {
+    this.set("totalValueLocked", Value.fromBigInt(value));
+  }
+
+  get totalMassReleased(): BigInt {
+    let value = this.get("totalMassReleased");
+    return value.toBigInt();
+  }
+
+  set totalMassReleased(value: BigInt) {
+    this.set("totalMassReleased", Value.fromBigInt(value));
+  }
+
+  get totalInterestDischarged(): BigInt {
+    let value = this.get("totalInterestDischarged");
+    return value.toBigInt();
+  }
+
+  set totalInterestDischarged(value: BigInt) {
+    this.set("totalInterestDischarged", Value.fromBigInt(value));
+  }
+}

@@ -79,3 +79,7 @@ export function maxNftsId(contractAddress: string, assetTokenAddress: string): s
 export function assetTokenId(assetTokenAddress: string): string {
   return assetTokenAddress;
 }
+
+export function profileMetricId(userAddress: string): string {
+  return userAddress
+}

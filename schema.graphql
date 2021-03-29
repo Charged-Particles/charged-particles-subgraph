@@ -546,3 +546,32 @@ type NftAnalytic @entity {
   totalRoyalties: BigInt!
   numSales: BigInt!
 }
+
+
+# ID: `${userAddress}`
+# dynamically generated type, not mapped to a specific contract
+type ProfileMetric @entity {
+  id: ID!
+
+  totalEthEarned: BigInt!
+  buyProtonCount: BigInt!
+  sellProtonCount: BigInt!
+  mintProtonCount: BigInt!
+  buyLeptonCount: BigInt!
+  transferLeptonCount: BigInt!
+  energizeAaveCount: BigInt!
+  energizeERC20Count: BigInt!
+  dischargeInterestCount: BigInt!
+  releaseMassCount: BigInt!
+  royaltiesClaimedCount: BigInt!
+}
+
+# ID: `${userAddress}-${assetTokenAddress}`
+# dynamically generated type, not mapped to a specific contract
+type UserTokenMetric @entity {
+  id: ID!
+
+  totalValueLocked: BigInt!
+  totalMassReleased: BigInt!
+  totalInterestDischarged: BigInt!
+}
