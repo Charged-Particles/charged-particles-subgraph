@@ -4521,13 +4521,13 @@ export class UserTokenMetric extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get totalValueLocked(): BigInt {
-    let value = this.get("totalValueLocked");
+  get lifetimeValueLocked(): BigInt {
+    let value = this.get("lifetimeValueLocked");
     return value.toBigInt();
   }
 
-  set totalValueLocked(value: BigInt) {
-    this.set("totalValueLocked", Value.fromBigInt(value));
+  set lifetimeValueLocked(value: BigInt) {
+    this.set("lifetimeValueLocked", Value.fromBigInt(value));
   }
 
   get totalMassReleased(): BigInt {

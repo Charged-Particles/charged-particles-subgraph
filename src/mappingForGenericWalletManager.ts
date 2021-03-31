@@ -21,6 +21,8 @@ import { loadOrCreateGenericAssetTokenBalance } from './helpers/loadOrCreateGene
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateAssetTokenAnalytics } from './helpers/loadOrCreateAssetTokenAnalytics';
 import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
+import { loadOrCreateUserTokenMetric } from './helpers/loadOrCreateUserTokenMetric';
+
 import { ONE } from './helpers/common';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -70,6 +72,10 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   _walletOwner.energizeERC20Count = _walletOwner.energizeERC20Count.plus(ONE);
   _walletOwner.save();
 
+  const userTokenMetric = loadOrCreateUserTokenMetric(boundProton.ownerOf(event.params.tokenId), event.params.assetToken);
+  userTokenMetric.lifetimeValueLocked = userTokenMetric.lifetimeValueLocked.plus(event.params.assetAmount);
+  userTokenMetric.save();
+
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
@@ -94,6 +100,14 @@ export function handleWalletReleased(event: WalletReleased): void {
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
   _walletOwner.releaseMassCount = _walletOwner.releaseMassCount.plus(ONE);
   _walletOwner.save();
+
+  const userTokenMetric = loadOrCreateUserTokenMetric(boundProton.ownerOf(event.params.tokenId), event.params.assetToken);
+  userTokenMetric.totalMassReleased = userTokenMetric.totalMassReleased.plus(event.params.receiverAmount);
+  userTokenMetric.save();
+
+  const creatorTokenMetric = loadOrCreateUserTokenMetric(boundProton.creatorOf(event.params.tokenId), event.params.assetToken);
+  creatorTokenMetric.totalMassReleased = creatorTokenMetric.totalMassReleased.plus(event.params.creatorAmount);
+  creatorTokenMetric.save();
 
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();

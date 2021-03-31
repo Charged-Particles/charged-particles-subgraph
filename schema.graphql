@@ -571,7 +571,7 @@ type ProfileMetric @entity {
 type UserTokenMetric @entity {
   id: ID!
 
-  totalValueLocked: BigInt!
+  lifetimeValueLocked: BigInt!
   totalMassReleased: BigInt!
   totalInterestDischarged: BigInt!
 }
