@@ -30,6 +30,11 @@ export function parseJsonFromIpfs(jsonUri: string): Wrapped<JSONValue> | null {
     return null;
   }
 
+  if (ipfsHash[0] != 'Q' || ipfsHash[1] != 'm') {
+    log.info('INVALID IPFS HASH FOUND FOR URI {}', [jsonUri]);
+    return null;
+  }
+
   let data = ipfs.cat(ipfsHash);
   if (!data || (data as Bytes).length < 1) {
     log.info('JSON DATA FROM IPFS IS EMPTY {}', [ipfsHash]);
