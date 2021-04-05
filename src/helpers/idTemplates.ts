@@ -81,5 +81,9 @@ export function assetTokenId(assetTokenAddress: string): string {
 }
 
 export function profileMetricId(userAddress: string): string {
-  return userAddress
+  return userAddress;
+}
+
+export function userTokenMetricId(userAddress: string, assetTokenAddress: string): string {
+  return userAddress + '-' + assetTokenAddress;
 }
