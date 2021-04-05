@@ -1,4 +1,4 @@
-import { Bytes, TypedMap, JSONValue, BigInt, Wrapped, ipfs, json, log } from '@graphprotocol/graph-ts';
+import { Bytes, TypedMap, JSONValue, BigInt, Wrapped, ipfs, json, log, Value } from '@graphprotocol/graph-ts';
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 
@@ -35,6 +35,12 @@ export function parseJsonFromIpfs(jsonUri: string): Wrapped<JSONValue> | null {
     return null;
   }
 
+  if (ipfsHash == 'QmcfMBWdXMubqGGS6nYKNJXAeB9PTJpCH8NTuzN5uGLkvp' || ipfsHash == 'QmagSLXM2wp8sXqaAm9fVJvcCXq4JJormeWo9JtkBnFFjB'
+  || ipfsHash == 'QmaFm4cNns9oKhX6uX78mBvf95nE2pyCKm5Fqn5T2cf93U') {
+    log.info('{} RETURNS 504 ON IPFS', [ipfsHash])
+    return null;
+  }
+
   let data = ipfs.cat(ipfsHash);
   if (!data || (data as Bytes).length < 1) {
     log.info('JSON DATA FROM IPFS IS EMPTY {}', [ipfsHash]);
@@ -49,3 +55,7 @@ export function parseJsonFromIpfs(jsonUri: string): Wrapped<JSONValue> | null {
 
   return new Wrapped(jsonData);
 };
+
+const logItems = (value:JSONValue, userData: Value): void => {
+  log.info('Found value {} {} on IPFS', [value.toString(), userData.toString()])
+}
