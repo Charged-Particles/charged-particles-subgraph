@@ -100,8 +100,10 @@ export function handleProtonSold(event: ProtonSold): void {
   _nft.save();
 
   const _creatorRoyalties = loadOrCreateUserRoyalty(event.params.creator);
+  log.info('CREATOR ROYALTIES FOUND for {} !!! {}', [event.params.creator.toHex(),event.params.creatorRoyalties.toString()])
   _creatorRoyalties.claimableRoyalties = _creatorRoyalties.claimableRoyalties.plus(event.params.creatorRoyalties);
-
+  _creatorRoyalties.save();
+  
   const _proton = loadOrCreateProton(event.address);
   const _nftState = loadOrCreateNftState(
     Address.fromString(_proton.chargedState),
