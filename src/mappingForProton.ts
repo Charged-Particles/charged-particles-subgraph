@@ -31,10 +31,9 @@ import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
 import { ZERO, ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, getBigIntValue, parseJsonFromIpfs } from './helpers/common';
-import { loadOrCreateClaimedRoyalties } from './helpers/loadOrCreateClaimedRoyalties';
 import { updateNftAnalytics } from './helpers/updateNftAnalytics';
 import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
-
+import { loadOrCreateUserRoyalty } from './helpers/loadOrCreateUserRoyalty';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -100,6 +99,9 @@ export function handleProtonSold(event: ProtonSold): void {
   _nft.overallSalesTotal = _nft.overallSalesTotal.plus(event.params.salePrice);
   _nft.save();
 
+  const _creatorRoyalties = loadOrCreateUserRoyalty(event.params.creator);
+  _creatorRoyalties.claimableRoyalties = _creatorRoyalties.claimableRoyalties.plus(event.params.creatorRoyalties);
+
   const _proton = loadOrCreateProton(event.address);
   const _nftState = loadOrCreateNftState(
     Address.fromString(_proton.chargedState),
@@ -134,9 +136,10 @@ export function handleProtonSold(event: ProtonSold): void {
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
-  const _royaltiesClaimedByAccount = loadOrCreateClaimedRoyalties(event.params.receiver);
+  const _royaltiesClaimedByAccount = loadOrCreateUserRoyalty(event.params.receiver);
 
   _royaltiesClaimedByAccount.royaltiesClaimed = _royaltiesClaimedByAccount.royaltiesClaimed.plus(event.params.amountClaimed);
+  _royaltiesClaimedByAccount.claimableRoyalties = ZERO;
   _royaltiesClaimedByAccount.save();
 
   const _creatorProfileMetric = loadOrCreateProfileMetric(event.params.receiver);

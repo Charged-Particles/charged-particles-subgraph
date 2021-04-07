@@ -2,24 +2,25 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import { RoyaltiesClaimed } from '../../generated/Proton/Proton';
 
 import {
-  ClaimedRoyalties,
+  UserRoyalty,
 } from '../../generated/schema';
 
 import { ZERO } from './common';
 
-export function loadOrCreateClaimedRoyalties(
+export function loadOrCreateUserRoyalty(
   accountAddress: Address,
 
-): ClaimedRoyalties {
+): UserRoyalty {
   const id = accountAddress.toHex();
-  let _royalties = ClaimedRoyalties.load(id);
+  let _royalties = UserRoyalty.load(id);
 
   if (!_royalties) {
-    _royalties = new ClaimedRoyalties(id);
+    _royalties = new UserRoyalty(id);
     _royalties.accountAddress = accountAddress;
     _royalties.royaltiesClaimed = ZERO;
+    _royalties.claimableRoyalties = ZERO;
     _royalties.save();
   }
 
-  return _royalties as ClaimedRoyalties;
+  return _royalties as UserRoyalty;
 }

@@ -389,7 +389,6 @@ type ProtonNFT @entity {
 
   resaleRoyalties: BigInt
   resaleRoyaltiesRedirect: Bytes
-  claimableRoyalties: BigInt
 
   metadataUri: String
   name: String
@@ -505,11 +504,12 @@ type NftTxCount @entity {
 
 # ID: `${accountAddress}`
 # dynamically generated type, not mapped to a specific contract
-type ClaimedRoyalties @entity {
+type UserRoyalty @entity {
   id: ID!
 
   accountAddress: Bytes!
 
+  claimableRoyalties: BigInt!
   royaltiesClaimed: BigInt!
 }
 

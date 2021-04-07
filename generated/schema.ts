@@ -3032,23 +3032,6 @@ export class ProtonNFT extends Entity {
     }
   }
 
-  get claimableRoyalties(): BigInt | null {
-    let value = this.get("claimableRoyalties");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set claimableRoyalties(value: BigInt | null) {
-    if (value === null) {
-      this.unset("claimableRoyalties");
-    } else {
-      this.set("claimableRoyalties", Value.fromBigInt(value as BigInt));
-    }
-  }
-
   get metadataUri(): string | null {
     let value = this.get("metadataUri");
     if (value === null) {
@@ -4103,7 +4086,7 @@ export class NftTxCount extends Entity {
   }
 }
 
-export class ClaimedRoyalties extends Entity {
+export class UserRoyalty extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -4111,17 +4094,17 @@ export class ClaimedRoyalties extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save ClaimedRoyalties entity without an ID");
+    assert(id !== null, "Cannot save UserRoyalty entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save ClaimedRoyalties entity with non-string ID. " +
+      "Cannot save UserRoyalty entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("ClaimedRoyalties", id.toString(), this);
+    store.set("UserRoyalty", id.toString(), this);
   }
 
-  static load(id: string): ClaimedRoyalties | null {
-    return store.get("ClaimedRoyalties", id) as ClaimedRoyalties | null;
+  static load(id: string): UserRoyalty | null {
+    return store.get("UserRoyalty", id) as UserRoyalty | null;
   }
 
   get id(): string {
@@ -4140,6 +4123,15 @@ export class ClaimedRoyalties extends Entity {
 
   set accountAddress(value: Bytes) {
     this.set("accountAddress", Value.fromBytes(value));
+  }
+
+  get claimableRoyalties(): BigInt {
+    let value = this.get("claimableRoyalties");
+    return value.toBigInt();
+  }
+
+  set claimableRoyalties(value: BigInt) {
+    this.set("claimableRoyalties", Value.fromBigInt(value));
   }
 
   get royaltiesClaimed(): BigInt {
