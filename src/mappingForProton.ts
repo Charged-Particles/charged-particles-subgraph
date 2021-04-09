@@ -101,6 +101,7 @@ export function handleProtonSold(event: ProtonSold): void {
 
   const _creatorRoyalties = loadOrCreateUserRoyalty(event.params.creator);
   _creatorRoyalties.claimableRoyalties = _creatorRoyalties.claimableRoyalties.plus(event.params.creatorRoyalties);
+  _creatorRoyalties.save();
 
   const _proton = loadOrCreateProton(event.address);
   const _nftState = loadOrCreateNftState(
