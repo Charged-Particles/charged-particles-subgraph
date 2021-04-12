@@ -14,7 +14,8 @@ import { ZERO } from './common';
 
 export function loadOrCreateLeptonNFT(
   leptonAddress: Address,
-  tokenId: BigInt
+  tokenId: BigInt,
+  leptonVersion: string = '1'
 ): LeptonNFT {
   const id = leptonNftId(leptonAddress.toHex(), tokenId.toString());
   let _nft = LeptonNFT.load(id);
@@ -22,7 +23,11 @@ export function loadOrCreateLeptonNFT(
   if (!_nft) {
     _nft = new LeptonNFT(id);
     _nft.tokenId = tokenId;
-    _nft.lepton = leptonAddress.toHex();
+    if (leptonVersion == '1') {
+      _nft.lepton = leptonAddress.toHex();
+    } else {
+      _nft.lepton2 = leptonAddress.toHex();
+    }
 
     const boundLepton = LeptonContract.bind(leptonAddress);
     _nft.metadataUri = boundLepton.tokenURI(tokenId);

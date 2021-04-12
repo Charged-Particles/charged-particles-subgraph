@@ -10,15 +10,13 @@ import {
   LeptonTypeAdded,
   LeptonTypeUpdated,
   LeptonMinted,
-  LeptonBatchMinted,
   PausedStateSet,
   Transfer,
-  TransferBatch,
   Approval,
   ApprovalForAll,
-} from '../generated/Lepton/Lepton';
+} from '../generated/Lepton2/Lepton2';
 
-import { loadOrCreateLepton } from './helpers/loadOrCreateLepton';
+import { loadOrCreateLepton2 } from './helpers/loadOrCreateLepton2';
 import { loadOrCreateLeptonClassification } from './helpers/loadOrCreateLeptonClassification';
 import { loadOrCreateLeptonNFT } from './helpers/loadOrCreateLeptonNFT';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
@@ -28,19 +26,19 @@ import { ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, parseJsonFromIpfs } from '.
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-  const _lepton = loadOrCreateLepton(event.address);
+  const _lepton = loadOrCreateLepton2(event.address);
   _lepton.owner = event.params.newOwner;
   _lepton.save();
 }
 
 export function handleMaxMintPerTxSet(event: MaxMintPerTxSet): void {
-  const _lepton = loadOrCreateLepton(event.address);
+  const _lepton = loadOrCreateLepton2(event.address);
   _lepton.maxMintPerTx = event.params.maxAmount;
   _lepton.save();
 }
 
 export function handleLeptonTypeAdded(event: LeptonTypeAdded): void {
-  const _type = loadOrCreateLeptonClassification(event.address, event.params.bonus);
+  const _type = loadOrCreateLeptonClassification(event.address, event.params.bonus, '2');
   _type.metadataUri = event.params.tokenUri;
   _type.price = event.params.price;
   _type.supply = event.params.supply;
@@ -48,13 +46,13 @@ export function handleLeptonTypeAdded(event: LeptonTypeAdded): void {
   _type.upperBounds = event.params.upperBounds;
   _type.save();
 
-  const _lepton = loadOrCreateLepton(event.address);
+  const _lepton = loadOrCreateLepton2(event.address);
   _lepton.maxSupply = _type.upperBounds;
   _lepton.save();
 }
 
 export function handleLeptonTypeUpdated(event: LeptonTypeUpdated): void {
-  const _lepton = loadOrCreateLeptonClassification(event.address, event.params.bonus);
+  const _lepton = loadOrCreateLeptonClassification(event.address, event.params.bonus, '2');
   _lepton.metadataUri = event.params.tokenUri;
   _lepton.price = event.params.price;
   _lepton.supply = event.params.supply;
@@ -64,14 +62,14 @@ export function handleLeptonTypeUpdated(event: LeptonTypeUpdated): void {
 }
 
 export function handleLeptonMinted(event: LeptonMinted): void {
-  const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
+  const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId, '2');
 
   const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
   if (jsonData != null) {
     processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
   }
 
-  const _lepton = loadOrCreateLepton(event.address);
+  const _lepton = loadOrCreateLepton2(event.address);
   _lepton.totalMinted = _lepton.totalMinted.plus(ONE);
   _lepton.save();
 
@@ -80,27 +78,14 @@ export function handleLeptonMinted(event: LeptonMinted): void {
   _leptonBuyer.save();
 }
 
-export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
-  //
-  // WARNING: Event Param: tokenId is INCORRECT in this event - do not rely on it!
-  //
-  const _lepton = loadOrCreateLepton(event.address);
-  _lepton.totalMinted = _lepton.totalMinted.plus(event.params.count);
-  _lepton.save();
-
-  const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
-  _leptonBuyer.buyLeptonCount = _leptonBuyer.buyLeptonCount.plus(ONE);
-  _leptonBuyer.save();
-}
-
 export function handlePausedStateSet(event: PausedStateSet): void {
-  const _lepton = loadOrCreateLepton(event.address);
+  const _lepton = loadOrCreateLepton2(event.address);
   _lepton.paused = event.params.isPaused;
   _lepton.save();
 }
 
 export function handleTransfer(event: Transfer): void {
-  const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
+  const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId, '2');
   _nft.owner = event.params.to;
   _nft.save();
 
@@ -112,36 +97,6 @@ export function handleTransfer(event: Transfer): void {
     const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
     _leptonBuyer.transferLeptonCount = _leptonBuyer.transferLeptonCount.plus(ONE);
     _leptonBuyer.save();
-  }
-
-}
-
-export function handleTransferBatch(event: TransferBatch): void {
-  let nft: LeptonNFT;
-  let tokenId: BigInt;
-  let jsonData: Wrapped<JSONValue> | null;
-
-  for (let i = 0, n = event.params.count.toI32(); i < n; i++) {
-    tokenId = event.params.startTokenId.plus(BigInt.fromI32(i));
-    nft = loadOrCreateLeptonNFT(event.address, tokenId);
-    nft.owner = event.params.to;
-    nft.save();
-
-    if (event.params.from.toHex() == ADDRESS_ZERO) {
-      jsonData = parseJsonFromIpfs(nft.metadataUri);
-      if (jsonData != null) {
-        processLeptonMetadata(jsonData.inner, Value.fromString(nft.id));
-      }
-    }
-    else {
-      const _leptonSeller = loadOrCreateProfileMetric(event.params.from);
-      _leptonSeller.transferLeptonCount = _leptonSeller.transferLeptonCount.plus(ONE);
-      _leptonSeller.save();
-
-      const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
-      _leptonBuyer.transferLeptonCount = _leptonBuyer.transferLeptonCount.plus(ONE);
-      _leptonBuyer.save();
-    }
   }
 }
 

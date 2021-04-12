@@ -3504,6 +3504,141 @@ export class Lepton extends Entity {
   }
 }
 
+export class Lepton2 extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Lepton2 entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Lepton2 entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Lepton2", id.toString(), this);
+  }
+
+  static load(id: string): Lepton2 | null {
+    return store.get("Lepton2", id) as Lepton2 | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get paused(): boolean {
+    let value = this.get("paused");
+    return value.toBoolean();
+  }
+
+  set paused(value: boolean) {
+    this.set("paused", Value.fromBoolean(value));
+  }
+
+  get totalMinted(): BigInt | null {
+    let value = this.get("totalMinted");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set totalMinted(value: BigInt | null) {
+    if (value === null) {
+      this.unset("totalMinted");
+    } else {
+      this.set("totalMinted", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get typeIndex(): BigInt | null {
+    let value = this.get("typeIndex");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set typeIndex(value: BigInt | null) {
+    if (value === null) {
+      this.unset("typeIndex");
+    } else {
+      this.set("typeIndex", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get maxSupply(): BigInt | null {
+    let value = this.get("maxSupply");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxSupply(value: BigInt | null) {
+    if (value === null) {
+      this.unset("maxSupply");
+    } else {
+      this.set("maxSupply", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get maxMintPerTx(): BigInt | null {
+    let value = this.get("maxMintPerTx");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set maxMintPerTx(value: BigInt | null) {
+    if (value === null) {
+      this.unset("maxMintPerTx");
+    } else {
+      this.set("maxMintPerTx", Value.fromBigInt(value as BigInt));
+    }
+  }
+
+  get types(): Array<string> {
+    let value = this.get("types");
+    return value.toStringArray();
+  }
+
+  set types(value: Array<string>) {
+    this.set("types", Value.fromStringArray(value));
+  }
+
+  get tokens(): Array<string> {
+    let value = this.get("tokens");
+    return value.toStringArray();
+  }
+
+  set tokens(value: Array<string>) {
+    this.set("tokens", Value.fromStringArray(value));
+  }
+}
+
 export class LeptonClassification extends Entity {
   constructor(id: string) {
     super();
@@ -3551,6 +3686,23 @@ export class LeptonClassification extends Entity {
       this.unset("lepton");
     } else {
       this.set("lepton", Value.fromString(value as string));
+    }
+  }
+
+  get lepton2(): string | null {
+    let value = this.get("lepton2");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set lepton2(value: string | null) {
+    if (value === null) {
+      this.unset("lepton2");
+    } else {
+      this.set("lepton2", Value.fromString(value as string));
     }
   }
 
@@ -3710,6 +3862,23 @@ export class LeptonNFT extends Entity {
       this.unset("lepton");
     } else {
       this.set("lepton", Value.fromString(value as string));
+    }
+  }
+
+  get lepton2(): string | null {
+    let value = this.get("lepton2");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set lepton2(value: string | null) {
+    if (value === null) {
+      this.unset("lepton2");
+    } else {
+      this.set("lepton2", Value.fromString(value as string));
     }
   }
 

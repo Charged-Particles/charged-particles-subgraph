@@ -40,6 +40,10 @@
     "address": "0xb127A0CcD9533A8b3dD4Be613974952854411B85",
     "startBlock": "23650558"
   },
+  "lepton2": {
+    "address": "0xC8e11613eBBf50f6a6Df3bC1313fF5ffCF04623d",
+    "startBlock": "24013813"
+  },
   "ion": {
     "address": "0xD4b7e8676b2A7fAa6bd175234ffB48316d81DD38",
     "startBlock": "23650558"

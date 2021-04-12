@@ -442,3 +442,43 @@ dataSources:
           handler: handleApproval
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
+  - name: Lepton2
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{lepton2.address}}"
+      abi: Lepton2
+      startBlock: {{lepton2.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/mappingForLepton2.ts
+      entities:
+        - Lepton2
+      abis:
+        - name: Lepton
+          file: ./abis/Lepton.json
+        - name: Lepton2
+          file: ./abis/Lepton2.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: MaxMintPerTxSet(uint256)
+          handler: handleMaxMintPerTxSet
+        - event: LeptonTypeAdded(string,uint256,uint32,uint32,uint32,uint256)
+          handler: handleLeptonTypeAdded
+        - event: LeptonTypeUpdated(uint256,string,uint256,uint32,uint32,uint32,uint256)
+          handler: handleLeptonTypeUpdated
+        - event: LeptonMinted(indexed address,indexed uint256,uint256,uint32)
+          handler: handleLeptonMinted
+        - event: PausedStateSet(bool)
+          handler: handlePausedStateSet
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
