@@ -8,3 +8,5 @@ subgraph.rinkeby.yaml
 subgraph.kovan.yaml
 subgraph.mainnet.yaml
 .DS_Store
+
+.versionFilesList.json
