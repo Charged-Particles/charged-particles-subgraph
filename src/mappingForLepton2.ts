@@ -62,20 +62,7 @@ export function handleLeptonTypeUpdated(event: LeptonTypeUpdated): void {
 }
 
 export function handleLeptonMinted(event: LeptonMinted): void {
-  const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId, '2');
-
-  const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
-  if (jsonData != null) {
-    processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
-  }
-
-  const _lepton = loadOrCreateLepton2(event.address);
-  _lepton.totalMinted = _lepton.totalMinted.plus(ONE);
-  _lepton.save();
-
-  const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
-  _leptonBuyer.buyLeptonCount = _leptonBuyer.buyLeptonCount.plus(ONE);
-  _leptonBuyer.save();
+  // no-op
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {
@@ -97,6 +84,22 @@ export function handleTransfer(event: Transfer): void {
     const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
     _leptonBuyer.transferLeptonCount = _leptonBuyer.transferLeptonCount.plus(ONE);
     _leptonBuyer.save();
+  }
+
+  // Mint Transfer
+  else {
+    const _lepton = loadOrCreateLepton2(event.address);
+    _lepton.totalMinted = _lepton.totalMinted.plus(ONE);
+    _lepton.save();
+
+    const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
+    _leptonBuyer.buyLeptonCount = _leptonBuyer.buyLeptonCount.plus(ONE);
+    _leptonBuyer.save();
+
+    const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
+    if (jsonData != null) {
+      processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
+    }
   }
 }
 
