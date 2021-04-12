@@ -439,11 +439,29 @@ type Lepton @entity {
   tokens: [LeptonNFT!]! @derivedFrom(field: "lepton")
 }
 
+# ID: `${lepton2.address}`
+type Lepton2 @entity {
+  id: ID!
+  owner: Bytes!
+  paused: Boolean
+
+  totalMinted: BigInt
+  typeIndex: BigInt
+  maxSupply: BigInt
+  maxMintPerTx: BigInt
+
+  types: [LeptonClassification!]! @derivedFrom(field: "lepton2")
+
+  tokens: [LeptonNFT!]! @derivedFrom(field: "lepton2")
+}
+
+
 # ID: `${lepton.address}-${lepton.bonus}`
 # dynamically generated type, not mapped to a specific contract
 type LeptonClassification @entity {
   id: ID!
   lepton: Lepton
+  lepton2: Lepton2
 
   metadataUri: String
   price: BigInt
@@ -459,6 +477,7 @@ type LeptonNFT @entity {
   id: ID!
   tokenId: BigInt!
   lepton: Lepton
+  lepton2: Lepton2
   owner: Bytes
 
   price: BigInt
