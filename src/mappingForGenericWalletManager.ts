@@ -11,7 +11,7 @@ import {
 } from '../generated/GenericWalletManager/GenericWalletManager';
 
 import {
-  Proton as ProtonContract 
+  Proton as ProtonContract
 } from '../generated/Proton/Proton';
 
 import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
@@ -54,7 +54,9 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
 export function handleWalletEnergized(event: WalletEnergized): void {
   const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
   if (!genericSmartWallet.assetTokens.includes(event.params.assetToken)) {
-    genericSmartWallet.assetTokens.push(event.params.assetToken);
+    let assetTokens = genericSmartWallet.assetTokens;
+    assetTokens.push(event.params.assetToken);
+    genericSmartWallet.assetTokens = assetTokens;
   }
   genericSmartWallet.save();
 
@@ -66,7 +68,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.plus(event.params.assetAmount);
   assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.plus(event.params.assetAmount);
   assetTokenAnalytics.save();
-  
+
   const boundProton = ProtonContract.bind(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
   _walletOwner.energizeERC20Count = _walletOwner.energizeERC20Count.plus(ONE);
@@ -95,7 +97,7 @@ export function handleWalletReleased(event: WalletReleased): void {
   assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(event.params.principalAmount);
   assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.minus(event.params.principalAmount);
   assetTokenAnalytics.save();
-  
+
   const boundProton = ProtonContract.bind(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
   _walletOwner.releaseMassCount = _walletOwner.releaseMassCount.plus(ONE);

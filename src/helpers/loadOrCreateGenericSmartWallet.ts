@@ -17,6 +17,7 @@ export function loadOrCreateGenericSmartWallet(
     _genericSmartWallet = new GenericSmartWallet(id);
     _genericSmartWallet.tokenId = tokenId;
     _genericSmartWallet.contractAddress = contractAddress;
+    _genericSmartWallet.assetTokens = [];
     _genericSmartWallet.save();
   }
 
