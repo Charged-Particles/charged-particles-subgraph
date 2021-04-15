@@ -22,6 +22,7 @@ export function loadOrCreateGenericNftTokenBalance(
     _nftTokenBalance.tokenId = tokenId;
     _nftTokenBalance.contractAddress = contractAddress;
     _nftTokenBalance.smartBasket = genericSmartBasketId;
+    _nftTokenBalance.nftTokenIds = [];
     _nftTokenBalance.save();
   }
 

@@ -64,7 +64,9 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
 export function handleWalletEnergized(event: WalletEnergized): void {
   const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
   if (!aaveSmartWallet.assetTokens.includes(event.params.assetToken)) {
-    aaveSmartWallet.assetTokens.push(event.params.assetToken);
+    let assetTokens = aaveSmartWallet.assetTokens;
+    assetTokens.push(event.params.assetToken);
+    aaveSmartWallet.assetTokens = assetTokens;
   }
   aaveSmartWallet.save();
 

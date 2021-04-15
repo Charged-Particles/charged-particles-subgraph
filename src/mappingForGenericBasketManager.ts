@@ -50,7 +50,9 @@ export function handleBasketAdd(event: BasketAdd): void {
   genericSmartBasket.save();
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
-  nftTokenBalance.nftTokenIds.push(event.params.basketTokenId);
+  let nftTokenIds = nftTokenBalance.nftTokenIds;
+  nftTokenIds.push(event.params.basketTokenId);
+  nftTokenBalance.nftTokenIds = nftTokenIds;
   nftTokenBalance.save();
 
   var eventData = new Array<string>(4);

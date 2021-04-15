@@ -110,7 +110,9 @@ export function handleApproval(event: Approval): void {
   const tokenId = event.params.tokenId;
 
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
-  _approvedOperator.tokenIds.push(tokenId);
+  let tokenIds = _approvedOperator.tokenIds;
+  tokenIds.push(tokenId);
+  _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }
 
@@ -121,7 +123,9 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
 
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
   const _approvedAllIndicator = NEG_ONE;
-  _approvedOperator.tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  let tokenIds = _approvedOperator.tokenIds;
+  tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }
 

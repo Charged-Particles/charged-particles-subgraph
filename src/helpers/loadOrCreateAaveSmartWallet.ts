@@ -17,6 +17,7 @@ export function loadOrCreateAaveSmartWallet(
     _aaveSmartWallet = new AaveSmartWallet(id);
     _aaveSmartWallet.tokenId = tokenId;
     _aaveSmartWallet.contractAddress = contractAddress;
+    _aaveSmartWallet.assetTokens = [];
     _aaveSmartWallet.save();
   }
 
