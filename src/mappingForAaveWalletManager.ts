@@ -26,6 +26,7 @@ import { loadOrCreateAssetTokenAnalytics } from './helpers/loadOrCreateAssetToke
 import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
 import { loadOrCreateUserTokenMetric } from './helpers/loadOrCreateUserTokenMetric';
 import { ONE } from './helpers/common';
+import { loadOrCreatePlatformMetric } from './helpers/loadOrCreatePlatformMetric';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address);
@@ -105,17 +106,21 @@ export function handleWalletDischarged(event: WalletDischarged): void {
   assetTokenBalance.save();
 
   const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _platformMetric = loadOrCreatePlatformMetric(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
   _walletOwner.dischargeInterestCount = _walletOwner.dischargeInterestCount.plus(ONE);
   _walletOwner.save();
 
   const userTokenMetric = loadOrCreateUserTokenMetric(boundProton.ownerOf(event.params.tokenId), event.params.assetToken);
   userTokenMetric.totalInterestDischarged = userTokenMetric.totalInterestDischarged.plus(event.params.receiverAmount);
+  _platformMetric.platformInterestDischarged = _platformMetric.platformInterestDischarged.plus(event.params.receiverAmount);
   userTokenMetric.save();
 
   const creatorTokenMetric = loadOrCreateUserTokenMetric(boundProton.creatorOf(event.params.tokenId), event.params.assetToken);
   creatorTokenMetric.totalInterestDischarged = creatorTokenMetric.totalInterestDischarged.plus(event.params.creatorAmount);
+  _platformMetric.platformInterestDischarged = _platformMetric.platformInterestDischarged.plus(event.params.creatorAmount);
   creatorTokenMetric.save();
+  _platformMetric.save();
 
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
@@ -133,9 +138,12 @@ export function handleWalletDischargedForCreator(event: WalletDischargedForCreat
   assetTokenBalance.save();
 
   const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _platformMetric = loadOrCreatePlatformMetric(event.params.contractAddress);
   const creatorTokenMetric = loadOrCreateUserTokenMetric(boundProton.creatorOf(event.params.tokenId), event.params.assetToken);
   creatorTokenMetric.totalInterestDischarged = creatorTokenMetric.totalInterestDischarged.plus(event.params.receiverAmount);
+  _platformMetric.platformInterestDischarged = _platformMetric.platformInterestDischarged.plus(event.params.receiverAmount);
   creatorTokenMetric.save();
+  _platformMetric.save();
 
   var eventData = new Array<string>(4);
   eventData[0] = event.params.contractAddress.toHex();
@@ -160,19 +168,23 @@ export function handleWalletReleased(event: WalletReleased): void {
   assetTokenAnalytics.save();
 
   const boundProton = ProtonContract.bind(event.params.contractAddress);
+  const _platformMetric = loadOrCreatePlatformMetric(event.params.contractAddress);
   const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
   _walletOwner.releaseMassCount = _walletOwner.releaseMassCount.plus(ONE);
   _walletOwner.save();
 
   const userTokenMetric = loadOrCreateUserTokenMetric(boundProton.ownerOf(event.params.tokenId), event.params.assetToken);
   userTokenMetric.totalInterestDischarged = userTokenMetric.totalInterestDischarged.plus(ownerInterest);
-  userTokenMetric.totalMassReleased = userTokenMetric.totalMassReleased.plus(event.params.principalAmount)
+  userTokenMetric.totalMassReleased = userTokenMetric.totalMassReleased.plus(event.params.principalAmount);
+  _platformMetric.platformInterestDischarged = _platformMetric.platformInterestDischarged.plus(event.params.receiverAmount);
   userTokenMetric.save();
 
   const creatorTokenMetric = loadOrCreateUserTokenMetric(boundProton.creatorOf(event.params.tokenId), event.params.assetToken);
   creatorTokenMetric.totalInterestDischarged = creatorTokenMetric.totalInterestDischarged.plus(event.params.creatorAmount);
+  _platformMetric.platformInterestDischarged = _platformMetric.platformInterestDischarged.plus(event.params.creatorAmount);
   creatorTokenMetric.save();
-
+  _platformMetric.save();
+  
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();

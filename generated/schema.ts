@@ -4709,3 +4709,61 @@ export class UserTokenMetric extends Entity {
     this.set("totalInterestDischarged", Value.fromBigInt(value));
   }
 }
+
+export class PlatformMetric extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save PlatformMetric entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save PlatformMetric entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("PlatformMetric", id.toString(), this);
+  }
+
+  static load(id: string): PlatformMetric | null {
+    return store.get("PlatformMetric", id) as PlatformMetric | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get platformEthEarned(): BigInt {
+    let value = this.get("platformEthEarned");
+    return value.toBigInt();
+  }
+
+  set platformEthEarned(value: BigInt) {
+    this.set("platformEthEarned", Value.fromBigInt(value));
+  }
+
+  get platformInterestDischarged(): BigInt {
+    let value = this.get("platformInterestDischarged");
+    return value.toBigInt();
+  }
+
+  set platformInterestDischarged(value: BigInt) {
+    this.set("platformInterestDischarged", Value.fromBigInt(value));
+  }
+
+  get platformProtonsMinted(): BigInt {
+    let value = this.get("platformProtonsMinted");
+    return value.toBigInt();
+  }
+
+  set platformProtonsMinted(value: BigInt) {
+    this.set("platformProtonsMinted", Value.fromBigInt(value));
+  }
+}

@@ -594,3 +594,13 @@ type UserTokenMetric @entity {
   totalMassReleased: BigInt!
   totalInterestDischarged: BigInt!
 }
+
+# ID: `${contractAddress}`
+# dynamically generated type, not mapped to a specific contract
+type PlatformMetric @entity {
+  id: ID!
+
+  platformEthEarned: BigInt!
+  platformInterestDischarged: BigInt!
+  platformProtonsMinted: BigInt!
+}

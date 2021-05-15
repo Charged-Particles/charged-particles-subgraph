@@ -34,6 +34,7 @@ import { ZERO, ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, getBigIntValue, parse
 import { updateNftAnalytics } from './helpers/updateNftAnalytics';
 import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
 import { loadOrCreateUserRoyalty } from './helpers/loadOrCreateUserRoyalty';
+import { loadOrCreatePlatformMetric } from './helpers/loadOrCreatePlatformMetric';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -99,6 +100,8 @@ export function handleProtonSold(event: ProtonSold): void {
   _nft.overallSalesTotal = _nft.overallSalesTotal.plus(event.params.salePrice);
   _nft.save();
 
+  const _platformMetric = loadOrCreatePlatformMetric(event.address);
+
   const _creatorRoyalties = loadOrCreateUserRoyalty(event.params.creator);
   _creatorRoyalties.claimableRoyalties = _creatorRoyalties.claimableRoyalties.plus(event.params.creatorRoyalties);
   _creatorRoyalties.save();
@@ -125,6 +128,7 @@ export function handleProtonSold(event: ProtonSold): void {
   const _oldOwnerProfileMetric = loadOrCreateProfileMetric(event.params.oldOwner);
   _oldOwnerProfileMetric.sellProtonCount = _oldOwnerProfileMetric.sellProtonCount.plus(ONE);
   _oldOwnerProfileMetric.totalEthEarned = _oldOwnerProfileMetric.totalEthEarned.plus(event.params.salePrice);
+  _platformMetric.platformEthEarned = _platformMetric.platformEthEarned.plus(event.params.salePrice)
   _oldOwnerProfileMetric.save();
 
   const _newOwnerProfileMetric = loadOrCreateProfileMetric(event.params.newOwner);
@@ -133,7 +137,9 @@ export function handleProtonSold(event: ProtonSold): void {
 
   const _creatorProfileMetric = loadOrCreateProfileMetric(event.params.creator);
   _creatorProfileMetric.totalEthEarned = _creatorProfileMetric.totalEthEarned.plus(event.params.creatorRoyalties);
+  _platformMetric.platformEthEarned = _platformMetric.platformEthEarned.plus(event.params.creatorRoyalties)
   _creatorProfileMetric.save();
+  _platformMetric.save();
 }
 
 export function handleRoyaltiesClaimed(event: RoyaltiesClaimed): void {
