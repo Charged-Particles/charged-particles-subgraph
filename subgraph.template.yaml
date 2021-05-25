@@ -306,9 +306,9 @@ dataSources:
     kind: ethereum/contract
     network: {{network}}
     source:
-      address: "{{ion.address}}"
+      address: "{{ionx.address}}"
       abi: Ion
-      startBlock: {{ion.startBlock}}
+      startBlock: {{ionx.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
