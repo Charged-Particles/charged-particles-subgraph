@@ -36,6 +36,10 @@ export function wBosonId(wBosonAddress: string, accountAddress: string): string 
   return wBosonAddress + '-' + accountAddress;
 }
 
+export function standardNftId(tokenAddress: string, tokenId: string): string {
+  return tokenAddress + '-' + tokenId;
+}
+
 export function protonNftId(protonAddress: string, tokenId: string): string {
   return protonAddress + '-' + tokenId;
 }

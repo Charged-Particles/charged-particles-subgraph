@@ -1,4 +1,9 @@
-import { Address, BigInt, log } from '@graphprotocol/graph-ts';
+import { Address, Wrapped, JSONValue, Value, log } from '@graphprotocol/graph-ts';
+
+import {
+  StandardNFT,
+  StandardNftAttributes,
+} from '../generated/schema';
 
 import {
   OwnershipTransferred,
@@ -9,13 +14,17 @@ import {
   BasketRemove,
 } from '../generated/GenericBasketManager/GenericBasketManager';
 
-import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
-import { loadOrCreateChargedSettings } from './helpers/loadOrCreateChargedSettings';
+import { nftAttributeId } from './helpers/idTemplates';
 import { loadOrCreateGenericBasketManager } from './helpers/loadOrCreateGenericBasketManager';
 import { loadOrCreateGenericSmartBasket } from './helpers/loadOrCreateGenericSmartBasket';
 import { loadOrCreateGenericNftTokenBalance } from './helpers/loadOrCreateGenericNftTokenBalance';
+import { loadOrCreateStandardNFT } from './helpers/loadOrCreateStandardNFT';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
-import { ONE } from './helpers/common';
+import {
+  ONE,
+  getStringValue,
+  parseJsonFromIpfs,
+} from './helpers/common';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -55,6 +64,12 @@ export function handleBasketAdd(event: BasketAdd): void {
   nftTokenBalance.nftTokenIds = nftTokenIds;
   nftTokenBalance.save();
 
+  const stdNft = loadOrCreateStandardNFT(event.params.basketTokenAddress, event.params.basketTokenId);
+  const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(stdNft.metadataUri);
+  if (jsonData != null) {
+    processStandardMetadata(jsonData.inner, Value.fromString(stdNft.id));
+  }
+
   var eventData = new Array<string>(4);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();
@@ -84,4 +99,40 @@ export function handleBasketRemove(event: BasketRemove): void {
   eventData[3] = event.params.basketTokenAddress.toHex();
   eventData[4] = event.params.basketTokenId.toString();
   trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'BasketRemove', eventData.join('-'));
+}
+
+
+export function processStandardMetadata(value: JSONValue, userData: Value): void {
+  const standardNftId = userData.toString();
+  const standardMetadata = value.toObject();
+  if (standardMetadata == null) { return; }
+
+  const _nft = StandardNFT.load(standardNftId);
+  if (!_nft) { return; }
+
+  _nft.name             = getStringValue(standardMetadata, 'name');
+  _nft.symbol           = getStringValue(standardMetadata, 'symbol');
+  _nft.description      = getStringValue(standardMetadata, 'description');
+  _nft.external_url     = getStringValue(standardMetadata, 'external_url');
+  _nft.icon             = getStringValue(standardMetadata, 'icon');
+  _nft.image            = getStringValue(standardMetadata, 'image');
+  _nft.save();
+
+  const attributes = standardMetadata.get('attributes').toArray();
+  for (let i = 0; i < attributes.length; i++) {
+    const attrMap = attributes[i].toObject();
+
+    let attrName = '';
+    let attrValue = '';
+    if (attrMap.isSet('name')) {
+      attrName = attrMap.get('name').toString();
+      attrValue = attrMap.get('value').toString();
+    }
+
+    const nftAttr = new StandardNftAttributes(nftAttributeId(standardNftId, i.toString()));
+    nftAttr.standardNft = standardNftId;
+    nftAttr.name = attrName;
+    nftAttr.value = attrValue;
+    nftAttr.save();
+  }
 }

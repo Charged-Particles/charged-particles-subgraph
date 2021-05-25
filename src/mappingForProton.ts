@@ -2,7 +2,7 @@ import { Address, Wrapped, JSONValue, Value, log } from '@graphprotocol/graph-ts
 
 import {
   ProtonNFT,
-  NFTAttributes,
+  ProtonNftAttributes,
 } from '../generated/schema';
 
 import {
@@ -30,11 +30,19 @@ import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
 import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
-import { ZERO, ADDRESS_ZERO, ONE, NEG_ONE, getStringValue, getBigIntValue, parseJsonFromIpfs } from './helpers/common';
 import { updateNftAnalytics } from './helpers/updateNftAnalytics';
 import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
 import { loadOrCreateUserRoyalty } from './helpers/loadOrCreateUserRoyalty';
 import { loadOrCreatePlatformMetric } from './helpers/loadOrCreatePlatformMetric';
+import {
+  ZERO,
+  ADDRESS_ZERO,
+  ONE,
+  NEG_ONE,
+  getStringValue,
+  getBigIntValue,
+  parseJsonFromIpfs
+} from './helpers/common';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
@@ -236,7 +244,11 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
 
   _nft.save();
 
-  const attributes = protonMetadata.get('attributes').toArray();
+
+  const attributesObject = protonMetadata.get('attributes');
+  if (!attributesObject) { return; }
+
+  const attributes = attributesObject.toArray();
   for (let i = 0; i < attributes.length; i++) {
     const attrMap = attributes[i].toObject();
 
@@ -247,7 +259,7 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
       attrValue = attrMap.get('value').toString();
     }
 
-    const nftAttr = new NFTAttributes(nftAttributeId(protonNftId, i.toString()));
+    const nftAttr = new ProtonNftAttributes(nftAttributeId(protonNftId, i.toString()));
     nftAttr.protonNft = protonNftId;
     nftAttr.name = attrName;
     nftAttr.value = attrValue;

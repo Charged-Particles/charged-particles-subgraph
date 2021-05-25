@@ -205,6 +205,8 @@ dataSources:
           file: ./abis/GenericBasketManager.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: ERC721
+          file: ./abis/ERC721.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred

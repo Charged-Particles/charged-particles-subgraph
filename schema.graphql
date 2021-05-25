@@ -403,7 +403,7 @@ type ProtonNFT @entity {
   decimals: BigInt
   background_color: String
 
-  attributes: [NFTAttributes!]! @derivedFrom(field: "protonNft")
+  attributes: [ProtonNftAttributes!]! @derivedFrom(field: "protonNft")
 }
 
 # ID: `${userAddress}`
@@ -415,9 +415,36 @@ type ProtonNftCount @entity {
   ownedCount: BigInt!
 }
 
-type NFTAttributes @entity {
+type ProtonNftAttributes @entity {
   id: ID!
   protonNft: ProtonNFT!
+  name: String
+  value: String
+}
+
+
+# ID: `${nft.address}-${nft.id}`
+# dynamically generated type, not mapped to a specific contract
+type StandardNFT @entity {
+  id: ID!
+  tokenAddress: Bytes!
+  tokenId: BigInt!
+  owner: Bytes
+
+  metadataUri: String
+  name: String
+  description: String
+  external_url: String
+  icon: String
+  image: String
+  symbol: String
+
+  attributes: [StandardNftAttributes!]! @derivedFrom(field: "standardNft")
+}
+
+type StandardNftAttributes @entity {
+  id: ID!
+  standardNft: StandardNFT!
   name: String
   value: String
 }
