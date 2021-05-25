@@ -238,7 +238,16 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
 
   _nft.save();
 
-  const attributes = protonMetadata.get('attributes').toArray();
+
+  const attributesObject = protonMetadata.get('attributes');
+
+  if (!attributesObject) {
+    return;
+  }
+
+  const attributes = attributesObject.toArray();
+
+
   for (let i = 0; i < attributes.length; i++) {
     const attrMap = attributes[i].toObject();
 
@@ -254,5 +263,5 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
     nftAttr.name = attrName;
     nftAttr.value = attrValue;
     nftAttr.save();
-  }
+  }  
 }
