@@ -251,4 +251,10 @@
       transferLepton
     }
   }
+  platformMetrics {
+    id
+    platformEthEarned
+    platformProtonsMinted
+    platformInterestDischarged
+  }
 }
