@@ -40,7 +40,23 @@
     "address": "",
     "startBlock": ""
   },
-  "ion": {
+  "ionx": {
+    "address": "",
+    "startBlock": ""
+  },
+  "communityVault": {
+    "address": "",
+    "startBlock": ""
+  },
+  "staking": {
+    "address": "",
+    "startBlock": ""
+  },
+  "ionxYieldFarm": {
+    "address": "",
+    "startBlock": ""
+  },
+  "lpYieldFarm": {
     "address": "",
     "startBlock": ""
   }

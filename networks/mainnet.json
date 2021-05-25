@@ -44,8 +44,24 @@
     "address": "0x3Cd2410EAa9c2dCE50aF6CCAb72Dc93879a09c1F",
     "startBlock": "12087091"
   },
-  "ion": {
-    "address": "0xCB367047f6860566a10ab778A02fA48eeCD1f22e",
-    "startBlock": "11859737"
+  "ionx": {
+    "address": "",
+    "startBlock": ""
+  },
+  "communityVault": {
+    "address": "",
+    "startBlock": ""
+  },
+  "staking": {
+    "address": "",
+    "startBlock": ""
+  },
+  "ionxYieldFarm": {
+    "address": "",
+    "startBlock": ""
+  },
+  "lpYieldFarm": {
+    "address": "",
+    "startBlock": ""
   }
 }
