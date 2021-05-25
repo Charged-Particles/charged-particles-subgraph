@@ -7,6 +7,7 @@ import {
 } from '../../generated/Proton/Proton';
 
 import { ADDRESS_ZERO, ZERO, ONE } from './common';
+import { loadOrCreatePlatformMetric } from './loadOrCreatePlatformMetric';
 
 
 function _getCountsObj(id: string):ProtonNftCount {
@@ -34,6 +35,10 @@ export function trackProtonNftCounts(
     counts.createdCount = counts.createdCount.plus(ONE);
     counts.ownedCount = counts.ownedCount.plus(ONE);
     counts.save();
+    
+    const platformMetric = loadOrCreatePlatformMetric(event.address);
+    platformMetric.platformProtonsMinted = platformMetric.platformProtonsMinted.plus(ONE);
+    platformMetric.save();
   }
 
   // Burn
