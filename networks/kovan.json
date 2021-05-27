@@ -45,23 +45,27 @@
     "startBlock": "24013813"
   },
   "ionx": {
-    "address": "0x6baa24863B5d3135F0ed588108C5186F4b6E0215",
-    "startBlock": "25103514"
+    "address": "0xE2365A5c1Cb603Cf14e5907A8595Bc6e57315743",
+    "startBlock": "25103885"
   },
   "communityVault": {
-    "address": "0xefB50dd1cf37c5DBBBB3bC90DCA235A1B1eD7352",
-    "startBlock": "25103514"
+    "address": "0xb3572E1BCc0bEc80011a2d18cfBd015B55b1eFB7",
+    "startBlock": "25103885"
   },
   "staking": {
-    "address": "0xd78d50216a0aFab7EF8fe7aF340D2Bc8Bbf02154",
-    "startBlock": "25103514"
+    "address": "0x9DcD272a1d0445b936CE1c21e9217d80804Ed843",
+    "startBlock": "25103885"
   },
   "ionxYieldFarm": {
-    "address": "0xE5Df4B2BFae09b5988206b1B5F5cE463F96aAd71",
-    "startBlock": "25103514"
+    "address": "0x48572De0a9AB854CF4ed710E90C59c43D25680E5",
+    "startBlock": "25103885"
   },
   "lpYieldFarm": {
-    "address": "0x9aEAf543A62151fA6E7Cca7013f5567ac6bD35d3",
-    "startBlock": "25103514"
+    "address": "0xDA96D7c735f862f545385Ab8D4887A4d7C069E48",
+    "startBlock": "25103885"
+  },
+  "uniEthIonxLpToken": {
+    "address": "0x509cc4b76d3b5424b4f1670f5ebda114c6e56da5",
+    "startBlock": "25103885"
   }
 }
