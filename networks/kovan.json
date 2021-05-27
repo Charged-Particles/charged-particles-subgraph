@@ -45,23 +45,23 @@
     "startBlock": "24013813"
   },
   "ionx": {
-    "address": "0xbD44635a3F708289FD4a59E216A79fA4B121A96d",
-    "startBlock": "25042722"
+    "address": "0x6baa24863B5d3135F0ed588108C5186F4b6E0215",
+    "startBlock": "25103514"
   },
   "communityVault": {
-    "address": "0x2A45595e338e46ab7FF7F3A69a3A82CAeE24C48d",
-    "startBlock": "25042722"
+    "address": "0xefB50dd1cf37c5DBBBB3bC90DCA235A1B1eD7352",
+    "startBlock": "25103514"
   },
   "staking": {
-    "address": "0x1eDD35Fd82aEBCc4B61A99ce10B7473f3B4F1c5b",
-    "startBlock": "25042722"
+    "address": "0xd78d50216a0aFab7EF8fe7aF340D2Bc8Bbf02154",
+    "startBlock": "25103514"
   },
   "ionxYieldFarm": {
-    "address": "0x259a4bC617cbE6a085446C387cc9abf459B3b245",
-    "startBlock": "25042722"
+    "address": "0xE5Df4B2BFae09b5988206b1B5F5cE463F96aAd71",
+    "startBlock": "25103514"
   },
   "lpYieldFarm": {
-    "address": "0x859e8cc4350059EA82115ddd62b59F8c0c564E25",
-    "startBlock": "25042722"
+    "address": "0x9aEAf543A62151fA6E7Cca7013f5567ac6bD35d3",
+    "startBlock": "25103514"
   }
 }
