@@ -45,23 +45,31 @@
     "startBlock": "12087091"
   },
   "ionx": {
-    "address": "",
-    "startBlock": ""
+    "address": "0x02D3A27Ac3f55d5D91Fb0f52759842696a864217",
+    "startBlock": "12533101"
   },
   "communityVault": {
-    "address": "",
-    "startBlock": ""
+    "address": "0xcb3612bD49F020ec78B243dC1BfcFff14a8667Ea",
+    "startBlock": "12533101"
   },
   "staking": {
-    "address": "",
-    "startBlock": ""
+    "address": "0x7E2dA22fDe697324405258872C009C29Da1Fd95B",
+    "startBlock": "12533101"
   },
   "ionxYieldFarm": {
-    "address": "",
-    "startBlock": ""
+    "address": "0xA60dfc360F192acF0891526AB0a141Fe1dc66283",
+    "startBlock": "12533101"
   },
   "lpYieldFarm": {
-    "address": "",
-    "startBlock": ""
+    "address": "0xC645EcD26335C1e3dd1584197dF77dedC15F1aF9",
+    "startBlock": "12533101"
+  },
+  "uniEthIonxLpToken": {
+    "address": "0x60F6E2200bFEf8b4d120028Faff4D9A4486526f4",
+    "startBlock": "12533101"
+  },
+  "merkleDistributor": {
+    "address": "0xc6D0f7bbd2455A54466f475DFbA753Cc6aA76B1d",
+    "startBlock": "12533101"
   }
 }
