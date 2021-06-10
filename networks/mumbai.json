@@ -1,0 +1,39 @@
+{
+  "network": "mumbai",
+  "universe": {
+    "address": "0x8B7f1E7F3412331F1Cd317EAE5040DfE5eaAdAe6",
+    "startBlock": "14895751"
+  },
+  "chargedState": {
+    "address": "0x298cb5798c0F0af4850d1a380E28E25C02FF087A",
+    "startBlock": "14895751"
+  },
+  "chargedSettings": {
+    "address": "0x47563186A46Aa3EBbEA5D294c8514f0ED49f2e2c",
+    "startBlock": "14895751"
+  },
+  "chargedParticles": {
+    "address": "0x3A9891279481bB968a8d1300C40d9279111f1CDA",
+    "startBlock": "14895751"
+  },
+  "genericWalletManager": {
+    "address": "0x02b38cc0526D9BD01cEee7f0c5A9c55BB466D6fD",
+    "startBlock": "14895751"
+  },
+  "genericBasketManager": {
+    "address": "0x9F370C46e6e5A0FcB3E7d469b1b32E11DDC35601",
+    "startBlock": "14895751"
+  },
+  "aaveWalletManager": {
+    "address": "0x67DD6cd2DCaa7649F52c64b90423A4CB511bBd3B",
+    "startBlock": "14895751"
+  },
+  "wBoson": {
+    "address": "0x910296134803E8405B586Fb2a7427523B18F4108",
+    "startBlock": "14895751"
+  },
+  "proton": {
+    "address": "0x7059bc03fDda7D10C9dad792B466DcBDaF6B5eb2",
+    "startBlock": "14895751"
+  }
+}
