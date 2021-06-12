@@ -68,8 +68,8 @@ export class Universe extends Entity {
     }
   }
 
-  get ionToken(): string | null {
-    let value = this.get("ionToken");
+  get ionxToken(): string | null {
+    let value = this.get("ionxToken");
     if (value === null) {
       return null;
     } else {
@@ -77,16 +77,16 @@ export class Universe extends Entity {
     }
   }
 
-  set ionToken(value: string | null) {
+  set ionxToken(value: string | null) {
     if (value === null) {
-      this.unset("ionToken");
+      this.unset("ionxToken");
     } else {
-      this.set("ionToken", Value.fromString(value as string));
+      this.set("ionxToken", Value.fromString(value as string));
     }
   }
 
-  get ionMaxSupply(): BigInt | null {
-    let value = this.get("ionMaxSupply");
+  get ionxMaxSupply(): BigInt | null {
+    let value = this.get("ionxMaxSupply");
     if (value === null) {
       return null;
     } else {
@@ -94,11 +94,11 @@ export class Universe extends Entity {
     }
   }
 
-  set ionMaxSupply(value: BigInt | null) {
+  set ionxMaxSupply(value: BigInt | null) {
     if (value === null) {
-      this.unset("ionMaxSupply");
+      this.unset("ionxMaxSupply");
     } else {
-      this.set("ionMaxSupply", Value.fromBigInt(value as BigInt));
+      this.set("ionxMaxSupply", Value.fromBigInt(value as BigInt));
     }
   }
 
@@ -2465,7 +2465,7 @@ export class WBoson extends Entity {
   }
 }
 
-export class Ion extends Entity {
+export class Ionx extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -2473,17 +2473,17 @@ export class Ion extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save Ion entity without an ID");
+    assert(id !== null, "Cannot save Ionx entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save Ion entity with non-string ID. " +
+      "Cannot save Ionx entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("Ion", id.toString(), this);
+    store.set("Ionx", id.toString(), this);
   }
 
-  static load(id: string): Ion | null {
-    return store.get("Ion", id) as Ion | null;
+  static load(id: string): Ionx | null {
+    return store.get("Ionx", id) as Ionx | null;
   }
 
   get id(): string {
@@ -2531,7 +2531,7 @@ export class Ion extends Entity {
   }
 }
 
-export class IonHolder extends Entity {
+export class IonxHolder extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -2539,17 +2539,17 @@ export class IonHolder extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save IonHolder entity without an ID");
+    assert(id !== null, "Cannot save IonxHolder entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save IonHolder entity with non-string ID. " +
+      "Cannot save IonxHolder entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("IonHolder", id.toString(), this);
+    store.set("IonxHolder", id.toString(), this);
   }
 
-  static load(id: string): IonHolder | null {
-    return store.get("IonHolder", id) as IonHolder | null;
+  static load(id: string): IonxHolder | null {
+    return store.get("IonxHolder", id) as IonxHolder | null;
   }
 
   get id(): string {
@@ -2561,13 +2561,13 @@ export class IonHolder extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get ion(): string {
-    let value = this.get("ion");
+  get ionx(): string {
+    let value = this.get("ionx");
     return value.toString();
   }
 
-  set ion(value: string) {
-    this.set("ion", Value.fromString(value));
+  set ionx(value: string) {
+    this.set("ionx", Value.fromString(value));
   }
 
   get address(): Bytes {

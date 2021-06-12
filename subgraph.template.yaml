@@ -19,8 +19,8 @@ dataSources:
       abis:
         - name: Universe
           file: ./abis/Universe.json
-        - name: Ion
-          file: ./abis/Ion.json
+        - name: Ionx
+          file: ./abis/Ionx.json
         - name: Lepton
           file: ./abis/Lepton.json
         - name: ERC20
@@ -302,23 +302,23 @@ dataSources:
           handler: handleWalletReleased
         - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
           handler: handleWalletRewarded
-  - name: Ion
+  - name: Ionx
     kind: ethereum/contract
     network: {{network}}
     source:
       address: "{{ionx.address}}"
-      abi: Ion
+      abi: Ionx
       startBlock: {{ionx.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/mappingForIon.ts
+      file: ./src/mappingForIonx.ts
       entities:
-        - Ion
+        - Ionx
       abis:
-        - name: Ion
-          file: ./abis/Ion.json
+        - name: Ionx
+          file: ./abis/Ionx.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
@@ -328,8 +328,6 @@ dataSources:
           handler: handleTransfer
         - event: Approval(indexed address,indexed address,uint256)
           handler: handleApproval
-        - event: LockApproval(indexed address,indexed address,uint256)
-          handler: handleLockApproval
   - name: WBoson
     kind: ethereum/contract
     network: {{network}}

@@ -128,7 +128,7 @@
         }
       }
     }
-    ionToken {
+    ionxToken {
       id
       owner
       holders {
@@ -137,7 +137,7 @@
         balance
       }
     }
-    ionMaxSupply
+    ionxMaxSupply
     protonToken {
       id
       owner

@@ -10,3 +10,4 @@ subgraph.mainnet.yaml
 .DS_Store
 
 .versionFilesList.json
+subgraph.mumbai.yaml

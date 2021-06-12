@@ -28,8 +28,8 @@ export function whitelistedNftContractId(chargedParticlesAdress: string, contrac
   return chargedParticlesAdress + '-' + contractAddress;
 }
 
-export function ionTokenHolderId(ionTokenAddress: string, holderAddress: string): string {
-  return ionTokenAddress + '-' + holderAddress;
+export function ionxTokenHolderId(ionxTokenAddress: string, holderAddress: string): string {
+  return ionxTokenAddress + '-' + holderAddress;
 }
 
 export function wBosonId(wBosonAddress: string, accountAddress: string): string {

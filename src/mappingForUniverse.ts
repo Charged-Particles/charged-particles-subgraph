@@ -12,7 +12,7 @@ import {
 } from '../generated/Universe/Universe';
 
 import { loadOrCreateUniverse } from './helpers/loadOrCreateUniverse';
-import { loadOrCreateIonToken } from './helpers/loadOrCreateIonToken';
+import { loadOrCreateIonxToken } from './helpers/loadOrCreateIonxToken';
 import { loadOrCreateProton } from './helpers/loadOrCreateProton';
 import { loadOrCreateLepton } from './helpers/loadOrCreateLepton';
 import { loadOrCreateEsaMultiplier } from './helpers/loadOrCreateEsaMultiplier';
@@ -33,14 +33,14 @@ export function handleChargedParticlesSet(event: ChargedParticlesSet): void {
 }
 
 export function handlePhotonSet(event: PhotonSet): void {
-  const _ion = loadOrCreateIonToken(event.params.photonToken);
+  const _ionx = loadOrCreateIonxToken(event.params.photonToken);
   const _universe = loadOrCreateUniverse(event.address);
 
-  _ion.universe = _universe.id;
-  _universe.ionToken = _ion.id;
-  _universe.ionMaxSupply = event.params.maxSupply;
+  _ionx.universe = _universe.id;
+  _universe.ionxToken = _ionx.id;
+  _universe.ionxMaxSupply = event.params.maxSupply;
 
-  _ion.save();
+  _ionx.save();
   _universe.save();
 }
 

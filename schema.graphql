@@ -5,8 +5,8 @@ type Universe @entity {
   owner: Bytes!
 
   chargedParticles: ChargedParticles
-  ionToken: Ion
-  ionMaxSupply: BigInt
+  ionxToken: Ionx
+  ionxMaxSupply: BigInt
   protonToken: Proton
   leptonToken: Lepton
   esaMultiplier: [ESAMultiplier!]! @derivedFrom(field: "universe")
@@ -318,19 +318,19 @@ type WBoson @entity {
 
 
 # ID: `${ion.address}`
-type Ion @entity {
+type Ionx @entity {
   id: ID!
   owner: Bytes!
   universe: Universe
 
-  holders: [IonHolder!]! @derivedFrom(field: "ion")
+  holders: [IonxHolder!]! @derivedFrom(field: "ionx")
 }
 
 # ID: `${ion.address}-${holder.address}`
 # dynamically generated type, not mapped to a specific contract
-type IonHolder @entity {
+type IonxHolder @entity {
   id: ID!
-  ion: Ion!
+  ionx: Ionx!
   address: Bytes!
 
   balance: BigInt!

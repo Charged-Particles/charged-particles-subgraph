@@ -36,29 +36,25 @@ export class Approval__Params {
   }
 }
 
-export class LockApproval extends ethereum.Event {
-  get params(): LockApproval__Params {
-    return new LockApproval__Params(this);
+export class MinterChanged extends ethereum.Event {
+  get params(): MinterChanged__Params {
+    return new MinterChanged__Params(this);
   }
 }
 
-export class LockApproval__Params {
-  _event: LockApproval;
+export class MinterChanged__Params {
+  _event: MinterChanged;
 
-  constructor(event: LockApproval) {
+  constructor(event: MinterChanged) {
     this._event = event;
   }
 
-  get owner(): Address {
+  get minter(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 
-  get operator(): Address {
+  get newMinter(): Address {
     return this._event.parameters[1].value.toAddress();
-  }
-
-  get amount(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
   }
 }
 
@@ -184,9 +180,9 @@ export class WithdrawStuckEther__Params {
   }
 }
 
-export class Ion extends ethereum.SmartContract {
-  static bind(address: Address): Ion {
-    return new Ion("Ion", address);
+export class Ionx extends ethereum.SmartContract {
+  static bind(address: Address): Ionx {
+    return new Ionx("Ionx", address);
   }
 
   DOMAIN_SEPARATOR(): Bytes {
@@ -210,6 +206,63 @@ export class Ion extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  INFLATION_CAP(): i32 {
+    let result = super.call("INFLATION_CAP", "INFLATION_CAP():(uint8)", []);
+
+    return result[0].toI32();
+  }
+
+  try_INFLATION_CAP(): ethereum.CallResult<i32> {
+    let result = super.tryCall("INFLATION_CAP", "INFLATION_CAP():(uint8)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toI32());
+  }
+
+  INFLATION_EPOCH(): BigInt {
+    let result = super.call(
+      "INFLATION_EPOCH",
+      "INFLATION_EPOCH():(uint32)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_INFLATION_EPOCH(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "INFLATION_EPOCH",
+      "INFLATION_EPOCH():(uint32)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  INITIAL_SUPPLY(): BigInt {
+    let result = super.call("INITIAL_SUPPLY", "INITIAL_SUPPLY():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_INITIAL_SUPPLY(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "INITIAL_SUPPLY",
+      "INITIAL_SUPPLY():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   PERMIT_TYPEHASH(): Bytes {
@@ -279,38 +332,6 @@ export class Ion extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  approveLock(operator: Address, amount: BigInt): boolean {
-    let result = super.call(
-      "approveLock",
-      "approveLock(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(operator),
-        ethereum.Value.fromUnsignedBigInt(amount)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_approveLock(
-    operator: Address,
-    amount: BigInt
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "approveLock",
-      "approveLock(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(operator),
-        ethereum.Value.fromUnsignedBigInt(amount)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
   balanceOf(account: Address): BigInt {
     let result = super.call("balanceOf", "balanceOf(address):(uint256)", [
       ethereum.Value.fromAddress(account)
@@ -323,21 +344,6 @@ export class Ion extends ethereum.SmartContract {
     let result = super.tryCall("balanceOf", "balanceOf(address):(uint256)", [
       ethereum.Value.fromAddress(account)
     ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  cap(): BigInt {
-    let result = super.call("cap", "cap():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_cap(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("cap", "cap():(uint256)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -392,38 +398,6 @@ export class Ion extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  decreaseLockAllowance(operator: Address, subtractedAmount: BigInt): boolean {
-    let result = super.call(
-      "decreaseLockAllowance",
-      "decreaseLockAllowance(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(operator),
-        ethereum.Value.fromUnsignedBigInt(subtractedAmount)
-      ]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_decreaseLockAllowance(
-    operator: Address,
-    subtractedAmount: BigInt
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "decreaseLockAllowance",
-      "decreaseLockAllowance(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(operator),
-        ethereum.Value.fromUnsignedBigInt(subtractedAmount)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
   increaseAllowance(spender: Address, addedValue: BigInt): boolean {
     let result = super.call(
       "increaseAllowance",
@@ -456,152 +430,42 @@ export class Ion extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  increaseLockAllowance(operator: Address, addedAmount: BigInt): boolean {
-    let result = super.call(
-      "increaseLockAllowance",
-      "increaseLockAllowance(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(operator),
-        ethereum.Value.fromUnsignedBigInt(addedAmount)
-      ]
-    );
+  minter(): Address {
+    let result = super.call("minter", "minter():(address)", []);
 
-    return result[0].toBoolean();
+    return result[0].toAddress();
   }
 
-  try_increaseLockAllowance(
-    operator: Address,
-    addedAmount: BigInt
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "increaseLockAllowance",
-      "increaseLockAllowance(address,uint256):(bool)",
-      [
-        ethereum.Value.fromAddress(operator),
-        ethereum.Value.fromUnsignedBigInt(addedAmount)
-      ]
-    );
+  try_minter(): ethereum.CallResult<Address> {
+    let result = super.tryCall("minter", "minter():(address)", []);
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  lock(account: Address, amount: BigInt, blocks: BigInt): boolean {
-    let result = super.call("lock", "lock(address,uint256,uint256):(bool)", [
-      ethereum.Value.fromAddress(account),
-      ethereum.Value.fromUnsignedBigInt(amount),
-      ethereum.Value.fromUnsignedBigInt(blocks)
-    ]);
-
-    return result[0].toBoolean();
-  }
-
-  try_lock(
-    account: Address,
-    amount: BigInt,
-    blocks: BigInt
-  ): ethereum.CallResult<boolean> {
-    let result = super.tryCall("lock", "lock(address,uint256,uint256):(bool)", [
-      ethereum.Value.fromAddress(account),
-      ethereum.Value.fromUnsignedBigInt(amount),
-      ethereum.Value.fromUnsignedBigInt(blocks)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
-  }
-
-  lockAllowance(owner: Address, operator: Address): BigInt {
+  mintingAllowedAfter(): BigInt {
     let result = super.call(
-      "lockAllowance",
-      "lockAllowance(address,address):(uint256)",
-      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(operator)]
+      "mintingAllowedAfter",
+      "mintingAllowedAfter():(uint256)",
+      []
     );
 
     return result[0].toBigInt();
   }
 
-  try_lockAllowance(
-    owner: Address,
-    operator: Address
-  ): ethereum.CallResult<BigInt> {
+  try_mintingAllowedAfter(): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
-      "lockAllowance",
-      "lockAllowance(address,address):(uint256)",
-      [ethereum.Value.fromAddress(owner), ethereum.Value.fromAddress(operator)]
+      "mintingAllowedAfter",
+      "mintingAllowedAfter():(uint256)",
+      []
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  locked(param0: Address): BigInt {
-    let result = super.call("locked", "locked(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-
-    return result[0].toBigInt();
-  }
-
-  try_locked(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("locked", "locked(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  lockedUntil(param0: Address): BigInt {
-    let result = super.call("lockedUntil", "lockedUntil(address):(uint256)", [
-      ethereum.Value.fromAddress(param0)
-    ]);
-
-    return result[0].toBigInt();
-  }
-
-  try_lockedUntil(param0: Address): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "lockedUntil",
-      "lockedUntil(address):(uint256)",
-      [ethereum.Value.fromAddress(param0)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  mintToUniverse(amount: BigInt): boolean {
-    let result = super.call(
-      "mintToUniverse",
-      "mintToUniverse(uint256):(bool)",
-      [ethereum.Value.fromUnsignedBigInt(amount)]
-    );
-
-    return result[0].toBoolean();
-  }
-
-  try_mintToUniverse(amount: BigInt): ethereum.CallResult<boolean> {
-    let result = super.tryCall(
-      "mintToUniverse",
-      "mintToUniverse(uint256):(bool)",
-      [ethereum.Value.fromUnsignedBigInt(amount)]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   name(): string {
@@ -807,44 +671,6 @@ export class ApproveCall__Outputs {
   }
 }
 
-export class ApproveLockCall extends ethereum.Call {
-  get inputs(): ApproveLockCall__Inputs {
-    return new ApproveLockCall__Inputs(this);
-  }
-
-  get outputs(): ApproveLockCall__Outputs {
-    return new ApproveLockCall__Outputs(this);
-  }
-}
-
-export class ApproveLockCall__Inputs {
-  _call: ApproveLockCall;
-
-  constructor(call: ApproveLockCall) {
-    this._call = call;
-  }
-
-  get operator(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class ApproveLockCall__Outputs {
-  _call: ApproveLockCall;
-
-  constructor(call: ApproveLockCall) {
-    this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
-  }
-}
-
 export class DecreaseAllowanceCall extends ethereum.Call {
   get inputs(): DecreaseAllowanceCall__Inputs {
     return new DecreaseAllowanceCall__Inputs(this);
@@ -875,44 +701,6 @@ export class DecreaseAllowanceCall__Outputs {
   _call: DecreaseAllowanceCall;
 
   constructor(call: DecreaseAllowanceCall) {
-    this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
-  }
-}
-
-export class DecreaseLockAllowanceCall extends ethereum.Call {
-  get inputs(): DecreaseLockAllowanceCall__Inputs {
-    return new DecreaseLockAllowanceCall__Inputs(this);
-  }
-
-  get outputs(): DecreaseLockAllowanceCall__Outputs {
-    return new DecreaseLockAllowanceCall__Outputs(this);
-  }
-}
-
-export class DecreaseLockAllowanceCall__Inputs {
-  _call: DecreaseLockAllowanceCall;
-
-  constructor(call: DecreaseLockAllowanceCall) {
-    this._call = call;
-  }
-
-  get operator(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get subtractedAmount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class DecreaseLockAllowanceCall__Outputs {
-  _call: DecreaseLockAllowanceCall;
-
-  constructor(call: DecreaseLockAllowanceCall) {
     this._call = call;
   }
 
@@ -959,155 +747,37 @@ export class IncreaseAllowanceCall__Outputs {
   }
 }
 
-export class IncreaseLockAllowanceCall extends ethereum.Call {
-  get inputs(): IncreaseLockAllowanceCall__Inputs {
-    return new IncreaseLockAllowanceCall__Inputs(this);
+export class MintCall extends ethereum.Call {
+  get inputs(): MintCall__Inputs {
+    return new MintCall__Inputs(this);
   }
 
-  get outputs(): IncreaseLockAllowanceCall__Outputs {
-    return new IncreaseLockAllowanceCall__Outputs(this);
+  get outputs(): MintCall__Outputs {
+    return new MintCall__Outputs(this);
   }
 }
 
-export class IncreaseLockAllowanceCall__Inputs {
-  _call: IncreaseLockAllowanceCall;
+export class MintCall__Inputs {
+  _call: MintCall;
 
-  constructor(call: IncreaseLockAllowanceCall) {
+  constructor(call: MintCall) {
     this._call = call;
   }
 
-  get operator(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get addedAmount(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-}
-
-export class IncreaseLockAllowanceCall__Outputs {
-  _call: IncreaseLockAllowanceCall;
-
-  constructor(call: IncreaseLockAllowanceCall) {
-    this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
-  }
-}
-
-export class LockCall extends ethereum.Call {
-  get inputs(): LockCall__Inputs {
-    return new LockCall__Inputs(this);
-  }
-
-  get outputs(): LockCall__Outputs {
-    return new LockCall__Outputs(this);
-  }
-}
-
-export class LockCall__Inputs {
-  _call: LockCall;
-
-  constructor(call: LockCall) {
-    this._call = call;
-  }
-
-  get account(): Address {
+  get receiver(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 
   get amount(): BigInt {
     return this._call.inputValues[1].value.toBigInt();
   }
-
-  get blocks(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
-  }
 }
 
-export class LockCall__Outputs {
-  _call: LockCall;
+export class MintCall__Outputs {
+  _call: MintCall;
 
-  constructor(call: LockCall) {
+  constructor(call: MintCall) {
     this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
-  }
-}
-
-export class MintToTimelockCall extends ethereum.Call {
-  get inputs(): MintToTimelockCall__Inputs {
-    return new MintToTimelockCall__Inputs(this);
-  }
-
-  get outputs(): MintToTimelockCall__Outputs {
-    return new MintToTimelockCall__Outputs(this);
-  }
-}
-
-export class MintToTimelockCall__Inputs {
-  _call: MintToTimelockCall;
-
-  constructor(call: MintToTimelockCall) {
-    this._call = call;
-  }
-
-  get ionTimelock(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get amounts(): Array<BigInt> {
-    return this._call.inputValues[1].value.toBigIntArray();
-  }
-
-  get releaseTimes(): Array<BigInt> {
-    return this._call.inputValues[2].value.toBigIntArray();
-  }
-}
-
-export class MintToTimelockCall__Outputs {
-  _call: MintToTimelockCall;
-
-  constructor(call: MintToTimelockCall) {
-    this._call = call;
-  }
-}
-
-export class MintToUniverseCall extends ethereum.Call {
-  get inputs(): MintToUniverseCall__Inputs {
-    return new MintToUniverseCall__Inputs(this);
-  }
-
-  get outputs(): MintToUniverseCall__Outputs {
-    return new MintToUniverseCall__Outputs(this);
-  }
-}
-
-export class MintToUniverseCall__Inputs {
-  _call: MintToUniverseCall;
-
-  constructor(call: MintToUniverseCall) {
-    this._call = call;
-  }
-
-  get amount(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class MintToUniverseCall__Outputs {
-  _call: MintToUniverseCall;
-
-  constructor(call: MintToUniverseCall) {
-    this._call = call;
-  }
-
-  get value0(): boolean {
-    return this._call.outputValues[0].value.toBoolean();
   }
 }
 
@@ -1191,32 +861,32 @@ export class RenounceOwnershipCall__Outputs {
   }
 }
 
-export class SetUniverseCall extends ethereum.Call {
-  get inputs(): SetUniverseCall__Inputs {
-    return new SetUniverseCall__Inputs(this);
+export class SetMinterCall extends ethereum.Call {
+  get inputs(): SetMinterCall__Inputs {
+    return new SetMinterCall__Inputs(this);
   }
 
-  get outputs(): SetUniverseCall__Outputs {
-    return new SetUniverseCall__Outputs(this);
+  get outputs(): SetMinterCall__Outputs {
+    return new SetMinterCall__Outputs(this);
   }
 }
 
-export class SetUniverseCall__Inputs {
-  _call: SetUniverseCall;
+export class SetMinterCall__Inputs {
+  _call: SetMinterCall;
 
-  constructor(call: SetUniverseCall) {
+  constructor(call: SetMinterCall) {
     this._call = call;
   }
 
-  get universe(): Address {
+  get newMinter(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 }
 
-export class SetUniverseCall__Outputs {
-  _call: SetUniverseCall;
+export class SetMinterCall__Outputs {
+  _call: SetMinterCall;
 
-  constructor(call: SetUniverseCall) {
+  constructor(call: SetMinterCall) {
     this._call = call;
   }
 }

@@ -35,5 +35,17 @@
   "proton": {
     "address": "0x7059bc03fDda7D10C9dad792B466DcBDaF6B5eb2",
     "startBlock": "14895751"
+  },
+  "lepton": {
+    "address": "0xe5Ef9eB710346cA976949603D46Bd8399C5d3dA9",
+    "startBlock": "14895751"
+  },
+  "lepton2": {
+    "address": "0xaaa06E2A1B1b7685C3575C1c39a4f1Ae6f7Ca7cC",
+    "startBlock": "14895751"
+  },
+  "ionx": {
+    "address": "0x6CBf2bEC05cE425d192E0AA2e5aFb5D3AD301fb5",
+    "startBlock": "14895751"
   }
 }
