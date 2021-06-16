@@ -35,5 +35,17 @@
   "proton": {
     "address": "",
     "startBlock": ""
+  },
+  "lepton": {
+    "address": "",
+    "startBlock": ""
+  },
+  "lepton2": {
+    "address": "",
+    "startBlock": ""
+  },
+  "ionx": {
+    "address": "",
+    "startBlock": ""
   }
 }
