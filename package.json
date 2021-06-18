@@ -48,11 +48,8 @@
     "auth": "graph auth https://api.thegraph.com/deploy/"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "^0.20.1",
-    "@graphprotocol/graph-ts": "^0.20.0",
-    "mustache": "^4.2.0"
-  },
-  "resolutions": {
-    "assemblyscript": "git+https://github.com/AssemblyScript/assemblyscript.git#v0.6"
+    "@graphprotocol/graph-cli": "^0.18.0",
+    "@graphprotocol/graph-ts": "^0.18.1",
+    "mustache": "^4.0.1"
   }
 }
