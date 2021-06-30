@@ -71,5 +71,13 @@
   "merkleDistributor": {
     "address": "0xce2C372cF4040092F9911fa9B62A4536Ec445e8D",
     "startBlock": "12550598"
+  },
+  "merkleDistributor2": {
+    "address": "0x24D02c7AA80cBD9f6d732724fc55050001401AF4",
+    "startBlock": "12550598"
+  },
+  "vestingClaim": {
+    "address": "0x862fC720F06e0b1667832054FD28a8D316C7ACeA",
+    "startBlock": "12550598"
   }
 }
