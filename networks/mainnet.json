@@ -83,5 +83,9 @@
   "vestingClaim": {
     "address": "0xaa6b594C52f75b9A371f4C8c27ad0aBd5FF3222c",
     "startBlock": "12550598"
+  },
+  "vestingClaim2": {
+    "address": "0x5Ae1385fb36a396e716c277672F21C6CA597B1a4",
+    "startBlock": "12550598"
   }
 }
