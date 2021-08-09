@@ -23,6 +23,7 @@ import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import {
   ONE,
   getStringValue,
+  hasAttr,
   parseJsonFromIpfs,
 } from './helpers/common';
 
@@ -118,21 +119,23 @@ export function processStandardMetadata(value: JSONValue, userData: Value): void
   _nft.image            = getStringValue(standardMetadata, 'image');
   _nft.save();
 
-  const attributes = standardMetadata.get('attributes').toArray();
-  for (let i = 0; i < attributes.length; i++) {
-    const attrMap = attributes[i].toObject();
+  if (hasAttr(standardMetadata, 'attributes')) {
+    const attributes = standardMetadata.get('attributes').toArray();
+    for (let i = 0; i < attributes.length; i++) {
+      const attrMap = attributes[i].toObject();
 
-    let attrName = '';
-    let attrValue = '';
-    if (attrMap.isSet('name')) {
-      attrName = attrMap.get('name').toString();
-      attrValue = attrMap.get('value').toString();
+      let attrName = '';
+      let attrValue = '';
+      if (attrMap.isSet('name')) {
+        attrName = attrMap.get('name').toString();
+        attrValue = attrMap.get('value').toString();
+      }
+
+      const nftAttr = new StandardNftAttributes(nftAttributeId(standardNftId, i.toString()));
+      nftAttr.standardNft = standardNftId;
+      nftAttr.name = attrName;
+      nftAttr.value = attrValue;
+      nftAttr.save();
     }
-
-    const nftAttr = new StandardNftAttributes(nftAttributeId(standardNftId, i.toString()));
-    nftAttr.standardNft = standardNftId;
-    nftAttr.name = attrName;
-    nftAttr.value = attrValue;
-    nftAttr.save();
   }
 }

@@ -39,6 +39,7 @@ import {
   ADDRESS_ZERO,
   ONE,
   NEG_ONE,
+  hasAttr,
   getStringValue,
   getBigIntValue,
   parseJsonFromIpfs
@@ -245,24 +246,26 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   _nft.save();
 
 
-  const attributesObject = protonMetadata.get('attributes');
-  if (!attributesObject) { return; }
+  if (hasAttr(protonMetadata, 'attributes')) {
+    const attributesObject = protonMetadata.get('attributes');
+    if (!attributesObject) { return; }
 
-  const attributes = attributesObject.toArray();
-  for (let i = 0; i < attributes.length; i++) {
-    const attrMap = attributes[i].toObject();
+    const attributes = attributesObject.toArray();
+    for (let i = 0; i < attributes.length; i++) {
+      const attrMap = attributes[i].toObject();
 
-    let attrName = '';
-    let attrValue = '';
-    if (attrMap.isSet('name')) {
-      attrName = attrMap.get('name').toString();
-      attrValue = attrMap.get('value').toString();
+      let attrName = '';
+      let attrValue = '';
+      if (attrMap.isSet('name')) {
+        attrName = attrMap.get('name').toString();
+        attrValue = attrMap.get('value').toString();
+      }
+
+      const nftAttr = new ProtonNftAttributes(nftAttributeId(protonNftId, i.toString()));
+      nftAttr.protonNft = protonNftId;
+      nftAttr.name = attrName;
+      nftAttr.value = attrValue;
+      nftAttr.save();
     }
-
-    const nftAttr = new ProtonNftAttributes(nftAttributeId(protonNftId, i.toString()));
-    nftAttr.protonNft = protonNftId;
-    nftAttr.name = attrName;
-    nftAttr.value = attrValue;
-    nftAttr.save();
   }
 }
