@@ -48,10 +48,16 @@
     "address": "0x02D3A27Ac3f55d5D91Fb0f52759842696a864217",
     "startBlock": "12533101"
   },
+
   "communityVault": {
     "address": "0xcb3612bD49F020ec78B243dC1BfcFff14a8667Ea",
     "startBlock": "12533101"
   },
+  "uniEthIonxLpToken": {
+    "address": "0x60F6E2200bFEf8b4d120028Faff4D9A4486526f4",
+    "startBlock": "12533101"
+  },
+
   "staking": {
     "address": "0x7E2dA22fDe697324405258872C009C29Da1Fd95B",
     "startBlock": "12533101"
@@ -64,10 +70,20 @@
     "address": "0xC645EcD26335C1e3dd1584197dF77dedC15F1aF9",
     "startBlock": "12533101"
   },
-  "uniEthIonxLpToken": {
-    "address": "0x60F6E2200bFEf8b4d120028Faff4D9A4486526f4",
-    "startBlock": "12533101"
+
+  "staking2": {
+    "address": "",
+    "startBlock": ""
   },
+  "ionxYieldFarm2": {
+    "address": "",
+    "startBlock": ""
+  },
+  "lpYieldFarm2": {
+    "address": "",
+    "startBlock": ""
+  },
+
   "merkleDistributor": {
     "address": "0xce2C372cF4040092F9911fa9B62A4536Ec445e8D",
     "startBlock": "12550598"
@@ -80,6 +96,7 @@
     "address": "0x89CC9F1e489D1f2cbBaC7c0f155AD1682552ff2C",
     "startBlock": "12550598"
   },
+
   "vestingClaim": {
     "address": "0xaa6b594C52f75b9A371f4C8c27ad0aBd5FF3222c",
     "startBlock": "12550598"
