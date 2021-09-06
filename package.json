@@ -22,8 +22,9 @@
   },
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn",
-    "clean": "rm -rf build/ generated/",
     "prepare:mainnet": "mustache networks/mainnet.json subgraph.template.yaml subgraph.mainnet.yaml",
+    "clean": "rm -rf build/ generated/",
+    "create-local": "graph create charged-particles/kovan-universe --node http://127.0.0.1:8020",
     "prepare:rinkeby": "mustache networks/rinkeby.json subgraph.template.yaml subgraph.rinkeby.yaml",
     "prepare:ropsten": "mustache networks/ropsten.json subgraph.template.yaml subgraph.ropsten.yaml",
     "prepare:kovan": "mustache networks/kovan.json subgraph.template.yaml subgraph.kovan.yaml",
@@ -37,6 +38,7 @@
     "gen:polygon": "graph codegen subgraph.polygon.yaml",
     "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 charged-particles/universe subgraph.local.yaml",
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ethereum-universe subgraph.mainnet.yaml",
+    "deploy:local:kovan": "graph deploy --node http://127.0.0.1:8020  --ipfs http://localhost:5001 charged-particles/kovan-universe subgraph.kovan.yaml",
     "deploy:kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-universe subgraph.kovan.yaml",
     "deploy:kovan-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/dev-universe subgraph.kovan.yaml",
     "deploy:kovan-secord": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ robsecord/kovan-universe subgraph.kovan.yaml",
@@ -48,11 +50,15 @@
     "vbump": "version update -p",
     "codegen": "graph codegen",
     "build": "graph build",
-    "auth": "graph auth https://api.thegraph.com/deploy/"
+    "auth": "graph auth https://api.thegraph.com/deploy/",
+    "test": "graph build && ./matchstick Gravity"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.18.0",
     "@graphprotocol/graph-ts": "0.18.1",
     "mustache": "4.0.1"
+  },
+  "devDependencies": {
+    "matchstick-as": "^0.0.50"
   }
 }
