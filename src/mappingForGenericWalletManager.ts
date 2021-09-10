@@ -25,6 +25,8 @@ import { loadOrCreateUserTokenMetric } from './helpers/loadOrCreateUserTokenMetr
 
 import { ONE } from './helpers/common';
 
+export { runTests } from './tests/example.test';
+
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   const genericWalletManager = loadOrCreateGenericWalletManager(event.address);
   genericWalletManager.owner = event.params.newOwner;

@@ -82,6 +82,13 @@ Join our community, share ideas and help support the project in anyway you want!
 
 See package.json for more scripts
 
+#### Tests:
+
+```sh
+  yarn test
+```
+
+Windows: `npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"`
 ---
 
 _MIT License_
