@@ -41,6 +41,7 @@ import {
     return walletEnergizedEvent;
   }
   export function runTests(): void {
+    log.info("Yassy!",[]);
     test("Energize then Discharge balance", () => {
     
         let newEnergizeEvent = createWalletEnergizedEvent("0xd4f7389297d9cea850777ea6ccbd7db5817a12b2",247,"0xa562464147c3054592a3836cff103d29d78cd263",10000,0);
