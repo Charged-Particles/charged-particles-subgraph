@@ -84,6 +84,19 @@
     "startBlock": "26759948"
   },
 
+  "staking3": {
+    "address": "0xD99e6f3495a9804381C906DD78144fc91494c3c4",
+    "startBlock": "26759948"
+  },
+  "ionxYieldFarm3": {
+    "address": "0x01B400D11FC0765896386D572aFB15AAF02EBcE0",
+    "startBlock": "26759948"
+  },
+  "lpYieldFarm3": {
+    "address": "0x6074977d2067D50F7b1Dbe68B0613178ac01360D",
+    "startBlock": "26759948"
+  },
+
   "merkleDistributor": {
     "address": "0xcfB8807410A1c78C018fEd0e7D4E64eEA7359807",
     "startBlock": "25172767"
@@ -96,7 +109,6 @@
     "address": "0xC31A0c427427CA4f47bE142725a927BBFA9C7053",
     "startBlock": "25172767"
   },
-
   "vestingClaim": {
     "address": "0x8cF942F0A2c54ed0F991F960437757F7729BCE97",
     "startBlock": "25172767"
@@ -111,6 +123,10 @@
   },
   "vestingClaim4": {
     "address": "0x2A306E9A720295aCD0f63348eF5A63bAde7F5B7e",
+    "startBlock": "27005555"
+  },
+  "vestingClaim5": {
+    "address": "0xB3288a91d997661b6A70dfe0b439B77943b19F4f",
     "startBlock": "27005555"
   }
 
