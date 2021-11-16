@@ -84,6 +84,19 @@
     "startBlock": "13079769"
   },
 
+  "staking3": {
+    "address": "0x44bc521e97d7f3d874eb3b6ba40cfd88ee6c6986",
+    "startBlock": "13620806"
+  },
+  "ionxYieldFarm3": {
+    "address": "0x5791c016ac15648450079b41c1ac40c252530ec8",
+    "startBlock": "13620806"
+  },
+  "lpYieldFarm3": {
+    "address": "0x905b63392c4847fd6cc4cc0c89c6129d3322d058",
+    "startBlock": "13620806"
+  },
+
   "merkleDistributor": {
     "address": "0xce2C372cF4040092F9911fa9B62A4536Ec445e8D",
     "startBlock": "12550598"
