@@ -59,15 +59,15 @@
   },
 
   "staking": {
-    "address": "0x81e55388a2ad26cB74b0D18ACf9f871EB3076028",
+    "address": "0xe1d190bE034f715B9fE2C467803841D8B29153bA",
     "startBlock": "25172767"
   },
   "ionxYieldFarm": {
-    "address": "0x0c7600acbd1383e534e0a1199e81842AE68F67f6",
+    "address": "0xE10AB365d7Bbe627CCeAE9440b33369AD6743d05",
     "startBlock": "25172767"
   },
   "lpYieldFarm": {
-    "address": "0xEcd55315889aD952BE8E5018b5e231A630e9AFD4",
+    "address": "0x2dC5899a1FbF2853C6e0f1DbE8B9E011b8982A92",
     "startBlock": "25172767"
   },
 
