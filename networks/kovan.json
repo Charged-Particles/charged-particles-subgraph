@@ -59,28 +59,41 @@
   },
 
   "staking": {
-    "address": "0x95407292f754C452374B7c19B5EE37bf2539F005",
+    "address": "0xe1d190bE034f715B9fE2C467803841D8B29153bA",
     "startBlock": "25172767"
   },
   "ionxYieldFarm": {
-    "address": "0x21eE53D4e9fb997E9ECdf22263972Ad2e76A0B59",
+    "address": "0xE10AB365d7Bbe627CCeAE9440b33369AD6743d05",
     "startBlock": "25172767"
   },
   "lpYieldFarm": {
-    "address": "0xd3421941b1F2615521185b4A3421fE7Bf3B753Fb",
+    "address": "0x2dC5899a1FbF2853C6e0f1DbE8B9E011b8982A92",
     "startBlock": "25172767"
   },
 
   "staking2": {
-    "address": "0x63eF299c136d88748A6a7e011E327a02246C3d27",
+    "address": "0x02Ce38B744D2281d922187Da31777A7da1fB9b8e",
     "startBlock": "26759948"
   },
   "ionxYieldFarm2": {
-    "address": "0x46aC4842c7707be96603eC471d76FC2f8634Bd60",
+    "address": "0xE8c9eFb63CE2F5fDF5D640E0DE3b08C3cf46d868",
     "startBlock": "26759948"
   },
   "lpYieldFarm2": {
-    "address": "0x80A9762245BB34603FeF9679d2ed716ec89532D3",
+    "address": "0xb5B73706bd882D2eeC10212673f02A623491d255",
+    "startBlock": "26759948"
+  },
+
+  "staking3": {
+    "address": "0xd26FDCA0aCc9bA4a66ADE2EA750D3a524FF3Fd64",
+    "startBlock": "26759948"
+  },
+  "ionxYieldFarm3": {
+    "address": "0x62C2d27daCe3673EA2DB08d89893b94eC91900f5",
+    "startBlock": "26759948"
+  },
+  "lpYieldFarm3": {
+    "address": "0xCadcfbc102771f8c547Db48a8E834dE39290fbdD",
     "startBlock": "26759948"
   },
 
@@ -109,7 +122,6 @@
     "address": "0xC31A0c427427CA4f47bE142725a927BBFA9C7053",
     "startBlock": "25172767"
   },
-
   "vestingClaim": {
     "address": "0x8cF942F0A2c54ed0F991F960437757F7729BCE97",
     "startBlock": "25172767"
@@ -127,8 +139,11 @@
     "startBlock": "27005555"
   },
   "vestingClaim5": {
-    "address": "0x3e0F9032f7Ad8870533971b10aa34F28c9670F3B",
+    "address": "0xB3288a91d997661b6A70dfe0b439B77943b19F4f",
+    "startBlock": "27005555"
+  },
+  "vestingClaim6": {
+    "address": "0x9Ce273e7545B9c697D1419D7b32bc9335a5fc44E",
     "startBlock": "27005555"
   }
-
 }
