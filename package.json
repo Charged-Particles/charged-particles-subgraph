@@ -1,6 +1,6 @@
 {
   "name": "@charged-particles/protocol-subgraph",
-  "version": "1.2.37",
+  "version": "1.2.38",
   "description": "Subgraph for the Charged Particles Protocol",
   "author": "Rob Secord <robsecord.eth>",
   "license": "MIT",
