@@ -124,10 +124,6 @@
     "address": "0xafeb3ccC59D65e6c35e7B6106572148e91D8b3dF",
     "startBlock": "13527425"
   },
-  "vestingClaim5": {
-    "address": "0xafeb3ccC59D65e6c35e7B6106572148e91D8b3dF",
-    "startBlock": "13527425"
-  },
   "vestingClaim6": {
     "address": "0x6163608C835005151C1EA3609f9965ed87cF8684",
     "startBlock": "13716102"
