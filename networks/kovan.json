@@ -72,6 +72,7 @@
   },
 
   "staking2": {
+
     "address": "0x06d74b1695A812b956D028b809EE524A7715CA0E",
     "startBlock": "26759948"
   },
@@ -83,7 +84,7 @@
     "address": "0xb8eAc0C7E4E78f653B263d6A45C4B46f9c66864D",
     "startBlock": "26759948"
   },
-
+  
   "staking3": {
     "address": "0x64f8A0Ee798CA6e1b1A0a04ABaD867CF2Bc03aA2",
     "startBlock": "26759948"
