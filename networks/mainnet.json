@@ -48,7 +48,6 @@
     "address": "0x02D3A27Ac3f55d5D91Fb0f52759842696a864217",
     "startBlock": "12533101"
   },
-
   "communityVault": {
     "address": "0xcb3612bD49F020ec78B243dC1BfcFff14a8667Ea",
     "startBlock": "12533101"
@@ -57,7 +56,6 @@
     "address": "0x60F6E2200bFEf8b4d120028Faff4D9A4486526f4",
     "startBlock": "12533101"
   },
-
   "staking": {
     "address": "0x7E2dA22fDe697324405258872C009C29Da1Fd95B",
     "startBlock": "12533101"
@@ -70,7 +68,6 @@
     "address": "0xC645EcD26335C1e3dd1584197dF77dedC15F1aF9",
     "startBlock": "12533101"
   },
-
   "staking2": {
     "address": "0x64111B1982f4BbB9bf30d8365CC58617Ac503597",
     "startBlock": "13079760"
@@ -83,7 +80,18 @@
     "address": "0xDb6fCdebd6388a58Bc3f36634B3B5dA21a384C31",
     "startBlock": "13079769"
   },
-
+  "staking3": {
+    "address": "0x44bc521e97d7f3d874eb3b6ba40cfd88ee6c6986",
+    "startBlock": "13621701"
+  },
+  "ionxYieldFarm3": {
+    "address": "0x5791c016ac15648450079b41c1ac40c252530ec8",
+    "startBlock": "13621701"
+  },
+  "lpYieldFarm3": {
+    "address": "0x905b63392c4847fd6cc4cc0c89c6129d3322d058",
+    "startBlock": "13621701"
+  },
   "merkleDistributor": {
     "address": "0xce2C372cF4040092F9911fa9B62A4536Ec445e8D",
     "startBlock": "12550598"
@@ -96,7 +104,6 @@
     "address": "0x89CC9F1e489D1f2cbBaC7c0f155AD1682552ff2C",
     "startBlock": "12550598"
   },
-
   "vestingClaim": {
     "address": "0xaa6b594C52f75b9A371f4C8c27ad0aBd5FF3222c",
     "startBlock": "12550598"
