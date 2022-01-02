@@ -8,15 +8,21 @@ export const NEG_ONE = BigInt.fromI32(-1);
 
 
 export function getStringValue(obj: TypedMap<string, JSONValue>, key: string): string {
-  if (obj.isSet(key) && !obj.get(key).isNull()) {
-    return obj.get(key).toString();
+  if (obj.isSet(key)) {
+    const val = obj.get(key);
+    if (val && !val.isNull()) {
+      return val.toString();
+    }
   }
   return '';
 };
 
 export function getBigIntValue(obj: TypedMap<string, JSONValue>, key: string): BigInt {
-  if (obj.isSet(key) && !obj.get(key).isNull()) {
-    return obj.get(key).toBigInt();
+  if (obj.isSet(key)) {
+    const val = obj.get(key);
+    if (val && !val.isNull()) {
+      return val.toBigInt();
+    }
   }
   return ZERO;
 };

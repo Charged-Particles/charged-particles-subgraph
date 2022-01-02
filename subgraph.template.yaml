@@ -11,7 +11,7 @@ dataSources:
       startBlock: {{universe.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForUniverse.ts
       entities:
@@ -53,7 +53,7 @@ dataSources:
       startBlock: {{chargedParticles.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForChargedParticles.ts
       entities:
@@ -87,7 +87,7 @@ dataSources:
       startBlock: {{chargedState.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForChargedState.ts
       entities:
@@ -139,7 +139,7 @@ dataSources:
       startBlock: {{chargedSettings.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForChargedSettings.ts
       entities:
@@ -195,7 +195,7 @@ dataSources:
       startBlock: {{genericBasketManager.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForGenericBasketManager.ts
       entities:
@@ -229,7 +229,7 @@ dataSources:
       startBlock: {{genericWalletManager.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForGenericWalletManager.ts
       entities:
@@ -269,7 +269,7 @@ dataSources:
       startBlock: {{aaveWalletManager.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForAaveWalletManager.ts
       entities:
@@ -311,7 +311,7 @@ dataSources:
       startBlock: {{ionx.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForIonx.ts
       entities:
@@ -337,7 +337,7 @@ dataSources:
       startBlock: {{wBoson.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForWBoson.ts
       entities:
@@ -359,7 +359,7 @@ dataSources:
       startBlock: {{proton.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForProton.ts
       entities:
@@ -409,7 +409,7 @@ dataSources:
       startBlock: {{lepton.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForLepton.ts
       entities:
@@ -451,7 +451,7 @@ dataSources:
       startBlock: {{lepton2.startBlock}}
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.6
       language: wasm/assemblyscript
       file: ./src/mappingForLepton2.ts
       entities:

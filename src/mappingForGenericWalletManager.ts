@@ -53,11 +53,15 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
 
 export function handleWalletEnergized(event: WalletEnergized): void {
   const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
-  if (!genericSmartWallet.assetTokens.includes(event.params.assetToken)) {
-    let assetTokens = genericSmartWallet.assetTokens;
-    assetTokens.push(event.params.assetToken);
-    genericSmartWallet.assetTokens = assetTokens;
+  let assetTokens = genericSmartWallet.assetTokens;
+  if (assetTokens) {
+    if (!assetTokens.includes(event.params.assetToken)) {
+      assetTokens.push(event.params.assetToken);
+    }
+  } else {
+    assetTokens = [event.params.assetToken];
   }
+  genericSmartWallet.assetTokens = assetTokens;
   genericSmartWallet.save();
 
   const assetTokenBalance = loadOrCreateGenericAssetTokenBalance(genericSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
