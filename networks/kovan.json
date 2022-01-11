@@ -1,51 +1,51 @@
 {
   "network": "kovan",
   "universe": {
-    "address": "0xbEe74bB38AB31d8cFf3f8F543037B749644a2Afd",
+    "address": "0xdF1640825F288CA468871402c045a6EB9eE70874",
     "startBlock": "23650558"
   },
   "chargedState": {
-    "address": "0xD63423049022bd77C530aD6f293Bc4209A6d565B",
+    "address": "0xdd6F96dF60F0829541fA72189b0c479210EB6d3f",
     "startBlock": "23650558"
   },
   "chargedSettings": {
-    "address": "0x57B5C64E0494a7Bd4A98B33C105E3ef31301dFdF",
+    "address": "0xEf01Fe995911a8d20688E3Cf7314700659A6Df26",
     "startBlock": "23650558"
   },
   "chargedParticles": {
-    "address": "0xF03EAB2b60eFB6E24C1b254A2D6fC91Eb639D6d3",
+    "address": "0xeb660267822d67045114681E140875cc35637AF7",
     "startBlock": "23650558"
   },
   "genericWalletManager": {
-    "address": "0x5054a46F0D29Ec050C4741b33E04A038B82FcC99",
+    "address": "0x34050979e2A294af6F6666ddA87aA05A0b22949F",
     "startBlock": "23650558"
   },
   "genericBasketManager": {
-    "address": "0x902F3fC102Ef1056f5334C1E39BDd7dC66564842",
+    "address": "0xf524C47E85B4eDA69449f4586b29f73bd51752f4",
     "startBlock": "23650558"
   },
   "aaveWalletManager": {
-    "address": "0x11377b12c9e861762630464e4626B18167D17C99",
+    "address": "0x2b1A2a8827Ddc5633d972086988ab1e85584D3D3",
     "startBlock": "23650558"
   },
   "wBoson": {
-    "address": "0x2eE894dbeBFAE8bCaAf2add5c29cFD60f2b4259A",
+    "address": "0x710F78Ab61d8a0f026Ed5963238087a95e536A1f",
     "startBlock": "23650558"
   },
   "proton": {
-    "address": "0xD4F7389297d9cea850777EA6ccBD7Db5817a12b2",
+    "address": "0x908ab1E2e11B239ab407836dBd5FBc73D03D4523",
     "startBlock": "23650558"
   },
   "lepton": {
-    "address": "0xb127A0CcD9533A8b3dD4Be613974952854411B85",
+    "address": "0x4D95d0E80A3B7a9A40351B716e5AAb344461B3eE",
     "startBlock": "23650558"
   },
   "lepton2": {
-    "address": "0xC8e11613eBBf50f6a6Df3bC1313fF5ffCF04623d",
+    "address": "0x80c5E9Eef0e34bb08557f3c35dcdf00ac4E550BD",
     "startBlock": "24013813"
   },
   "ionx": {
-    "address": "0xD2eAb3D155DD5a0c5745ce4661650E3Cb266c329",
+    "address": "0x01996Ddd971BDe051b7e6B0B9ae0b3E7b2440B9c",
     "startBlock": "25172767"
   },
 
