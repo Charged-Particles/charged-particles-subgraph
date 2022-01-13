@@ -29,23 +29,23 @@
     "startBlock": "23650558"
   },
   "wBoson": {
-    "address": "0x710F78Ab61d8a0f026Ed5963238087a95e536A1f",
+    "address": "0x2eE894dbeBFAE8bCaAf2add5c29cFD60f2b4259A",
     "startBlock": "23650558"
   },
   "proton": {
-    "address": "0x908ab1E2e11B239ab407836dBd5FBc73D03D4523",
+    "address": "0xD4F7389297d9cea850777EA6ccBD7Db5817a12b2",
     "startBlock": "23650558"
   },
   "lepton": {
-    "address": "0x4D95d0E80A3B7a9A40351B716e5AAb344461B3eE",
+    "address": "0xb127A0CcD9533A8b3dD4Be613974952854411B85",
     "startBlock": "23650558"
   },
   "lepton2": {
-    "address": "0x80c5E9Eef0e34bb08557f3c35dcdf00ac4E550BD",
+    "address": "0xC8e11613eBBf50f6a6Df3bC1313fF5ffCF04623d",
     "startBlock": "24013813"
   },
   "ionx": {
-    "address": "0x01996Ddd971BDe051b7e6B0B9ae0b3E7b2440B9c",
+    "address": "0xD2eAb3D155DD5a0c5745ce4661650E3Cb266c329",
     "startBlock": "25172767"
   },
 

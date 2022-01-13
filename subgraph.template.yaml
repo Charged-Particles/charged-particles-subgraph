@@ -21,6 +21,8 @@ dataSources:
           file: ./abis/Universe.json
         - name: Ionx
           file: ./abis/Ionx.json
+        - name: Proton
+          file: ./abis/Proton.json
         - name: Lepton
           file: ./abis/Lepton.json
         - name: ERC20
