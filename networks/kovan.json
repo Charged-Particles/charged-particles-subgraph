@@ -1,52 +1,52 @@
 {
   "network": "kovan",
   "universe": {
-    "address": "0xdF1640825F288CA468871402c045a6EB9eE70874",
-    "startBlock": "23650558"
+    "address": "0xea5118066d69C728a0c314FC8dC0bE97e7Ce0E0E",
+    "startBlock": "29371069"
   },
   "chargedState": {
-    "address": "0xdd6F96dF60F0829541fA72189b0c479210EB6d3f",
-    "startBlock": "23650558"
+    "address": "0x67C31e7839f75257Ab41f488F8d074a07eB6827f",
+    "startBlock": "29371069"
   },
   "chargedSettings": {
-    "address": "0xEf01Fe995911a8d20688E3Cf7314700659A6Df26",
-    "startBlock": "23650558"
+    "address": "0x9CF586e5B7a7E446dc4f5bc4F29E34Af1ec884cb",
+    "startBlock": "29371069"
   },
   "chargedParticles": {
-    "address": "0xeb660267822d67045114681E140875cc35637AF7",
-    "startBlock": "23650558"
+    "address": "0x002E48F4bc55dd3156c56Dd5B2722257Ef7A486D",
+    "startBlock": "29371069"
   },
   "genericWalletManager": {
-    "address": "0x34050979e2A294af6F6666ddA87aA05A0b22949F",
-    "startBlock": "23650558"
+    "address": "0x48B3Be406877be676Ca1491bB422b562F087e46a",
+    "startBlock": "29371069"
   },
   "genericBasketManager": {
-    "address": "0xf524C47E85B4eDA69449f4586b29f73bd51752f4",
-    "startBlock": "23650558"
+    "address": "0x0aB0846551dff6dDCB41e8E80dF04a7c1b495Bbf",
+    "startBlock": "29371069"
   },
   "aaveWalletManager": {
-    "address": "0x2b1A2a8827Ddc5633d972086988ab1e85584D3D3",
-    "startBlock": "23650558"
+    "address": "0x27b3D1B17471b4e02bcF326c41310eE2336D578A",
+    "startBlock": "29371069"
   },
   "wBoson": {
-    "address": "0x2eE894dbeBFAE8bCaAf2add5c29cFD60f2b4259A",
-    "startBlock": "23650558"
+    "address": "0x18f112F9Ec7b96D453B95Deab92BE628088Effc6",
+    "startBlock": "29371069"
   },
   "proton": {
-    "address": "0xD4F7389297d9cea850777EA6ccBD7Db5817a12b2",
-    "startBlock": "23650558"
+    "address": "0xfb6075A3f960DBcd28Ae4Bb45092ce33D2909060",
+    "startBlock": "29371069"
   },
   "lepton": {
     "address": "0xb127A0CcD9533A8b3dD4Be613974952854411B85",
-    "startBlock": "23650558"
+    "startBlock": "29371069"
   },
   "lepton2": {
-    "address": "0xC8e11613eBBf50f6a6Df3bC1313fF5ffCF04623d",
+    "address": "0x038eb00391BD21b424EB09e8420F88e71f6C4db2",
     "startBlock": "24013813"
   },
   "ionx": {
-    "address": "0xD2eAb3D155DD5a0c5745ce4661650E3Cb266c329",
-    "startBlock": "25172767"
+    "address": "0xBcF8f381aB60f076824F35349CCaA10c58F8a151",
+    "startBlock": "29371069"
   },
 
   "communityVault": {
