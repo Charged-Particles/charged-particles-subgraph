@@ -12,6 +12,10 @@
     "address": "0x9CF586e5B7a7E446dc4f5bc4F29E34Af1ec884cb",
     "startBlock": "29371069"
   },
+  "chargedManagers": {
+    "address": "0x9CF586e5B7a7E446dc4f5bc4F29E34Af1ec884cb",
+    "startBlock": "29371069"
+  },
   "chargedParticles": {
     "address": "0x002E48F4bc55dd3156c56Dd5B2722257Ef7A486D",
     "startBlock": "29371069"
@@ -25,6 +29,18 @@
     "startBlock": "29371069"
   },
   "aaveWalletManager": {
+    "address": "0x27b3D1B17471b4e02bcF326c41310eE2336D578A",
+    "startBlock": "29371069"
+  },
+  "genericWalletManagerB": {
+    "address": "0x48B3Be406877be676Ca1491bB422b562F087e46a",
+    "startBlock": "29371069"
+  },
+  "genericBasketManagerB": {
+    "address": "0x0aB0846551dff6dDCB41e8E80dF04a7c1b495Bbf",
+    "startBlock": "29371069"
+  },
+  "aaveWalletManagerB": {
     "address": "0x27b3D1B17471b4e02bcF326c41310eE2336D578A",
     "startBlock": "29371069"
   },

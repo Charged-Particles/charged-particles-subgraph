@@ -4,6 +4,7 @@ import {
   OwnershipTransferred,
   AaveBridgeSet,
   ControllerSet,
+  ExecutorSet,
   PausedStateSet,
   NewSmartWallet,
   WalletEnergized,
@@ -44,6 +45,10 @@ export function handleControllerSet(event: ControllerSet): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address);
   aaveWalletManager.chargedParticles = event.params.controller;
   aaveWalletManager.save();
+}
+
+export function handleExecutorSet(event: ExecutorSet): void {
+  // no-op
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {

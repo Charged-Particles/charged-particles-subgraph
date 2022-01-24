@@ -106,6 +106,36 @@ export class Transfer__Params {
   }
 }
 
+export class WithdrawStuckERC1155 extends ethereum.Event {
+  get params(): WithdrawStuckERC1155__Params {
+    return new WithdrawStuckERC1155__Params(this);
+  }
+}
+
+export class WithdrawStuckERC1155__Params {
+  _event: WithdrawStuckERC1155;
+
+  constructor(event: WithdrawStuckERC1155) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
 export class WithdrawStuckERC20 extends ethereum.Event {
   get params(): WithdrawStuckERC20__Params {
     return new WithdrawStuckERC20__Params(this);

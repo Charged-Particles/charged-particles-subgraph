@@ -74,6 +74,40 @@ export class BasketRemove__Params {
   }
 }
 
+export class BasketRewarded extends ethereum.Event {
+  get params(): BasketRewarded__Params {
+    return new BasketRewarded__Params(this);
+  }
+}
+
+export class BasketRewarded__Params {
+  _event: BasketRewarded;
+
+  constructor(event: BasketRewarded) {
+    this._event = event;
+  }
+
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get rewardsToken(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
+  get rewardsAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
 export class ControllerSet extends ethereum.Event {
   get params(): ControllerSet__Params {
     return new ControllerSet__Params(this);
@@ -88,6 +122,24 @@ export class ControllerSet__Params {
   }
 
   get controller(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
+export class ExecutorSet extends ethereum.Event {
+  get params(): ExecutorSet__Params {
+    return new ExecutorSet__Params(this);
+  }
+}
+
+export class ExecutorSet__Params {
+  _event: ExecutorSet;
+
+  constructor(event: ExecutorSet) {
+    this._event = event;
+  }
+
+  get executor(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 }
@@ -155,6 +207,36 @@ export class PausedStateSet__Params {
 
   get isPaused(): boolean {
     return this._event.parameters[0].value.toBoolean();
+  }
+}
+
+export class WithdrawStuckERC1155 extends ethereum.Event {
+  get params(): WithdrawStuckERC1155__Params {
+    return new WithdrawStuckERC1155__Params(this);
+  }
+}
+
+export class WithdrawStuckERC1155__Params {
+  _event: WithdrawStuckERC1155;
+
+  constructor(event: WithdrawStuckERC1155) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
   }
 }
 
@@ -509,6 +591,53 @@ export class GenericBasketManager extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  withdrawRewards(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    rewardsToken: Address,
+    rewardsAmount: BigInt
+  ): BigInt {
+    let result = super.call(
+      "withdrawRewards",
+      "withdrawRewards(address,address,uint256,address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(rewardsToken),
+        ethereum.Value.fromUnsignedBigInt(rewardsAmount)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_withdrawRewards(
+    receiver: Address,
+    contractAddress: Address,
+    tokenId: BigInt,
+    rewardsToken: Address,
+    rewardsAmount: BigInt
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "withdrawRewards",
+      "withdrawRewards(address,address,uint256,address,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromAddress(contractAddress),
+        ethereum.Value.fromUnsignedBigInt(tokenId),
+        ethereum.Value.fromAddress(rewardsToken),
+        ethereum.Value.fromUnsignedBigInt(rewardsAmount)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 }
 
@@ -884,6 +1013,56 @@ export class TransferOwnershipCall__Outputs {
   }
 }
 
+export class WithdrawERC1155Call extends ethereum.Call {
+  get inputs(): WithdrawERC1155Call__Inputs {
+    return new WithdrawERC1155Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC1155Call__Outputs {
+    return new WithdrawERC1155Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC1155Call__Inputs {
+  _call: WithdrawERC1155Call;
+
+  constructor(call: WithdrawERC1155Call) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+
+  get nftTokenAddress(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get nftTokenId(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class WithdrawERC1155Call__Outputs {
+  _call: WithdrawERC1155Call;
+
+  constructor(call: WithdrawERC1155Call) {
+    this._call = call;
+  }
+}
+
 export class WithdrawERC20Call extends ethereum.Call {
   get inputs(): WithdrawERC20Call__Inputs {
     return new WithdrawERC20Call__Inputs(this);
@@ -1015,5 +1194,55 @@ export class WithdrawEtherCall__Outputs {
 
   constructor(call: WithdrawEtherCall) {
     this._call = call;
+  }
+}
+
+export class WithdrawRewardsCall extends ethereum.Call {
+  get inputs(): WithdrawRewardsCall__Inputs {
+    return new WithdrawRewardsCall__Inputs(this);
+  }
+
+  get outputs(): WithdrawRewardsCall__Outputs {
+    return new WithdrawRewardsCall__Outputs(this);
+  }
+}
+
+export class WithdrawRewardsCall__Inputs {
+  _call: WithdrawRewardsCall;
+
+  constructor(call: WithdrawRewardsCall) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get rewardsToken(): Address {
+    return this._call.inputValues[3].value.toAddress();
+  }
+
+  get rewardsAmount(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+}
+
+export class WithdrawRewardsCall__Outputs {
+  _call: WithdrawRewardsCall;
+
+  constructor(call: WithdrawRewardsCall) {
+    this._call = call;
+  }
+
+  get amount(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
   }
 }

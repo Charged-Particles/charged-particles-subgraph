@@ -28,6 +28,24 @@ export class ControllerSet__Params {
   }
 }
 
+export class ExecutorSet extends ethereum.Event {
+  get params(): ExecutorSet__Params {
+    return new ExecutorSet__Params(this);
+  }
+}
+
+export class ExecutorSet__Params {
+  _event: ExecutorSet;
+
+  constructor(event: ExecutorSet) {
+    this._event = event;
+  }
+
+  get executor(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+}
+
 export class NewSmartWallet extends ethereum.Event {
   get params(): NewSmartWallet__Params {
     return new NewSmartWallet__Params(this);
@@ -277,6 +295,36 @@ export class WalletRewarded__Params {
 
   get rewardsAmount(): BigInt {
     return this._event.parameters[4].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckERC1155 extends ethereum.Event {
+  get params(): WithdrawStuckERC1155__Params {
+    return new WithdrawStuckERC1155__Params(this);
+  }
+}
+
+export class WithdrawStuckERC1155__Params {
+  _event: WithdrawStuckERC1155;
+
+  constructor(event: WithdrawStuckERC1155) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
   }
 }
 
@@ -1692,6 +1740,44 @@ export class GetWalletAddressByIdCall__Outputs {
   }
 }
 
+export class RefreshPrincipalCall extends ethereum.Call {
+  get inputs(): RefreshPrincipalCall__Inputs {
+    return new RefreshPrincipalCall__Inputs(this);
+  }
+
+  get outputs(): RefreshPrincipalCall__Outputs {
+    return new RefreshPrincipalCall__Outputs(this);
+  }
+}
+
+export class RefreshPrincipalCall__Inputs {
+  _call: RefreshPrincipalCall;
+
+  constructor(call: RefreshPrincipalCall) {
+    this._call = call;
+  }
+
+  get contractAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get assetToken(): Address {
+    return this._call.inputValues[2].value.toAddress();
+  }
+}
+
+export class RefreshPrincipalCall__Outputs {
+  _call: RefreshPrincipalCall;
+
+  constructor(call: RefreshPrincipalCall) {
+    this._call = call;
+  }
+}
+
 export class ReleaseCall extends ethereum.Call {
   get inputs(): ReleaseCall__Inputs {
     return new ReleaseCall__Inputs(this);
@@ -1864,6 +1950,36 @@ export class SetControllerCall__Outputs {
   _call: SetControllerCall;
 
   constructor(call: SetControllerCall) {
+    this._call = call;
+  }
+}
+
+export class SetExecutorCall extends ethereum.Call {
+  get inputs(): SetExecutorCall__Inputs {
+    return new SetExecutorCall__Inputs(this);
+  }
+
+  get outputs(): SetExecutorCall__Outputs {
+    return new SetExecutorCall__Outputs(this);
+  }
+}
+
+export class SetExecutorCall__Inputs {
+  _call: SetExecutorCall;
+
+  constructor(call: SetExecutorCall) {
+    this._call = call;
+  }
+
+  get executor(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetExecutorCall__Outputs {
+  _call: SetExecutorCall;
+
+  constructor(call: SetExecutorCall) {
     this._call = call;
   }
 }

@@ -8,10 +8,12 @@ import {
 import {
   OwnershipTransferred,
   ControllerSet,
+  ExecutorSet,
   PausedStateSet,
   NewSmartBasket,
   BasketAdd,
   BasketRemove,
+  BasketRewarded,
 } from '../generated/GenericBasketManager/GenericBasketManager';
 
 import { nftAttributeId } from './helpers/idTemplates';
@@ -37,6 +39,10 @@ export function handleControllerSet(event: ControllerSet): void {
   const genericBasketManager = loadOrCreateGenericBasketManager(event.address);
   genericBasketManager.chargedParticles = event.params.controller;
   genericBasketManager.save();
+}
+
+export function handleExecutorSet(event: ExecutorSet): void {
+  // no-op
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {
@@ -107,6 +113,9 @@ export function handleBasketRemove(event: BasketRemove): void {
   trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'BasketRemove', eventData.join('-'));
 }
 
+export function handleBasketRewarded(event: BasketRewarded): void {
+  // TODO
+}
 
 export function processStandardMetadata(value: JSONValue, userData: Value): void {
   const standardNftId = userData.toString();

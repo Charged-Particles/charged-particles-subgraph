@@ -3,6 +3,7 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 import {
   OwnershipTransferred,
   ControllerSet,
+  ExecutorSet,
   PausedStateSet,
   NewSmartWallet,
   WalletEnergized,
@@ -35,6 +36,10 @@ export function handleControllerSet(event: ControllerSet): void {
   const genericWalletManager = loadOrCreateGenericWalletManager(event.address);
   genericWalletManager.chargedParticles = event.params.controller;
   genericWalletManager.save();
+}
+
+export function handleExecutorSet(event: ExecutorSet): void {
+  // no-op
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {

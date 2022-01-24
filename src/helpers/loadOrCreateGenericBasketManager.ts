@@ -8,21 +8,29 @@ import {
   GenericBasketManager as GenericBasketManagerContract,
 } from '../../generated/GenericBasketManager/GenericBasketManager';
 
+import {
+  GenericBasketManagerB as GenericBasketManagerContractB,
+} from '../../generated/GenericBasketManagerB/GenericBasketManagerB';
+
 
 export function loadOrCreateGenericBasketManager(
-  genericBasketManagerAddress: Address
+  genericBasketManagerAddress: Address,
+  genericBasketManagerVersion: String = 'A'
 ): GenericBasketManager {
   const id = genericBasketManagerAddress.toHex();
   let _genericBasketManager = GenericBasketManager.load(id);
 
+  const isVersionB = (genericBasketManagerVersion === 'B');
+
   if (!_genericBasketManager) {
     _genericBasketManager = new GenericBasketManager(id);
 
-    const boundBasketManager = GenericBasketManagerContract.bind(genericBasketManagerAddress);
+    const contractAbi = isVersionB ? GenericBasketManagerContractB : GenericBasketManagerContract;
+    const boundBasketManager = contractAbi.bind(genericBasketManagerAddress);
     _genericBasketManager.owner = boundBasketManager.owner();
     _genericBasketManager.paused = boundBasketManager.isPaused();
 
-    _genericBasketManager.name = 'generic';
+    _genericBasketManager.name = isVersionB ? 'generic.B' : 'generic';
     _genericBasketManager.address = genericBasketManagerAddress;
 
     _genericBasketManager.save();

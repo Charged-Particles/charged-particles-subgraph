@@ -2,10 +2,9 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
   OwnershipTransferred,
-  UniverseSet,
-  ChargedStateSet,
-  ChargedSettingsSet,
-  LeptonTokenSet,
+  ControllerSet,
+  DepositFeeSet,
+  ProtocolFeesCollected,
 } from '../generated/ChargedParticles/ChargedParticles';
 
 import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
@@ -25,33 +24,41 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   _chargedParticles.save();
 }
 
-export function handleUniverseSet(event: UniverseSet): void {
+export function handleControllerSetSet(event: ControllerSet): void {
   const _chargedParticles = loadOrCreateChargedParticles(event.address);
-  _chargedParticles.universe = event.params.universeAddress.toHex();
+  if (event.controllerId === 'universe') {
+   _chargedParticles.universe = event.params.controller.toHex();
+  }
+  if (event.controllerId === 'settings') {
+   _chargedParticles.chargedSettings = event.params.controller.toHex();
+  }
+  if (event.controllerId === 'state') {
+   _chargedParticles.chargedState = event.params.controller.toHex();
+  }
+  if (event.controllerId === 'managers') {
+   _chargedParticles.chargedManagers = event.params.controller.toHex();
+  }
+  if (event.controllerId === 'leptons') {
+   _chargedParticles.leptonToken = event.params.controller.toHex();
+  }
+  if (event.controllerId === 'forwarder') {
+   _chargedParticles.trustedForwarder = event.params.controller.toHex();
+  }
+  if (event.controllerId === 'tokeninfo') {
+   _chargedParticles.tokenInfoProxy = event.params.controller.toHex();
+  }
   _chargedParticles.save();
 }
 
-export function handleChargedStateSet(event: ChargedStateSet): void {
+export function handleDepositFeeSet(event: DepositFeeSet): void {
   const _chargedParticles = loadOrCreateChargedParticles(event.address);
-  _chargedParticles.chargedState = event.params.chargedState.toHex();
+  _chargedParticles.depositFee = event.params.depositFee;
   _chargedParticles.save();
 }
 
-export function handleChargedSettingsSet(event: ChargedSettingsSet): void {
-  const _chargedParticles = loadOrCreateChargedParticles(event.address);
-  _chargedParticles.chargedSettings = event.params.chargedSettings.toHex();
-  _chargedParticles.save();
+export function handleProtocolFeesCollected(event: ProtocolFeesCollected): void {
+  // no-op
 }
-
-export function handleLeptonTokenSet(event: LeptonTokenSet): void {
-  const _chargedParticles = loadOrCreateChargedParticles(event.address);
-  _chargedParticles.leptonToken = event.params.leptonToken.toHex();
-  _chargedParticles.save();
-}
-
-
-
-
 
 
 // export function handleLiquidityProviderRegistered(event: LiquidityProviderRegistered): void {

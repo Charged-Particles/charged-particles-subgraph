@@ -4,8 +4,6 @@ import {
   OwnershipTransferred,
   DepositCapSet,
   TempLockExpirySet,
-  WalletManagerRegistered,
-  BasketManagerRegistered,
   RequiredWalletManagerSet,
   RequiredBasketManagerSet,
   AssetTokenRestrictionsSet,
@@ -25,8 +23,6 @@ import { loadOrCreateNftSettings } from './helpers/loadOrCreateNftSettings';
 import { loadOrCreateAllowedAsset } from './helpers/loadOrCreateAllowedAsset';
 import { loadOrCreateMaxNfts } from './helpers/loadOrCreateMaxNfts';
 import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreatorSettings';
-import { trackNftTxHistory } from './helpers/trackNftTxHistory';
-import { trackLastKnownOwner } from './helpers/nftState';
 import { loadOrCreateDepositCap } from './helpers/loadOrCreateDepositCap';
 
 
@@ -45,23 +41,6 @@ export function handleDepositCapSet(event: DepositCapSet): void {
 export function handleTempLockExpirySet(event: TempLockExpirySet): void {
   const _chargedSettings = loadOrCreateChargedSettings(event.address);
   _chargedSettings.tempLockExpiryBlocks = event.params.expiryBlocks;
-  _chargedSettings.save();
-}
-
-export function handleWalletManagerRegistered(event: WalletManagerRegistered): void {
-  const _chargedSettings = loadOrCreateChargedSettings(event.address);
-  if (event.params.walletManager.toHex() == "0xa66b72b2eb4164f0bc2586c978e24c479d4e6a47" || event.params.walletManager.toHex() == "0x7a8f5b15cfbff4eaac055524ec139ed75ef6d40a") {
-    _chargedSettings.genericWalletManager = event.params.walletManager.toHex();
-  }
-  if (event.params.walletManager.toHex() == "0x02ab819a76a1053380b1c9016be195a5926bd17c" || event.params.walletManager.toHex() == "0x54b32b288d7904d5d98be1910975a80e45da5e8d") {
-    _chargedSettings.aaveWalletManager = event.params.walletManager.toHex();
-  }
-  _chargedSettings.save();
-}
-
-export function handleBasketManagerRegistered(event: BasketManagerRegistered): void {
-  const _chargedSettings = loadOrCreateChargedSettings(event.address);
-  _chargedSettings.genericBasketManager = event.params.basketManager.toHex();
   _chargedSettings.save();
 }
 
