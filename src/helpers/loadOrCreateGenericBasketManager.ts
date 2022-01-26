@@ -25,14 +25,18 @@ export function loadOrCreateGenericBasketManager(
   if (!_genericBasketManager) {
     _genericBasketManager = new GenericBasketManager(id);
 
-    const contractAbi = isVersionB ? GenericBasketManagerContractB : GenericBasketManagerContract;
-    const boundBasketManager = contractAbi.bind(genericBasketManagerAddress);
-    _genericBasketManager.owner = boundBasketManager.owner();
-    _genericBasketManager.paused = boundBasketManager.isPaused();
+    if (isVersionB) {
+      const boundBasketManager = GenericBasketManagerContractB.bind(genericBasketManagerAddress);
+      _genericBasketManager.owner = boundBasketManager.owner();
+      _genericBasketManager.paused = boundBasketManager.isPaused();
+    } else {
+      const boundBasketManager = GenericBasketManagerContract.bind(genericBasketManagerAddress);
+      _genericBasketManager.owner = boundBasketManager.owner();
+      _genericBasketManager.paused = boundBasketManager.isPaused();
+    }
 
     _genericBasketManager.name = isVersionB ? 'generic.B' : 'generic';
     _genericBasketManager.address = genericBasketManagerAddress;
-
     _genericBasketManager.save();
   }
 

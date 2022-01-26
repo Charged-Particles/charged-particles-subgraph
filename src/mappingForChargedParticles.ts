@@ -9,43 +9,35 @@ import {
 
 import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
 
-// import { loadOrCreateExternalContractSettings } from './helpers/loadOrCreateExternalContractSettings';
-// import { loadOrCreateNftCreatorSettings } from './helpers/loadOrCreateNftCreatorSettings';
-// import { loadOrCreateChargedNftState } from './helpers/loadOrCreateChargedNftState';
-// import { loadOrCreateWhitelistedNftContract } from './helpers/loadOrCreateWhitelistedNftContract';
-
-// import { trackNftTxHistory } from './helpers/trackNftTxHistory';
-// import { trackLastKnownOwner } from './helpers/nftState';
-
-
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   const _chargedParticles = loadOrCreateChargedParticles(event.address);
   _chargedParticles.owner = event.params.newOwner;
   _chargedParticles.save();
 }
 
-export function handleControllerSetSet(event: ControllerSet): void {
+export function handleControllerSet(event: ControllerSet): void {
   const _chargedParticles = loadOrCreateChargedParticles(event.address);
-  if (event.controllerId === 'universe') {
-   _chargedParticles.universe = event.params.controller.toHex();
+  log.info('>>>> event.params.controllerId = {} -- {}', [event.params.controllerId, event.params.controllerAddress.toHex()]);
+  if (event.params.controllerId === 'universe') {
+   _chargedParticles.universe = event.params.controllerAddress.toHex();
   }
-  if (event.controllerId === 'settings') {
-   _chargedParticles.chargedSettings = event.params.controller.toHex();
+  if (event.params.controllerId === 'settings') {
+    _chargedParticles.chargedSettings = event.params.controllerAddress.toHex();
   }
-  if (event.controllerId === 'state') {
-   _chargedParticles.chargedState = event.params.controller.toHex();
+  if (event.params.controllerId === 'state') {
+   _chargedParticles.chargedState = event.params.controllerAddress.toHex();
   }
-  if (event.controllerId === 'managers') {
-   _chargedParticles.chargedManagers = event.params.controller.toHex();
+  if (event.params.controllerId === 'managers') {
+   _chargedParticles.chargedManagers = event.params.controllerAddress.toHex();
   }
-  if (event.controllerId === 'leptons') {
-   _chargedParticles.leptonToken = event.params.controller.toHex();
+  if (event.params.controllerId === 'leptons') {
+   _chargedParticles.leptonToken = event.params.controllerAddress.toHex();
   }
-  if (event.controllerId === 'forwarder') {
-   _chargedParticles.trustedForwarder = event.params.controller.toHex();
+  if (event.params.controllerId === 'forwarder') {
+   _chargedParticles.trustedForwarder = event.params.controllerAddress;
   }
-  if (event.controllerId === 'tokeninfo') {
-   _chargedParticles.tokenInfoProxy = event.params.controller.toHex();
+  if (event.params.controllerId === 'tokeninfo') {
+   _chargedParticles.tokenInfoProxy = event.params.controllerAddress;
   }
   _chargedParticles.save();
 }

@@ -25,10 +25,15 @@ export function loadOrCreateGenericWalletManager(
   if (!_genericWalletManager) {
     _genericWalletManager = new GenericWalletManager(id);
 
-    const contractAbi = isVersionB ? GenericWalletManagerContractB : GenericWalletManagerContract;
-    const boundWalletManager = contractAbi.bind(genericWalletManagerAddress);
-    _genericWalletManager.owner = boundWalletManager.owner();
-    _genericWalletManager.paused = boundWalletManager.isPaused();
+    if (isVersionB) {
+      const boundWalletManager = GenericWalletManagerContractB.bind(genericWalletManagerAddress);
+      _genericWalletManager.owner = boundWalletManager.owner();
+      _genericWalletManager.paused = boundWalletManager.isPaused();
+    } else {
+      const boundWalletManager = GenericWalletManagerContract.bind(genericWalletManagerAddress);
+      _genericWalletManager.owner = boundWalletManager.owner();
+      _genericWalletManager.paused = boundWalletManager.isPaused();
+    }
 
     _genericWalletManager.name = isVersionB ? 'generic.B' : 'generic';
     _genericWalletManager.address = genericWalletManagerAddress;

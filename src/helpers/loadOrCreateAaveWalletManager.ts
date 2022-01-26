@@ -25,10 +25,15 @@ export function loadOrCreateAaveWalletManager(
   if (!_aaveWalletManager) {
     _aaveWalletManager = new AaveWalletManager(id);
 
-    const contractAbi = isVersionB ? AaveWalletManagerContractB : AaveWalletManagerContract;
-    const boundWalletManager = AaveWalletManagerContract.bind(aaveWalletManagerAddress);
-    _aaveWalletManager.owner = boundWalletManager.owner();
-    _aaveWalletManager.paused = boundWalletManager.isPaused();
+    if (isVersionB) {
+      const boundWalletManager = AaveWalletManagerContractB.bind(aaveWalletManagerAddress);
+      _aaveWalletManager.owner = boundWalletManager.owner();
+      _aaveWalletManager.paused = boundWalletManager.isPaused();
+    } else {
+      const boundWalletManager = AaveWalletManagerContract.bind(aaveWalletManagerAddress);
+      _aaveWalletManager.owner = boundWalletManager.owner();
+      _aaveWalletManager.paused = boundWalletManager.isPaused();
+    }
 
     _aaveWalletManager.name = isVersionB ? 'aave.B' : 'aave';
     _aaveWalletManager.address = aaveWalletManagerAddress;
