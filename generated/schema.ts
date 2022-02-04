@@ -5507,3 +5507,203 @@ export class PlatformMetric extends Entity {
     this.set("platformProtonsMinted", Value.fromBigInt(value));
   }
 }
+
+export class Staking extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("owner", Value.fromBytes(Bytes.empty()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Staking entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save Staking entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("Staking", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Staking | null {
+    return changetype<Staking | null>(store.get("Staking", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): Bytes {
+    let value = this.get("owner");
+    return value!.toBytes();
+  }
+
+  set owner(value: Bytes) {
+    this.set("owner", Value.fromBytes(value));
+  }
+
+  get poolSize(): Array<string> {
+    let value = this.get("poolSize");
+    return value!.toStringArray();
+  }
+
+  set poolSize(value: Array<string>) {
+    this.set("poolSize", Value.fromStringArray(value));
+  }
+
+  get userDeposits(): Array<string> {
+    let value = this.get("userDeposits");
+    return value!.toStringArray();
+  }
+
+  set userDeposits(value: Array<string>) {
+    this.set("userDeposits", Value.fromStringArray(value));
+  }
+}
+
+export class StakedPools extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("staking", Value.fromString(""));
+    this.set("tokenAddress", Value.fromBytes(Bytes.empty()));
+    this.set("totalBalance", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save StakedPools entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save StakedPools entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("StakedPools", id.toString(), this);
+    }
+  }
+
+  static load(id: string): StakedPools | null {
+    return changetype<StakedPools | null>(store.get("StakedPools", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get staking(): string {
+    let value = this.get("staking");
+    return value!.toString();
+  }
+
+  set staking(value: string) {
+    this.set("staking", Value.fromString(value));
+  }
+
+  get tokenAddress(): Bytes {
+    let value = this.get("tokenAddress");
+    return value!.toBytes();
+  }
+
+  set tokenAddress(value: Bytes) {
+    this.set("tokenAddress", Value.fromBytes(value));
+  }
+
+  get totalBalance(): BigInt {
+    let value = this.get("totalBalance");
+    return value!.toBigInt();
+  }
+
+  set totalBalance(value: BigInt) {
+    this.set("totalBalance", Value.fromBigInt(value));
+  }
+}
+
+export class StakedDeposits extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("staking", Value.fromString(""));
+    this.set("userAddress", Value.fromBytes(Bytes.empty()));
+    this.set("tokenAddress", Value.fromBytes(Bytes.empty()));
+    this.set("balance", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save StakedDeposits entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save StakedDeposits entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("StakedDeposits", id.toString(), this);
+    }
+  }
+
+  static load(id: string): StakedDeposits | null {
+    return changetype<StakedDeposits | null>(store.get("StakedDeposits", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get staking(): string {
+    let value = this.get("staking");
+    return value!.toString();
+  }
+
+  set staking(value: string) {
+    this.set("staking", Value.fromString(value));
+  }
+
+  get userAddress(): Bytes {
+    let value = this.get("userAddress");
+    return value!.toBytes();
+  }
+
+  set userAddress(value: Bytes) {
+    this.set("userAddress", Value.fromBytes(value));
+  }
+
+  get tokenAddress(): Bytes {
+    let value = this.get("tokenAddress");
+    return value!.toBytes();
+  }
+
+  set tokenAddress(value: Bytes) {
+    this.set("tokenAddress", Value.fromBytes(value));
+  }
+
+  get balance(): BigInt {
+    let value = this.get("balance");
+    return value!.toBigInt();
+  }
+
+  set balance(value: BigInt) {
+    this.set("balance", Value.fromBigInt(value));
+  }
+}

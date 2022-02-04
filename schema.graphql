@@ -647,3 +647,39 @@ type PlatformMetric @entity {
   platformInterestDischarged: BigInt!
   platformProtonsMinted: BigInt!
 }
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Staking & Incentives Platform
+#
+
+
+# ID: `${staking.address}`
+type Staking @entity {
+  id: ID!
+  owner: Bytes!
+
+  poolSize:  [StakedPools!]! @derivedFrom(field: "staking")
+  userDeposits: [StakedDeposits!]! @derivedFrom(field: "staking")
+}
+
+# ID: `${staking.address}-${token.address}`
+# dynamically generated type, not mapped to a specific contract
+type StakedPools @entity {
+  id: ID!
+  staking: Staking!
+
+  tokenAddress: Bytes!
+  totalBalance: BigInt!
+}
+
+# ID: `${staking.address}-${user.address}-${token.address}`
+# dynamically generated type, not mapped to a specific contract
+type StakedDeposits @entity {
+  id: ID!
+  staking: Staking!
+
+  userAddress: Bytes!
+  tokenAddress: Bytes!
+  balance: BigInt!
+}

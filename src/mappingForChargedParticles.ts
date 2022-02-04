@@ -18,25 +18,25 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 export function handleControllerSet(event: ControllerSet): void {
   const _chargedParticles = loadOrCreateChargedParticles(event.address);
   log.info('>>>> event.params.controllerId = {} -- {}', [event.params.controllerId, event.params.controllerAddress.toHex()]);
-  if (event.params.controllerId === 'universe') {
+  if (event.params.controllerId == 'universe') {
    _chargedParticles.universe = event.params.controllerAddress.toHex();
   }
-  if (event.params.controllerId === 'settings') {
+  if (event.params.controllerId == 'settings') {
     _chargedParticles.chargedSettings = event.params.controllerAddress.toHex();
   }
-  if (event.params.controllerId === 'state') {
+  if (event.params.controllerId == 'state') {
    _chargedParticles.chargedState = event.params.controllerAddress.toHex();
   }
-  if (event.params.controllerId === 'managers') {
+  if (event.params.controllerId == 'managers') {
    _chargedParticles.chargedManagers = event.params.controllerAddress.toHex();
   }
-  if (event.params.controllerId === 'leptons') {
+  if (event.params.controllerId == 'leptons') {
    _chargedParticles.leptonToken = event.params.controllerAddress.toHex();
   }
-  if (event.params.controllerId === 'forwarder') {
+  if (event.params.controllerId == 'forwarder') {
    _chargedParticles.trustedForwarder = event.params.controllerAddress;
   }
-  if (event.params.controllerId === 'tokeninfo') {
+  if (event.params.controllerId == 'tokeninfo') {
    _chargedParticles.tokenInfoProxy = event.params.controllerAddress;
   }
   _chargedParticles.save();

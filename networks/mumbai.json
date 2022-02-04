@@ -1,51 +1,75 @@
 {
   "network": "mumbai",
   "universe": {
-    "address": "0x8B7f1E7F3412331F1Cd317EAE5040DfE5eaAdAe6",
-    "startBlock": "14895751"
+    "address": "0xF94df68359c779b742F0D7504ef838107F337B94",
+    "startBlock": "15438945"
   },
   "chargedState": {
-    "address": "0x298cb5798c0F0af4850d1a380E28E25C02FF087A",
-    "startBlock": "14895751"
+    "address": "0x254a1C75D351400b3dD0495781f7ed64ef51A1F3",
+    "startBlock": "24587290"
   },
   "chargedSettings": {
-    "address": "0x47563186A46Aa3EBbEA5D294c8514f0ED49f2e2c",
-    "startBlock": "14895751"
+    "address": "0xC865B0240f2aD46a4c50574Da40c438123e990E9",
+    "startBlock": "24587290"
+  },
+  "chargedManagers": {
+    "address": "0xF5BD554eeB15B97A303c006E4eBc5Ed77c3C2785",
+    "startBlock": "24587290"
   },
   "chargedParticles": {
-    "address": "0x3A9891279481bB968a8d1300C40d9279111f1CDA",
-    "startBlock": "14895751"
+    "address": "0x49D5eA6F886CAe46320935b7632C84E67c8A03a6",
+    "startBlock": "15438945"
   },
   "genericWalletManager": {
-    "address": "0x02b38cc0526D9BD01cEee7f0c5A9c55BB466D6fD",
-    "startBlock": "14895751"
+    "address": "0xD3d8b546eD1A78F8F985443AceC59417b4ED5Cf6",
+    "startBlock": "15438945"
   },
   "genericBasketManager": {
-    "address": "0x9F370C46e6e5A0FcB3E7d469b1b32E11DDC35601",
-    "startBlock": "14895751"
+    "address": "0xB5196932aCdA15a6aE2d6e6289D43f491FEd8C9d",
+    "startBlock": "15438945"
   },
   "aaveWalletManager": {
-    "address": "0x67DD6cd2DCaa7649F52c64b90423A4CB511bBd3B",
-    "startBlock": "14895751"
+    "address": "0xAd0C9593e251C6b74C4819467C52181b188FFD5F",
+    "startBlock": "15438945"
+  },
+  "genericWalletManagerB": {
+    "address": "0x5c97d783F893758b0025AE083c01E8BEf849745D",
+    "startBlock": "24587290"
+  },
+  "genericBasketManagerB": {
+    "address": "0x97a46ac90f5cCF18336b62806d348E3a47850E6C",
+    "startBlock": "24587290"
+  },
+  "aaveWalletManagerB": {
+    "address": "0x1AC2e71Cdd7106c0Ace213952fb6B4e0B01F86be",
+    "startBlock": "24587290"
+  },
+  "particleSplitter": {
+    "address": "0xe14180859265CfA6C43F328e501F9B5e3582BFac",
+    "startBlock": "24587290"
   },
   "wBoson": {
     "address": "0x910296134803E8405B586Fb2a7427523B18F4108",
     "startBlock": "14895751"
   },
   "proton": {
-    "address": "0x7059bc03fDda7D10C9dad792B466DcBDaF6B5eb2",
-    "startBlock": "14895751"
+    "address": "0xBF86c854D83FEC1Fa6421B5a40bbd87Acc5fC387",
+    "startBlock": "15438945"
+  },
+  "protonB": {
+    "address": "0x63912d0bc05fC7044adF26365903C0aDd765adFf",
+    "startBlock": "24587290"
   },
   "lepton": {
     "address": "0xe5Ef9eB710346cA976949603D46Bd8399C5d3dA9",
     "startBlock": "14895751"
   },
   "lepton2": {
-    "address": "0xaaa06E2A1B1b7685C3575C1c39a4f1Ae6f7Ca7cC",
-    "startBlock": "14895751"
+    "address": "0x3a39E5BB3Bb2Ff34517eAD38dfA9A7158Ae2bA3f",
+    "startBlock": "24587290"
   },
   "ionx": {
-    "address": "0x6CBf2bEC05cE425d192E0AA2e5aFb5D3AD301fb5",
-    "startBlock": "14895751"
+    "address": "0xec4953593F238d50a0e9C6635add0503ddFc5e9D",
+    "startBlock": "24587290"
   }
 }
