@@ -383,105 +383,63 @@ export class ChargedManagers extends Entity {
     this.set("owner", Value.fromBytes(value));
   }
 
-  get genericBasketManager(): string | null {
-    let value = this.get("genericBasketManager");
+  get genericBasketManagers(): Array<string> | null {
+    let value = this.get("genericBasketManagers");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
-      return value.toString();
+      return value.toStringArray();
     }
   }
 
-  set genericBasketManager(value: string | null) {
+  set genericBasketManagers(value: Array<string> | null) {
     if (!value) {
-      this.unset("genericBasketManager");
+      this.unset("genericBasketManagers");
     } else {
-      this.set("genericBasketManager", Value.fromString(<string>value));
+      this.set(
+        "genericBasketManagers",
+        Value.fromStringArray(<Array<string>>value)
+      );
     }
   }
 
-  get genericWalletManager(): string | null {
-    let value = this.get("genericWalletManager");
+  get genericWalletManagers(): Array<string> | null {
+    let value = this.get("genericWalletManagers");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
-      return value.toString();
+      return value.toStringArray();
     }
   }
 
-  set genericWalletManager(value: string | null) {
+  set genericWalletManagers(value: Array<string> | null) {
     if (!value) {
-      this.unset("genericWalletManager");
+      this.unset("genericWalletManagers");
     } else {
-      this.set("genericWalletManager", Value.fromString(<string>value));
+      this.set(
+        "genericWalletManagers",
+        Value.fromStringArray(<Array<string>>value)
+      );
     }
   }
 
-  get aaveWalletManager(): string | null {
-    let value = this.get("aaveWalletManager");
+  get aaveWalletManagers(): Array<string> | null {
+    let value = this.get("aaveWalletManagers");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
-      return value.toString();
+      return value.toStringArray();
     }
   }
 
-  set aaveWalletManager(value: string | null) {
+  set aaveWalletManagers(value: Array<string> | null) {
     if (!value) {
-      this.unset("aaveWalletManager");
+      this.unset("aaveWalletManagers");
     } else {
-      this.set("aaveWalletManager", Value.fromString(<string>value));
-    }
-  }
-
-  get genericBasketManagerB(): string | null {
-    let value = this.get("genericBasketManagerB");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set genericBasketManagerB(value: string | null) {
-    if (!value) {
-      this.unset("genericBasketManagerB");
-    } else {
-      this.set("genericBasketManagerB", Value.fromString(<string>value));
-    }
-  }
-
-  get genericWalletManagerB(): string | null {
-    let value = this.get("genericWalletManagerB");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set genericWalletManagerB(value: string | null) {
-    if (!value) {
-      this.unset("genericWalletManagerB");
-    } else {
-      this.set("genericWalletManagerB", Value.fromString(<string>value));
-    }
-  }
-
-  get aaveWalletManagerB(): string | null {
-    let value = this.get("aaveWalletManagerB");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
-  }
-
-  set aaveWalletManagerB(value: string | null) {
-    if (!value) {
-      this.unset("aaveWalletManagerB");
-    } else {
-      this.set("aaveWalletManagerB", Value.fromString(<string>value));
+      this.set(
+        "aaveWalletManagers",
+        Value.fromStringArray(<Array<string>>value)
+      );
     }
   }
 }
@@ -1537,6 +1495,23 @@ export class GenericBasketManager extends Entity {
     this.set("paused", Value.fromBoolean(value));
   }
 
+  get chargedManager(): string | null {
+    let value = this.get("chargedManager");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set chargedManager(value: string | null) {
+    if (!value) {
+      this.unset("chargedManager");
+    } else {
+      this.set("chargedManager", Value.fromString(<string>value));
+    }
+  }
+
   get chargedParticles(): Bytes | null {
     let value = this.get("chargedParticles");
     if (!value || value.kind == ValueKind.NULL) {
@@ -1865,6 +1840,23 @@ export class GenericWalletManager extends Entity {
 
   set paused(value: boolean) {
     this.set("paused", Value.fromBoolean(value));
+  }
+
+  get chargedManager(): string | null {
+    let value = this.get("chargedManager");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set chargedManager(value: string | null) {
+    if (!value) {
+      this.unset("chargedManager");
+    } else {
+      this.set("chargedManager", Value.fromString(<string>value));
+    }
   }
 
   get chargedParticles(): Bytes | null {
@@ -2225,6 +2217,23 @@ export class AaveWalletManager extends Entity {
 
   set paused(value: boolean) {
     this.set("paused", Value.fromBoolean(value));
+  }
+
+  get chargedManager(): string | null {
+    let value = this.get("chargedManager");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set chargedManager(value: string | null) {
+    if (!value) {
+      this.unset("chargedManager");
+    } else {
+      this.set("chargedManager", Value.fromString(<string>value));
+    }
   }
 
   get chargedParticles(): Bytes | null {

@@ -205,6 +205,12 @@ dataSources:
           file: ./abis/ChargedSettings.json
         - name: ChargedState
           file: ./abis/ChargedState.json
+        - name: GenericBasketManager
+          file: ./abis/GenericBasketManager.json
+        - name: GenericWalletManager
+          file: ./abis/GenericWalletManager.json
+        - name: AaveWalletManager
+          file: ./abis/AaveWalletManager.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: ERC721

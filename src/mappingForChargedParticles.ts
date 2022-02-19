@@ -17,7 +17,6 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 
 export function handleControllerSet(event: ControllerSet): void {
   const _chargedParticles = loadOrCreateChargedParticles(event.address);
-  log.info('>>>> event.params.controllerId = {} -- {}', [event.params.controllerId, event.params.controllerAddress.toHex()]);
   if (event.params.controllerId == 'universe') {
    _chargedParticles.universe = event.params.controllerAddress.toHex();
   }
