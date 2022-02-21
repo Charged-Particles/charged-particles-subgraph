@@ -33,14 +33,18 @@ type ChargedManagers @entity {
   id: ID!
   owner: Bytes!
 
-  # Various WalletManagers listed here
-  genericBasketManager: GenericBasketManager
-  genericWalletManager: GenericWalletManager
-  aaveWalletManager: AaveWalletManager
+  genericBasketManagers: [GenericBasketManager!] @derivedFrom(field: "chargedManager")
+  genericWalletManagers: [GenericWalletManager!] @derivedFrom(field: "chargedManager")
+  aaveWalletManagers: [AaveWalletManager!] @derivedFrom(field: "chargedManager")
 
-  genericBasketManagerB: GenericBasketManager
-  genericWalletManagerB: GenericWalletManager
-  aaveWalletManagerB: AaveWalletManager
+  # Various WalletManagers listed here
+  # genericBasketManager: GenericBasketManager
+  # genericWalletManager: GenericWalletManager
+  # aaveWalletManager: AaveWalletManager
+
+  # genericBasketManagerB: GenericBasketManager
+  # genericWalletManagerB: GenericWalletManager
+  # aaveWalletManagerB: AaveWalletManager
 }
 
 # ID: `${chargedSettings.address}`
@@ -179,6 +183,7 @@ type GenericBasketManager @entity {
   address: Bytes!
   paused: Boolean!
 
+  chargedManager: ChargedManagers
   chargedParticles: Bytes
   executor: Bytes
 
@@ -222,6 +227,7 @@ type GenericWalletManager @entity {
   address: Bytes!
   paused: Boolean!
 
+  chargedManager: ChargedManagers
   chargedParticles: Bytes
   executor: Bytes
 
@@ -267,6 +273,7 @@ type AaveWalletManager @entity {
   address: Bytes!
   paused: Boolean!
 
+  chargedManager: ChargedManagers
   chargedParticles: Bytes
   aaveBridge: Bytes
   executor: Bytes
