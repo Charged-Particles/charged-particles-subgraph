@@ -83,41 +83,42 @@
   },
 
   "staking": {
-    "address": "0xe1d190bE034f715B9fE2C467803841D8B29153bA",
+    "address": "0xBF2D4aB31f353E7F0FD2Cea8E6643A07033aB5F2",
     "startBlock": "25172767"
   },
   "ionxYieldFarm": {
-    "address": "0xE10AB365d7Bbe627CCeAE9440b33369AD6743d05",
+    "address": "0x9a61c30AFb18Baa32876887d1fA32504afe9222f",
     "startBlock": "25172767"
   },
   "lpYieldFarm": {
-    "address": "0x2dC5899a1FbF2853C6e0f1DbE8B9E011b8982A92",
+    "address": "0x54ad03D3771238BdA50b207214e342E58a8eED4d",
     "startBlock": "25172767"
   },
 
   "staking2": {
-    "address": "0x02Ce38B744D2281d922187Da31777A7da1fB9b8e",
+
+    "address": "0x06d74b1695A812b956D028b809EE524A7715CA0E",
     "startBlock": "26759948"
   },
   "ionxYieldFarm2": {
-    "address": "0xE8c9eFb63CE2F5fDF5D640E0DE3b08C3cf46d868",
+    "address": "0xCdAAD427E2d5723ba1EAed9dd3E2190741305771",
     "startBlock": "26759948"
   },
   "lpYieldFarm2": {
-    "address": "0xb5B73706bd882D2eeC10212673f02A623491d255",
+    "address": "0xb8eAc0C7E4E78f653B263d6A45C4B46f9c66864D",
     "startBlock": "26759948"
   },
-
+  
   "staking3": {
-    "address": "0xd26FDCA0aCc9bA4a66ADE2EA750D3a524FF3Fd64",
+    "address": "0x64f8A0Ee798CA6e1b1A0a04ABaD867CF2Bc03aA2",
     "startBlock": "26759948"
   },
   "ionxYieldFarm3": {
-    "address": "0x62C2d27daCe3673EA2DB08d89893b94eC91900f5",
+    "address": "0x3E98cCb412dB5f848efAc559228cCc6e4A7c130F",
     "startBlock": "26759948"
   },
   "lpYieldFarm3": {
-    "address": "0xCadcfbc102771f8c547Db48a8E834dE39290fbdD",
+    "address": "0x6ABB989de9ffF53162a02Ea17e17719A15A52975",
     "startBlock": "26759948"
   },
 

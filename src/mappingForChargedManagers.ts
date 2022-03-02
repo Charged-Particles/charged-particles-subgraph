@@ -40,7 +40,29 @@ export function handleWalletManagerRegistered(event: WalletManagerRegistered): v
     _aaveWalletManager.save();
   }
 
-  _chargedManagers.save();
+
+
+  // // Generic Wallet Manager
+  // if (_walletManagerId == "generic") {
+  //   _chargedManagers.genericWalletManager = event.params.walletManager.toHex();
+  // }
+
+  // // Aave Wallet Manager
+  // if (_walletManagerId == "aave") {
+  //   _chargedManagers.aaveWalletManager = event.params.walletManager.toHex();
+  // }
+
+  // // Generic Wallet Manager B
+  // if (_walletManagerId == "generic.B") {
+  //   _chargedManagers.genericWalletManagerB = event.params.walletManager.toHex();
+  // }
+
+  // // Aave Wallet Manager B
+  // if (_walletManagerId == "aave.B") {
+  //   _chargedManagers.aaveWalletManagerB = event.params.walletManager.toHex();
+  // }
+
+  // _chargedManagers.save();
 }
 
 export function handleBasketManagerRegistered(event: BasketManagerRegistered): void {
