@@ -8,21 +8,34 @@ import {
   AaveWalletManager as AaveWalletManagerContract,
 } from '../../generated/AaveWalletManager/AaveWalletManager';
 
+import {
+  AaveWalletManagerB as AaveWalletManagerContractB,
+} from '../../generated/AaveWalletManagerB/AaveWalletManagerB';
+
 
 export function loadOrCreateAaveWalletManager(
-  aaveWalletManagerAddress: Address
+  aaveWalletManagerAddress: Address,
+  aaveWalletManagerVersion: String = 'A'
 ): AaveWalletManager {
   const id = aaveWalletManagerAddress.toHex();
   let _aaveWalletManager = AaveWalletManager.load(id);
 
+  const isVersionB = (aaveWalletManagerVersion === 'B');
+
   if (!_aaveWalletManager) {
     _aaveWalletManager = new AaveWalletManager(id);
 
-    const boundWalletManager = AaveWalletManagerContract.bind(aaveWalletManagerAddress);
-    _aaveWalletManager.owner = boundWalletManager.owner();
-    _aaveWalletManager.paused = boundWalletManager.isPaused();
+    if (isVersionB) {
+      const boundWalletManager = AaveWalletManagerContractB.bind(aaveWalletManagerAddress);
+      _aaveWalletManager.owner = boundWalletManager.owner();
+      _aaveWalletManager.paused = boundWalletManager.isPaused();
+    } else {
+      const boundWalletManager = AaveWalletManagerContract.bind(aaveWalletManagerAddress);
+      _aaveWalletManager.owner = boundWalletManager.owner();
+      _aaveWalletManager.paused = boundWalletManager.isPaused();
+    }
 
-    _aaveWalletManager.name = 'aave';
+    _aaveWalletManager.name = isVersionB ? 'aave.B' : 'aave';
     _aaveWalletManager.address = aaveWalletManagerAddress;
 
     _aaveWalletManager.save();

@@ -17,11 +17,34 @@ type Universe @entity {
 type ChargedParticles @entity {
   id: ID!
   owner: Bytes!
+  depositFee: BigInt
 
   universe: Universe
   chargedSettings: ChargedSettings
   chargedState: ChargedState
+  chargedManagers: ChargedManagers
   leptonToken: Lepton
+  tokenInfoProxy: Bytes
+  trustedForwarder: Bytes
+}
+
+# ID: `${chargedManagers.address}`
+type ChargedManagers @entity {
+  id: ID!
+  owner: Bytes!
+
+  genericBasketManagers: [GenericBasketManager!] @derivedFrom(field: "chargedManager")
+  genericWalletManagers: [GenericWalletManager!] @derivedFrom(field: "chargedManager")
+  aaveWalletManagers: [AaveWalletManager!] @derivedFrom(field: "chargedManager")
+
+  # Various WalletManagers listed here
+  # genericBasketManager: GenericBasketManager
+  # genericWalletManager: GenericWalletManager
+  # aaveWalletManager: AaveWalletManager
+
+  # genericBasketManagerB: GenericBasketManager
+  # genericWalletManagerB: GenericWalletManager
+  # aaveWalletManagerB: AaveWalletManager
 }
 
 # ID: `${chargedSettings.address}`
@@ -34,11 +57,6 @@ type ChargedSettings @entity {
 
   nftSettings: [NftSettings!]! @derivedFrom(field: "chargedSettings")
   nftCreatorSettings: [NftCreatorSettings!]! @derivedFrom(field: "chargedSettings")
-
-  # Various WalletManagers listed here
-  genericBasketManager: GenericBasketManager
-  genericWalletManager: GenericWalletManager
-  aaveWalletManager: AaveWalletManager
 }
 
 # ID: `${contractAddress.address}`
@@ -165,7 +183,9 @@ type GenericBasketManager @entity {
   address: Bytes!
   paused: Boolean!
 
+  chargedManager: ChargedManagers
   chargedParticles: Bytes
+  executor: Bytes
 
   baskets: [GenericSmartBasket!]! @derivedFrom(field: "basketManager")
 }
@@ -207,7 +227,9 @@ type GenericWalletManager @entity {
   address: Bytes!
   paused: Boolean!
 
+  chargedManager: ChargedManagers
   chargedParticles: Bytes
+  executor: Bytes
 
   wallets: [GenericSmartWallet!]! @derivedFrom(field: "walletManager")
 }
@@ -251,8 +273,10 @@ type AaveWalletManager @entity {
   address: Bytes!
   paused: Boolean!
 
+  chargedManager: ChargedManagers
   chargedParticles: Bytes
   aaveBridge: Bytes
+  executor: Bytes
 
   wallets: [AaveSmartWallet!]! @derivedFrom(field: "walletManager")
 }
@@ -293,7 +317,6 @@ type AaveAssetTokenBalance @entity {
   ownerInterestDischarged: BigInt!
   creatorInterestDischarged: BigInt!
 }
-
 
 
 # ID: `${wBoson.address}-${account.address}`
@@ -630,4 +653,40 @@ type PlatformMetric @entity {
   platformEthEarned: BigInt!
   platformInterestDischarged: BigInt!
   platformProtonsMinted: BigInt!
+}
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Staking & Incentives Platform
+#
+
+
+# ID: `${staking.address}`
+type Staking @entity {
+  id: ID!
+  owner: Bytes!
+
+  poolSize:  [StakedPools!]! @derivedFrom(field: "staking")
+  userDeposits: [StakedDeposits!]! @derivedFrom(field: "staking")
+}
+
+# ID: `${staking.address}-${token.address}`
+# dynamically generated type, not mapped to a specific contract
+type StakedPools @entity {
+  id: ID!
+  staking: Staking!
+
+  tokenAddress: Bytes!
+  totalBalance: BigInt!
+}
+
+# ID: `${staking.address}-${user.address}-${token.address}`
+# dynamically generated type, not mapped to a specific contract
+type StakedDeposits @entity {
+  id: ID!
+  staking: Staking!
+
+  userAddress: Bytes!
+  tokenAddress: Bytes!
+  balance: BigInt!
 }

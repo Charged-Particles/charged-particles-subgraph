@@ -4,6 +4,7 @@ import {
   OwnershipTransferred,
   AaveBridgeSet,
   ControllerSet,
+  ExecutorSet,
   PausedStateSet,
   NewSmartWallet,
   WalletEnergized,
@@ -46,6 +47,10 @@ export function handleControllerSet(event: ControllerSet): void {
   aaveWalletManager.save();
 }
 
+export function handleExecutorSet(event: ExecutorSet): void {
+  // no-op
+}
+
 export function handlePausedStateSet(event: PausedStateSet): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address);
   aaveWalletManager.paused = event.params.isPaused;
@@ -64,11 +69,15 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
 
 export function handleWalletEnergized(event: WalletEnergized): void {
   const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
-  if (!aaveSmartWallet.assetTokens.includes(event.params.assetToken)) {
-    let assetTokens = aaveSmartWallet.assetTokens;
-    assetTokens.push(event.params.assetToken);
-    aaveSmartWallet.assetTokens = assetTokens;
+  let assetTokens = aaveSmartWallet.assetTokens;
+  if (assetTokens) {
+    if (!assetTokens.includes(event.params.assetToken)) {
+      assetTokens.push(event.params.assetToken);
+    }
+  } else {
+    assetTokens = [event.params.assetToken];
   }
+  aaveSmartWallet.assetTokens = assetTokens;
   aaveSmartWallet.save();
 
   const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
@@ -184,7 +193,7 @@ export function handleWalletReleased(event: WalletReleased): void {
   _platformMetric.platformInterestDischarged = _platformMetric.platformInterestDischarged.plus(event.params.creatorAmount);
   creatorTokenMetric.save();
   _platformMetric.save();
-  
+
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();
   eventData[1] = event.params.tokenId.toString();

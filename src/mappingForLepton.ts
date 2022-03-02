@@ -66,13 +66,21 @@ export function handleLeptonTypeUpdated(event: LeptonTypeUpdated): void {
 export function handleLeptonMinted(event: LeptonMinted): void {
   const _nft = loadOrCreateLeptonNFT(event.address, event.params.tokenId);
 
-  const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
-  if (jsonData != null) {
-    processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
+  const _nftMetadataUri = _nft.metadataUri;
+  if (_nftMetadataUri) {
+    const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nftMetadataUri);
+    if (jsonData) {
+      processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
+    }
   }
 
   const _lepton = loadOrCreateLepton(event.address);
-  _lepton.totalMinted = _lepton.totalMinted.plus(ONE);
+  const _totalMinted = _lepton.totalMinted;
+  if (_totalMinted) {
+    _lepton.totalMinted = _totalMinted.plus(ONE);
+  } else {
+    _lepton.totalMinted = ONE;
+  }
   _lepton.save();
 
   const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
@@ -85,7 +93,12 @@ export function handleLeptonBatchMinted(event: LeptonBatchMinted): void {
   // WARNING: Event Param: tokenId is INCORRECT in this event - do not rely on it!
   //
   const _lepton = loadOrCreateLepton(event.address);
-  _lepton.totalMinted = _lepton.totalMinted.plus(event.params.count);
+  const _totalMinted = _lepton.totalMinted;
+  if (_totalMinted) {
+    _lepton.totalMinted = _totalMinted.plus(event.params.count);
+  } else {
+    _lepton.totalMinted = event.params.count;
+  }
   _lepton.save();
 
   const _leptonBuyer = loadOrCreateProfileMetric(event.params.receiver);
@@ -128,9 +141,12 @@ export function handleTransferBatch(event: TransferBatch): void {
     nft.save();
 
     if (event.params.from.toHex() == ADDRESS_ZERO) {
-      jsonData = parseJsonFromIpfs(nft.metadataUri);
-      if (jsonData != null) {
-        processLeptonMetadata(jsonData.inner, Value.fromString(nft.id));
+      const _nftMetadataUri = nft.metadataUri;
+      if (_nftMetadataUri) {
+        jsonData = parseJsonFromIpfs(_nftMetadataUri);
+        if (jsonData) {
+          processLeptonMetadata(jsonData.inner, Value.fromString(nft.id));
+        }
       }
     }
     else {
@@ -153,7 +169,11 @@ export function handleApproval(event: Approval): void {
 
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
   let tokenIds = _approvedOperator.tokenIds;
-  tokenIds.push(tokenId);
+  if (tokenIds) {
+    tokenIds.push(tokenId);
+  } else {
+    tokenIds = [tokenId];
+  }
   _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }
@@ -166,7 +186,11 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
   const _approvedAllIndicator = NEG_ONE;
   let tokenIds = _approvedOperator.tokenIds;
-  tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  if (tokenIds) {
+    tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  } else {
+    tokenIds = [_approvedAllIndicator];
+  }
   _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }

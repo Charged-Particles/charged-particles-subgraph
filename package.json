@@ -1,6 +1,6 @@
 {
   "name": "@charged-particles/protocol-subgraph",
-  "version": "1.2.9",
+  "version": "1.3.10",
   "description": "Subgraph for the Charged Particles Protocol",
   "author": "Rob Secord <robsecord.eth>",
   "license": "MIT",
@@ -38,10 +38,12 @@
     "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 charged-particles/universe subgraph.local.yaml",
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ethereum-universe subgraph.mainnet.yaml",
     "deploy:kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-universe subgraph.kovan.yaml",
+    "deploy:kovan-v2": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-universe-v2 subgraph.kovan.yaml",
     "deploy:kovan-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/dev-universe subgraph.kovan.yaml",
     "deploy:kovan-secord": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ robsecord/kovan-universe subgraph.kovan.yaml",
     "deploy:kovan-acolytec3": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-acolytec3 subgraph.mainnet.yaml",
     "deploy:mumbai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Mumbai charged-particles/mumbai-universe subgraph.mumbai.yaml",
+    "deploy:mumbai-v2": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Mumbai charged-particles/mumbai-universe-v2 subgraph.mumbai.yaml",
     "deploy:polygon": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Matic charged-particles/polygon-universe subgraph.polygon.yaml",
     "pub:beta": "yarn publish --tag beta --access public",
     "pub:latest": "yarn publish --tag latest --access public",
@@ -51,8 +53,10 @@
     "auth": "graph auth https://api.thegraph.com/deploy/"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.18.0",
-    "@graphprotocol/graph-ts": "0.18.1",
+    "@graphprotocol/graph-ts": "^0.24.1"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.25.1",
     "mustache": "4.0.1"
   }
 }

@@ -10,56 +10,60 @@ import {
   BigInt
 } from "@graphprotocol/graph-ts";
 
-export class ChargedSettingsSet extends ethereum.Event {
-  get params(): ChargedSettingsSet__Params {
-    return new ChargedSettingsSet__Params(this);
+export class ControllerSet extends ethereum.Event {
+  get params(): ControllerSet__Params {
+    return new ControllerSet__Params(this);
   }
 }
 
-export class ChargedSettingsSet__Params {
-  _event: ChargedSettingsSet;
+export class ControllerSet__Params {
+  _event: ControllerSet;
 
-  constructor(event: ChargedSettingsSet) {
+  constructor(event: ControllerSet) {
     this._event = event;
   }
 
-  get chargedSettings(): Address {
+  get controllerAddress(): Address {
     return this._event.parameters[0].value.toAddress();
   }
-}
 
-export class ChargedStateSet extends ethereum.Event {
-  get params(): ChargedStateSet__Params {
-    return new ChargedStateSet__Params(this);
+  get controllerId(): string {
+    return this._event.parameters[1].value.toString();
   }
 }
 
-export class ChargedStateSet__Params {
-  _event: ChargedStateSet;
+export class DepositFeeSet extends ethereum.Event {
+  get params(): DepositFeeSet__Params {
+    return new DepositFeeSet__Params(this);
+  }
+}
 
-  constructor(event: ChargedStateSet) {
+export class DepositFeeSet__Params {
+  _event: DepositFeeSet;
+
+  constructor(event: DepositFeeSet) {
     this._event = event;
   }
 
-  get chargedState(): Address {
-    return this._event.parameters[0].value.toAddress();
+  get depositFee(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
   }
 }
 
-export class LeptonTokenSet extends ethereum.Event {
-  get params(): LeptonTokenSet__Params {
-    return new LeptonTokenSet__Params(this);
+export class Initialized extends ethereum.Event {
+  get params(): Initialized__Params {
+    return new Initialized__Params(this);
   }
 }
 
-export class LeptonTokenSet__Params {
-  _event: LeptonTokenSet;
+export class Initialized__Params {
+  _event: Initialized;
 
-  constructor(event: LeptonTokenSet) {
+  constructor(event: Initialized) {
     this._event = event;
   }
 
-  get leptonToken(): Address {
+  get initiator(): Address {
     return this._event.parameters[0].value.toAddress();
   }
 }
@@ -86,21 +90,59 @@ export class OwnershipTransferred__Params {
   }
 }
 
-export class UniverseSet extends ethereum.Event {
-  get params(): UniverseSet__Params {
-    return new UniverseSet__Params(this);
+export class ProtocolFeesCollected extends ethereum.Event {
+  get params(): ProtocolFeesCollected__Params {
+    return new ProtocolFeesCollected__Params(this);
   }
 }
 
-export class UniverseSet__Params {
-  _event: UniverseSet;
+export class ProtocolFeesCollected__Params {
+  _event: ProtocolFeesCollected;
 
-  constructor(event: UniverseSet) {
+  constructor(event: ProtocolFeesCollected) {
     this._event = event;
   }
 
-  get universeAddress(): Address {
+  get assetToken(): Address {
     return this._event.parameters[0].value.toAddress();
+  }
+
+  get depositAmount(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get feesCollected(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+}
+
+export class WithdrawStuckERC1155 extends ethereum.Event {
+  get params(): WithdrawStuckERC1155__Params {
+    return new WithdrawStuckERC1155__Params(this);
+  }
+}
+
+export class WithdrawStuckERC1155__Params {
+  _event: WithdrawStuckERC1155;
+
+  constructor(event: WithdrawStuckERC1155) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
   }
 }
 
@@ -733,6 +775,52 @@ export class ChargedParticles extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  getFeesForDeposit(assetAmount: BigInt): BigInt {
+    let result = super.call(
+      "getFeesForDeposit",
+      "getFeesForDeposit(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(assetAmount)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getFeesForDeposit(assetAmount: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getFeesForDeposit",
+      "getFeesForDeposit(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(assetAmount)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getManagersAddress(): Address {
+    let result = super.call(
+      "getManagersAddress",
+      "getManagersAddress():(address)",
+      []
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getManagersAddress(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getManagersAddress",
+      "getManagersAddress():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   getSettingsAddress(): Address {
     let result = super.call(
       "getSettingsAddress",
@@ -800,6 +888,100 @@ export class ChargedParticles extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  onERC1155BatchReceived(
+    param0: Address,
+    param1: Address,
+    param2: Array<BigInt>,
+    param3: Array<BigInt>,
+    param4: Bytes
+  ): Bytes {
+    let result = super.call(
+      "onERC1155BatchReceived",
+      "onERC1155BatchReceived(address,address,uint256[],uint256[],bytes):(bytes4)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromUnsignedBigIntArray(param2),
+        ethereum.Value.fromUnsignedBigIntArray(param3),
+        ethereum.Value.fromBytes(param4)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_onERC1155BatchReceived(
+    param0: Address,
+    param1: Address,
+    param2: Array<BigInt>,
+    param3: Array<BigInt>,
+    param4: Bytes
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "onERC1155BatchReceived",
+      "onERC1155BatchReceived(address,address,uint256[],uint256[],bytes):(bytes4)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromUnsignedBigIntArray(param2),
+        ethereum.Value.fromUnsignedBigIntArray(param3),
+        ethereum.Value.fromBytes(param4)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
+  }
+
+  onERC1155Received(
+    param0: Address,
+    param1: Address,
+    param2: BigInt,
+    param3: BigInt,
+    param4: Bytes
+  ): Bytes {
+    let result = super.call(
+      "onERC1155Received",
+      "onERC1155Received(address,address,uint256,uint256,bytes):(bytes4)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromUnsignedBigInt(param2),
+        ethereum.Value.fromUnsignedBigInt(param3),
+        ethereum.Value.fromBytes(param4)
+      ]
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_onERC1155Received(
+    param0: Address,
+    param1: Address,
+    param2: BigInt,
+    param3: BigInt,
+    param4: Bytes
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "onERC1155Received",
+      "onERC1155Received(address,address,uint256,uint256,bytes):(bytes4)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromUnsignedBigInt(param2),
+        ethereum.Value.fromUnsignedBigInt(param3),
+        ethereum.Value.fromBytes(param4)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   onERC721Received(
@@ -972,6 +1154,29 @@ export class ChargedParticles extends ethereum.SmartContract {
         value[1].toBigInt()
       )
     );
+  }
+
+  supportsInterface(param0: Bytes): boolean {
+    let result = super.call(
+      "supportsInterface",
+      "supportsInterface(bytes4):(bool)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_supportsInterface(param0: Bytes): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "supportsInterface",
+      "supportsInterface(bytes4):(bool)",
+      [ethereum.Value.fromFixedBytes(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
   trustedForwarder(): Address {
@@ -1500,7 +1705,7 @@ export class InitializeCall__Inputs {
     this._call = call;
   }
 
-  get _trustedForwarder(): Address {
+  get initiator(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
 }
@@ -1510,6 +1715,106 @@ export class InitializeCall__Outputs {
 
   constructor(call: InitializeCall) {
     this._call = call;
+  }
+}
+
+export class OnERC1155BatchReceivedCall extends ethereum.Call {
+  get inputs(): OnERC1155BatchReceivedCall__Inputs {
+    return new OnERC1155BatchReceivedCall__Inputs(this);
+  }
+
+  get outputs(): OnERC1155BatchReceivedCall__Outputs {
+    return new OnERC1155BatchReceivedCall__Outputs(this);
+  }
+}
+
+export class OnERC1155BatchReceivedCall__Inputs {
+  _call: OnERC1155BatchReceivedCall;
+
+  constructor(call: OnERC1155BatchReceivedCall) {
+    this._call = call;
+  }
+
+  get value0(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get value1(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get value2(): Array<BigInt> {
+    return this._call.inputValues[2].value.toBigIntArray();
+  }
+
+  get value3(): Array<BigInt> {
+    return this._call.inputValues[3].value.toBigIntArray();
+  }
+
+  get value4(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+}
+
+export class OnERC1155BatchReceivedCall__Outputs {
+  _call: OnERC1155BatchReceivedCall;
+
+  constructor(call: OnERC1155BatchReceivedCall) {
+    this._call = call;
+  }
+
+  get value0(): Bytes {
+    return this._call.outputValues[0].value.toBytes();
+  }
+}
+
+export class OnERC1155ReceivedCall extends ethereum.Call {
+  get inputs(): OnERC1155ReceivedCall__Inputs {
+    return new OnERC1155ReceivedCall__Inputs(this);
+  }
+
+  get outputs(): OnERC1155ReceivedCall__Outputs {
+    return new OnERC1155ReceivedCall__Outputs(this);
+  }
+}
+
+export class OnERC1155ReceivedCall__Inputs {
+  _call: OnERC1155ReceivedCall;
+
+  constructor(call: OnERC1155ReceivedCall) {
+    this._call = call;
+  }
+
+  get value0(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get value1(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get value2(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get value3(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get value4(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+}
+
+export class OnERC1155ReceivedCall__Outputs {
+  _call: OnERC1155ReceivedCall;
+
+  constructor(call: OnERC1155ReceivedCall) {
+    this._call = call;
+  }
+
+  get value0(): Bytes {
+    return this._call.outputValues[0].value.toBytes();
   }
 }
 
@@ -1697,152 +2002,66 @@ export class RenounceOwnershipCall__Outputs {
   }
 }
 
-export class SetChargedSettingsCall extends ethereum.Call {
-  get inputs(): SetChargedSettingsCall__Inputs {
-    return new SetChargedSettingsCall__Inputs(this);
+export class SetControllerCall extends ethereum.Call {
+  get inputs(): SetControllerCall__Inputs {
+    return new SetControllerCall__Inputs(this);
   }
 
-  get outputs(): SetChargedSettingsCall__Outputs {
-    return new SetChargedSettingsCall__Outputs(this);
+  get outputs(): SetControllerCall__Outputs {
+    return new SetControllerCall__Outputs(this);
   }
 }
 
-export class SetChargedSettingsCall__Inputs {
-  _call: SetChargedSettingsCall;
+export class SetControllerCall__Inputs {
+  _call: SetControllerCall;
 
-  constructor(call: SetChargedSettingsCall) {
+  constructor(call: SetControllerCall) {
     this._call = call;
   }
 
-  get settingsController(): Address {
+  get controller(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
+
+  get controllerId(): string {
+    return this._call.inputValues[1].value.toString();
+  }
 }
 
-export class SetChargedSettingsCall__Outputs {
-  _call: SetChargedSettingsCall;
+export class SetControllerCall__Outputs {
+  _call: SetControllerCall;
 
-  constructor(call: SetChargedSettingsCall) {
+  constructor(call: SetControllerCall) {
     this._call = call;
   }
 }
 
-export class SetChargedStateCall extends ethereum.Call {
-  get inputs(): SetChargedStateCall__Inputs {
-    return new SetChargedStateCall__Inputs(this);
+export class SetDepositFeeCall extends ethereum.Call {
+  get inputs(): SetDepositFeeCall__Inputs {
+    return new SetDepositFeeCall__Inputs(this);
   }
 
-  get outputs(): SetChargedStateCall__Outputs {
-    return new SetChargedStateCall__Outputs(this);
+  get outputs(): SetDepositFeeCall__Outputs {
+    return new SetDepositFeeCall__Outputs(this);
   }
 }
 
-export class SetChargedStateCall__Inputs {
-  _call: SetChargedStateCall;
+export class SetDepositFeeCall__Inputs {
+  _call: SetDepositFeeCall;
 
-  constructor(call: SetChargedStateCall) {
+  constructor(call: SetDepositFeeCall) {
     this._call = call;
   }
 
-  get stateController(): Address {
-    return this._call.inputValues[0].value.toAddress();
+  get fee(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
   }
 }
 
-export class SetChargedStateCall__Outputs {
-  _call: SetChargedStateCall;
+export class SetDepositFeeCall__Outputs {
+  _call: SetDepositFeeCall;
 
-  constructor(call: SetChargedStateCall) {
-    this._call = call;
-  }
-}
-
-export class SetLeptonTokenCall extends ethereum.Call {
-  get inputs(): SetLeptonTokenCall__Inputs {
-    return new SetLeptonTokenCall__Inputs(this);
-  }
-
-  get outputs(): SetLeptonTokenCall__Outputs {
-    return new SetLeptonTokenCall__Outputs(this);
-  }
-}
-
-export class SetLeptonTokenCall__Inputs {
-  _call: SetLeptonTokenCall;
-
-  constructor(call: SetLeptonTokenCall) {
-    this._call = call;
-  }
-
-  get token(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class SetLeptonTokenCall__Outputs {
-  _call: SetLeptonTokenCall;
-
-  constructor(call: SetLeptonTokenCall) {
-    this._call = call;
-  }
-}
-
-export class SetTrustedForwarderCall extends ethereum.Call {
-  get inputs(): SetTrustedForwarderCall__Inputs {
-    return new SetTrustedForwarderCall__Inputs(this);
-  }
-
-  get outputs(): SetTrustedForwarderCall__Outputs {
-    return new SetTrustedForwarderCall__Outputs(this);
-  }
-}
-
-export class SetTrustedForwarderCall__Inputs {
-  _call: SetTrustedForwarderCall;
-
-  constructor(call: SetTrustedForwarderCall) {
-    this._call = call;
-  }
-
-  get _trustedForwarder(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class SetTrustedForwarderCall__Outputs {
-  _call: SetTrustedForwarderCall;
-
-  constructor(call: SetTrustedForwarderCall) {
-    this._call = call;
-  }
-}
-
-export class SetUniverseCall extends ethereum.Call {
-  get inputs(): SetUniverseCall__Inputs {
-    return new SetUniverseCall__Inputs(this);
-  }
-
-  get outputs(): SetUniverseCall__Outputs {
-    return new SetUniverseCall__Outputs(this);
-  }
-}
-
-export class SetUniverseCall__Inputs {
-  _call: SetUniverseCall;
-
-  constructor(call: SetUniverseCall) {
-    this._call = call;
-  }
-
-  get universe(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class SetUniverseCall__Outputs {
-  _call: SetUniverseCall;
-
-  constructor(call: SetUniverseCall) {
+  constructor(call: SetDepositFeeCall) {
     this._call = call;
   }
 }
@@ -1873,6 +2092,48 @@ export class TransferOwnershipCall__Outputs {
   _call: TransferOwnershipCall;
 
   constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawERC1155Call extends ethereum.Call {
+  get inputs(): WithdrawERC1155Call__Inputs {
+    return new WithdrawERC1155Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC1155Call__Outputs {
+    return new WithdrawERC1155Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC1155Call__Inputs {
+  _call: WithdrawERC1155Call;
+
+  constructor(call: WithdrawERC1155Call) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class WithdrawERC1155Call__Outputs {
+  _call: WithdrawERC1155Call;
+
+  constructor(call: WithdrawERC1155Call) {
     this._call = call;
   }
 }

@@ -89,16 +89,24 @@ export function handleTransfer(event: Transfer): void {
   // Mint Transfer
   else {
     const _lepton = loadOrCreateLepton2(event.address);
-    _lepton.totalMinted = _lepton.totalMinted.plus(ONE);
+    const _totalMinted = _lepton.totalMinted;
+    if (_totalMinted) {
+      _lepton.totalMinted = _totalMinted.plus(ONE);
+    } else {
+      _lepton.totalMinted = ONE;
+    }
     _lepton.save();
 
     const _leptonBuyer = loadOrCreateProfileMetric(event.params.to);
     _leptonBuyer.buyLeptonCount = _leptonBuyer.buyLeptonCount.plus(ONE);
     _leptonBuyer.save();
 
-    const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
-    if (jsonData != null) {
-      processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
+    const _nftMetadataUri = _nft.metadataUri;
+    if (_nftMetadataUri) {
+      const jsonData: Wrapped<JSONValue> | null = parseJsonFromIpfs(_nftMetadataUri);
+      if (jsonData) {
+        processLeptonMetadata(jsonData.inner, Value.fromString(_nft.id));
+      }
     }
   }
 }
@@ -111,7 +119,11 @@ export function handleApproval(event: Approval): void {
 
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
   let tokenIds = _approvedOperator.tokenIds;
-  tokenIds.push(tokenId);
+  if (tokenIds) {
+    tokenIds.push(tokenId);
+  } else {
+    tokenIds = [tokenId];
+  }
   _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }
@@ -124,7 +136,11 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
   const _approvedAllIndicator = NEG_ONE;
   let tokenIds = _approvedOperator.tokenIds;
-  tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  if (tokenIds) {
+    tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  } else {
+    tokenIds = [_approvedAllIndicator];
+  }
   _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }

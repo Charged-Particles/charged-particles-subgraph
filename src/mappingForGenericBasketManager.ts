@@ -8,10 +8,12 @@ import {
 import {
   OwnershipTransferred,
   ControllerSet,
+  ExecutorSet,
   PausedStateSet,
   NewSmartBasket,
   BasketAdd,
   BasketRemove,
+  BasketRewarded,
 } from '../generated/GenericBasketManager/GenericBasketManager';
 
 import { nftAttributeId } from './helpers/idTemplates';
@@ -40,6 +42,10 @@ export function handleControllerSet(event: ControllerSet): void {
   genericBasketManager.save();
 }
 
+export function handleExecutorSet(event: ExecutorSet): void {
+  // no-op
+}
+
 export function handlePausedStateSet(event: PausedStateSet): void {
   const genericBasketManager = loadOrCreateGenericBasketManager(event.address);
   genericBasketManager.paused = event.params.isPaused;
@@ -61,14 +67,19 @@ export function handleBasketAdd(event: BasketAdd): void {
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
   let nftTokenIds = nftTokenBalance.nftTokenIds;
-  nftTokenIds.push(event.params.basketTokenId);
-  nftTokenBalance.nftTokenIds = nftTokenIds;
-  nftTokenBalance.save();
+  if (nftTokenIds) {
+    nftTokenIds.push(event.params.basketTokenId);
+    nftTokenBalance.nftTokenIds = nftTokenIds;
+    nftTokenBalance.save();
+  }
 
   const stdNft = loadOrCreateStandardNFT(event.params.basketTokenAddress, event.params.basketTokenId);
-  const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(stdNft.metadataUri);
-  if (jsonData != null) {
-    processStandardMetadata(jsonData.inner, Value.fromString(stdNft.id));
+  const stdNftMetadataUri = stdNft.metadataUri;
+  if (stdNftMetadataUri) {
+    const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(stdNftMetadataUri);
+    if (jsonData) {
+      processStandardMetadata(jsonData.inner, Value.fromString(stdNft.id));
+    }
   }
 
   var eventData = new Array<string>(4);
@@ -86,13 +97,14 @@ export function handleBasketRemove(event: BasketRemove): void {
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
   let ids = nftTokenBalance.nftTokenIds;
-  const index = ids.indexOf(event.params.basketTokenId);
-  if (index > -1) {
-    ids = ids.slice(0, index).concat(ids.slice(index + 1));
+  if (ids) {
+    const index = ids.indexOf(event.params.basketTokenId);
+    if (index > -1) {
+      ids = ids.slice(0, index).concat(ids.slice(index + 1));
+    }
+    nftTokenBalance.nftTokenIds = ids;
+    nftTokenBalance.save();
   }
-  nftTokenBalance.nftTokenIds = ids;
-  nftTokenBalance.save();
-
   var eventData = new Array<string>(5);
   eventData[0] = event.params.receiver.toHex();
   eventData[1] = event.params.contractAddress.toHex();
@@ -102,6 +114,9 @@ export function handleBasketRemove(event: BasketRemove): void {
   trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'BasketRemove', eventData.join('-'));
 }
 
+export function handleBasketRewarded(event: BasketRewarded): void {
+  // TODO
+}
 
 export function processStandardMetadata(value: JSONValue, userData: Value): void {
   const standardNftId = userData.toString();

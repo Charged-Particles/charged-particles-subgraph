@@ -19,8 +19,11 @@ export function getStringValue(obj: TypedMap<string, JSONValue>, key: string): s
 };
 
 export function getBigIntValue(obj: TypedMap<string, JSONValue>, key: string): BigInt {
-  if (obj.isSet(key) && !obj.get(key).isNull()) {
-    return obj.get(key).toBigInt();
+  if (obj.isSet(key)) {
+    const val = obj.get(key);
+    if (val && !val.isNull()) {
+      return val.toBigInt();
+    }
   }
   return ZERO;
 };

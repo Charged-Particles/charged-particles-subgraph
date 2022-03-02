@@ -116,13 +116,16 @@ export function handleProtonSold(event: ProtonSold): void {
   _creatorRoyalties.save();
 
   const _proton = loadOrCreateProton(event.address);
-  const _nftState = loadOrCreateNftState(
-    Address.fromString(_proton.chargedState),
-    event.address,
-    event.params.tokenId,
-  );
-  _nftState.tempLockExpiry = ZERO;
-  _nftState.save();
+  const _chargedState = _proton.chargedState;
+  if (_chargedState) {
+    const _nftState = loadOrCreateNftState(
+      Address.fromString(_chargedState),
+      event.address,
+      event.params.tokenId,
+    );
+    _nftState.tempLockExpiry = ZERO;
+    _nftState.save();
+  }
 
   var eventData = new Array<string>(6);
   eventData[0] = event.params.tokenId.toString();
@@ -182,9 +185,12 @@ export function handleTransfer(event: Transfer): void {
   trackNftTxHistory(event, event.address, event.params.tokenId, 'Transfer', eventData.join('-'));
 
   if (event.params.from.toHex() == ADDRESS_ZERO) {
-    const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(_nft.metadataUri);
-    if (jsonData != null) {
-      processProtonMetadata(jsonData.inner, Value.fromString(_nft.id));
+    const _nftMetadataUri = _nft.metadataUri;
+    if (_nftMetadataUri) {
+      const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(_nftMetadataUri);
+      if (jsonData) {
+        processProtonMetadata(jsonData.inner, Value.fromString(_nft.id));
+      }
     }
 
     const _minterProfileMetric = loadOrCreateProfileMetric(event.params.to);
@@ -201,7 +207,11 @@ export function handleApproval(event: Approval): void {
 
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
   let tokenIds = _approvedOperator.tokenIds;
-  tokenIds.push(tokenId);
+  if (tokenIds) {
+    tokenIds.push(tokenId);
+  } else {
+    tokenIds = [tokenId];
+  }
   _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }
@@ -214,7 +224,11 @@ export function handleApprovalForAll(event: ApprovalForAll): void {
   const _approvedOperator = loadOrCreateApprovedOperator(assetAddress, ownerAddress, operatorAddress);
   const _approvedAllIndicator = NEG_ONE;
   let tokenIds = _approvedOperator.tokenIds;
-  tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  if (tokenIds) {
+    tokenIds.push(_approvedAllIndicator); //A value of -1 means approval for all tokens owned by ownerAddress
+  } else {
+    tokenIds = [_approvedAllIndicator];
+  }
   _approvedOperator.tokenIds = tokenIds;
   _approvedOperator.save();
 }
@@ -254,12 +268,15 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
     for (let i = 0; i < attributes.length; i++) {
       const attrMap = attributes[i].toObject();
 
-      let attrName = '';
-      let attrValue = '';
-      if (attrMap.isSet('name')) {
-        attrName = attrMap.get('name').toString();
-        attrValue = attrMap.get('value').toString();
-      }
+    let jsonValue:JSONValue | null;
+    let attrName = '';
+    let attrValue = '';
+    if (attrMap.isSet('name')) {
+      jsonValue = attrMap.get('name');
+      if (jsonValue) { attrName = jsonValue.toString(); }
+      jsonValue = attrMap.get('value');
+      if (jsonValue) { attrValue = jsonValue.toString(); }
+    }
 
       const nftAttr = new ProtonNftAttributes(nftAttributeId(protonNftId, i.toString()));
       nftAttr.protonNft = protonNftId;
