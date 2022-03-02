@@ -28,7 +28,7 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
 
 export function handleChargedParticlesSet(event: ChargedParticlesSet): void {
   const _universe = loadOrCreateUniverse(event.address);
-  _universe.chargedParticles = event.params.chargedParticles.toHex();
+  _universe.chargedParticles = event.params.chargedParticles.toHexString();
   _universe.save();
 }
 

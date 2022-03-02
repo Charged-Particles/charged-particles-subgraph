@@ -2,7 +2,7 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
   OwnershipTransferred,
-  ChargedSettingsSet,
+  ControllerSet,
   DischargeApproval,
   ReleaseApproval,
   BreakBondApproval,
@@ -30,7 +30,7 @@ export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   _chargedState.save();
 }
 
-export function handleChargedSettingsSet(event: ChargedSettingsSet): void {
+export function handleControllerSet(event: ControllerSet): void {
   // no-op
 }
 

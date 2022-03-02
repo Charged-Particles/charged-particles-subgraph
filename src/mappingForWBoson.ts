@@ -21,7 +21,7 @@ export function handleWBosonUpdated(event: WBosonUpdated): void {
   if (event.params.wBosonURI.length < 1) { return; }
 
   const jsonData:Wrapped<JSONValue> | null = parseJsonFromIpfs(event.params.wBosonURI);
-  if (jsonData != null) {
+  if (jsonData) {
     processWBosonMetadata(jsonData.inner, Value.fromString(_wBoson.id));
   }
 }

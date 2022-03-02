@@ -222,6 +222,36 @@ export class QuarkTokenSet__Params {
   }
 }
 
+export class WithdrawStuckERC1155 extends ethereum.Event {
+  get params(): WithdrawStuckERC1155__Params {
+    return new WithdrawStuckERC1155__Params(this);
+  }
+}
+
+export class WithdrawStuckERC1155__Params {
+  _event: WithdrawStuckERC1155;
+
+  constructor(event: WithdrawStuckERC1155) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+}
+
 export class WithdrawStuckERC20 extends ethereum.Event {
   get params(): WithdrawStuckERC20__Params {
     return new WithdrawStuckERC20__Params(this);
@@ -1158,6 +1188,48 @@ export class TransferOwnershipCall__Outputs {
   _call: TransferOwnershipCall;
 
   constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawERC1155Call extends ethereum.Call {
+  get inputs(): WithdrawERC1155Call__Inputs {
+    return new WithdrawERC1155Call__Inputs(this);
+  }
+
+  get outputs(): WithdrawERC1155Call__Outputs {
+    return new WithdrawERC1155Call__Outputs(this);
+  }
+}
+
+export class WithdrawERC1155Call__Inputs {
+  _call: WithdrawERC1155Call;
+
+  constructor(call: WithdrawERC1155Call) {
+    this._call = call;
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get tokenAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get amount(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+}
+
+export class WithdrawERC1155Call__Outputs {
+  _call: WithdrawERC1155Call;
+
+  constructor(call: WithdrawERC1155Call) {
     this._call = call;
   }
 }
