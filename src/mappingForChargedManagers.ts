@@ -67,23 +67,8 @@ export function handleWalletManagerRegistered(event: WalletManagerRegistered): v
 
 export function handleBasketManagerRegistered(event: BasketManagerRegistered): void {
   const _chargedManagers = loadOrCreateChargedManagers(event.address);
-  // const _basketManagerId = event.params.basketId.toHexString();
-
-  // if (_basketManagerId == "generic" || _basketManagerId == "generic.B") {
-    const genericWalletManager = loadOrCreateGenericBasketManager(event.params.basketManager);
-    genericWalletManager.chargedManager = event.address.toHex();
-    genericWalletManager.save();
-  // }
-
-  // // Generic Basket Manager
-  // if (_basketManagerId == "generic") {
-  //   _chargedManagers.genericBasketManager = event.params.basketManager.toHex();
-  // }
-
-  // // Generic Basket Manager B
-  // if (_basketManagerId == "generic.B") {
-  //   _chargedManagers.genericBasketManagerB = event.params.basketManager.toHex();
-  // }
-
-  // _chargedManagers.save();
+  const _genericWalletManager = loadOrCreateGenericBasketManager(event.params.basketManager);
+  _genericWalletManager.chargedManager = event.address.toHex();
+  _genericWalletManager.save();
+  _chargedManagers.save();
 }

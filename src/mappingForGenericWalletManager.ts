@@ -53,6 +53,7 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
   const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
   genericSmartWallet.address = event.params.smartWallet;
   genericSmartWallet.walletManager = genericWalletManager.id;
+  genericSmartWallet.managerId = "generic";
   genericSmartWallet.save();
 }
 

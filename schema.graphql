@@ -36,15 +36,6 @@ type ChargedManagers @entity {
   genericBasketManagers: [GenericBasketManager!] @derivedFrom(field: "chargedManager")
   genericWalletManagers: [GenericWalletManager!] @derivedFrom(field: "chargedManager")
   aaveWalletManagers: [AaveWalletManager!] @derivedFrom(field: "chargedManager")
-
-  # Various WalletManagers listed here
-  # genericBasketManager: GenericBasketManager
-  # genericWalletManager: GenericWalletManager
-  # aaveWalletManager: AaveWalletManager
-
-  # genericBasketManagerB: GenericBasketManager
-  # genericWalletManagerB: GenericWalletManager
-  # aaveWalletManagerB: AaveWalletManager
 }
 
 # ID: `${chargedSettings.address}`
@@ -199,6 +190,7 @@ type GenericSmartBasket @entity {
 
   address: Bytes
   basketManager: GenericBasketManager
+  managerId: String
   totalTokens: BigInt!
 
   tokenBalances: [GenericNftTokenBalance!]! @derivedFrom(field: "smartBasket")
@@ -243,6 +235,7 @@ type GenericSmartWallet @entity {
 
   address: Bytes
   walletManager: GenericWalletManager
+  managerId: String
   assetTokens: [Bytes!]
 
   assetBalances: [GenericAssetTokenBalance!]! @derivedFrom(field: "smartWallet")
@@ -290,6 +283,7 @@ type AaveSmartWallet @entity {
 
   address: Bytes
   walletManager: AaveWalletManager
+  managerId: String
   assetTokens: [Bytes!]
 
   nftCreator: Bytes
@@ -382,6 +376,7 @@ type ESALevel @entity {
 # ID: `${proton.address}`
 type Proton @entity {
   id: ID!
+  version: String!
   owner: Bytes!
   paused: Boolean
 
@@ -397,6 +392,8 @@ type Proton @entity {
 # dynamically generated type, not mapped to a specific contract
 type ProtonNFT @entity {
   id: ID!
+  version: String!
+  tokenAddress: String!
   tokenId: BigInt!
   proton: Proton
   creator: Bytes

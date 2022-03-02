@@ -66,6 +66,7 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
   const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
   aaveSmartWallet.address = event.params.smartWallet;
   aaveSmartWallet.walletManager = aaveWalletManager.id;
+  aaveSmartWallet.managerId = "aave.B";
   // aaveSmartWallet.nftCreator = event.params.creator;
   // aaveSmartWallet.nftCreatorAnnuityPct = event.params.annuityPct;
   aaveSmartWallet.save();
