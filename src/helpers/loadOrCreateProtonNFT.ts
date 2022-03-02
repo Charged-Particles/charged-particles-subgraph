@@ -14,13 +14,16 @@ import { ZERO } from './common';
 
 export function loadOrCreateProtonNFT(
   protonAddress: Address,
-  tokenId: BigInt
+  tokenId: BigInt,
+  version: String
 ): ProtonNFT {
   const id = protonNftId(protonAddress.toHex(), tokenId.toString());
   let _nft = ProtonNFT.load(id);
 
   if (!_nft) {
     _nft = new ProtonNFT(id);
+    _nft.version = version;
+    _nft.tokenAddress = protonAddress.toHex();
     _nft.tokenId = tokenId;
     _nft.proton = protonAddress.toHex();
 

@@ -5,11 +5,11 @@ import {
 } from '../../generated/schema';
 
 import {
-  Proton as ProtonContract,
-} from '../../generated/Proton/Proton';
+  ProtonB as ProtonContract,
+} from '../../generated/ProtonB/ProtonB';
 
 
-export function loadOrCreateProton(
+export function loadOrCreateProtonB(
   protonAddress: Address
 ): Proton {
   const id = protonAddress.toHex();
@@ -17,7 +17,7 @@ export function loadOrCreateProton(
 
   if (!_proton) {
     _proton = new Proton(id);
-    _proton.version = "A";
+    _proton.version = "B";
     const boundProton = ProtonContract.bind(protonAddress);
     _proton.owner = boundProton.owner();
     _proton.save();

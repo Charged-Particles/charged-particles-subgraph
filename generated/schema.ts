@@ -1646,6 +1646,23 @@ export class GenericSmartBasket extends Entity {
     }
   }
 
+  get managerId(): string | null {
+    let value = this.get("managerId");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set managerId(value: string | null) {
+    if (!value) {
+      this.unset("managerId");
+    } else {
+      this.set("managerId", Value.fromString(<string>value));
+    }
+  }
+
   get totalTokens(): BigInt {
     let value = this.get("totalTokens");
     return value!.toBigInt();
@@ -1989,6 +2006,23 @@ export class GenericSmartWallet extends Entity {
       this.unset("walletManager");
     } else {
       this.set("walletManager", Value.fromString(<string>value));
+    }
+  }
+
+  get managerId(): string | null {
+    let value = this.get("managerId");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set managerId(value: string | null) {
+    if (!value) {
+      this.unset("managerId");
+    } else {
+      this.set("managerId", Value.fromString(<string>value));
     }
   }
 
@@ -2381,6 +2415,23 @@ export class AaveSmartWallet extends Entity {
       this.unset("walletManager");
     } else {
       this.set("walletManager", Value.fromString(<string>value));
+    }
+  }
+
+  get managerId(): string | null {
+    let value = this.get("managerId");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set managerId(value: string | null) {
+    if (!value) {
+      this.unset("managerId");
+    } else {
+      this.set("managerId", Value.fromString(<string>value));
     }
   }
 
@@ -3074,6 +3125,7 @@ export class Proton extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("version", Value.fromString(""));
     this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
@@ -3101,6 +3153,15 @@ export class Proton extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get version(): string {
+    let value = this.get("version");
+    return value!.toString();
+  }
+
+  set version(value: string) {
+    this.set("version", Value.fromString(value));
   }
 
   get owner(): Bytes {
@@ -3204,6 +3265,8 @@ export class ProtonNFT extends Entity {
     super();
     this.set("id", Value.fromString(id));
 
+    this.set("version", Value.fromString(""));
+    this.set("tokenAddress", Value.fromString(""));
     this.set("tokenId", Value.fromBigInt(BigInt.zero()));
     this.set("overallSalesTotal", Value.fromBigInt(BigInt.zero()));
   }
@@ -3232,6 +3295,24 @@ export class ProtonNFT extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get version(): string {
+    let value = this.get("version");
+    return value!.toString();
+  }
+
+  set version(value: string) {
+    this.set("version", Value.fromString(value));
+  }
+
+  get tokenAddress(): string {
+    let value = this.get("tokenAddress");
+    return value!.toString();
+  }
+
+  set tokenAddress(value: string) {
+    this.set("tokenAddress", Value.fromString(value));
   }
 
   get tokenId(): BigInt {
