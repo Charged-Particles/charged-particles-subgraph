@@ -1,4 +1,9 @@
-import { Bytes, TypedMap, JSONValue, BigInt, Wrapped, ipfs, json, log, Value } from '@graphprotocol/graph-ts';
+import { Address, Bytes, TypedMap, JSONValue, BigInt, Wrapped, ipfs, json, log, Value } from '@graphprotocol/graph-ts';
+
+import {
+  Proton as ProtonContract
+} from '../../generated/Proton/Proton';
+
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 
@@ -26,6 +31,42 @@ export function getBigIntValue(obj: TypedMap<string, JSONValue>, key: string): B
   }
   return ZERO;
 };
+
+export function getProtonOwnerOf(contractAddress: Address, tokenId: BigInt): Address {
+  let tokenOwner:Address = Address.zero();
+  const boundProton = ProtonContract.bind(contractAddress);
+  let callResult = boundProton.try_ownerOf(tokenId);
+  if (callResult.reverted) {
+    log.info('Proton.ownerOf reverted', []);
+  } else {
+    tokenOwner = callResult.value;
+  }
+  return tokenOwner;
+}
+
+export function getProtonCreatorOf(contractAddress: Address, tokenId: BigInt): Address {
+  let tokenCreator:Address = Address.zero();
+  const boundProton = ProtonContract.bind(contractAddress);
+  let callResult = boundProton.try_creatorOf(tokenId);
+  if (callResult.reverted) {
+    log.info('Proton.creatorOf reverted', []);
+  } else {
+    tokenCreator = callResult.value;
+  }
+  return tokenCreator;
+}
+
+export function getProtonTokenURI(contractAddress: Address, tokenId: BigInt): string {
+  let tokenUri:string = '';
+  const boundProton = ProtonContract.bind(contractAddress);
+  let callResult = boundProton.try_tokenURI(tokenId);
+  if (callResult.reverted) {
+    log.info('Proton.tokenURI reverted', []);
+  } else {
+    tokenUri = callResult.value;
+  }
+  return tokenUri;
+}
 
 export function parseJsonFromIpfs(jsonUri: string): Wrapped<JSONValue> | null {
   const ipfsHashParts = jsonUri.split('/');
