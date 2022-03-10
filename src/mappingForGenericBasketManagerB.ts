@@ -20,6 +20,7 @@ import { nftAttributeId } from './helpers/idTemplates';
 import { loadOrCreateGenericBasketManager } from './helpers/loadOrCreateGenericBasketManager';
 import { loadOrCreateGenericSmartBasket } from './helpers/loadOrCreateGenericSmartBasket';
 import { loadOrCreateGenericNftTokenBalance } from './helpers/loadOrCreateGenericNftTokenBalance';
+import { removeNftTokenBalance } from './helpers/removeNftTokenBalance';
 import { loadOrCreateStandardNFT } from './helpers/loadOrCreateStandardNFT';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import {
@@ -95,7 +96,7 @@ export function handleBasketAdd(event: BasketAdd): void {
 
 export function handleBasketRemove(event: BasketRemove): void {
   const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId);
-  genericSmartBasket.totalTokens.minus(ONE);
+  genericSmartBasket.totalTokens = genericSmartBasket.totalTokens.minus(ONE);
   genericSmartBasket.save();
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
@@ -108,6 +109,11 @@ export function handleBasketRemove(event: BasketRemove): void {
     nftTokenBalance.nftTokenIds = ids;
     nftTokenBalance.save();
   }
+
+  if (!ids || ids.length == 0) {
+    removeNftTokenBalance(event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
+  }
+  
   var eventData = new Array<string>(5);
   eventData[0] = event.params.receiver.toHex();
   eventData[1] = event.params.contractAddress.toHex();
