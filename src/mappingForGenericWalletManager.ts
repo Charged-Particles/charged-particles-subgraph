@@ -12,10 +12,11 @@ import {
 } from '../generated/GenericWalletManager/GenericWalletManager';
 
 import {
-  Proton as ProtonContract
-} from '../generated/Proton/Proton';
+  ONE,
+  getProtonOwnerOf,
+  getProtonCreatorOf,
+} from './helpers/common';
 
-import { loadOrCreateChargedParticles } from './helpers/loadOrCreateChargedParticles';
 import { loadOrCreateGenericWalletManager } from './helpers/loadOrCreateGenericWalletManager';
 import { loadOrCreateGenericSmartWallet } from './helpers/loadOrCreateGenericSmartWallet';
 import { loadOrCreateGenericAssetTokenBalance } from './helpers/loadOrCreateGenericAssetTokenBalance';
@@ -23,8 +24,6 @@ import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateAssetTokenAnalytics } from './helpers/loadOrCreateAssetTokenAnalytics';
 import { loadOrCreateProfileMetric } from './helpers/loadOrCreateProfileMetric';
 import { loadOrCreateUserTokenMetric } from './helpers/loadOrCreateUserTokenMetric';
-
-import { ONE } from './helpers/common';
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
   const genericWalletManager = loadOrCreateGenericWalletManager(event.address);
@@ -53,6 +52,7 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
   const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
   genericSmartWallet.address = event.params.smartWallet;
   genericSmartWallet.walletManager = genericWalletManager.id;
+  genericSmartWallet.managerId = "generic";
   genericSmartWallet.save();
 }
 
@@ -78,14 +78,16 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.plus(event.params.assetAmount);
   assetTokenAnalytics.save();
 
-  const boundProton = ProtonContract.bind(event.params.contractAddress);
-  const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
-  _walletOwner.energizeERC20Count = _walletOwner.energizeERC20Count.plus(ONE);
-  _walletOwner.save();
+  let tokenOwner = getProtonOwnerOf(event.params.contractAddress, event.params.tokenId);
+  if (tokenOwner != Address.zero()) {
+    const _walletOwner = loadOrCreateProfileMetric(tokenOwner);
+    _walletOwner.energizeERC20Count = _walletOwner.energizeERC20Count.plus(ONE);
+    _walletOwner.save();
 
-  const userTokenMetric = loadOrCreateUserTokenMetric(boundProton.ownerOf(event.params.tokenId), event.params.assetToken);
-  userTokenMetric.lifetimeValueLocked = userTokenMetric.lifetimeValueLocked.plus(event.params.assetAmount);
-  userTokenMetric.save();
+    const userTokenMetric = loadOrCreateUserTokenMetric(tokenOwner, event.params.assetToken);
+    userTokenMetric.lifetimeValueLocked = userTokenMetric.lifetimeValueLocked.plus(event.params.assetAmount);
+    userTokenMetric.save();
+  }
 
   var eventData = new Array<string>(5);
   eventData[0] = event.params.contractAddress.toHex();
@@ -107,18 +109,23 @@ export function handleWalletReleased(event: WalletReleased): void {
   assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.minus(event.params.principalAmount);
   assetTokenAnalytics.save();
 
-  const boundProton = ProtonContract.bind(event.params.contractAddress);
-  const _walletOwner = loadOrCreateProfileMetric(boundProton.ownerOf(event.params.tokenId));
-  _walletOwner.releaseMassCount = _walletOwner.releaseMassCount.plus(ONE);
-  _walletOwner.save();
+  let tokenOwner = getProtonOwnerOf(event.params.contractAddress, event.params.tokenId);
+  if (tokenOwner != Address.zero()) {
+    const _walletOwner = loadOrCreateProfileMetric(tokenOwner);
+    _walletOwner.releaseMassCount = _walletOwner.releaseMassCount.plus(ONE);
+    _walletOwner.save();
 
-  const userTokenMetric = loadOrCreateUserTokenMetric(boundProton.ownerOf(event.params.tokenId), event.params.assetToken);
-  userTokenMetric.totalMassReleased = userTokenMetric.totalMassReleased.plus(event.params.receiverAmount);
-  userTokenMetric.save();
+    const userTokenMetric = loadOrCreateUserTokenMetric(tokenOwner, event.params.assetToken);
+    userTokenMetric.totalMassReleased = userTokenMetric.totalMassReleased.plus(event.params.receiverAmount);
+    userTokenMetric.save();
+  }
 
-  const creatorTokenMetric = loadOrCreateUserTokenMetric(boundProton.creatorOf(event.params.tokenId), event.params.assetToken);
-  creatorTokenMetric.totalMassReleased = creatorTokenMetric.totalMassReleased.plus(event.params.creatorAmount);
-  creatorTokenMetric.save();
+  let tokenCreator = getProtonCreatorOf(event.params.contractAddress, event.params.tokenId);
+  if (tokenCreator != Address.zero()) {
+    const creatorTokenMetric = loadOrCreateUserTokenMetric(tokenCreator, event.params.assetToken);
+    creatorTokenMetric.totalMassReleased = creatorTokenMetric.totalMassReleased.plus(event.params.creatorAmount);
+    creatorTokenMetric.save();
+  }
 
   var eventData = new Array<string>(7);
   eventData[0] = event.params.contractAddress.toHex();

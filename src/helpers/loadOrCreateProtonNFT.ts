@@ -4,30 +4,34 @@ import {
   ProtonNFT,
 } from '../../generated/schema';
 
-import {
-  Proton as ProtonContract,
-} from '../../generated/Proton/Proton';
-
 import { protonNftId } from './idTemplates';
-import { ZERO } from './common';
+
+import {
+  ZERO,
+  getProtonOwnerOf,
+  getProtonCreatorOf,
+  getProtonTokenURI,
+} from './common';
 
 
 export function loadOrCreateProtonNFT(
   protonAddress: Address,
-  tokenId: BigInt
+  tokenId: BigInt,
+  version: string
 ): ProtonNFT {
   const id = protonNftId(protonAddress.toHex(), tokenId.toString());
   let _nft = ProtonNFT.load(id);
 
   if (!_nft) {
     _nft = new ProtonNFT(id);
+    _nft.version = version;
+    _nft.tokenAddress = protonAddress.toHex();
     _nft.tokenId = tokenId;
     _nft.proton = protonAddress.toHex();
 
-    const boundProton = ProtonContract.bind(protonAddress);
-    _nft.owner = boundProton.ownerOf(tokenId);
-    _nft.creator = boundProton.creatorOf(tokenId);
-    _nft.metadataUri = boundProton.tokenURI(tokenId);
+    _nft.owner = getProtonOwnerOf(protonAddress, tokenId);
+    _nft.creator = getProtonCreatorOf(protonAddress, tokenId);
+    _nft.metadataUri = getProtonTokenURI(protonAddress, tokenId);
 
     _nft.salePrice = ZERO;
     _nft.resaleRoyalties = ZERO;

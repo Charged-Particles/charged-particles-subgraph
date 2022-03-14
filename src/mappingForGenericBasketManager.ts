@@ -57,6 +57,7 @@ export function handleNewSmartBasket(event: NewSmartBasket): void {
   const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId);
   genericSmartBasket.address = event.params.smartBasket;
   genericSmartBasket.basketManager = genericBasketManager.id;
+  genericSmartBasket.managerId = "generic";
   genericSmartBasket.save();
 }
 

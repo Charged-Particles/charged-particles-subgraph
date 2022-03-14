@@ -14,23 +14,23 @@
   },
   "chargedManagers": {
     "address": "0xF5BD554eeB15B97A303c006E4eBc5Ed77c3C2785",
-    "startBlock": "24587290"
+    "startBlock": "24587566"
   },
   "chargedParticles": {
     "address": "0x49D5eA6F886CAe46320935b7632C84E67c8A03a6",
-    "startBlock": "15438945"
+    "startBlock": "15438959"
   },
   "genericWalletManager": {
     "address": "0xD3d8b546eD1A78F8F985443AceC59417b4ED5Cf6",
-    "startBlock": "15438945"
+    "startBlock": "15438969"
   },
   "genericBasketManager": {
     "address": "0xB5196932aCdA15a6aE2d6e6289D43f491FEd8C9d",
-    "startBlock": "15438945"
+    "startBlock": "15438972"
   },
   "aaveWalletManager": {
     "address": "0xAd0C9593e251C6b74C4819467C52181b188FFD5F",
-    "startBlock": "15438945"
+    "startBlock": "15438976"
   },
   "genericWalletManagerB": {
     "address": "0x5c97d783F893758b0025AE083c01E8BEf849745D",

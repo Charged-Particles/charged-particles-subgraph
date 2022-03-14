@@ -3,11 +3,16 @@ import {
 } from '../../generated/schema';
 
 import {
-  Transfer,
+  Transfer as TransferA,
 } from '../../generated/Proton/Proton';
+
+import {
+  Transfer as TransferB,
+} from '../../generated/ProtonB/ProtonB';
 
 import { ADDRESS_ZERO, ZERO, ONE } from './common';
 import { loadOrCreatePlatformMetric } from './loadOrCreatePlatformMetric';
+import { Address } from '@graphprotocol/graph-ts';
 
 
 function _getCountsObj(id: string):ProtonNftCount {
@@ -22,12 +27,30 @@ function _getCountsObj(id: string):ProtonNftCount {
 
 
 export function trackProtonNftCounts(
-  event: Transfer
+  event: TransferA
+): void {
+  const from = event.params.from.toHex();
+  const to = event.params.to.toHex();
+  _trackProtonNftCounts(event.address, from, to);
+}
+
+
+export function trackProtonNftCountsB(
+  event: TransferB
+): void {
+  const from = event.params.from.toHex();
+  const to = event.params.to.toHex();
+  _trackProtonNftCounts(event.address, from, to);
+}
+
+
+function _trackProtonNftCounts(
+  address: Address,
+  from: string,
+  to: string
 ): void {
 
   let counts: ProtonNftCount;
-  const from = event.params.from.toHex();
-  const to = event.params.to.toHex();
 
   // Mint
   if (from == ADDRESS_ZERO) {
@@ -35,8 +58,8 @@ export function trackProtonNftCounts(
     counts.createdCount = counts.createdCount.plus(ONE);
     counts.ownedCount = counts.ownedCount.plus(ONE);
     counts.save();
-    
-    const platformMetric = loadOrCreatePlatformMetric(event.address);
+
+    const platformMetric = loadOrCreatePlatformMetric(address);
     platformMetric.platformProtonsMinted = platformMetric.platformProtonsMinted.plus(ONE);
     platformMetric.save();
   }

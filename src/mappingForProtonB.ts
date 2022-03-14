@@ -20,12 +20,12 @@ import {
   Transfer,
   Approval,
   ApprovalForAll,
-} from '../generated/Proton/Proton';
+} from '../generated/ProtonB/ProtonB';
 
 import { nftAttributeId } from './helpers/idTemplates';
-import { loadOrCreateProton } from './helpers/loadOrCreateProton';
+import { loadOrCreateProtonB } from './helpers/loadOrCreateProtonB';
 import { loadOrCreateProtonNFT } from './helpers/loadOrCreateProtonNFT';
-import { trackProtonNftCounts } from './helpers/trackProtonNftCounts';
+import { trackProtonNftCountsB } from './helpers/trackProtonNftCounts';
 import { loadOrCreateNftState } from './helpers/loadOrCreateNftState';
 import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import { loadOrCreateApprovedOperator } from './helpers/loadOrCreateApprovedOperator';
@@ -38,7 +38,6 @@ import {
   ADDRESS_ZERO,
   ONE,
   NEG_ONE,
-  hasAttr,
   getStringValue,
   getBigIntValue,
   parseJsonFromIpfs
@@ -46,43 +45,43 @@ import {
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-  const _proton = loadOrCreateProton(event.address);
+  const _proton = loadOrCreateProtonB(event.address);
   _proton.owner = event.params.newOwner;
   _proton.save();
 }
 
 export function handleUniverseSet(event: UniverseSet): void {
-  const _proton = loadOrCreateProton(event.address);
+  const _proton = loadOrCreateProtonB(event.address);
   _proton.universe = event.params.universe.toHex();
   _proton.save();
 }
 
 export function handleChargedStateSet(event: ChargedStateSet): void {
-  const _proton = loadOrCreateProton(event.address);
+  const _proton = loadOrCreateProtonB(event.address);
   _proton.chargedState = event.params.chargedState.toHex();
   _proton.save();
 }
 
 export function handleChargedSettingsSet(event: ChargedSettingsSet): void {
-  const _proton = loadOrCreateProton(event.address);
+  const _proton = loadOrCreateProtonB(event.address);
   _proton.chargedSettings = event.params.chargedSettings.toHex();
   _proton.save();
 }
 
 export function handleChargedParticlesSet(event: ChargedParticlesSet): void {
-  const _proton = loadOrCreateProton(event.address);
+  const _proton = loadOrCreateProtonB(event.address);
   _proton.chargedParticles = event.params.chargedParticles.toHex();
   _proton.save();
 }
 
 export function handlePausedStateSet(event: PausedStateSet): void {
-  const _proton = loadOrCreateProton(event.address);
+  const _proton = loadOrCreateProtonB(event.address);
   _proton.paused = event.params.isPaused;
   _proton.save();
 }
 
 export function handleSalePriceSet(event: SalePriceSet): void {
-  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "A");
+  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "B");
   _nft.salePrice = event.params.salePrice;
   _nft.save();
 
@@ -93,7 +92,7 @@ export function handleSalePriceSet(event: SalePriceSet): void {
 }
 
 export function handleCreatorRoyaltiesSet(event: CreatorRoyaltiesSet): void {
-  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "A");
+  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "B");
   _nft.resaleRoyalties = event.params.royaltiesPct;
   _nft.save();
 
@@ -104,7 +103,7 @@ export function handleCreatorRoyaltiesSet(event: CreatorRoyaltiesSet): void {
 }
 
 export function handleProtonSold(event: ProtonSold): void {
-  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "A");
+  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "B");
   _nft.overallSalesTotal = _nft.overallSalesTotal.plus(event.params.salePrice);
   _nft.save();
 
@@ -114,7 +113,7 @@ export function handleProtonSold(event: ProtonSold): void {
   _creatorRoyalties.claimableRoyalties = _creatorRoyalties.claimableRoyalties.plus(event.params.creatorRoyalties);
   _creatorRoyalties.save();
 
-  const _proton = loadOrCreateProton(event.address);
+  const _proton = loadOrCreateProtonB(event.address);
   const _chargedState = _proton.chargedState;
   if (_chargedState) {
     const _nftState = loadOrCreateNftState(
@@ -170,12 +169,12 @@ export function handleFeesWithdrawn(event: FeesWithdrawn): void {
 }
 
 export function handleTransfer(event: Transfer): void {
-  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "A");
+  const _nft = loadOrCreateProtonNFT(event.address, event.params.tokenId, "B");
   _nft.owner = event.params.to;
   _nft.salePrice = ZERO;
   _nft.save();
 
-  trackProtonNftCounts(event);
+  trackProtonNftCountsB(event);
 
   var eventData = new Array<string>(3);
   eventData[0] = event.params.tokenId.toString();
@@ -259,13 +258,12 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
   _nft.save();
 
 
-  if (hasAttr(protonMetadata, 'attributes')) {
-    const attributesObject = protonMetadata.get('attributes');
-    if (!attributesObject) { return; }
+  const attributesObject = protonMetadata.get('attributes');
+  if (!attributesObject) { return; }
 
-    const attributes = attributesObject.toArray();
-    for (let i = 0; i < attributes.length; i++) {
-      const attrMap = attributes[i].toObject();
+  const attributes = attributesObject.toArray();
+  for (let i = 0; i < attributes.length; i++) {
+    const attrMap = attributes[i].toObject();
 
     let jsonValue:JSONValue | null;
     let attrName = '';
@@ -277,11 +275,10 @@ export function processProtonMetadata(value: JSONValue, userData: Value): void {
       if (jsonValue) { attrValue = jsonValue.toString(); }
     }
 
-      const nftAttr = new ProtonNftAttributes(nftAttributeId(protonNftId, i.toString()));
-      nftAttr.protonNft = protonNftId;
-      nftAttr.name = attrName;
-      nftAttr.value = attrValue;
-      nftAttr.save();
-    }
+    const nftAttr = new ProtonNftAttributes(nftAttributeId(protonNftId, i.toString()));
+    nftAttr.protonNft = protonNftId;
+    nftAttr.name = attrName;
+    nftAttr.value = attrValue;
+    nftAttr.save();
   }
 }
