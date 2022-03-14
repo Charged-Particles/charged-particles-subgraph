@@ -56,7 +56,7 @@ export class Universe extends Entity {
 
   get chargedParticles(): string | null {
     let value = this.get("chargedParticles");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -73,7 +73,7 @@ export class Universe extends Entity {
 
   get ionxToken(): string | null {
     let value = this.get("ionxToken");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -90,7 +90,7 @@ export class Universe extends Entity {
 
   get ionxMaxSupply(): BigInt | null {
     let value = this.get("ionxMaxSupply");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -107,7 +107,7 @@ export class Universe extends Entity {
 
   get protonToken(): string | null {
     let value = this.get("protonToken");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -124,7 +124,7 @@ export class Universe extends Entity {
 
   get leptonToken(): string | null {
     let value = this.get("leptonToken");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -222,7 +222,7 @@ export class ChargedParticles extends Entity {
 
   get universe(): string | null {
     let value = this.get("universe");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -239,7 +239,7 @@ export class ChargedParticles extends Entity {
 
   get chargedSettings(): string | null {
     let value = this.get("chargedSettings");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -256,7 +256,7 @@ export class ChargedParticles extends Entity {
 
   get chargedState(): string | null {
     let value = this.get("chargedState");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -290,7 +290,7 @@ export class ChargedParticles extends Entity {
 
   get leptonToken(): string | null {
     let value = this.get("leptonToken");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -498,7 +498,7 @@ export class ChargedSettings extends Entity {
 
   get tempLockExpiryBlocks(): BigInt | null {
     let value = this.get("tempLockExpiryBlocks");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -529,6 +529,57 @@ export class ChargedSettings extends Entity {
 
   set nftCreatorSettings(value: Array<string>) {
     this.set("nftCreatorSettings", Value.fromStringArray(value));
+  }
+
+  get genericBasketManager(): string | null {
+    let value = this.get("genericBasketManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set genericBasketManager(value: string | null) {
+    if (value === null) {
+      this.unset("genericBasketManager");
+    } else {
+      this.set("genericBasketManager", Value.fromString(value as string));
+    }
+  }
+
+  get genericWalletManager(): string | null {
+    let value = this.get("genericWalletManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set genericWalletManager(value: string | null) {
+    if (value === null) {
+      this.unset("genericWalletManager");
+    } else {
+      this.set("genericWalletManager", Value.fromString(value as string));
+    }
+  }
+
+  get aaveWalletManager(): string | null {
+    let value = this.get("aaveWalletManager");
+    if (value === null) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set aaveWalletManager(value: string | null) {
+    if (value === null) {
+      this.unset("aaveWalletManager");
+    } else {
+      this.set("aaveWalletManager", Value.fromString(value as string));
+    }
   }
 }
 
@@ -587,7 +638,7 @@ export class NftSettings extends Entity {
 
   get requiredWalletManager(): string | null {
     let value = this.get("requiredWalletManager");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -604,7 +655,7 @@ export class NftSettings extends Entity {
 
   get requiredBasketManager(): string | null {
     let value = this.get("requiredBasketManager");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -630,7 +681,7 @@ export class NftSettings extends Entity {
 
   get assetDepositMin(): BigInt | null {
     let value = this.get("assetDepositMin");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -647,7 +698,7 @@ export class NftSettings extends Entity {
 
   get assetDepositMax(): BigInt | null {
     let value = this.get("assetDepositMax");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -764,7 +815,7 @@ export class AllowedAssetToken extends Entity {
 
   get assetToken(): Bytes | null {
     let value = this.get("assetToken");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -834,7 +885,7 @@ export class DepositCap extends Entity {
 
   get assetToken(): Bytes | null {
     let value = this.get("assetToken");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -851,7 +902,7 @@ export class DepositCap extends Entity {
 
   get maxDeposit(): BigInt | null {
     let value = this.get("maxDeposit");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -912,7 +963,7 @@ export class MaxNfts extends Entity {
 
   get tokenAddress(): Bytes | null {
     let value = this.get("tokenAddress");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -929,7 +980,7 @@ export class MaxNfts extends Entity {
 
   get maxNfts(): BigInt | null {
     let value = this.get("maxNfts");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -1022,7 +1073,7 @@ export class NftCreatorSettings extends Entity {
 
   get annuityPercent(): BigInt | null {
     let value = this.get("annuityPercent");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -1039,7 +1090,7 @@ export class NftCreatorSettings extends Entity {
 
   get annuityRedirect(): Bytes | null {
     let value = this.get("annuityRedirect");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1173,7 +1224,7 @@ export class NftState extends Entity {
 
   get lastKnownOwner(): Bytes | null {
     let value = this.get("lastKnownOwner");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1190,7 +1241,7 @@ export class NftState extends Entity {
 
   get dischargeApproval(): Bytes | null {
     let value = this.get("dischargeApproval");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1207,7 +1258,7 @@ export class NftState extends Entity {
 
   get releaseApproval(): Bytes | null {
     let value = this.get("releaseApproval");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1224,7 +1275,7 @@ export class NftState extends Entity {
 
   get breakBondApproval(): Bytes | null {
     let value = this.get("breakBondApproval");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1241,7 +1292,7 @@ export class NftState extends Entity {
 
   get timelockApproval(): Bytes | null {
     let value = this.get("timelockApproval");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1258,7 +1309,7 @@ export class NftState extends Entity {
 
   get dischargeTimelockExpiry(): BigInt | null {
     let value = this.get("dischargeTimelockExpiry");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -1275,7 +1326,7 @@ export class NftState extends Entity {
 
   get dischargeTimelockLockedBy(): Bytes | null {
     let value = this.get("dischargeTimelockLockedBy");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1292,7 +1343,7 @@ export class NftState extends Entity {
 
   get releaseTimelockExpiry(): BigInt | null {
     let value = this.get("releaseTimelockExpiry");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -1309,7 +1360,7 @@ export class NftState extends Entity {
 
   get releaseTimelockLockedBy(): Bytes | null {
     let value = this.get("releaseTimelockLockedBy");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1326,7 +1377,7 @@ export class NftState extends Entity {
 
   get breakBondTimelockExpiry(): BigInt | null {
     let value = this.get("breakBondTimelockExpiry");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -1343,7 +1394,7 @@ export class NftState extends Entity {
 
   get breakBondTimelockLockedBy(): Bytes | null {
     let value = this.get("breakBondTimelockLockedBy");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1360,7 +1411,7 @@ export class NftState extends Entity {
 
   get tempLockExpiry(): BigInt | null {
     let value = this.get("tempLockExpiry");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -1514,7 +1565,7 @@ export class GenericBasketManager extends Entity {
 
   get chargedParticles(): Bytes | null {
     let value = this.get("chargedParticles");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1614,7 +1665,7 @@ export class GenericSmartBasket extends Entity {
 
   get address(): Bytes | null {
     let value = this.get("address");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1631,7 +1682,7 @@ export class GenericSmartBasket extends Entity {
 
   get basketManager(): string | null {
     let value = this.get("basketManager");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -1752,7 +1803,7 @@ export class GenericNftTokenBalance extends Entity {
 
   get smartBasket(): string | null {
     let value = this.get("smartBasket");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -1769,7 +1820,7 @@ export class GenericNftTokenBalance extends Entity {
 
   get nftTokenIds(): Array<BigInt> | null {
     let value = this.get("nftTokenIds");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigIntArray();
@@ -1878,7 +1929,7 @@ export class GenericWalletManager extends Entity {
 
   get chargedParticles(): Bytes | null {
     let value = this.get("chargedParticles");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1977,7 +2028,7 @@ export class GenericSmartWallet extends Entity {
 
   get address(): Bytes | null {
     let value = this.get("address");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -1994,7 +2045,7 @@ export class GenericSmartWallet extends Entity {
 
   get walletManager(): string | null {
     let value = this.get("walletManager");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2028,7 +2079,7 @@ export class GenericSmartWallet extends Entity {
 
   get assetTokens(): Array<Bytes> | null {
     let value = this.get("assetTokens");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytesArray();
@@ -2118,7 +2169,7 @@ export class GenericAssetTokenBalance extends Entity {
 
   get smartWallet(): string | null {
     let value = this.get("smartWallet");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2272,7 +2323,7 @@ export class AaveWalletManager extends Entity {
 
   get chargedParticles(): Bytes | null {
     let value = this.get("chargedParticles");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -2289,7 +2340,7 @@ export class AaveWalletManager extends Entity {
 
   get aaveBridge(): Bytes | null {
     let value = this.get("aaveBridge");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -2386,7 +2437,7 @@ export class AaveSmartWallet extends Entity {
 
   get address(): Bytes | null {
     let value = this.get("address");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -2403,7 +2454,7 @@ export class AaveSmartWallet extends Entity {
 
   get walletManager(): string | null {
     let value = this.get("walletManager");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2437,7 +2488,7 @@ export class AaveSmartWallet extends Entity {
 
   get assetTokens(): Array<Bytes> | null {
     let value = this.get("assetTokens");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytesArray();
@@ -2454,7 +2505,7 @@ export class AaveSmartWallet extends Entity {
 
   get nftCreator(): Bytes | null {
     let value = this.get("nftCreator");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -2471,7 +2522,7 @@ export class AaveSmartWallet extends Entity {
 
   get nftCreatorAnnuityPct(): BigInt | null {
     let value = this.get("nftCreatorAnnuityPct");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -2488,7 +2539,7 @@ export class AaveSmartWallet extends Entity {
 
   get nftCreatorAnnuityRedirect(): Bytes | null {
     let value = this.get("nftCreatorAnnuityRedirect");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -2580,7 +2631,7 @@ export class AaveAssetTokenBalance extends Entity {
 
   get smartWallet(): string | null {
     let value = this.get("smartWallet");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2723,7 +2774,7 @@ export class WBoson extends Entity {
 
   get wBosonUri(): string | null {
     let value = this.get("wBosonUri");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2740,7 +2791,7 @@ export class WBoson extends Entity {
 
   get name(): string | null {
     let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2757,7 +2808,7 @@ export class WBoson extends Entity {
 
   get description(): string | null {
     let value = this.get("description");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2774,7 +2825,7 @@ export class WBoson extends Entity {
 
   get thumbnail(): string | null {
     let value = this.get("thumbnail");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2791,7 +2842,7 @@ export class WBoson extends Entity {
 
   get image(): string | null {
     let value = this.get("image");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2808,7 +2859,7 @@ export class WBoson extends Entity {
 
   get email(): string | null {
     let value = this.get("email");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2825,7 +2876,7 @@ export class WBoson extends Entity {
 
   get twitter(): string | null {
     let value = this.get("twitter");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2842,7 +2893,7 @@ export class WBoson extends Entity {
 
   get website(): string | null {
     let value = this.get("website");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -2903,7 +2954,7 @@ export class Ionx extends Entity {
 
   get universe(): string | null {
     let value = this.get("universe");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3184,7 +3235,7 @@ export class Proton extends Entity {
 
   get universe(): string | null {
     let value = this.get("universe");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3201,7 +3252,7 @@ export class Proton extends Entity {
 
   get chargedSettings(): string | null {
     let value = this.get("chargedSettings");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3218,7 +3269,7 @@ export class Proton extends Entity {
 
   get chargedState(): string | null {
     let value = this.get("chargedState");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3235,7 +3286,7 @@ export class Proton extends Entity {
 
   get chargedParticles(): string | null {
     let value = this.get("chargedParticles");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3326,7 +3377,7 @@ export class ProtonNFT extends Entity {
 
   get proton(): string | null {
     let value = this.get("proton");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3343,7 +3394,7 @@ export class ProtonNFT extends Entity {
 
   get creator(): Bytes | null {
     let value = this.get("creator");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -3360,7 +3411,7 @@ export class ProtonNFT extends Entity {
 
   get owner(): Bytes | null {
     let value = this.get("owner");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -3386,7 +3437,7 @@ export class ProtonNFT extends Entity {
 
   get particleType(): string | null {
     let value = this.get("particleType");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3403,7 +3454,7 @@ export class ProtonNFT extends Entity {
 
   get creatorAnnuity(): BigInt | null {
     let value = this.get("creatorAnnuity");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -3420,7 +3471,7 @@ export class ProtonNFT extends Entity {
 
   get salePrice(): BigInt | null {
     let value = this.get("salePrice");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -3437,7 +3488,7 @@ export class ProtonNFT extends Entity {
 
   get lastSalePrice(): BigInt | null {
     let value = this.get("lastSalePrice");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -3454,7 +3505,7 @@ export class ProtonNFT extends Entity {
 
   get resaleRoyalties(): BigInt | null {
     let value = this.get("resaleRoyalties");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -3471,7 +3522,7 @@ export class ProtonNFT extends Entity {
 
   get resaleRoyaltiesRedirect(): Bytes | null {
     let value = this.get("resaleRoyaltiesRedirect");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -3488,7 +3539,7 @@ export class ProtonNFT extends Entity {
 
   get metadataUri(): string | null {
     let value = this.get("metadataUri");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3505,7 +3556,7 @@ export class ProtonNFT extends Entity {
 
   get name(): string | null {
     let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3522,7 +3573,7 @@ export class ProtonNFT extends Entity {
 
   get description(): string | null {
     let value = this.get("description");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3539,7 +3590,7 @@ export class ProtonNFT extends Entity {
 
   get external_url(): string | null {
     let value = this.get("external_url");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3556,7 +3607,7 @@ export class ProtonNFT extends Entity {
 
   get animation_url(): string | null {
     let value = this.get("animation_url");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3573,7 +3624,7 @@ export class ProtonNFT extends Entity {
 
   get youtube_url(): string | null {
     let value = this.get("youtube_url");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3590,7 +3641,7 @@ export class ProtonNFT extends Entity {
 
   get icon(): string | null {
     let value = this.get("icon");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3607,7 +3658,7 @@ export class ProtonNFT extends Entity {
 
   get thumbnail(): string | null {
     let value = this.get("thumbnail");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3624,7 +3675,7 @@ export class ProtonNFT extends Entity {
 
   get image(): string | null {
     let value = this.get("image");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3641,7 +3692,7 @@ export class ProtonNFT extends Entity {
 
   get symbol(): string | null {
     let value = this.get("symbol");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3658,7 +3709,7 @@ export class ProtonNFT extends Entity {
 
   get decimals(): BigInt | null {
     let value = this.get("decimals");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -3675,7 +3726,7 @@ export class ProtonNFT extends Entity {
 
   get background_color(): string | null {
     let value = this.get("background_color");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3801,7 +3852,7 @@ export class ProtonNftAttributes extends Entity {
 
   get name(): string | null {
     let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3818,7 +3869,7 @@ export class ProtonNftAttributes extends Entity {
 
   get value(): string | null {
     let value = this.get("value");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3889,7 +3940,7 @@ export class StandardNFT extends Entity {
 
   get owner(): Bytes | null {
     let value = this.get("owner");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -3906,7 +3957,7 @@ export class StandardNFT extends Entity {
 
   get metadataUri(): string | null {
     let value = this.get("metadataUri");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3923,7 +3974,7 @@ export class StandardNFT extends Entity {
 
   get name(): string | null {
     let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3940,7 +3991,7 @@ export class StandardNFT extends Entity {
 
   get description(): string | null {
     let value = this.get("description");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3957,7 +4008,7 @@ export class StandardNFT extends Entity {
 
   get external_url(): string | null {
     let value = this.get("external_url");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3974,7 +4025,7 @@ export class StandardNFT extends Entity {
 
   get icon(): string | null {
     let value = this.get("icon");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -3991,7 +4042,7 @@ export class StandardNFT extends Entity {
 
   get image(): string | null {
     let value = this.get("image");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4008,7 +4059,7 @@ export class StandardNFT extends Entity {
 
   get symbol(): string | null {
     let value = this.get("symbol");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4083,7 +4134,7 @@ export class StandardNftAttributes extends Entity {
 
   get name(): string | null {
     let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4100,7 +4151,7 @@ export class StandardNftAttributes extends Entity {
 
   get value(): string | null {
     let value = this.get("value");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4170,7 +4221,7 @@ export class Lepton extends Entity {
 
   get totalMinted(): BigInt | null {
     let value = this.get("totalMinted");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4187,7 +4238,7 @@ export class Lepton extends Entity {
 
   get typeIndex(): BigInt | null {
     let value = this.get("typeIndex");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4204,7 +4255,7 @@ export class Lepton extends Entity {
 
   get maxSupply(): BigInt | null {
     let value = this.get("maxSupply");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4221,7 +4272,7 @@ export class Lepton extends Entity {
 
   get maxMintPerTx(): BigInt | null {
     let value = this.get("maxMintPerTx");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4309,7 +4360,7 @@ export class Lepton2 extends Entity {
 
   get totalMinted(): BigInt | null {
     let value = this.get("totalMinted");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4326,7 +4377,7 @@ export class Lepton2 extends Entity {
 
   get typeIndex(): BigInt | null {
     let value = this.get("typeIndex");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4343,7 +4394,7 @@ export class Lepton2 extends Entity {
 
   get maxSupply(): BigInt | null {
     let value = this.get("maxSupply");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4360,7 +4411,7 @@ export class Lepton2 extends Entity {
 
   get maxMintPerTx(): BigInt | null {
     let value = this.get("maxMintPerTx");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4430,7 +4481,7 @@ export class LeptonClassification extends Entity {
 
   get lepton(): string | null {
     let value = this.get("lepton");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4447,7 +4498,7 @@ export class LeptonClassification extends Entity {
 
   get lepton2(): string | null {
     let value = this.get("lepton2");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4464,7 +4515,7 @@ export class LeptonClassification extends Entity {
 
   get metadataUri(): string | null {
     let value = this.get("metadataUri");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4481,7 +4532,7 @@ export class LeptonClassification extends Entity {
 
   get price(): BigInt | null {
     let value = this.get("price");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4498,7 +4549,7 @@ export class LeptonClassification extends Entity {
 
   get supply(): BigInt | null {
     let value = this.get("supply");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4515,7 +4566,7 @@ export class LeptonClassification extends Entity {
 
   get multiplier(): BigInt | null {
     let value = this.get("multiplier");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4532,7 +4583,7 @@ export class LeptonClassification extends Entity {
 
   get bonus(): BigInt | null {
     let value = this.get("bonus");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4549,7 +4600,7 @@ export class LeptonClassification extends Entity {
 
   get upperBounds(): BigInt | null {
     let value = this.get("upperBounds");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4610,7 +4661,7 @@ export class LeptonNFT extends Entity {
 
   get lepton(): string | null {
     let value = this.get("lepton");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4627,7 +4678,7 @@ export class LeptonNFT extends Entity {
 
   get lepton2(): string | null {
     let value = this.get("lepton2");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4644,7 +4695,7 @@ export class LeptonNFT extends Entity {
 
   get owner(): Bytes | null {
     let value = this.get("owner");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBytes();
@@ -4661,7 +4712,7 @@ export class LeptonNFT extends Entity {
 
   get price(): BigInt | null {
     let value = this.get("price");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4678,7 +4729,7 @@ export class LeptonNFT extends Entity {
 
   get supply(): BigInt | null {
     let value = this.get("supply");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4695,7 +4746,7 @@ export class LeptonNFT extends Entity {
 
   get multiplier(): BigInt | null {
     let value = this.get("multiplier");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4712,7 +4763,7 @@ export class LeptonNFT extends Entity {
 
   get bonus(): BigInt | null {
     let value = this.get("bonus");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigInt();
@@ -4729,7 +4780,7 @@ export class LeptonNFT extends Entity {
 
   get metadataUri(): string | null {
     let value = this.get("metadataUri");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4746,7 +4797,7 @@ export class LeptonNFT extends Entity {
 
   get name(): string | null {
     let value = this.get("name");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4763,7 +4814,7 @@ export class LeptonNFT extends Entity {
 
   get description(): string | null {
     let value = this.get("description");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4780,7 +4831,7 @@ export class LeptonNFT extends Entity {
 
   get external_url(): string | null {
     let value = this.get("external_url");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4797,7 +4848,7 @@ export class LeptonNFT extends Entity {
 
   get animation_url(): string | null {
     let value = this.get("animation_url");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4814,7 +4865,7 @@ export class LeptonNFT extends Entity {
 
   get youtube_url(): string | null {
     let value = this.get("youtube_url");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4831,7 +4882,7 @@ export class LeptonNFT extends Entity {
 
   get thumbnail(): string | null {
     let value = this.get("thumbnail");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4848,7 +4899,7 @@ export class LeptonNFT extends Entity {
 
   get image(): string | null {
     let value = this.get("image");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -4865,7 +4916,7 @@ export class LeptonNFT extends Entity {
 
   get symbol(): string | null {
     let value = this.get("symbol");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toString();
@@ -5160,7 +5211,7 @@ export class ApprovedOperator extends Entity {
 
   get tokenIds(): Array<BigInt> | null {
     let value = this.get("tokenIds");
-    if (!value || value.kind == ValueKind.NULL) {
+    if (value === null) {
       return null;
     } else {
       return value.toBigIntArray();

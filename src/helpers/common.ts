@@ -12,12 +12,13 @@ export const ONE = BigInt.fromI32(1);
 export const NEG_ONE = BigInt.fromI32(-1);
 
 
+export function hasAttr(obj: TypedMap<string, JSONValue>, key: string): boolean {
+  return (obj.isSet(key) && !obj.get(key).isNull());
+};
+
 export function getStringValue(obj: TypedMap<string, JSONValue>, key: string): string {
-  if (obj.isSet(key)) {
-    const val = obj.get(key);
-    if (val && !val.isNull()) {
-      return val.toString();
-    }
+  if (hasAttr(obj, key)) {
+    return obj.get(key).toString();
   }
   return '';
 };
