@@ -6,11 +6,14 @@ import {
 
 import { smartWalletId } from './idTemplates';
 
+
+
 export function loadOrCreateAaveSmartWallet(
   contractAddress: Address,
-  tokenId: BigInt
+  tokenId: BigInt,
+  managerId: string
 ): AaveSmartWallet {
-  const id = smartWalletId(contractAddress.toHex(), tokenId.toString());
+  const id = smartWalletId(contractAddress.toHex(), tokenId.toString(), managerId);
   let _aaveSmartWallet = AaveSmartWallet.load(id);
 
   if (!_aaveSmartWallet) {

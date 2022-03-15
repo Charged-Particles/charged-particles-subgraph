@@ -20,8 +20,8 @@ export function tokenBalanceId(tokenAddress: string, contractAddress: string, to
   return tokenAddress + '-' + contractAddress + '-' + tokenId;
 }
 
-export function smartWalletId(contractAddress: string, tokenId: string): string {
-  return contractAddress + '-' + tokenId;
+export function smartWalletId(contractAddress: string, tokenId: string, managerId: string): string {
+  return contractAddress + '-' + tokenId + '-' + managerId;
 }
 
 export function whitelistedNftContractId(chargedParticlesAdress: string, contractAddress: string): string {

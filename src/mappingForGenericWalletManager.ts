@@ -12,6 +12,7 @@ import {
 } from '../generated/GenericWalletManager/GenericWalletManager';
 
 import {
+  ZERO,
   ONE,
   getProtonOwnerOf,
   getProtonCreatorOf,
@@ -49,7 +50,7 @@ export function handlePausedStateSet(event: PausedStateSet): void {
 
 export function handleNewSmartWallet(event: NewSmartWallet): void {
   const genericWalletManager = loadOrCreateGenericWalletManager(event.address);
-  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId, 'generic');
   genericSmartWallet.address = event.params.smartWallet;
   genericSmartWallet.walletManager = genericWalletManager.id;
   genericSmartWallet.managerId = "generic";
@@ -57,7 +58,7 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
 }
 
 export function handleWalletEnergized(event: WalletEnergized): void {
-  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId, 'generic');
   let assetTokens = genericSmartWallet.assetTokens;
   if (assetTokens) {
     if (!assetTokens.includes(event.params.assetToken)) {
@@ -98,15 +99,23 @@ export function handleWalletEnergized(event: WalletEnergized): void {
   trackNftTxHistory(event, event.params.contractAddress, event.params.tokenId, 'WalletEnergized', eventData.join('-'));
 }
 
+// Todo same for B
 export function handleWalletReleased(event: WalletReleased): void {
-  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId, 'generic');
   const assetTokenBalance = loadOrCreateGenericAssetTokenBalance(genericSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
-  assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
+  
+  let deductAmount = event.params.receiverAmount.plus(event.params.creatorAmount);
+  
+  if (deductAmount.gt(event.params.principalAmount)) {
+    deductAmount = event.params.principalAmount;
+  }
+
+  assetTokenBalance.principal = assetTokenBalance.principal.minus(deductAmount);
   assetTokenBalance.save();
 
   const assetTokenAnalytics = loadOrCreateAssetTokenAnalytics(event.params.assetToken);
-  assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(event.params.principalAmount);
-  assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.minus(event.params.principalAmount);
+  assetTokenAnalytics.totalAssetsLocked = assetTokenAnalytics.totalAssetsLocked.minus(deductAmount);
+  assetTokenAnalytics.totalAssetsLockedERC20 = assetTokenAnalytics.totalAssetsLockedERC20.minus(deductAmount);
   assetTokenAnalytics.save();
 
   let tokenOwner = getProtonOwnerOf(event.params.contractAddress, event.params.tokenId);

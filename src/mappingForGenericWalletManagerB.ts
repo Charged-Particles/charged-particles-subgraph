@@ -58,7 +58,7 @@ export function handlePausedStateSet(event: PausedStateSet): void {
 
 export function handleNewSmartWallet(event: NewSmartWallet): void {
   const genericWalletManager = loadOrCreateGenericWalletManager(event.address, _contractVersionFlag);
-  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId, 'generic.B');
   genericSmartWallet.address = event.params.smartWallet;
   genericSmartWallet.walletManager = genericWalletManager.id;
   genericSmartWallet.managerId = "generic.B";
@@ -66,7 +66,7 @@ export function handleNewSmartWallet(event: NewSmartWallet): void {
 }
 
 export function handleWalletEnergized(event: WalletEnergized): void {
-  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId, 'generic.B');
   let assetTokens = genericSmartWallet.assetTokens;
   if (assetTokens) {
     if (!assetTokens.includes(event.params.assetToken)) {
@@ -108,7 +108,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
 }
 
 export function handleWalletReleased(event: WalletReleased): void {
-  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const genericSmartWallet = loadOrCreateGenericSmartWallet(event.params.contractAddress, event.params.tokenId, 'generic.B');
   const assetTokenBalance = loadOrCreateGenericAssetTokenBalance(genericSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
   assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
   assetTokenBalance.save();
