@@ -26,7 +26,6 @@ import { trackNftTxHistory } from './helpers/trackNftTxHistory';
 import {
   ONE,
   getStringValue,
-  hasAttr,
   parseJsonFromIpfs,
 } from './helpers/common';
 
@@ -141,16 +140,20 @@ export function processStandardMetadata(value: JSONValue, userData: Value): void
   _nft.image            = getStringValue(standardMetadata, 'image');
   _nft.save();
 
-  if (hasAttr(standardMetadata, 'attributes')) {
-    const attributes = standardMetadata.get('attributes').toArray();
-    for (let i = 0; i < attributes.length; i++) {
-      const attrMap = attributes[i].toObject();
+  let attributes = standardMetadata.get('attributes');
+  if (attributes) {
+    const attrArr = attributes.toArray();
+    for (let i = 0; i < attrArr.length; i++) {
+      const attrMap = attrArr[i].toObject();
 
+      let jsonValue:JSONValue | null;
       let attrName = '';
       let attrValue = '';
       if (attrMap.isSet('name')) {
-        attrName = attrMap.get('name').toString();
-        attrValue = attrMap.get('value').toString();
+        jsonValue = attrMap.get('name');
+        if (jsonValue) { attrName = jsonValue.toString(); }
+        jsonValue = attrMap.get('value');
+        if (jsonValue) { attrValue = jsonValue.toString(); }
       }
 
       const nftAttr = new StandardNftAttributes(nftAttributeId(standardNftId, i.toString()));

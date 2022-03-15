@@ -1,6 +1,14 @@
 import { Address, Bytes, TypedMap, JSONValue, BigInt, Wrapped, ipfs, json, log, Value } from '@graphprotocol/graph-ts';
 
 import {
+  GlobalData,
+} from '../../generated/schema';
+
+import {
+  ChargedParticles as ChargedParticlesContract,
+} from '../../generated/ChargedParticles/ChargedParticles';
+
+import {
   Proton as ProtonContract
 } from '../../generated/Proton/Proton';
 
@@ -11,14 +19,12 @@ export const ZERO = BigInt.fromI32(0);
 export const ONE = BigInt.fromI32(1);
 export const NEG_ONE = BigInt.fromI32(-1);
 
-
-export function hasAttr(obj: TypedMap<string, JSONValue>, key: string): boolean {
-  return (obj.isSet(key) && !obj.get(key).isNull());
-};
-
 export function getStringValue(obj: TypedMap<string, JSONValue>, key: string): string {
-  if (hasAttr(obj, key)) {
-    return obj.get(key).toString();
+  if (obj.isSet(key)) {
+    const val = obj.get(key);
+    if (val && !val.isNull()) {
+      return val.toString();
+    }
   }
   return '';
 };
@@ -67,6 +73,21 @@ export function getProtonTokenURI(contractAddress: Address, tokenId: BigInt): st
     tokenUri = callResult.value;
   }
   return tokenUri;
+}
+
+export function getBaseParticleMass(contractAddress: Address, tokenId: BigInt, walletMgrId: string, assetToken: Address): BigInt {
+  let mass:BigInt = BigInt.fromI32(0);
+  const _global = GlobalData.load('V1');
+  if (_global != null) {
+    const _chargedParticles = ChargedParticlesContract.bind(_global.chargedParticlesAddress as Address);
+    let callResult = _chargedParticles.try_baseParticleMass(contractAddress, tokenId, walletMgrId, assetToken);
+    if (callResult.reverted) {
+      log.info('ChargedParticles.baseParticleMass reverted', []);
+    } else {
+      mass = callResult.value;
+    }
+  }
+  return mass;
 }
 
 export function parseJsonFromIpfs(jsonUri: string): Wrapped<JSONValue> | null {
