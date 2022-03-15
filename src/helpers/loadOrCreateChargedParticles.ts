@@ -1,6 +1,7 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
+  GlobalData,
   ChargedParticles,
 } from '../../generated/schema';
 
@@ -16,6 +17,10 @@ export function loadOrCreateChargedParticles(
   let _chargedParticles = ChargedParticles.load(id);
 
   if (!_chargedParticles) {
+    const _global = new GlobalData('V1');
+    _global.chargedParticlesAddress = chargedParticlesAddress;
+    _global.save();
+
     _chargedParticles = new ChargedParticles(id);
     const boundChargedParticles = ChargedParticlesContract.bind(chargedParticlesAddress);
 

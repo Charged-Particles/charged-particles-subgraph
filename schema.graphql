@@ -1,3 +1,8 @@
+type GlobalData @entity {
+  id: ID!
+
+  chargedParticlesAddress: Bytes
+}
 
 # ID: `${universe.address}`
 type Universe @entity {

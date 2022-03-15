@@ -11,6 +11,56 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
+export class GlobalData extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save GlobalData entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save GlobalData entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("GlobalData", id.toString(), this);
+    }
+  }
+
+  static load(id: string): GlobalData | null {
+    return changetype<GlobalData | null>(store.get("GlobalData", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get chargedParticlesAddress(): Bytes | null {
+    let value = this.get("chargedParticlesAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set chargedParticlesAddress(value: Bytes | null) {
+    if (!value) {
+      this.unset("chargedParticlesAddress");
+    } else {
+      this.set("chargedParticlesAddress", Value.fromBytes(<Bytes>value));
+    }
+  }
+}
+
 export class Universe extends Entity {
   constructor(id: string) {
     super();
