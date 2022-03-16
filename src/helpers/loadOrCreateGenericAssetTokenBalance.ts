@@ -18,7 +18,7 @@ export function loadOrCreateGenericAssetTokenBalance(
   contractAddress: Address,
   tokenId: BigInt
 ): GenericAssetTokenBalance {
-  const id = tokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
+  const id = tokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString(), genericSmartWalletId);
   let _assetTokenBalance = GenericAssetTokenBalance.load(id);
 
   if (!_assetTokenBalance) {

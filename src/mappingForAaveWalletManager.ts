@@ -177,8 +177,8 @@ export function handleWalletReleased(event: WalletReleased): void {
   const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId, 'aave');
   const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
   const ownerInterest = event.params.receiverAmount.minus(event.params.principalAmount);
-  // assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
-  assetTokenBalance.principal = getBaseParticleMass(event.params.contractAddress, event.params.tokenId, "aave", event.params.assetToken);
+  assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
+  //assetTokenBalance.principal = getBaseParticleMass(event.params.contractAddress, event.params.tokenId, "aave", event.params.assetToken);
   assetTokenBalance.ownerInterestDischarged = assetTokenBalance.ownerInterestDischarged.plus(ownerInterest);
   assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.creatorAmount);
   assetTokenBalance.save();

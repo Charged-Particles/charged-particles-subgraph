@@ -108,7 +108,7 @@ export function handleBasketRemove(event: BasketRemove): void {
   }
 
   if (!ids || ids.length == 0) {
-    removeNftTokenBalance(event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
+    removeNftTokenBalance(event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId, genericSmartBasket.id);
   }
 
   var eventData = new Array<string>(5);

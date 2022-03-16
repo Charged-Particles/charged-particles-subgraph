@@ -13,7 +13,7 @@ export function loadOrCreateGenericNftTokenBalance(
   contractAddress: Address,
   tokenId: BigInt
 ): GenericNftTokenBalance {
-  const id = tokenBalanceId(nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
+  const id = tokenBalanceId(nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString(), genericSmartBasketId);
   let _nftTokenBalance = GenericNftTokenBalance.load(id);
 
   if (!_nftTokenBalance) {
