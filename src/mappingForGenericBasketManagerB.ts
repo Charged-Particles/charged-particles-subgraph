@@ -57,7 +57,7 @@ export function handlePausedStateSet(event: PausedStateSet): void {
 
 export function handleNewSmartBasket(event: NewSmartBasket): void {
   const genericBasketManager = loadOrCreateGenericBasketManager(event.address, _contractVersionFlag);
-  const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId);
+  const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId, 'generic.B');
   genericSmartBasket.address = event.params.smartBasket;
   genericSmartBasket.basketManager = genericBasketManager.id;
   genericSmartBasket.managerId = "generic.B";
@@ -65,7 +65,7 @@ export function handleNewSmartBasket(event: NewSmartBasket): void {
 }
 
 export function handleBasketAdd(event: BasketAdd): void {
-  const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId);
+  const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId, 'generic.B');
   genericSmartBasket.totalTokens = genericSmartBasket.totalTokens.plus(ONE);
   genericSmartBasket.save();
 
@@ -95,7 +95,7 @@ export function handleBasketAdd(event: BasketAdd): void {
 }
 
 export function handleBasketRemove(event: BasketRemove): void {
-  const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId);
+  const genericSmartBasket = loadOrCreateGenericSmartBasket(event.params.contractAddress, event.params.tokenId, 'generic.B');
   genericSmartBasket.totalTokens = genericSmartBasket.totalTokens.minus(ONE);
   genericSmartBasket.save();
 
@@ -111,7 +111,7 @@ export function handleBasketRemove(event: BasketRemove): void {
   }
 
   if (!ids || ids.length == 0) {
-    removeNftTokenBalance(event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
+    removeNftTokenBalance(event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId, genericSmartBasket.id);
   }
   
   var eventData = new Array<string>(5);

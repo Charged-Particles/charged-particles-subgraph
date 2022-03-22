@@ -18,7 +18,7 @@ export function loadOrCreateAaveAssetTokenBalance(
   contractAddress: Address,
   tokenId: BigInt
 ): AaveAssetTokenBalance {
-  const id = tokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
+  const id = tokenBalanceId(assetTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString(), aaveSmartWalletId);
   let _assetTokenBalance = AaveAssetTokenBalance.load(id);
 
   if (!_assetTokenBalance) {

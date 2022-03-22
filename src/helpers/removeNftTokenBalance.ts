@@ -9,8 +9,9 @@ import { store } from '@graphprotocol/graph-ts'
 export function removeNftTokenBalance(
     nftTokenAddress: Address,
     contractAddress: Address,
-    tokenId: BigInt
+    tokenId: BigInt,
+    smartWalletId: string
   ): void {
-    const id = tokenBalanceId(nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString());
+    const id = tokenBalanceId(nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString(), smartWalletId);
     store.remove('GenericNftTokenBalance',id);
   }

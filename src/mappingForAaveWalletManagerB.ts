@@ -65,17 +65,17 @@ export function handlePausedStateSet(event: PausedStateSet): void {
 
 export function handleNewSmartWallet(event: NewSmartWallet): void {
   const aaveWalletManager = loadOrCreateAaveWalletManager(event.address, _contractVersionFlag);
-  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId, 'aave.B');
   aaveSmartWallet.address = event.params.smartWallet;
   aaveSmartWallet.walletManager = aaveWalletManager.id;
   aaveSmartWallet.managerId = "aave.B";
-  // aaveSmartWallet.nftCreator = event.params.creator;
-  // aaveSmartWallet.nftCreatorAnnuityPct = event.params.annuityPct;
+  aaveSmartWallet.nftCreator = event.params.creator;
+  aaveSmartWallet.nftCreatorAnnuityPct = event.params.annuityPct;
   aaveSmartWallet.save();
 }
 
 export function handleWalletEnergized(event: WalletEnergized): void {
-  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId, 'aave.B');
   let assetTokens = aaveSmartWallet.assetTokens;
   if (assetTokens) {
     if (!assetTokens.includes(event.params.assetToken)) {
@@ -117,7 +117,7 @@ export function handleWalletEnergized(event: WalletEnergized): void {
 }
 
 export function handleWalletDischarged(event: WalletDischarged): void {
-  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId, 'aave.B');
   const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
   assetTokenBalance.ownerInterestDischarged = assetTokenBalance.ownerInterestDischarged.plus(event.params.receiverAmount);
   assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.creatorAmount);
@@ -155,7 +155,7 @@ export function handleWalletDischarged(event: WalletDischarged): void {
 }
 
 export function handleWalletDischargedForCreator(event: WalletDischargedForCreator): void {
-  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId, 'aave.B');
   const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
   assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.receiverAmount);
   assetTokenBalance.save();
@@ -179,11 +179,11 @@ export function handleWalletDischargedForCreator(event: WalletDischargedForCreat
 }
 
 export function handleWalletReleased(event: WalletReleased): void {
-  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId);
+  const aaveSmartWallet = loadOrCreateAaveSmartWallet(event.params.contractAddress, event.params.tokenId, 'aave.B');
   const assetTokenBalance = loadOrCreateAaveAssetTokenBalance(aaveSmartWallet.id, event.params.assetToken, event.params.contractAddress, event.params.tokenId);
   const ownerInterest = event.params.receiverAmount.minus(event.params.principalAmount);
-  // assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
-  assetTokenBalance.principal = getBaseParticleMass(event.params.contractAddress, event.params.tokenId, "aave.B", event.params.assetToken);
+  assetTokenBalance.principal = assetTokenBalance.principal.minus(event.params.principalAmount);
+  //assetTokenBalance.principal = getBaseParticleMass(event.params.contractAddress, event.params.tokenId, "aave.B", event.params.assetToken);
   assetTokenBalance.ownerInterestDischarged = assetTokenBalance.ownerInterestDischarged.plus(ownerInterest);
   assetTokenBalance.creatorInterestDischarged = assetTokenBalance.creatorInterestDischarged.plus(event.params.creatorAmount);
   assetTokenBalance.save();

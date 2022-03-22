@@ -8,9 +8,10 @@ import { smartWalletId } from './idTemplates';
 
 export function loadOrCreateGenericSmartWallet(
   contractAddress: Address,
-  tokenId: BigInt
+  tokenId: BigInt,
+  managerId: string
 ): GenericSmartWallet {
-  const id = smartWalletId(contractAddress.toHex(), tokenId.toString());
+  const id = smartWalletId(contractAddress.toHex(), tokenId.toString(), managerId);
   let _genericSmartWallet = GenericSmartWallet.load(id);
 
   if (!_genericSmartWallet) {

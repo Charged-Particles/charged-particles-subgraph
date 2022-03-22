@@ -9,9 +9,10 @@ import { smartWalletId } from './idTemplates';
 
 export function loadOrCreateGenericSmartBasket(
   contractAddress: Address,
-  tokenId: BigInt
+  tokenId: BigInt,
+  managerId: string
 ): GenericSmartBasket {
-  const id = smartWalletId(contractAddress.toHex(), tokenId.toString());
+  const id = smartWalletId(contractAddress.toHex(), tokenId.toString(), managerId);
   let _genericSmartBasket = GenericSmartBasket.load(id);
 
   if (!_genericSmartBasket) {
