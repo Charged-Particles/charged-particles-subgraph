@@ -1,75 +1,89 @@
 {
   "network": "mumbai",
   "universe": {
-    "address": "0xF94df68359c779b742F0D7504ef838107F337B94",
-    "startBlock": "15438945"
+    "address": "0x38c2fBaa43ded296ba838e7EFFF6ebdd7D471A94",
+    "startBlock": "25748808"
   },
   "chargedState": {
-    "address": "0x254a1C75D351400b3dD0495781f7ed64ef51A1F3",
-    "startBlock": "24587290"
+    "address": "0x28C0E05AEa71Bd3F05E1E6611eB805A34c561CD2",
+    "startBlock": "25748808"
   },
   "chargedSettings": {
-    "address": "0xC865B0240f2aD46a4c50574Da40c438123e990E9",
-    "startBlock": "24587290"
+    "address": "0x403573D1D2E0dFd495d651a056330F1E68120aD9",
+    "startBlock": "25748808"
   },
   "chargedManagers": {
-    "address": "0xF5BD554eeB15B97A303c006E4eBc5Ed77c3C2785",
-    "startBlock": "24587566"
+    "address": "0xc2bea37362bF4007185B27A39beBbde2D5b6E6D2",
+    "startBlock": "25748808"
   },
   "chargedParticles": {
-    "address": "0x49D5eA6F886CAe46320935b7632C84E67c8A03a6",
-    "startBlock": "15438959"
+    "address": "0x77a9b7b85810948c9c1f65cdE67a7094f1192C53",
+    "startBlock": "25748808"
   },
   "genericWalletManager": {
-    "address": "0xD3d8b546eD1A78F8F985443AceC59417b4ED5Cf6",
-    "startBlock": "15438969"
+    "address": "0xCBAD115511344f655A981c0954dC1048fDC3d040",
+    "startBlock": "25748808"
   },
   "genericBasketManager": {
-    "address": "0xB5196932aCdA15a6aE2d6e6289D43f491FEd8C9d",
-    "startBlock": "15438972"
+    "address": "0x288d1906403A611bB826EE677B146E6209701469",
+    "startBlock": "25748808"
   },
   "aaveWalletManager": {
-    "address": "0xAd0C9593e251C6b74C4819467C52181b188FFD5F",
-    "startBlock": "15438976"
+    "address": "0x153223065757BF441f47688679D8f03bdB333500",
+    "startBlock": "25748808"
   },
   "genericWalletManagerB": {
-    "address": "0x5c97d783F893758b0025AE083c01E8BEf849745D",
-    "startBlock": "24587290"
+    "address": "0x7e0E2aCDC18B6D6EBAe37ef41EbdB904eef934A6",
+    "startBlock": "25748808"
   },
   "genericBasketManagerB": {
-    "address": "0x97a46ac90f5cCF18336b62806d348E3a47850E6C",
-    "startBlock": "24587290"
+    "address": "0xfebC7d81360FFe6050323414bfE86Ac4f17DdB01",
+    "startBlock": "25748808"
   },
   "aaveWalletManagerB": {
-    "address": "0x1AC2e71Cdd7106c0Ace213952fb6B4e0B01F86be",
-    "startBlock": "24587290"
+    "address": "0x3794935d7ae99894bFd1d9D367fA12462DECf38a",
+    "startBlock": "25748808"
   },
   "particleSplitter": {
-    "address": "0xBCa045C01fD01A3cF6dC072E5F358926A1dd9C2b",
-    "startBlock": "24587290"
-  },
-  "wBoson": {
-    "address": "0x910296134803E8405B586Fb2a7427523B18F4108",
-    "startBlock": "14895751"
+    "address": "0x339626487fFA7503643e1877185DE71F692DE820",
+    "startBlock": "25748808"
   },
   "proton": {
-    "address": "0xBF86c854D83FEC1Fa6421B5a40bbd87Acc5fC387",
-    "startBlock": "15438945"
+    "address": "0x420576cdc9275fD5dA938F9d722c5952C3D85123",
+    "startBlock": "25748808"
   },
   "protonB": {
-    "address": "0xC5dECa7eb029e35dC2Fbdca94C76cB08030AaE4F",
-    "startBlock": "24587290"
+    "address": "0xDA8fdAb5E510DB9D0cb0E74727cA1c07665C7794",
+    "startBlock": "25748808"
   },
   "lepton": {
     "address": "0xe5Ef9eB710346cA976949603D46Bd8399C5d3dA9",
     "startBlock": "14895751"
   },
   "lepton2": {
-    "address": "0x3a39E5BB3Bb2Ff34517eAD38dfA9A7158Ae2bA3f",
-    "startBlock": "24587290"
+    "address": "0x7b970cB391be9f860BD71314c1058E4AE5cA4DEe",
+    "startBlock": "25748808"
   },
   "ionx": {
-    "address": "0xec4953593F238d50a0e9C6635add0503ddFc5e9D",
-    "startBlock": "24587290"
+    "address": "0x8630669621A605f5DFb222Af7eF086883FFE1873",
+    "startBlock": "25748808"
+  },
+
+  "externalERC721": {
+    "address": "0x509bcb4aA258110D701C58FE93786B6d261e568D",
+    "startBlock": "25747040"
+  },
+  "nonFungibleERC1155": {
+    "address": "0xA49607DaD58439705EA72e2a227cB87c8893358c",
+    "startBlock": "25747040"
+  },
+  "fungibleERC1155": {
+    "address": "0x719D950d7a00f575891c27577939F282c73aD1AE",
+    "startBlock": "25747040"
+  },
+
+  "wBoson": {
+    "address": "0x910296134803E8405B586Fb2a7427523B18F4108",
+    "startBlock": "14895751"
   }
 }
