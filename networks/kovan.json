@@ -1,76 +1,90 @@
 {
   "network": "kovan",
   "universe": {
-    "address": "0xea5118066d69C728a0c314FC8dC0bE97e7Ce0E0E",
-    "startBlock": "29371069"
+    "address": "0x1d61Dc769C06733D44CCdE48D5fc88d277a6707E",
+    "startBlock": "30754837"
   },
   "chargedState": {
-    "address": "0xaDCf6273bbD8df99bE341FF1eA53b72193a107cD",
-    "startBlock": "29462680"
+    "address": "0xD80C1f1eE256bf7A565163A6b37bC3f31383047A",
+    "startBlock": "30754837"
   },
   "chargedSettings": {
-    "address": "0xF6194A8F5906BE2EF8A2908701353eA51878c3D5",
-    "startBlock": "29462680"
+    "address": "0x39113bcB70adFDd08e1f0D7f0Ae1C114BCB66ca2",
+    "startBlock": "30754837"
   },
   "chargedManagers": {
-    "address": "0xd73480560f384BFe41d525bCC7DCBDDdBE45Ae2e",
-    "startBlock": "29462680"
+    "address": "0x1588f6645Af6541A1502667C83c8F5B8d2a9E474",
+    "startBlock": "30754837"
   },
   "chargedParticles": {
-    "address": "0x002E48F4bc55dd3156c56Dd5B2722257Ef7A486D",
-    "startBlock": "29462680"
+    "address": "0xf60E3FB836a29C61f7A7f3bd5Cc90f9f66A7021b",
+    "startBlock": "30754837"
   },
   "genericWalletManager": {
-    "address": "0x48B3Be406877be676Ca1491bB422b562F087e46a",
-    "startBlock": "29462680"
+    "address": "0xC7181c696E53E43934EB8ec67b1Ec712e0AF0B95",
+    "startBlock": "30754837"
   },
   "genericBasketManager": {
-    "address": "0x0aB0846551dff6dDCB41e8E80dF04a7c1b495Bbf",
-    "startBlock": "29462680"
+    "address": "0xB8a486Ac2040041bdB054d4db8d782B0002AcFC6",
+    "startBlock": "30754837"
   },
   "aaveWalletManager": {
-    "address": "0x27b3D1B17471b4e02bcF326c41310eE2336D578A",
-    "startBlock": "29462680"
+    "address": "0x1b64C48a4A0C8b4349f7326BB022Bd17e09f098D",
+    "startBlock": "30754837"
   },
   "genericWalletManagerB": {
-    "address": "0xe5ba5d631Ed5d520E5D419A2Fb93260da1b503c4",
-    "startBlock": "29462680"
+    "address": "0x02013A93745dEf1527d0F6a954d01c589427Dbb8",
+    "startBlock": "30754837"
   },
   "genericBasketManagerB": {
-    "address": "0x7AD6Fc02E1C2DB817BDF18b2555C6710aE102104",
-    "startBlock": "29462680"
+    "address": "0x855fC7C6f555641D7e58003152c6112286F768A8",
+    "startBlock": "30754837"
   },
   "aaveWalletManagerB": {
-    "address": "0x170f613b4fACd36f77a8D0896c61B1358cF58359",
-    "startBlock": "29462680"
+    "address": "0x6A189b0cCbd09074149bAEdeCdD09C5FEd9E1B0F",
+    "startBlock": "30754837"
   },
   "particleSplitter": {
-    "address": "0x59c81a374Bc09EC48181e41a869E041f6c37F476",
-    "startBlock": "29462680"
+    "address": "0xE1DDf8a38f70e479B3F1bD2323C78255f4ed1583",
+    "startBlock": "30754837"
   },
+  "proton": {
+    "address": "0xEDa5dA03bB30f7137F00787edAee84ae4fD54905",
+    "startBlock": "30754837"
+  },
+  "protonB": {
+    "address": "0x1554b19E1eD9FE78F375AC7c8F63Fe9E85d15a16",
+    "startBlock": "30754837"
+  },
+  "lepton": {
+    "address": "0xb127A0CcD9533A8b3dD4Be613974952854411B85",
+    "startBlock": "30754837"
+  },
+  "lepton2": {
+    "address": "0x58b6fB474823c2FCB76226F6b6bA718635D0Dd4B",
+    "startBlock": "30754837"
+  },
+  "ionx": {
+    "address": "0x3D88F7eEFB4a836DcE1944838946E41BC5c59804",
+    "startBlock": "30754837"
+  },
+
   "wBoson": {
     "address": "0x18f112F9Ec7b96D453B95Deab92BE628088Effc6",
     "startBlock": "29462680"
   },
-  "proton": {
-    "address": "0xfb6075A3f960DBcd28Ae4Bb45092ce33D2909060",
-    "startBlock": "29462680"
+
+  "externalERC721": {
+    "address": "0x985b114bfF541a887e88FE5d76Fea71EBE5249E5",
+    "startBlock": "30752397"
   },
-  "protonB": {
-    "address": "0x517fEfB53b58Ec8764ca885731Db20Ca2dcac7b7",
-    "startBlock": "29462680"
+  "nonFungibleERC1155": {
+    "address": "0x86818fA5E9e100bf677D0FdFf7e24Ec13AD48222",
+    "startBlock": "30752397"
   },
-  "lepton": {
-    "address": "0xb127A0CcD9533A8b3dD4Be613974952854411B85",
-    "startBlock": "29462680"
-  },
-  "lepton2": {
-    "address": "0x038eb00391BD21b424EB09e8420F88e71f6C4db2",
-    "startBlock": "24013813"
-  },
-  "ionx": {
-    "address": "0xBcF8f381aB60f076824F35349CCaA10c58F8a151",
-    "startBlock": "29462680"
+  "fungibleERC1155": {
+    "address": "0x901B44e844B08aC4eb0d20EFf2D93D337e41C21b",
+    "startBlock": "30752397"
   },
 
   "communityVault": {
@@ -96,7 +110,6 @@
   },
 
   "staking2": {
-
     "address": "0x06d74b1695A812b956D028b809EE524A7715CA0E",
     "startBlock": "26759948"
   },
@@ -108,7 +121,7 @@
     "address": "0xb8eAc0C7E4E78f653B263d6A45C4B46f9c66864D",
     "startBlock": "26759948"
   },
-  
+
   "staking3": {
     "address": "0x64f8A0Ee798CA6e1b1A0a04ABaD867CF2Bc03aA2",
     "startBlock": "26759948"
