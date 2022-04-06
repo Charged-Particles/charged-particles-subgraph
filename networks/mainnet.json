@@ -131,5 +131,9 @@
   "vestingClaim7": {
     "address": "0x880Ab0C60806fCd683392F520A7370D8264B09af",
     "startBlock": "13913997"
+  },
+  "particlon": {
+    "address": "0xCd2BA94E435e536dC48648EAb2f4F1db257BC64C",
+    "startBlock": "14520502"
   }
 }

@@ -25,6 +25,8 @@ dataSources:
           file: ./abis/Ionx.json
         - name: Proton
           file: ./abis/Proton.json
+        - name: ProtonB
+          file: ./abis/ProtonB.json
         - name: Lepton
           file: ./abis/Lepton.json
         - name: ERC20
@@ -277,6 +279,8 @@ dataSources:
           file: ./abis/ERC20.json
         - name: Proton
           file: ./abis/Proton.json
+        - name: ProtonB
+          file: ./abis/ProtonB.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -317,6 +321,8 @@ dataSources:
           file: ./abis/ERC20.json
         - name: Proton
           file: ./abis/Proton.json
+        - name: ProtonB
+          file: ./abis/ProtonB.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -370,9 +376,9 @@ dataSources:
           handler: handlePausedStateSet
         - event: NewSmartBasket(indexed address,indexed uint256,indexed address)
           handler: handleNewSmartBasket
-        - event: BasketAdd(indexed address,indexed uint256,address,uint256)
+        - event: BasketAdd(indexed address,indexed uint256,address,uint256,uint256)
           handler: handleBasketAdd
-        - event: BasketRemove(indexed address,indexed address,indexed uint256,address,uint256)
+        - event: BasketRemove(indexed address,indexed address,indexed uint256,address,uint256,uint256)
           handler: handleBasketRemove
         - event: BasketRewarded(indexed address,indexed uint256,indexed address,address,uint256)
           handler: handleBasketRewarded
@@ -397,6 +403,8 @@ dataSources:
           file: ./abis/ERC20.json
         - name: Proton
           file: ./abis/Proton.json
+        - name: ProtonB
+          file: ./abis/ProtonB.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -439,6 +447,8 @@ dataSources:
           file: ./abis/ERC20.json
         - name: Proton
           file: ./abis/Proton.json
+        - name: ProtonB
+          file: ./abis/ProtonB.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -524,9 +534,12 @@ dataSources:
       file: ./src/mappingForProton.ts
       entities:
         - Proton
+        - ProtonNFT
       abis:
         - name: Proton
           file: ./abis/Proton.json
+        - name: ProtonB
+          file: ./abis/ProtonB.json
         - name: ERC721
           file: ./abis/ERC721.json
         - name: ERC20
@@ -574,7 +587,10 @@ dataSources:
       file: ./src/mappingForProtonB.ts
       entities:
         - Proton
+        - ProtonNFT
       abis:
+        - name: Proton
+          file: ./abis/Proton.json
         - name: ProtonB
           file: ./abis/ProtonB.json
         - name: ERC721

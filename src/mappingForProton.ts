@@ -174,13 +174,13 @@ export function handleTransfer(event: Transfer): void {
   _nft.salePrice = ZERO;
   _nft.save();
 
-  trackProtonNftCounts(event);
+  // trackProtonNftCounts(event);
 
-  var eventData = new Array<string>(3);
-  eventData[0] = event.params.tokenId.toString();
-  eventData[1] = event.params.from.toHex();
-  eventData[2] = event.params.to.toHex();
-  trackNftTxHistory(event, event.address, event.params.tokenId, 'Transfer', eventData.join('-'));
+  // var eventData = new Array<string>(3);
+  // eventData[0] = event.params.tokenId.toString();
+  // eventData[1] = event.params.from.toHex();
+  // eventData[2] = event.params.to.toHex();
+  // trackNftTxHistory(event, event.address, event.params.tokenId, 'Transfer', eventData.join('-'));
 
   if (event.params.from.toHex() == ADDRESS_ZERO) {
     const _nftMetadataUri = _nft.metadataUri;
@@ -191,9 +191,9 @@ export function handleTransfer(event: Transfer): void {
       }
     }
 
-    const _minterProfileMetric = loadOrCreateProfileMetric(event.params.to);
-    _minterProfileMetric.mintProtonCount = _minterProfileMetric.mintProtonCount.plus(ONE);
-    _minterProfileMetric.save()
+    // const _minterProfileMetric = loadOrCreateProfileMetric(event.params.to);
+    // _minterProfileMetric.mintProtonCount = _minterProfileMetric.mintProtonCount.plus(ONE);
+    // _minterProfileMetric.save()
   }
 }
 
