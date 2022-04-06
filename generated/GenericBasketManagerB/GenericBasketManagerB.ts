@@ -38,6 +38,10 @@ export class BasketAdd__Params {
   get basketTokenId(): BigInt {
     return this._event.parameters[3].value.toBigInt();
   }
+
+  get basketTokenAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
 }
 
 export class BasketRemove extends ethereum.Event {
@@ -71,6 +75,10 @@ export class BasketRemove__Params {
 
   get basketTokenId(): BigInt {
     return this._event.parameters[4].value.toBigInt();
+  }
+
+  get basketTokenAmount(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
   }
 }
 
@@ -844,6 +852,36 @@ export class GetTokenCountByTypeCall__Outputs {
 
   get value0(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
+export class PrepareTransferAmountCall extends ethereum.Call {
+  get inputs(): PrepareTransferAmountCall__Inputs {
+    return new PrepareTransferAmountCall__Inputs(this);
+  }
+
+  get outputs(): PrepareTransferAmountCall__Outputs {
+    return new PrepareTransferAmountCall__Outputs(this);
+  }
+}
+
+export class PrepareTransferAmountCall__Inputs {
+  _call: PrepareTransferAmountCall;
+
+  constructor(call: PrepareTransferAmountCall) {
+    this._call = call;
+  }
+
+  get nftTokenAmount(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class PrepareTransferAmountCall__Outputs {
+  _call: PrepareTransferAmountCall;
+
+  constructor(call: PrepareTransferAmountCall) {
+    this._call = call;
   }
 }
 

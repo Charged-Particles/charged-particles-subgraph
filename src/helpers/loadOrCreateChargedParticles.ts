@@ -17,7 +17,7 @@ export function loadOrCreateChargedParticles(
   let _chargedParticles = ChargedParticles.load(id);
 
   if (!_chargedParticles) {
-    const _global = new GlobalData('V1');
+    const _global = new GlobalData('ChargedParticlesV1');
     _global.chargedParticlesAddress = chargedParticlesAddress;
     _global.save();
 
