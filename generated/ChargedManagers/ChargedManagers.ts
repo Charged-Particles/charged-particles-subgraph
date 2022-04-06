@@ -721,6 +721,10 @@ export class ValidateNftDepositCall__Inputs {
   get nftTokenId(): BigInt {
     return this._call.inputValues[5].value.toBigInt();
   }
+
+  get nftTokenAmount(): BigInt {
+    return this._call.inputValues[6].value.toBigInt();
+  }
 }
 
 export class ValidateNftDepositCall__Outputs {

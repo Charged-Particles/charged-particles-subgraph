@@ -77,8 +77,9 @@ export function getProtonTokenURI(contractAddress: Address, tokenId: BigInt): st
 
 export function getBaseParticleMass(contractAddress: Address, tokenId: BigInt, walletMgrId: string, assetToken: Address): BigInt {
   let mass:BigInt = BigInt.fromI32(0);
-  const _global = GlobalData.load('V1');
+  const _global = GlobalData.load('ChargedParticlesV1');
   if (_global != null) {
+    log.info("ChargedParticlesV1 {}", [_global.chargedParticlesAddress.toString()]);
     const _chargedParticles = ChargedParticlesContract.bind(_global.chargedParticlesAddress as Address);
     let callResult = _chargedParticles.try_baseParticleMass(contractAddress, tokenId, walletMgrId, assetToken);
     if (callResult.reverted) {
