@@ -648,6 +648,57 @@ export class ProtonB extends ethereum.SmartContract {
     creator: Address,
     receiver: Address,
     tokenMetaUri: string,
+    annuityPercent: BigInt,
+    royaltiesPercent: BigInt,
+    salePrice: BigInt
+  ): BigInt {
+    let result = super.call(
+      "createProtonForSale",
+      "createProtonForSale(address,address,string,uint256,uint256,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(creator),
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromString(tokenMetaUri),
+        ethereum.Value.fromUnsignedBigInt(annuityPercent),
+        ethereum.Value.fromUnsignedBigInt(royaltiesPercent),
+        ethereum.Value.fromUnsignedBigInt(salePrice)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_createProtonForSale(
+    creator: Address,
+    receiver: Address,
+    tokenMetaUri: string,
+    annuityPercent: BigInt,
+    royaltiesPercent: BigInt,
+    salePrice: BigInt
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "createProtonForSale",
+      "createProtonForSale(address,address,string,uint256,uint256,uint256):(uint256)",
+      [
+        ethereum.Value.fromAddress(creator),
+        ethereum.Value.fromAddress(receiver),
+        ethereum.Value.fromString(tokenMetaUri),
+        ethereum.Value.fromUnsignedBigInt(annuityPercent),
+        ethereum.Value.fromUnsignedBigInt(royaltiesPercent),
+        ethereum.Value.fromUnsignedBigInt(salePrice)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  createProtonForSale1(
+    creator: Address,
+    receiver: Address,
+    tokenMetaUri: string,
     royaltiesPercent: BigInt,
     salePrice: BigInt
   ): BigInt {
@@ -666,7 +717,7 @@ export class ProtonB extends ethereum.SmartContract {
     return result[0].toBigInt();
   }
 
-  try_createProtonForSale(
+  try_createProtonForSale1(
     creator: Address,
     receiver: Address,
     tokenMetaUri: string,
@@ -1505,6 +1556,60 @@ export class CreateProtonForSaleCall__Inputs {
     return this._call.inputValues[2].value.toString();
   }
 
+  get annuityPercent(): BigInt {
+    return this._call.inputValues[3].value.toBigInt();
+  }
+
+  get royaltiesPercent(): BigInt {
+    return this._call.inputValues[4].value.toBigInt();
+  }
+
+  get salePrice(): BigInt {
+    return this._call.inputValues[5].value.toBigInt();
+  }
+}
+
+export class CreateProtonForSaleCall__Outputs {
+  _call: CreateProtonForSaleCall;
+
+  constructor(call: CreateProtonForSaleCall) {
+    this._call = call;
+  }
+
+  get newTokenId(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+}
+
+export class CreateProtonForSale1Call extends ethereum.Call {
+  get inputs(): CreateProtonForSale1Call__Inputs {
+    return new CreateProtonForSale1Call__Inputs(this);
+  }
+
+  get outputs(): CreateProtonForSale1Call__Outputs {
+    return new CreateProtonForSale1Call__Outputs(this);
+  }
+}
+
+export class CreateProtonForSale1Call__Inputs {
+  _call: CreateProtonForSale1Call;
+
+  constructor(call: CreateProtonForSale1Call) {
+    this._call = call;
+  }
+
+  get creator(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get receiver(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get tokenMetaUri(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
   get royaltiesPercent(): BigInt {
     return this._call.inputValues[3].value.toBigInt();
   }
@@ -1514,10 +1619,10 @@ export class CreateProtonForSaleCall__Inputs {
   }
 }
 
-export class CreateProtonForSaleCall__Outputs {
-  _call: CreateProtonForSaleCall;
+export class CreateProtonForSale1Call__Outputs {
+  _call: CreateProtonForSale1Call;
 
-  constructor(call: CreateProtonForSaleCall) {
+  constructor(call: CreateProtonForSale1Call) {
     this._call = call;
   }
 
