@@ -254,7 +254,7 @@ dataSources:
           handler: handlePausedStateSet
         - event: NewSmartBasket(indexed address,indexed uint256,indexed address)
           handler: handleNewSmartBasket
-        - event: BasketAdd(indexed address,indexed uint256,address,uint256)
+        - event: BasketAdd(indexed address,indexed uint256,address,uint256,uint256)
           handler: handleBasketAdd
         - event: BasketRemove(indexed address,indexed address,indexed uint256,address,uint256)
           handler: handleBasketRemove
