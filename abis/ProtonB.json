@@ -662,6 +662,11 @@
       },
       {
         "internalType": "uint256",
+        "name": "annuityPercent",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
         "name": "royaltiesPercent",
         "type": "uint256"
       },
