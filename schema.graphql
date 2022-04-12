@@ -183,6 +183,7 @@ type GenericBasketManager @entity {
   chargedParticles: Bytes
   executor: Bytes
 
+  # Represents the Smart-Wallets under Mgmt for this Type
   baskets: [GenericSmartBasket!]! @derivedFrom(field: "basketManager")
 }
 
@@ -190,14 +191,20 @@ type GenericBasketManager @entity {
 type GenericSmartBasket @entity {
   id: ID!
 
+  # The NFT that owns this Smart-Wallet
   contractAddress: Bytes!
   tokenId: BigInt!
 
+  # The Address of the Smart-Wallet
   address: Bytes
+
+  # The Manager contract for this Smart-Wallet
   basketManager: GenericBasketManager
   managerId: String
-  totalTokens: BigInt!
 
+  # The Total # of NFTs in this Smart-Wallet
+  totalTokens: BigInt!
+  # The NFTs in the Smart-Wallet grouped by NFT contract address
   tokenBalances: [GenericNftTokenBalance!]! @derivedFrom(field: "smartBasket")
 }
 
@@ -206,14 +213,28 @@ type GenericSmartBasket @entity {
 type GenericNftTokenBalance @entity {
   id: ID!
 
+  # The NFT that owns the Smart-Wallet
   contractAddress: Bytes!
   tokenId: BigInt!
 
-  nftTokenAddress: Bytes!
-
+  # The Smart-Wallet associated with this Balance Record
   smartBasket: GenericSmartBasket
 
-  nftTokenIds: [BigInt!]
+  # The Address of the NFT added to the Smart-Wallet
+  nftTokenAddress: Bytes!
+
+  # The Token of the NFTs added to the Smart-Wallet
+  nftsById: [NftBalanceByTokenId!]! @derivedFrom(field: "parent")
+}
+
+# ID: `${nftToken.address}-${contractAddress}-${tokenId}`
+# dynamically generated type, not mapped to a specific contract
+type NftBalanceByTokenId @entity {
+  id: ID!
+  parent: GenericNftTokenBalance!
+
+  tokenId: BigInt!
+  tokenBalance: BigInt!
 }
 
 # ID: `${genericWalletManager.address}`

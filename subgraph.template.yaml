@@ -1,6 +1,7 @@
 specVersion: 0.0.2
 features:
-  - nonFatalErrors
+  - ipfsOnEthereumContracts
+  # - nonFatalErrors
 schema:
   file: ./schema.graphql
 dataSources:
@@ -215,8 +216,12 @@ dataSources:
           file: ./abis/AaveWalletManager.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: ERC165
+          file: ./abis/ERC165.json
         - name: ERC721
           file: ./abis/ERC721.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -243,8 +248,12 @@ dataSources:
           file: ./abis/GenericBasketManager.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: ERC165
+          file: ./abis/ERC165.json
         - name: ERC721
           file: ./abis/ERC721.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -363,8 +372,12 @@ dataSources:
           file: ./abis/GenericBasketManagerB.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: ERC165
+          file: ./abis/ERC165.json
         - name: ERC721
           file: ./abis/ERC721.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -540,10 +553,14 @@ dataSources:
           file: ./abis/Proton.json
         - name: ProtonB
           file: ./abis/ProtonB.json
-        - name: ERC721
-          file: ./abis/ERC721.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: ERC165
+          file: ./abis/ERC165.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
@@ -595,6 +612,8 @@ dataSources:
           file: ./abis/ProtonB.json
         - name: ERC721
           file: ./abis/ERC721.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:

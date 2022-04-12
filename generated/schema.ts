@@ -1791,15 +1791,6 @@ export class GenericNftTokenBalance extends Entity {
     this.set("tokenId", Value.fromBigInt(value));
   }
 
-  get nftTokenAddress(): Bytes {
-    let value = this.get("nftTokenAddress");
-    return value!.toBytes();
-  }
-
-  set nftTokenAddress(value: Bytes) {
-    this.set("nftTokenAddress", Value.fromBytes(value));
-  }
-
   get smartBasket(): string | null {
     let value = this.get("smartBasket");
     if (!value || value.kind == ValueKind.NULL) {
@@ -1817,21 +1808,88 @@ export class GenericNftTokenBalance extends Entity {
     }
   }
 
-  get nftTokenIds(): Array<BigInt> | null {
-    let value = this.get("nftTokenIds");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBigIntArray();
+  get nftTokenAddress(): Bytes {
+    let value = this.get("nftTokenAddress");
+    return value!.toBytes();
+  }
+
+  set nftTokenAddress(value: Bytes) {
+    this.set("nftTokenAddress", Value.fromBytes(value));
+  }
+
+  get nftsById(): Array<string> {
+    let value = this.get("nftsById");
+    return value!.toStringArray();
+  }
+
+  set nftsById(value: Array<string>) {
+    this.set("nftsById", Value.fromStringArray(value));
+  }
+}
+
+export class NftBalanceByTokenId extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+
+    this.set("parent", Value.fromString(""));
+    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
+    this.set("tokenBalance", Value.fromBigInt(BigInt.zero()));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save NftBalanceByTokenId entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        "Cannot save NftBalanceByTokenId entity with non-string ID. " +
+          'Considering using .toHex() to convert the "id" to a string.'
+      );
+      store.set("NftBalanceByTokenId", id.toString(), this);
     }
   }
 
-  set nftTokenIds(value: Array<BigInt> | null) {
-    if (!value) {
-      this.unset("nftTokenIds");
-    } else {
-      this.set("nftTokenIds", Value.fromBigIntArray(<Array<BigInt>>value));
-    }
+  static load(id: string): NftBalanceByTokenId | null {
+    return changetype<NftBalanceByTokenId | null>(
+      store.get("NftBalanceByTokenId", id)
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get parent(): string {
+    let value = this.get("parent");
+    return value!.toString();
+  }
+
+  set parent(value: string) {
+    this.set("parent", Value.fromString(value));
+  }
+
+  get tokenId(): BigInt {
+    let value = this.get("tokenId");
+    return value!.toBigInt();
+  }
+
+  set tokenId(value: BigInt) {
+    this.set("tokenId", Value.fromBigInt(value));
+  }
+
+  get tokenBalance(): BigInt {
+    let value = this.get("tokenBalance");
+    return value!.toBigInt();
+  }
+
+  set tokenBalance(value: BigInt) {
+    this.set("tokenBalance", Value.fromBigInt(value));
   }
 }
 

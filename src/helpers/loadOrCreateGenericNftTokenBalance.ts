@@ -2,10 +2,10 @@ import { Address, BigInt, log } from '@graphprotocol/graph-ts';
 
 import {
   GenericNftTokenBalance,
+  NftBalanceByTokenId,
 } from '../../generated/schema';
 
-import { tokenBalanceId } from './idTemplates';
-
+import { ZERO, standardEntityId } from './common';
 
 export function loadOrCreateGenericNftTokenBalance(
   genericSmartBasketId: string,
@@ -13,7 +13,7 @@ export function loadOrCreateGenericNftTokenBalance(
   contractAddress: Address,
   tokenId: BigInt
 ): GenericNftTokenBalance {
-  const id = tokenBalanceId(nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString(), genericSmartBasketId);
+  const id = standardEntityId([nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString(), genericSmartBasketId]);
   let _nftTokenBalance = GenericNftTokenBalance.load(id);
 
   if (!_nftTokenBalance) {
@@ -22,9 +22,28 @@ export function loadOrCreateGenericNftTokenBalance(
     _nftTokenBalance.tokenId = tokenId;
     _nftTokenBalance.contractAddress = contractAddress;
     _nftTokenBalance.smartBasket = genericSmartBasketId;
-    _nftTokenBalance.nftTokenIds = [];
     _nftTokenBalance.save();
   }
 
   return _nftTokenBalance as GenericNftTokenBalance;
+}
+
+export function loadOrCreateNftBalanceByTokenId(
+  nftTokenAddress: Address,
+  contractAddress: Address,
+  tokenId: BigInt,
+  nftTokenBalance: GenericNftTokenBalance
+): NftBalanceByTokenId {
+  const id = standardEntityId([nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString()]);
+  let _nftBalance = NftBalanceByTokenId.load(id);
+
+  if (!_nftBalance) {
+    _nftBalance = new NftBalanceByTokenId(id);
+    _nftBalance.parent = nftTokenBalance.id;
+    _nftBalance.tokenId = tokenId;
+    _nftBalance.tokenBalance = ZERO;
+    _nftBalance.save();
+  }
+
+  return _nftBalance as NftBalanceByTokenId;
 }
