@@ -68,7 +68,7 @@ export function handleBasketAdd(event: BasketAdd): void {
   genericSmartBasket.save();
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
-  const nftBalanceByTokenId = loadOrCreateNftBalanceByTokenId(event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId, nftTokenBalance);
+  const nftBalanceByTokenId = loadOrCreateNftBalanceByTokenId(event.params.basketTokenAddress, event.params.basketTokenId, event.params.contractAddress, event.params.tokenId, nftTokenBalance);
   const initialBalance = nftBalanceByTokenId.tokenBalance;
   nftBalanceByTokenId.tokenBalance = nftBalanceByTokenId.tokenBalance.plus(ONE);
   nftBalanceByTokenId.save();
@@ -98,7 +98,7 @@ export function handleBasketRemove(event: BasketRemove): void {
   genericSmartBasket.save();
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
-  const nftBalanceByTokenId = loadOrCreateNftBalanceByTokenId(event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId, nftTokenBalance);
+  const nftBalanceByTokenId = loadOrCreateNftBalanceByTokenId(event.params.basketTokenAddress, event.params.basketTokenId, event.params.contractAddress, event.params.tokenId, nftTokenBalance);
   if (nftBalanceByTokenId.tokenBalance.gt(ONE)) {
     nftBalanceByTokenId.tokenBalance = nftBalanceByTokenId.tokenBalance.minus(ONE);
   } else {

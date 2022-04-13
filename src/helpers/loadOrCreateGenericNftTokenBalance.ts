@@ -30,17 +30,18 @@ export function loadOrCreateGenericNftTokenBalance(
 
 export function loadOrCreateNftBalanceByTokenId(
   nftTokenAddress: Address,
+  nftTokenId: BigInt,
   contractAddress: Address,
   tokenId: BigInt,
   nftTokenBalance: GenericNftTokenBalance
 ): NftBalanceByTokenId {
-  const id = standardEntityId([nftTokenAddress.toHex(), contractAddress.toHex(), tokenId.toString()]);
+  const id = standardEntityId([nftTokenAddress.toHex(), nftTokenId.toString(), contractAddress.toHex(), tokenId.toString()]);
   let _nftBalance = NftBalanceByTokenId.load(id);
 
   if (!_nftBalance) {
     _nftBalance = new NftBalanceByTokenId(id);
     _nftBalance.parent = nftTokenBalance.id;
-    _nftBalance.tokenId = tokenId;
+    _nftBalance.tokenId = nftTokenId;
     _nftBalance.tokenBalance = ZERO;
     _nftBalance.save();
   }
