@@ -1,23 +1,34 @@
-import { Address, Bytes, TypedMap, JSONValue, BigInt, Wrapped, ipfs, json, log, Value } from '@graphprotocol/graph-ts';
+import { Address, Bytes, ByteArray, TypedMap, JSONValue, BigInt, Wrapped, ipfs, json, log, Value } from '@graphprotocol/graph-ts';
 
 import {
   GlobalData,
+  StandardNFT,
 } from '../../generated/schema';
 
 import {
   ChargedParticles as ChargedParticlesContract,
 } from '../../generated/ChargedParticles/ChargedParticles';
 
-import {
-  Proton as ProtonContract
-} from '../../generated/Proton/Proton';
+import { Proton as ProtonContract } from '../../generated/Proton/Proton';
+import { ERC165 as NftContract165 } from '../../generated/Proton/ERC165';
+import { ERC721 as NftContract721 } from '../../generated/Proton/ERC721';
+import { ERC1155 as NftContract1155 } from '../../generated/Proton/ERC1155';
 
+import { supportsInterface } from './supportsInterface';
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
 
 export const ZERO = BigInt.fromI32(0);
 export const ONE = BigInt.fromI32(1);
 export const NEG_ONE = BigInt.fromI32(-1);
+
+export function standardEntityId(parts: string[]): string {
+  return parts.join('-');
+}
+
+export function replaceURI(uri: string, identifier: BigInt): string {
+	return uri.replace(/\{id\}/gi, identifier.toHex().slice(2).padStart(64, '0'));
+}
 
 export function getStringValue(obj: TypedMap<string, JSONValue>, key: string): string {
   if (obj.isSet(key)) {
@@ -38,6 +49,58 @@ export function getBigIntValue(obj: TypedMap<string, JSONValue>, key: string): B
   }
   return ZERO;
 };
+
+export function isErc721(contractAddress: Address, tokenId: BigInt): boolean {
+  const bound = NftContract165.bind(contractAddress);
+  const introspection_01ffc9a7 = supportsInterface(bound, '01ffc9a7'); // ERC165
+  const introspection_80ac58cd = supportsInterface(bound, '80ac58cd'); // ERC721
+  const introspection_00000000 = supportsInterface(bound, '00000000', false);
+  return introspection_01ffc9a7 && introspection_80ac58cd && introspection_00000000;
+}
+
+export function isErc1155(contractAddress: Address, tokenId: BigInt): boolean {
+  const bound = NftContract165.bind(contractAddress);
+  const introspection_01ffc9a7 = supportsInterface(bound, '01ffc9a7'); // ERC165
+  const introspection_80ac58cd = supportsInterface(bound, 'd9b67a26'); // ERC1155
+  const introspection_00000000 = supportsInterface(bound, '00000000', false);
+  return introspection_01ffc9a7 && introspection_80ac58cd && introspection_00000000;
+}
+
+export function getStandardNFTOwnerOf(contractAddress: Address, tokenId: BigInt): Address {
+  let tokenOwner:Address = Address.zero();
+  if (!isErc1155(contractAddress, tokenId)) {
+    const boundNft = NftContract721.bind(contractAddress);
+    let callResult = boundNft.try_ownerOf(tokenId);
+    if (callResult.reverted) {
+      log.info('ERC721.ownerOf reverted', []);
+    } else {
+      tokenOwner = callResult.value;
+    }
+  }
+  return tokenOwner;
+}
+
+export function getStandardNFTTokenURI(contractAddress: Address, tokenId: BigInt): string {
+  let tokenURI:string = '';
+  if (isErc1155(contractAddress, tokenId)) {
+    const boundNft = NftContract1155.bind(contractAddress);
+    let callResult = boundNft.try_uri(tokenId);
+    if (callResult.reverted) {
+      log.info('ERC1155.uri reverted', []);
+    } else {
+      tokenURI = callResult.value;
+    }
+  } else {
+    const boundNft = NftContract721.bind(contractAddress);
+    let callResult = boundNft.try_tokenURI(tokenId);
+    if (callResult.reverted) {
+      log.info('ERC721.tokenURI reverted', []);
+    } else {
+      tokenURI = callResult.value;
+    }
+  }
+  return tokenURI;
+}
 
 export function getProtonOwnerOf(contractAddress: Address, tokenId: BigInt): Address {
   let tokenOwner:Address = Address.zero();

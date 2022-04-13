@@ -4,18 +4,19 @@ import {
   StandardNFT,
 } from '../../generated/schema';
 
+// import { standardNftId } from './idTemplates';
 import {
-  ERC721 as NftContract,
-} from '../../generated/Proton/ERC721';
-
-import { standardNftId } from './idTemplates';
+  standardEntityId,
+  getStandardNFTOwnerOf,
+  getStandardNFTTokenURI,
+} from './common';
 
 
 export function loadOrCreateStandardNFT(
   tokenAddress: Address,
   tokenId: BigInt
 ): StandardNFT {
-  const id = standardNftId(tokenAddress.toHex(), tokenId.toString());
+  const id = standardEntityId([tokenAddress.toHex(), tokenId.toString()]);
   let _nft = StandardNFT.load(id);
 
   if (!_nft) {
@@ -23,9 +24,8 @@ export function loadOrCreateStandardNFT(
     _nft.tokenId = tokenId;
     _nft.tokenAddress = tokenAddress;
 
-    const boundNft = NftContract.bind(tokenAddress);
-    _nft.owner = boundNft.ownerOf(tokenId);
-    _nft.metadataUri = boundNft.tokenURI(tokenId);
+    _nft.owner = getStandardNFTOwnerOf(tokenAddress, tokenId);
+    _nft.metadataUri = getStandardNFTTokenURI(tokenAddress, tokenId);
     _nft.save();
   }
 
