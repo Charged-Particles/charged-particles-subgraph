@@ -224,6 +224,7 @@ type GenericNftTokenBalance @entity {
   nftTokenAddress: Bytes!
 
   # The Token of the NFTs added to the Smart-Wallet
+  nftTokenIds: [BigInt!]  # deprecated, use "nftsById"
   nftsById: [NftBalanceByTokenId!]! @derivedFrom(field: "parent")
 }
 
