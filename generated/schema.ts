@@ -1817,6 +1817,23 @@ export class GenericNftTokenBalance extends Entity {
     this.set("nftTokenAddress", Value.fromBytes(value));
   }
 
+  get nftTokenIds(): Array<BigInt> | null {
+    let value = this.get("nftTokenIds");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigIntArray();
+    }
+  }
+
+  set nftTokenIds(value: Array<BigInt> | null) {
+    if (!value) {
+      this.unset("nftTokenIds");
+    } else {
+      this.set("nftTokenIds", Value.fromBigIntArray(<Array<BigInt>>value));
+    }
+  }
+
   get nftsById(): Array<string> {
     let value = this.get("nftsById");
     return value!.toStringArray();
