@@ -40,6 +40,40 @@ export class BasketAdd__Params {
   }
 }
 
+export class BasketAdd1 extends ethereum.Event {
+  get params(): BasketAdd1__Params {
+    return new BasketAdd1__Params(this);
+  }
+}
+
+export class BasketAdd1__Params {
+  _event: BasketAdd1;
+
+  constructor(event: BasketAdd1) {
+    this._event = event;
+  }
+
+  get contractAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get basketTokenAddress(): Address {
+    return this._event.parameters[2].value.toAddress();
+  }
+
+  get basketTokenId(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get basketTokenAmount(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+}
+
 export class BasketRemove extends ethereum.Event {
   get params(): BasketRemove__Params {
     return new BasketRemove__Params(this);
@@ -71,6 +105,44 @@ export class BasketRemove__Params {
 
   get basketTokenId(): BigInt {
     return this._event.parameters[4].value.toBigInt();
+  }
+}
+
+export class BasketRemove1 extends ethereum.Event {
+  get params(): BasketRemove1__Params {
+    return new BasketRemove1__Params(this);
+  }
+}
+
+export class BasketRemove1__Params {
+  _event: BasketRemove1;
+
+  constructor(event: BasketRemove1) {
+    this._event = event;
+  }
+
+  get receiver(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get contractAddress(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
+
+  get tokenId(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
+
+  get basketTokenAddress(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
+  get basketTokenId(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+
+  get basketTokenAmount(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
   }
 }
 
