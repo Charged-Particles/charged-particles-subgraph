@@ -20,6 +20,7 @@ export function loadOrCreateGenericSmartBasket(
     _genericSmartBasket.tokenId = tokenId;
     _genericSmartBasket.contractAddress = contractAddress;
     _genericSmartBasket.totalTokens = ZERO;
+    _genericSmartBasket.managerId = managerId;
     _genericSmartBasket.save();
   }
 
