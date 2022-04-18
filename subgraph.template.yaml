@@ -243,6 +243,9 @@ dataSources:
       file: ./src/mappingForGenericBasketManager.ts
       entities:
         - GenericBasketManager
+        - GenericSmartBasket
+        - GenericNftTokenBalance
+        - NftBalanceByTokenId
       abis:
         - name: GenericBasketManager
           file: ./abis/GenericBasketManager.json
@@ -281,6 +284,8 @@ dataSources:
       file: ./src/mappingForGenericWalletManager.ts
       entities:
         - GenericWalletManager
+        - GenericSmartWallet
+        - GenericAssetTokenBalance
       abis:
         - name: GenericWalletManager
           file: ./abis/GenericWalletManager.json
@@ -323,6 +328,8 @@ dataSources:
       file: ./src/mappingForAaveWalletManager.ts
       entities:
         - AaveWalletManager
+        - AaveSmartWallet
+        - AaveAssetTokenBalance
       abis:
         - name: AaveWalletManager
           file: ./abis/AaveWalletManager.json
@@ -367,6 +374,9 @@ dataSources:
       file: ./src/mappingForGenericBasketManagerB.ts
       entities:
         - GenericBasketManager
+        - GenericSmartBasket
+        - GenericNftTokenBalance
+        - NftBalanceByTokenId
       abis:
         - name: GenericBasketManagerB
           file: ./abis/GenericBasketManagerB.json
@@ -409,6 +419,8 @@ dataSources:
       file: ./src/mappingForGenericWalletManagerB.ts
       entities:
         - GenericWalletManager
+        - GenericSmartWallet
+        - GenericAssetTokenBalance
       abis:
         - name: GenericWalletManagerB
           file: ./abis/GenericWalletManagerB.json
@@ -453,6 +465,8 @@ dataSources:
       file: ./src/mappingForAaveWalletManagerB.ts
       entities:
         - AaveWalletManager
+        - AaveSmartWallet
+        - AaveAssetTokenBalance
       abis:
         - name: AaveWalletManagerB
           file: ./abis/AaveWalletManagerB.json
