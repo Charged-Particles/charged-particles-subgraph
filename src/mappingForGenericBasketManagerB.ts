@@ -103,12 +103,11 @@ export function handleBasketRemove(event: BasketRemove): void {
 
   const nftTokenBalance = loadOrCreateGenericNftTokenBalance(genericSmartBasket.id, event.params.basketTokenAddress, event.params.contractAddress, event.params.tokenId);
   const nftBalanceByTokenId = loadOrCreateNftBalanceByTokenId(event.params.basketTokenAddress, event.params.basketTokenId, event.params.contractAddress, event.params.tokenId, nftTokenBalance);
-  if (nftBalanceByTokenId.tokenBalance.gt(event.params.basketTokenAmount)) {
-    nftBalanceByTokenId.tokenBalance = nftBalanceByTokenId.tokenBalance.minus(event.params.basketTokenAmount);
-  } else {
+  nftBalanceByTokenId.tokenBalance = nftBalanceByTokenId.tokenBalance.minus(event.params.basketTokenAmount);
+  nftBalanceByTokenId.save();
+  if (nftBalanceByTokenId.tokenBalance.lt(ONE)) {
     store.remove('NftBalanceByTokenId', nftBalanceByTokenId.id);
   }
-  nftBalanceByTokenId.save();
 
   var eventData = new Array<string>(5);
   eventData[0] = event.params.receiver.toHex();
