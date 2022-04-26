@@ -919,6 +919,36 @@ export class GetTokenCountByTypeCall__Outputs {
   }
 }
 
+export class PrepareTransferAmountCall extends ethereum.Call {
+  get inputs(): PrepareTransferAmountCall__Inputs {
+    return new PrepareTransferAmountCall__Inputs(this);
+  }
+
+  get outputs(): PrepareTransferAmountCall__Outputs {
+    return new PrepareTransferAmountCall__Outputs(this);
+  }
+}
+
+export class PrepareTransferAmountCall__Inputs {
+  _call: PrepareTransferAmountCall;
+
+  constructor(call: PrepareTransferAmountCall) {
+    this._call = call;
+  }
+
+  get value0(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+}
+
+export class PrepareTransferAmountCall__Outputs {
+  _call: PrepareTransferAmountCall;
+
+  constructor(call: PrepareTransferAmountCall) {
+    this._call = call;
+  }
+}
+
 export class RemoveFromBasketCall extends ethereum.Call {
   get inputs(): RemoveFromBasketCall__Inputs {
     return new RemoveFromBasketCall__Inputs(this);
