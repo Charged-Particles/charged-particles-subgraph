@@ -1,7 +1,7 @@
 specVersion: 0.0.2
 features:
   - ipfsOnEthereumContracts
-  # - nonFatalErrors
+  - nonFatalErrors
 schema:
   file: ./schema.graphql
 dataSources:
