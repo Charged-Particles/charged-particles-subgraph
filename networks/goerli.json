@@ -1,0 +1,90 @@
+{
+  "network": "kovan",
+  "universe": {
+    "address": "0x894a2A04f5DAb4322AB74c21116Da238F3A9b0Fc",
+    "startBlock": "7174779"
+  },
+  "chargedState": {
+    "address": "0x3e9A9544f8a995DF33771E84600E02a2fc81De58",
+    "startBlock": "7174779"
+  },
+  "chargedSettings": {
+    "address": "0x8B7f1E7F3412331F1Cd317EAE5040DfE5eaAdAe6",
+    "startBlock": "7174779"
+  },
+  "chargedManagers": {
+    "address": "0x47563186A46Aa3EBbEA5D294c8514f0ED49f2e2c",
+    "startBlock": "7174779"
+  },
+  "chargedParticles": {
+    "address": "0x3A9891279481bB968a8d1300C40d9279111f1CDA",
+    "startBlock": "7174779"
+  },
+  "genericWalletManager": {
+    "address": "0x92D09C3C5359A278382fdf98Cdbb9ac87F5a62AC",
+    "startBlock": "7174779"
+  },
+  "genericBasketManager": {
+    "address": "0x747a1f4F30aC18406512D55b034D372A1D263284",
+    "startBlock": "7174779"
+  },
+  "aaveWalletManager": {
+    "address": "0x7059bc03fDda7D10C9dad792B466DcBDaF6B5eb2",
+    "startBlock": "7174779"
+  },
+  "genericWalletManagerB": {
+    "address": "0x67DD6cd2DCaa7649F52c64b90423A4CB511bBd3B",
+    "startBlock": "7174779"
+  },
+  "genericBasketManagerB": {
+    "address": "0xaf41736125c756EE9B4a6DC09BB477DFb5A4EC11",
+    "startBlock": "7174779"
+  },
+  "aaveWalletManagerB": {
+    "address": "0xAB34f65e1A1ac5F84695E16296F8819E1442919f",
+    "startBlock": "7174779"
+  },
+  "particleSplitter": {
+    "address": "0x9F370C46e6e5A0FcB3E7d469b1b32E11DDC35601",
+    "startBlock": "7174779"
+  },
+  "proton": {
+    "address": "0x7f37592B2b8956F07F5afF4BbB0c7d37D311cD7f",
+    "startBlock": "7174779"
+  },
+  "protonB": {
+    "address": "0x894fe586f4BE12cDB5d107323a2f5182161C3515",
+    "startBlock": "7174779"
+  },
+  "lepton": {
+    "address": "0x63aDCaF83fb26e4288834b042f1d70fdF234072b",
+    "startBlock": "7174779"
+  },
+  "lepton2": {
+    "address": "0xc191e3De6e8ab034Adc4B199749F7199DA9a98e6",
+    "startBlock": "7174779"
+  },
+  "ionx": {
+    "address": "0x5475793115C3d866Bd00CA8bf716a8dc7EC85cA8",
+    "startBlock": "7174779"
+  },
+
+  "externalERC721": {
+    "address": "0x7b7bfC2cD1CC699FC6090999bE61d470A9e4Dd82",
+    "startBlock": "7174779"
+  },
+  "nonFungibleERC1155": {
+    "address": "0x519a0358DB8c0cF6A4A03Dd133b274520283a159",
+    "startBlock": "7174779"
+  },
+  "fungibleERC1155": {
+    "address": "0x46dF8d316e20aa25102c6cE9aC015501eea0924e",
+    "startBlock": "7174779"
+  },
+
+
+  "wBoson": {
+    "address": "0x18f112F9Ec7b96D453B95Deab92BE628088Effc6",
+    "startBlock": "29462680"
+  }
+}

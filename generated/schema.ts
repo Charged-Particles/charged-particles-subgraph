@@ -23,8 +23,7 @@ export class GlobalData extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save GlobalData entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type GlobalData must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("GlobalData", id.toString(), this);
     }
@@ -65,8 +64,6 @@ export class Universe extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -75,8 +72,7 @@ export class Universe extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Universe entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type Universe must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("Universe", id.toString(), this);
     }
@@ -212,8 +208,6 @@ export class ChargedParticles extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -222,8 +216,7 @@ export class ChargedParticles extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ChargedParticles entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ChargedParticles must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ChargedParticles", id.toString(), this);
     }
@@ -394,8 +387,6 @@ export class ChargedManagers extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -404,8 +395,7 @@ export class ChargedManagers extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ChargedManagers entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ChargedManagers must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ChargedManagers", id.toString(), this);
     }
@@ -498,8 +488,6 @@ export class ChargedSettings extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -508,8 +496,7 @@ export class ChargedSettings extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ChargedSettings entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ChargedSettings must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ChargedSettings", id.toString(), this);
     }
@@ -586,9 +573,6 @@ export class NftSettings extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("chargedSettings", Value.fromString(""));
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -597,8 +581,7 @@ export class NftSettings extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NftSettings entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type NftSettings must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("NftSettings", id.toString(), this);
     }
@@ -771,8 +754,6 @@ export class AllowedAssetToken extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("nftSettings", Value.fromString(""));
   }
 
   save(): void {
@@ -781,8 +762,7 @@ export class AllowedAssetToken extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save AllowedAssetToken entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type AllowedAssetToken must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("AllowedAssetToken", id.toString(), this);
     }
@@ -843,8 +823,6 @@ export class DepositCap extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("chargedSettings", Value.fromString(""));
   }
 
   save(): void {
@@ -853,8 +831,7 @@ export class DepositCap extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save DepositCap entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type DepositCap must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("DepositCap", id.toString(), this);
     }
@@ -921,8 +898,6 @@ export class MaxNfts extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("nftSettings", Value.fromString(""));
   }
 
   save(): void {
@@ -931,8 +906,7 @@ export class MaxNfts extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save MaxNfts entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type MaxNfts must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("MaxNfts", id.toString(), this);
     }
@@ -999,11 +973,6 @@ export class NftCreatorSettings extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("chargedSettings", Value.fromString(""));
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("creatorAddress", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -1012,8 +981,7 @@ export class NftCreatorSettings extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NftCreatorSettings entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type NftCreatorSettings must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("NftCreatorSettings", id.toString(), this);
     }
@@ -1109,8 +1077,6 @@ export class ChargedState extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -1119,8 +1085,7 @@ export class ChargedState extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ChargedState entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ChargedState must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ChargedState", id.toString(), this);
     }
@@ -1162,10 +1127,6 @@ export class NftState extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("chargedState", Value.fromString(""));
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -1174,8 +1135,7 @@ export class NftState extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NftState entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type NftState must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("NftState", id.toString(), this);
     }
@@ -1475,10 +1435,6 @@ export class GenericBasketManager extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
-    this.set("name", Value.fromString(""));
-    this.set("address", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -1487,8 +1443,7 @@ export class GenericBasketManager extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save GenericBasketManager entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type GenericBasketManager must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("GenericBasketManager", id.toString(), this);
     }
@@ -1610,10 +1565,6 @@ export class GenericSmartBasket extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("totalTokens", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -1622,8 +1573,7 @@ export class GenericSmartBasket extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save GenericSmartBasket entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type GenericSmartBasket must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("GenericSmartBasket", id.toString(), this);
     }
@@ -1736,10 +1686,6 @@ export class GenericNftTokenBalance extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("nftTokenAddress", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -1751,8 +1697,7 @@ export class GenericNftTokenBalance extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save GenericNftTokenBalance entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type GenericNftTokenBalance must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("GenericNftTokenBalance", id.toString(), this);
     }
@@ -1848,10 +1793,6 @@ export class NftBalanceByTokenId extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("parent", Value.fromString(""));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("tokenBalance", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -1860,8 +1801,7 @@ export class NftBalanceByTokenId extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NftBalanceByTokenId entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type NftBalanceByTokenId must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("NftBalanceByTokenId", id.toString(), this);
     }
@@ -1914,10 +1854,6 @@ export class GenericWalletManager extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
-    this.set("name", Value.fromString(""));
-    this.set("address", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -1926,8 +1862,7 @@ export class GenericWalletManager extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save GenericWalletManager entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type GenericWalletManager must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("GenericWalletManager", id.toString(), this);
     }
@@ -2049,9 +1984,6 @@ export class GenericSmartWallet extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -2060,8 +1992,7 @@ export class GenericSmartWallet extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save GenericSmartWallet entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type GenericSmartWallet must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("GenericSmartWallet", id.toString(), this);
     }
@@ -2182,14 +2113,6 @@ export class GenericAssetTokenBalance extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("assetToken", Value.fromBytes(Bytes.empty()));
-    this.set("name", Value.fromString(""));
-    this.set("symbol", Value.fromString(""));
-    this.set("decimals", Value.fromBigInt(BigInt.zero()));
-    this.set("principal", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -2201,8 +2124,7 @@ export class GenericAssetTokenBalance extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save GenericAssetTokenBalance entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type GenericAssetTokenBalance must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("GenericAssetTokenBalance", id.toString(), this);
     }
@@ -2308,10 +2230,6 @@ export class AaveWalletManager extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
-    this.set("name", Value.fromString(""));
-    this.set("address", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -2320,8 +2238,7 @@ export class AaveWalletManager extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save AaveWalletManager entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type AaveWalletManager must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("AaveWalletManager", id.toString(), this);
     }
@@ -2460,9 +2377,6 @@ export class AaveSmartWallet extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -2471,8 +2385,7 @@ export class AaveSmartWallet extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save AaveSmartWallet entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type AaveSmartWallet must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("AaveSmartWallet", id.toString(), this);
     }
@@ -2642,16 +2555,6 @@ export class AaveAssetTokenBalance extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("assetToken", Value.fromBytes(Bytes.empty()));
-    this.set("name", Value.fromString(""));
-    this.set("symbol", Value.fromString(""));
-    this.set("decimals", Value.fromBigInt(BigInt.zero()));
-    this.set("principal", Value.fromBigInt(BigInt.zero()));
-    this.set("ownerInterestDischarged", Value.fromBigInt(BigInt.zero()));
-    this.set("creatorInterestDischarged", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -2663,8 +2566,7 @@ export class AaveAssetTokenBalance extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save AaveAssetTokenBalance entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type AaveAssetTokenBalance must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("AaveAssetTokenBalance", id.toString(), this);
     }
@@ -2788,9 +2690,6 @@ export class WBoson extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("wBoson", Value.fromBytes(Bytes.empty()));
-    this.set("account", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -2799,8 +2698,7 @@ export class WBoson extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save WBoson entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type WBoson must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("WBoson", id.toString(), this);
     }
@@ -2987,8 +2885,6 @@ export class Ionx extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -2997,8 +2893,7 @@ export class Ionx extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Ionx entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type Ionx must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("Ionx", id.toString(), this);
     }
@@ -3057,10 +2952,6 @@ export class IonxHolder extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("ionx", Value.fromString(""));
-    this.set("address", Value.fromBytes(Bytes.empty()));
-    this.set("balance", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -3069,8 +2960,7 @@ export class IonxHolder extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save IonxHolder entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type IonxHolder must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("IonxHolder", id.toString(), this);
     }
@@ -3121,10 +3011,6 @@ export class ESAMultiplier extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("universe", Value.fromString(""));
-    this.set("assetToken", Value.fromBytes(Bytes.empty()));
-    this.set("multiplier", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -3133,8 +3019,7 @@ export class ESAMultiplier extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ESAMultiplier entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ESAMultiplier must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ESAMultiplier", id.toString(), this);
     }
@@ -3185,10 +3070,6 @@ export class ESALevel extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("universe", Value.fromString(""));
-    this.set("accountAddress", Value.fromBytes(Bytes.empty()));
-    this.set("level", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -3197,8 +3078,7 @@ export class ESALevel extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ESALevel entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ESALevel must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ESALevel", id.toString(), this);
     }
@@ -3249,9 +3129,6 @@ export class Proton extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("version", Value.fromString(""));
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -3260,8 +3137,7 @@ export class Proton extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Proton entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type Proton must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("Proton", id.toString(), this);
     }
@@ -3389,11 +3265,6 @@ export class ProtonNFT extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("version", Value.fromString(""));
-    this.set("tokenAddress", Value.fromString(""));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("overallSalesTotal", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -3402,8 +3273,7 @@ export class ProtonNFT extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ProtonNFT entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ProtonNFT must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ProtonNFT", id.toString(), this);
     }
@@ -3829,9 +3699,6 @@ export class ProtonNftCount extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("createdCount", Value.fromBigInt(BigInt.zero()));
-    this.set("ownedCount", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -3840,8 +3707,7 @@ export class ProtonNftCount extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ProtonNftCount entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ProtonNftCount must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ProtonNftCount", id.toString(), this);
     }
@@ -3883,8 +3749,6 @@ export class ProtonNftAttributes extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("protonNft", Value.fromString(""));
   }
 
   save(): void {
@@ -3893,8 +3757,7 @@ export class ProtonNftAttributes extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ProtonNftAttributes entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ProtonNftAttributes must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ProtonNftAttributes", id.toString(), this);
     }
@@ -3963,9 +3826,6 @@ export class StandardNFT extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("tokenAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -3974,8 +3834,7 @@ export class StandardNFT extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save StandardNFT entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type StandardNFT must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("StandardNFT", id.toString(), this);
     }
@@ -4162,8 +4021,6 @@ export class StandardNftAttributes extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("standardNft", Value.fromString(""));
   }
 
   save(): void {
@@ -4175,8 +4032,7 @@ export class StandardNftAttributes extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save StandardNftAttributes entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type StandardNftAttributes must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("StandardNftAttributes", id.toString(), this);
     }
@@ -4245,8 +4101,6 @@ export class Lepton extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -4255,8 +4109,7 @@ export class Lepton extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Lepton entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type Lepton must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("Lepton", id.toString(), this);
     }
@@ -4384,8 +4237,6 @@ export class Lepton2 extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -4394,8 +4245,7 @@ export class Lepton2 extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Lepton2 entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type Lepton2 must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("Lepton2", id.toString(), this);
     }
@@ -4531,8 +4381,7 @@ export class LeptonClassification extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save LeptonClassification entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type LeptonClassification must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("LeptonClassification", id.toString(), this);
     }
@@ -4694,8 +4543,6 @@ export class LeptonNFT extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -4704,8 +4551,7 @@ export class LeptonNFT extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save LeptonNFT entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type LeptonNFT must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("LeptonNFT", id.toString(), this);
     }
@@ -5010,12 +4856,6 @@ export class NftTxHistory extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("timestamp", Value.fromBigInt(BigInt.zero()));
-    this.set("eventType", Value.fromString(""));
-    this.set("eventData", Value.fromString(""));
   }
 
   save(): void {
@@ -5024,8 +4864,7 @@ export class NftTxHistory extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NftTxHistory entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type NftTxHistory must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("NftTxHistory", id.toString(), this);
     }
@@ -5094,10 +4933,6 @@ export class NftTxCount extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("count", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5106,8 +4941,7 @@ export class NftTxCount extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NftTxCount entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type NftTxCount must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("NftTxCount", id.toString(), this);
     }
@@ -5158,10 +4992,6 @@ export class UserRoyalty extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("accountAddress", Value.fromBytes(Bytes.empty()));
-    this.set("claimableRoyalties", Value.fromBigInt(BigInt.zero()));
-    this.set("royaltiesClaimed", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5170,8 +5000,7 @@ export class UserRoyalty extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save UserRoyalty entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type UserRoyalty must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("UserRoyalty", id.toString(), this);
     }
@@ -5222,10 +5051,6 @@ export class ApprovedOperator extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("operatorAddress", Value.fromBytes(Bytes.empty()));
-    this.set("ownerAddress", Value.fromBytes(Bytes.empty()));
-    this.set("assetAddress", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -5234,8 +5059,7 @@ export class ApprovedOperator extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ApprovedOperator entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ApprovedOperator must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ApprovedOperator", id.toString(), this);
     }
@@ -5305,10 +5129,6 @@ export class AssetTokenAnalytic extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("totalAssetsLocked", Value.fromBigInt(BigInt.zero()));
-    this.set("totalAssetsLockedAave", Value.fromBigInt(BigInt.zero()));
-    this.set("totalAssetsLockedERC20", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5317,8 +5137,7 @@ export class AssetTokenAnalytic extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save AssetTokenAnalytic entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type AssetTokenAnalytic must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("AssetTokenAnalytic", id.toString(), this);
     }
@@ -5371,12 +5190,6 @@ export class NftAnalytic extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("contractAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenId", Value.fromBigInt(BigInt.zero()));
-    this.set("totalSalesVolume", Value.fromBigInt(BigInt.zero()));
-    this.set("totalRoyalties", Value.fromBigInt(BigInt.zero()));
-    this.set("numSales", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5385,8 +5198,7 @@ export class NftAnalytic extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save NftAnalytic entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type NftAnalytic must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("NftAnalytic", id.toString(), this);
     }
@@ -5455,18 +5267,6 @@ export class ProfileMetric extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("totalEthEarned", Value.fromBigInt(BigInt.zero()));
-    this.set("buyProtonCount", Value.fromBigInt(BigInt.zero()));
-    this.set("sellProtonCount", Value.fromBigInt(BigInt.zero()));
-    this.set("mintProtonCount", Value.fromBigInt(BigInt.zero()));
-    this.set("buyLeptonCount", Value.fromBigInt(BigInt.zero()));
-    this.set("transferLeptonCount", Value.fromBigInt(BigInt.zero()));
-    this.set("energizeAaveCount", Value.fromBigInt(BigInt.zero()));
-    this.set("energizeERC20Count", Value.fromBigInt(BigInt.zero()));
-    this.set("dischargeInterestCount", Value.fromBigInt(BigInt.zero()));
-    this.set("releaseMassCount", Value.fromBigInt(BigInt.zero()));
-    this.set("royaltiesClaimedCount", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5475,8 +5275,7 @@ export class ProfileMetric extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save ProfileMetric entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type ProfileMetric must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("ProfileMetric", id.toString(), this);
     }
@@ -5599,10 +5398,6 @@ export class UserTokenMetric extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("lifetimeValueLocked", Value.fromBigInt(BigInt.zero()));
-    this.set("totalMassReleased", Value.fromBigInt(BigInt.zero()));
-    this.set("totalInterestDischarged", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5611,8 +5406,7 @@ export class UserTokenMetric extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save UserTokenMetric entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type UserTokenMetric must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("UserTokenMetric", id.toString(), this);
     }
@@ -5663,10 +5457,6 @@ export class PlatformMetric extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("platformEthEarned", Value.fromBigInt(BigInt.zero()));
-    this.set("platformInterestDischarged", Value.fromBigInt(BigInt.zero()));
-    this.set("platformProtonsMinted", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5675,8 +5465,7 @@ export class PlatformMetric extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save PlatformMetric entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type PlatformMetric must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("PlatformMetric", id.toString(), this);
     }
@@ -5727,8 +5516,6 @@ export class Staking extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("owner", Value.fromBytes(Bytes.empty()));
   }
 
   save(): void {
@@ -5737,8 +5524,7 @@ export class Staking extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save Staking entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type Staking must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("Staking", id.toString(), this);
     }
@@ -5789,10 +5575,6 @@ export class StakedPools extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("staking", Value.fromString(""));
-    this.set("tokenAddress", Value.fromBytes(Bytes.empty()));
-    this.set("totalBalance", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5801,8 +5583,7 @@ export class StakedPools extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save StakedPools entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type StakedPools must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("StakedPools", id.toString(), this);
     }
@@ -5853,11 +5634,6 @@ export class StakedDeposits extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
-
-    this.set("staking", Value.fromString(""));
-    this.set("userAddress", Value.fromBytes(Bytes.empty()));
-    this.set("tokenAddress", Value.fromBytes(Bytes.empty()));
-    this.set("balance", Value.fromBigInt(BigInt.zero()));
   }
 
   save(): void {
@@ -5866,8 +5642,7 @@ export class StakedDeposits extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        "Cannot save StakedDeposits entity with non-string ID. " +
-          'Considering using .toHex() to convert the "id" to a string.'
+        `Entities of type StakedDeposits must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
       store.set("StakedDeposits", id.toString(), this);
     }
