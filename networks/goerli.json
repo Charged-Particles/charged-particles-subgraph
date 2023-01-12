@@ -56,6 +56,10 @@
     "address": "0x894fe586f4BE12cDB5d107323a2f5182161C3515",
     "startBlock": "7174779"
   },
+  "protonC": {
+    "address": "0x6D05f07c30be99317D649302dA2054C667Cdd93D",
+    "startBlock": "8282978"
+  },
   "lepton": {
     "address": "0x63aDCaF83fb26e4288834b042f1d70fdF234072b",
     "startBlock": "7174779"
@@ -81,7 +85,6 @@
     "address": "0x46dF8d316e20aa25102c6cE9aC015501eea0924e",
     "startBlock": "7174779"
   },
-
 
   "wBoson": {
     "address": "0x18f112F9Ec7b96D453B95Deab92BE628088Effc6",

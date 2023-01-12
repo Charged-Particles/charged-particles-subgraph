@@ -56,6 +56,10 @@
     "address": "0x04d572734006788B646ce35b133Bdf7160f79995",
     "startBlock": "14656710"
   },
+  "protonC": {
+    "address": "0xBb4Ddbc0E26d4E4ae838B12a832379295D5fD917",
+    "startBlock": "16378298"
+  },
   "lepton": {
     "address": "0x76a5df1c6F53A4B80c8c8177edf52FBbC368E825",
     "startBlock": "11859737"
