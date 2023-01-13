@@ -39,7 +39,7 @@
     "gen:polygon": "graph codegen subgraph.polygon.yaml",
     "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 charged-particles/universe subgraph.local.yaml",
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ethereum-universe subgraph.mainnet.yaml",
-    "deploy:goerli": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/goerli-universe subgraph.goerli.yaml",
+    "deploy:goerli": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/goerli-universe-v2 subgraph.goerli.yaml",
     "deploy:kovan": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-universe subgraph.kovan.yaml",
     "deploy:kovan-v2": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/kovan-universe-v2 subgraph.kovan.yaml",
     "deploy:kovan-dev": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/dev-universe subgraph.kovan.yaml",

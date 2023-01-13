@@ -8,7 +8,8 @@ subgraph.rinkeby.yaml
 subgraph.kovan.yaml
 subgraph.mainnet.yaml
 subgraph.polygon.yaml
+subgraph.mumbai.yaml
+subgraph.goerli.yaml
 .DS_Store
 
 .versionFilesList.json
-subgraph.mumbai.yaml

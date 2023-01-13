@@ -1,5 +1,5 @@
 {
-  "network": "kovan",
+  "network": "goerli",
   "universe": {
     "address": "0x894a2A04f5DAb4322AB74c21116Da238F3A9b0Fc",
     "startBlock": "7174779"
