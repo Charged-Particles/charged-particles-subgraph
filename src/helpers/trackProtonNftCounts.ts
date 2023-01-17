@@ -10,6 +10,10 @@ import {
   Transfer as TransferB,
 } from '../../generated/ProtonB/ProtonB';
 
+import {
+  Transfer as TransferC,
+} from '../../generated/ProtonC/ProtonC';
+
 import { ADDRESS_ZERO, ZERO, ONE } from './common';
 import { loadOrCreatePlatformMetric } from './loadOrCreatePlatformMetric';
 import { Address } from '@graphprotocol/graph-ts';
@@ -37,6 +41,15 @@ export function trackProtonNftCounts(
 
 export function trackProtonNftCountsB(
   event: TransferB
+): void {
+  const from = event.params.from.toHex();
+  const to = event.params.to.toHex();
+  _trackProtonNftCounts(event.address, from, to);
+}
+
+
+export function trackProtonNftCountsC(
+  event: TransferC
 ): void {
   const from = event.params.from.toHex();
   const to = event.params.to.toHex();

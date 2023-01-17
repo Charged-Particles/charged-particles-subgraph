@@ -8,6 +8,7 @@ import {
 import { protonNftId } from './idTemplates';
 import { loadOrCreateProton } from './loadOrCreateProton';
 import { loadOrCreateProtonB } from './loadOrCreateProtonB';
+import { loadOrCreateProtonC } from './loadOrCreateProtonC';
 
 import {
   ZERO,
@@ -29,8 +30,10 @@ export function loadOrCreateProtonNFT(
   if (!_nft) {
     if (version == "A") {
       _proton = loadOrCreateProton(protonAddress);
-    } else {
+    } else if (version == "B") {
       _proton = loadOrCreateProtonB(protonAddress);
+    } else {
+      _proton = loadOrCreateProtonC(protonAddress);
     }
     _nft = new ProtonNFT(id);
     _nft.version = version;

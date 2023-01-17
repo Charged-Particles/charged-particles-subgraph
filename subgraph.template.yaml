@@ -663,6 +663,61 @@ dataSources:
           handler: handleApproval
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
+  - name: ProtonC
+    kind: ethereum/contract
+    network: {{network}}
+    source:
+      address: "{{protonC.address}}"
+      abi: ProtonC
+      startBlock: {{protonC.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappingForProtonC.ts
+      entities:
+        - Proton
+        - ProtonNFT
+      abis:
+        - name: Proton
+          file: ./abis/Proton.json
+        - name: ProtonC
+          file: ./abis/ProtonC.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: UniverseSet(indexed address)
+          handler: handleUniverseSet
+        - event: ChargedStateSet(indexed address)
+          handler: handleChargedStateSet
+        - event: ChargedSettingsSet(indexed address)
+          handler: handleChargedSettingsSet
+        - event: ChargedParticlesSet(indexed address)
+          handler: handleChargedParticlesSet
+        - event: PausedStateSet(bool)
+          handler: handlePausedStateSet
+        - event: SalePriceSet(indexed uint256,uint256)
+          handler: handleSalePriceSet
+        - event: CreatorRoyaltiesSet(indexed uint256,uint256)
+          handler: handleCreatorRoyaltiesSet
+        - event: ProtonSold(indexed uint256,indexed address,indexed address,uint256,address,uint256)
+          handler: handleProtonSold
+        - event: RoyaltiesClaimed(indexed address,uint256)
+          handler: handleRoyaltiesClaimed
+        - event: FeesWithdrawn(indexed address,uint256)
+          handler: handleFeesWithdrawn
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
   - name: Lepton
     kind: ethereum/contract
     network: {{network}}
