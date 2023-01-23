@@ -89,5 +89,10 @@
   "wBoson": {
     "address": "0x910296134803E8405B586Fb2a7427523B18F4108",
     "startBlock": "14895751"
+  },
+
+  "web3pack": {
+    "address": "0x70a7336371C0f0e064Bf2BA0B5e9682C20B3ebca",
+    "startBlock": "31113563"
   }
 }
