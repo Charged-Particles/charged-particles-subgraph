@@ -1,0 +1,47 @@
+{
+  "network": "testnet",
+  "universe": {
+    "address": "",
+    "startBlock": ""
+  },
+  "chargedState": {
+    "address": "",
+    "startBlock": ""
+  },
+  "chargedSettings": {
+    "address": "",
+    "startBlock": ""
+  },
+  "chargedManagers": {
+    "address": "",
+    "startBlock": ""
+  },
+  "chargedParticles": {
+    "address": "",
+    "startBlock": ""
+  },
+  "genericWalletManager": {
+    "address": "",
+    "startBlock": ""
+  },
+  "genericBasketManager": {
+    "address": "",
+    "startBlock": ""
+  },
+  "genericWalletManagerB": {
+    "address": "",
+    "startBlock": ""
+  },
+  "genericBasketManagerB": {
+    "address": "",
+    "startBlock": ""
+  },
+  "particleSplitter": {
+    "address": "",
+    "startBlock": ""
+  },
+  "protonC": {
+    "address": "",
+    "startBlock": ""
+  }
+}

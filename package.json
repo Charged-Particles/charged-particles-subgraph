@@ -17,8 +17,8 @@
     "ethereum"
   ],
   "engines": {
-    "node": ">=12.16.1",
-    "npm": ">=6.14.4"
+    "node": ">=16.20.2",
+    "npm": ">=8.19.4"
   },
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn",
@@ -30,6 +30,7 @@
     "prepare:goerli": "mustache networks/goerli.json subgraph.template.yaml subgraph.goerli.yaml",
     "prepare:mumbai": "mustache networks/mumbai.json subgraph.template.yaml subgraph.mumbai.yaml",
     "prepare:polygon": "mustache networks/polygon.json subgraph.template.yaml subgraph.polygon.yaml",
+    "prepare:mantletest": "mustache networks/mantletest.json subgraph-no-aave.template.yaml subgraph.mantletest.yaml",
     "gen:mainnet": "graph codegen subgraph.mainnet.yaml",
     "gen:rinkeby": "graph codegen subgraph.rinkeby.yaml",
     "gen:ropsten": "graph codegen subgraph.ropsten.yaml",
@@ -37,6 +38,7 @@
     "gen:goerli": "graph codegen subgraph.goerli.yaml",
     "gen:mumbai": "graph codegen subgraph.mumbai.yaml",
     "gen:polygon": "graph codegen subgraph.polygon.yaml",
+    "gen:mantletest": "graph codegen subgraph.mantletest.yaml",
     "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 charged-particles/universe subgraph.local.yaml",
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ethereum-universe subgraph.mainnet.yaml",
     "deploy:goerli": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/goerli-universe-v2 subgraph.goerli.yaml",
@@ -49,10 +51,12 @@
     "deploy:mumbai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Mumbai charged-particles/mumbai-universe subgraph.mumbai.yaml",
     "deploy:mumbai-v2": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Mumbai charged-particles/mumbai-universe-v2 subgraph.mumbai.yaml",
     "deploy:polygon": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Matic charged-particles/polygon-universe subgraph.polygon.yaml",
+    "deploy:mantletest": "graph deploy --node https://graph.testnet.mantle.xyz/deploy --ipfs https://ipfs.testnet.mantle.xyz charged-particles/mantletest-universe subgraph.mantletest.yaml",
     "full:goerli": "yarn prepare:goerli && yarn gen:goerli && yarn deploy:goerli",
     "full:mumbai": "yarn prepare:mumbai && yarn gen:mumbai && yarn deploy:mumbai-v2",
     "full:mainnet": "yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet",
     "full:polygon": "yarn prepare:polygon && yarn gen:polygon && yarn deploy:polygon",
+    "full:mantletest": "yarn prepare:mantletest && yarn gen:mantletest && yarn deploy:mantletest",
     "pub:beta": "yarn publish --tag beta --access public",
     "pub:latest": "yarn publish --tag latest --access public",
     "vbump": "version update -p",
@@ -60,11 +64,9 @@
     "build": "graph build",
     "auth": "graph auth https://api.thegraph.com/deploy/"
   },
-  "dependencies": {
-    "@graphprotocol/graph-ts": "^0.24.1"
-  },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.25.1",
+    "@graphprotocol/graph-cli": "^0.30.2",
+    "@graphprotocol/graph-ts": "^0.27.0",
     "mustache": "4.0.1"
   }
 }
