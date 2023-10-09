@@ -10,6 +10,7 @@ subgraph.mainnet.yaml
 subgraph.polygon.yaml
 subgraph.mumbai.yaml
 subgraph.goerli.yaml
+subgraph.mantletest.yaml
 .DS_Store
 
 .versionFilesList.json

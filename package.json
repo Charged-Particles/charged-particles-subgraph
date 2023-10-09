@@ -23,6 +23,7 @@
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn",
     "clean": "rm -rf build/ generated/",
+    "create:mantletest": "graph create --node https://graph.testnet.mantle.xyz/deploy charged-particles/mantletest-universe",
     "prepare:mainnet": "mustache networks/mainnet.json subgraph.template.yaml subgraph.mainnet.yaml",
     "prepare:rinkeby": "mustache networks/rinkeby.json subgraph.template.yaml subgraph.rinkeby.yaml",
     "prepare:ropsten": "mustache networks/ropsten.json subgraph.template.yaml subgraph.ropsten.yaml",
