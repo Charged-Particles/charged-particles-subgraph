@@ -23,7 +23,7 @@
   "scripts": {
     "reinstall": "rm -rf node_modules/ && yarn",
     "clean": "rm -rf build/ generated/",
-    "create:mantletest": "graph create --node https://graph.testnet.mantle.xyz/deploy charged-particles/mantletest-universe",
+    "create:mantletest": "graph create --node https://mantleapi.0xgraph.xyz/deploy charged-particles/mantletest-universe",
     "prepare:mainnet": "mustache networks/mainnet.json subgraph.template.yaml subgraph.mainnet.yaml",
     "prepare:rinkeby": "mustache networks/rinkeby.json subgraph.template.yaml subgraph.rinkeby.yaml",
     "prepare:ropsten": "mustache networks/ropsten.json subgraph.template.yaml subgraph.ropsten.yaml",
@@ -52,7 +52,7 @@
     "deploy:mumbai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Mumbai charged-particles/mumbai-universe subgraph.mumbai.yaml",
     "deploy:mumbai-v2": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Mumbai charged-particles/mumbai-universe-v2 subgraph.mumbai.yaml",
     "deploy:polygon": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Matic charged-particles/polygon-universe subgraph.polygon.yaml",
-    "deploy:mantletest": "graph deploy --node https://graph.testnet.mantle.xyz/deploy --ipfs https://ipfs.testnet.mantle.xyz charged-particles/mantletest-universe subgraph.mantletest.yaml",
+    "deploy:mantletest": "graph deploy --node https://mantleapi.0xgraph.xyz/deploy --ipfs https://mantleapi.0xgraph.xyz/ipfs charged-particles/mantletest-universe subgraph.mantletest.yaml",
     "full:goerli": "yarn prepare:goerli && yarn gen:goerli && yarn deploy:goerli",
     "full:mumbai": "yarn prepare:mumbai && yarn gen:mumbai && yarn deploy:mumbai-v2",
     "full:mainnet": "yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet",
@@ -66,8 +66,11 @@
     "auth": "graph auth https://api.thegraph.com/deploy/"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.30.2",
-    "@graphprotocol/graph-ts": "^0.27.0",
+    "@graphprotocol/graph-cli": "^0.60.0",
+    "@graphprotocol/graph-ts": "^0.31.0",
     "mustache": "4.0.1"
+  },
+  "dependencies": {
+    "source-map-support": "^0.5.21"
   }
 }
