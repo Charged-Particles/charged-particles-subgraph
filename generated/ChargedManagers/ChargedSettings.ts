@@ -572,6 +572,38 @@ export class ChargedSettings__getAssetRequirementsResult {
     map.set("value7", ethereum.Value.fromBoolean(this.value7));
     return map;
   }
+
+  getRequiredWalletManager(): string {
+    return this.value0;
+  }
+
+  getEnergizeEnabled(): boolean {
+    return this.value1;
+  }
+
+  getRestrictedAssets(): boolean {
+    return this.value2;
+  }
+
+  getValidAsset(): boolean {
+    return this.value3;
+  }
+
+  getDepositCap(): BigInt {
+    return this.value4;
+  }
+
+  getDepositMin(): BigInt {
+    return this.value5;
+  }
+
+  getDepositMax(): BigInt {
+    return this.value6;
+  }
+
+  getInvalidAsset(): boolean {
+    return this.value7;
+  }
 }
 
 export class ChargedSettings__getCreatorAnnuitiesResult {
@@ -588,6 +620,14 @@ export class ChargedSettings__getCreatorAnnuitiesResult {
     map.set("value0", ethereum.Value.fromAddress(this.value0));
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
+  }
+
+  getCreator(): Address {
+    return this.value0;
+  }
+
+  getAnnuityPct(): BigInt {
+    return this.value1;
   }
 }
 
@@ -609,6 +649,18 @@ export class ChargedSettings__getNftAssetRequirementsResult {
     map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
     return map;
   }
+
+  getRequiredBasketManager(): string {
+    return this.value0;
+  }
+
+  getBasketEnabled(): boolean {
+    return this.value1;
+  }
+
+  getMaxNfts(): BigInt {
+    return this.value2;
+  }
 }
 
 export class ChargedSettings__getTimelockApprovalsResult {
@@ -625,6 +677,14 @@ export class ChargedSettings__getTimelockApprovalsResult {
     map.set("value0", ethereum.Value.fromBoolean(this.value0));
     map.set("value1", ethereum.Value.fromBoolean(this.value1));
     return map;
+  }
+
+  getTimelockAny(): boolean {
+    return this.value0;
+  }
+
+  getTimelockOwn(): boolean {
+    return this.value1;
   }
 }
 
