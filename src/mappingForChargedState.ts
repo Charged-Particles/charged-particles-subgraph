@@ -25,9 +25,9 @@ import { trackLastKnownOwner } from './helpers/nftState';
 
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {
-//   const _chargedState = loadOrCreateChargedState(event.address);
-//   _chargedState.owner = event.params.newOwner;
-//   _chargedState.save();
+  const _chargedState = loadOrCreateChargedState(event.address);
+  _chargedState.owner = event.params.newOwner;
+  _chargedState.save();
 }
 
 export function handleControllerSet(event: ControllerSet): void {
@@ -79,94 +79,94 @@ export function handleTimelockApproval(event: TimelockApproval): void {
 }
 
 export function handleTokenDischargeTimelock(event: TokenDischargeTimelock): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.dischargeTimelockExpiry = event.params.unlockBlock;
-  // _nftState.dischargeTimelockLockedBy = event.params.operator;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.dischargeTimelockExpiry = event.params.unlockBlock;
+  _nftState.dischargeTimelockLockedBy = event.params.operator;
+  _nftState.save();
 }
 
 export function handleTokenReleaseTimelock(event: TokenReleaseTimelock): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.releaseTimelockExpiry = event.params.unlockBlock;
-  // _nftState.releaseTimelockLockedBy = event.params.operator;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.releaseTimelockExpiry = event.params.unlockBlock;
+  _nftState.releaseTimelockLockedBy = event.params.operator;
+  _nftState.save();
 }
 
 export function handleTokenBreakBondTimelock(event: TokenBreakBondTimelock): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.breakBondTimelockExpiry = event.params.unlockBlock;
-  // _nftState.breakBondTimelockLockedBy = event.params.operator;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.breakBondTimelockExpiry = event.params.unlockBlock;
+  _nftState.breakBondTimelockLockedBy = event.params.operator;
+  _nftState.save();
 }
 
 export function handleTokenTempLock(event: TokenTempLock): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.tempLockExpiry = event.params.unlockBlock;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.tempLockExpiry = event.params.unlockBlock;
+  _nftState.save();
 }
 
 export function handlePermsSetForRestrictCharge(event: PermsSetForRestrictCharge): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.restrictChargeFromAny = event.params.state;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.restrictChargeFromAny = event.params.state;
+  _nftState.save();
 }
 
 export function handlePermsSetForAllowDischarge(event: PermsSetForAllowDischarge): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.allowDischargeFromAny = event.params.state;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.allowDischargeFromAny = event.params.state;
+  _nftState.save();
 }
 
 export function handlePermsSetForAllowRelease(event: PermsSetForAllowRelease): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.allowReleaseFromAny = event.params.state;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.allowReleaseFromAny = event.params.state;
+  _nftState.save();
 }
 
 export function handlePermsSetForRestrictBond(event: PermsSetForRestrictBond): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.restrictBondFromAny = event.params.state;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.restrictBondFromAny = event.params.state;
+  _nftState.save();
 }
 
 export function handlePermsSetForAllowBreakBond(event: PermsSetForAllowBreakBond): void {
-  // const _nftState = loadOrCreateNftState(
-  //   event.address,
-  //   event.params.contractAddress,
-  //   event.params.tokenId,
-  // );
-  // _nftState.allowBreakBondFromAny = event.params.state;
-  // _nftState.save();
+  const _nftState = loadOrCreateNftState(
+    event.address,
+    event.params.contractAddress,
+    event.params.tokenId,
+  );
+  _nftState.allowBreakBondFromAny = event.params.state;
+  _nftState.save();
 }
