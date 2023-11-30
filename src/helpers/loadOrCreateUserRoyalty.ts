@@ -1,5 +1,5 @@
 import { Address, BigInt, log } from '@graphprotocol/graph-ts';
-import { RoyaltiesClaimed } from '../../generated/Proton/Proton';
+import { RoyaltiesClaimed } from '../../generated/Universe/Proton';
 
 import {
   UserRoyalty,

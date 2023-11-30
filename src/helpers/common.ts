@@ -9,10 +9,10 @@ import {
   ChargedParticles as ChargedParticlesContract,
 } from '../../generated/ChargedParticles/ChargedParticles';
 
-import { Proton as ProtonContract } from '../../generated/Proton/Proton';
-import { ERC165 as NftContract165 } from '../../generated/Proton/ERC165';
-import { ERC721 as NftContract721 } from '../../generated/Proton/ERC721';
-import { ERC1155 as NftContract1155 } from '../../generated/Proton/ERC1155';
+import { Proton as ProtonContract } from '../../generated/Universe/Proton';
+import { ERC165 as NftContract165 } from '../../generated/GenericBasketManagerB/ERC165';
+import { ERC721 as NftContract721 } from '../../generated/GenericBasketManagerB/ERC721';
+import { ERC1155 as NftContract1155 } from '../../generated/GenericBasketManagerB/ERC1155';
 
 import { supportsInterface } from './supportsInterface';
 

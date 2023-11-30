@@ -6,7 +6,7 @@ import {
 
 import {
   GenericWalletManager as GenericWalletManagerContract,
-} from '../../generated/GenericWalletManager/GenericWalletManager';
+} from '../../generated/ChargedManagers/GenericWalletManager';
 
 import {
   GenericWalletManagerB as GenericWalletManagerContractB,

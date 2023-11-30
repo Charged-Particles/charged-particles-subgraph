@@ -6,7 +6,7 @@ import {
 
 import {
   GenericBasketManager as GenericBasketManagerContract,
-} from '../../generated/GenericBasketManager/GenericBasketManager';
+} from '../../generated/ChargedManagers/GenericBasketManager';
 
 import {
   GenericBasketManagerB as GenericBasketManagerContractB,

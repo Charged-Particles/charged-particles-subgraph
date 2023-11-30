@@ -13,7 +13,7 @@ import {
 
 import {
   Proton as ProtonContract
-} from '../generated/Proton/Proton';
+} from '../generated/Universe/Proton';
 
 import {
   ONE,
