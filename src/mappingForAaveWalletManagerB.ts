@@ -12,7 +12,7 @@ import {
   WalletDischargedForCreator,
   WalletReleased,
   WalletRewarded,
-} from '../generated/ChargedManagers/AaveWalletManager';
+} from '../generated/ChargedManagers/AaveWalletManagerB';
 
 import {
   getProtonOwnerOf,
