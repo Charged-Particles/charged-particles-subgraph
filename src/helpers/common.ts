@@ -168,19 +168,19 @@ export function parseJsonFromIpfs(jsonUri: string): Wrapped<JSONValue> | null {
     return null;
   }
 
-  let data = ipfs.cat(ipfsHash);
-  if (!data || (data as Bytes).length < 1) {
-    log.info('JSON DATA FROM IPFS IS EMPTY {}', [ipfsHash]);
-    return null;
-  }
+  // let data = ipfs.cat(ipfsHash);
+  // if (!data || (data as Bytes).length < 1) {
+  //   log.info('JSON DATA FROM IPFS IS EMPTY {}', [ipfsHash]);
+  //   return null;
+  // }
 
-  const jsonData = json.fromBytes(data as Bytes);
-  if (jsonData.isNull()) {
-    log.info('JSON DATA FROM IPFS IS NULL {}', [ipfsHash]);
-    return null;
-  }
+  // const jsonData = json.fromBytes(data as Bytes);
+  // if (jsonData.isNull()) {
+  //   log.info('JSON DATA FROM IPFS IS NULL {}', [ipfsHash]);
+  //   return null;
+  // }
 
-  return new Wrapped(jsonData);
+  return null;
 };
 
 const logItems = (value:JSONValue, userData: Value): void => {
