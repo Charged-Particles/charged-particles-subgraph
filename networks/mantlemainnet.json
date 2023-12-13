@@ -1,0 +1,40 @@
+{
+    "network": "testnet",
+    "universe": {
+      "address": "0xd6ed8455903CBd94d8F432eC4059197984baA65e",
+      "startBlock": "26681508"
+    },
+    "chargedState": {
+      "address": "0x2691B4f4251408bA4b8bf9530B6961b9D0C1231F",
+      "startBlock": "26681534"
+    },
+    "chargedSettings": {
+      "address": "0xB55E96d519Fbf225b1E5fb3e22ACEa9B7e255224",
+      "startBlock": "26681555"
+    },
+    "chargedManagers": {
+      "address": "0xaB1a1410EA40930755C1330Cc0fB3367897C8c41",
+      "startBlock": "26681575"
+    },
+    "chargedParticles": {
+      "address": "0x0288280Df6221E7e9f23c1BB398c820ae0Aa6c10",
+      "startBlock": "26681614"
+    },
+    "genericWalletManagerB": {
+      "address": "0x96D7791dA7928F0B35f7848b173f25773C7Cc06f",
+      "startBlock": "26681639"
+    },
+    "genericBasketManagerB": {
+      "address": "0x63174FA9680C674a5580f7d747832B2a2133Ad8f",
+      "startBlock": "26681649"
+    },
+    "particleSplitter": {
+      "address": "0x54b32b288d7904D5d98Be1910975a80e45DA5e8d",
+      "startBlock": "26681622"
+    },
+    "protonC": {
+      "address": "0x76a5df1c6F53A4B80c8c8177edf52FBbC368E825",
+      "startBlock": "26681664"
+    }
+  }
+  
