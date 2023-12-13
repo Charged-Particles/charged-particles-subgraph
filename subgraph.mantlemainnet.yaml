@@ -7,7 +7,7 @@ schema:
 dataSources:
   - name: Universe
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0xd6ed8455903CBd94d8F432eC4059197984baA65e"
       abi: Universe
@@ -55,7 +55,7 @@ dataSources:
           handler: handleElectrostaticDischarge
   - name: ChargedParticles
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0x0288280Df6221E7e9f23c1BB398c820ae0Aa6c10"
       abi: ChargedParticles
@@ -87,7 +87,7 @@ dataSources:
           handler: handleProtocolFeesCollected
   - name: ChargedState
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0x2691B4f4251408bA4b8bf9530B6961b9D0C1231F"
       abi: ChargedState
@@ -139,7 +139,7 @@ dataSources:
           handler: handlePermsSetForAllowBreakBond
   - name: ChargedSettings
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0xB55E96d519Fbf225b1E5fb3e22ACEa9B7e255224"
       abi: ChargedSettings
@@ -191,7 +191,7 @@ dataSources:
           handler: handlePermsSetForTimelockSelf
   - name: ChargedManagers
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0xaB1a1410EA40930755C1330Cc0fB3367897C8c41"
       abi: ChargedManagers
@@ -233,7 +233,7 @@ dataSources:
           handler: handleBasketManagerRegistered
   - name: GenericBasketManagerB
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0x63174FA9680C674a5580f7d747832B2a2133Ad8f"
       abi: GenericBasketManagerB
@@ -278,7 +278,7 @@ dataSources:
           handler: handleBasketRewarded
   - name: GenericWalletManagerB
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0x96D7791dA7928F0B35f7848b173f25773C7Cc06f"
       abi: GenericWalletManagerB
@@ -316,17 +316,13 @@ dataSources:
           handler: handleNewSmartWallet
         - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256)
           handler: handleWalletEnergized
-        - event: WalletDischarged(indexed address,indexed uint256,indexed address,uint256,uint256)
-          handler: handleWalletDischarged
-        - event: WalletDischargedForCreator(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleWalletDischargedForCreator
         - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
           handler: handleWalletReleased
         - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
           handler: handleWalletRewarded
   - name: ProtonC
     kind: ethereum/contract
-    network: testnet
+    network: mantle
     source:
       address: "0x76a5df1c6F53A4B80c8c8177edf52FBbC368E825"
       abi: ProtonC

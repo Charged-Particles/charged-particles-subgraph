@@ -55,6 +55,7 @@
     "deploy:mumbai-v2": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Mumbai charged-particles/mumbai-universe-v2 subgraph.mumbai.yaml",
     "deploy:polygon": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ --network Matic charged-particles/polygon-universe subgraph.polygon.yaml",
     "deploy:mantletest": "graph deploy --node https://mantleapi.0xgraph.xyz/deploy --ipfs https://mantleapi.0xgraph.xyz/ipfs charged-particles/mantletest-universe subgraph.mantletest.yaml",
+    "deploy:mantlemainnet": "graph deploy --node https://subgraph-api.mantle.xyz/deploy --ipfs https://subgraph-api.mantle.xyz/ipfs charged-particles/mantlemainnet-universe subgraph.mantlemainnet.yaml",
     "full:goerli": "yarn prepare:goerli && yarn gen:goerli && yarn deploy:goerli",
     "full:mumbai": "yarn prepare:mumbai && yarn gen:mumbai && yarn deploy:mumbai-v2",
     "full:mainnet": "yarn prepare:mainnet && yarn gen:mainnet && yarn deploy:mainnet",
