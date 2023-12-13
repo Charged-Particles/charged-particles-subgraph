@@ -32,6 +32,7 @@
     "prepare:mumbai": "mustache networks/mumbai.json subgraph.template.yaml subgraph.mumbai.yaml",
     "prepare:polygon": "mustache networks/polygon.json subgraph.template.yaml subgraph.polygon.yaml",
     "prepare:mantletest": "mustache networks/mantletest.json subgraph-no-aave.template.yaml subgraph.mantletest.yaml",
+    "prepare:mantlemainnet": "mustache networks/mantlemainnet.json subgraph-no-aave.template.yaml subgraph.mantlemainnet.yaml",
     "gen:mainnet": "graph codegen subgraph.mainnet.yaml",
     "gen:rinkeby": "graph codegen subgraph.rinkeby.yaml",
     "gen:ropsten": "graph codegen subgraph.ropsten.yaml",
