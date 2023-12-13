@@ -40,6 +40,7 @@
     "gen:goerli": "graph codegen subgraph.goerli.yaml",
     "gen:mumbai": "graph codegen subgraph.mumbai.yaml",
     "gen:polygon": "graph codegen subgraph.polygon.yaml",
+    "gen:mantlemainnet": "graph codegen subgraph.mantlemainnet.yaml",
     "gen:mantletest": "graph codegen subgraph.mantletest.yaml",
     "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 charged-particles/universe subgraph.local.yaml",
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ethereum-universe subgraph.mainnet.yaml",
