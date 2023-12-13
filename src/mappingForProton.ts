@@ -20,7 +20,7 @@ import {
   Transfer,
   Approval,
   ApprovalForAll,
-} from '../generated/Proton/Proton';
+} from '../generated/Universe/Proton';
 
 import { nftAttributeId } from './helpers/idTemplates';
 import { loadOrCreateProton } from './helpers/loadOrCreateProton';

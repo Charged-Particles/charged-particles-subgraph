@@ -6,7 +6,7 @@ import {
 
 import {
   Lepton as LeptonContract,
-} from '../../generated/Lepton/Lepton';
+} from '../../generated/Universe/Lepton';
 
 import { ZERO } from './common';
 

@@ -6,7 +6,7 @@ import {
 
 import {
   Proton as ProtonContract,
-} from '../../generated/Proton/Proton';
+} from '../../generated/Universe/Proton';
 
 
 export function loadOrCreateProton(

@@ -9,10 +9,10 @@ import {
   ChargedParticles as ChargedParticlesContract,
 } from '../../generated/ChargedParticles/ChargedParticles';
 
-import { Proton as ProtonContract } from '../../generated/Proton/Proton';
-import { ERC165 as NftContract165 } from '../../generated/Proton/ERC165';
-import { ERC721 as NftContract721 } from '../../generated/Proton/ERC721';
-import { ERC1155 as NftContract1155 } from '../../generated/Proton/ERC1155';
+import { Proton as ProtonContract } from '../../generated/Universe/Proton';
+import { ERC165 as NftContract165 } from '../../generated/GenericBasketManagerB/ERC165';
+import { ERC721 as NftContract721 } from '../../generated/GenericBasketManagerB/ERC721';
+import { ERC1155 as NftContract1155 } from '../../generated/GenericBasketManagerB/ERC1155';
 
 import { supportsInterface } from './supportsInterface';
 
@@ -168,19 +168,19 @@ export function parseJsonFromIpfs(jsonUri: string): Wrapped<JSONValue> | null {
     return null;
   }
 
-  let data = ipfs.cat(ipfsHash);
-  if (!data || (data as Bytes).length < 1) {
-    log.info('JSON DATA FROM IPFS IS EMPTY {}', [ipfsHash]);
-    return null;
-  }
+  // let data = ipfs.cat(ipfsHash);
+  // if (!data || (data as Bytes).length < 1) {
+  //   log.info('JSON DATA FROM IPFS IS EMPTY {}', [ipfsHash]);
+  //   return null;
+  // }
 
-  const jsonData = json.fromBytes(data as Bytes);
-  if (jsonData.isNull()) {
-    log.info('JSON DATA FROM IPFS IS NULL {}', [ipfsHash]);
-    return null;
-  }
+  // const jsonData = json.fromBytes(data as Bytes);
+  // if (jsonData.isNull()) {
+  //   log.info('JSON DATA FROM IPFS IS NULL {}', [ipfsHash]);
+  //   return null;
+  // }
 
-  return new Wrapped(jsonData);
+  return null;
 };
 
 const logItems = (value:JSONValue, userData: Value): void => {

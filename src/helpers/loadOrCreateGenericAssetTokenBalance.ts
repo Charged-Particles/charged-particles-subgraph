@@ -6,7 +6,7 @@ import {
 
 import {
   ERC20 as AssetContract,
-} from '../../generated/GenericWalletManager/ERC20';
+} from '../../generated/ChargedManagers/ERC20';
 
 import { ZERO } from './common';
 import { tokenBalanceId } from './idTemplates';

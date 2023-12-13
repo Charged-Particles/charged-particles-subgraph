@@ -568,6 +568,22 @@ export class ChargedState__getBreakBondStateResult {
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
     return map;
   }
+
+  getAllowFromAll(): boolean {
+    return this.value0;
+  }
+
+  getIsApproved(): boolean {
+    return this.value1;
+  }
+
+  getTimelock(): BigInt {
+    return this.value2;
+  }
+
+  getTempLockExpiry(): BigInt {
+    return this.value3;
+  }
 }
 
 export class ChargedState__getDischargeStateResult {
@@ -596,6 +612,22 @@ export class ChargedState__getDischargeStateResult {
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
     return map;
   }
+
+  getAllowFromAll(): boolean {
+    return this.value0;
+  }
+
+  getIsApproved(): boolean {
+    return this.value1;
+  }
+
+  getTimelock(): BigInt {
+    return this.value2;
+  }
+
+  getTempLockExpiry(): BigInt {
+    return this.value3;
+  }
 }
 
 export class ChargedState__getReleaseStateResult {
@@ -623,6 +655,22 @@ export class ChargedState__getReleaseStateResult {
     map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
     map.set("value3", ethereum.Value.fromUnsignedBigInt(this.value3));
     return map;
+  }
+
+  getAllowFromAll(): boolean {
+    return this.value0;
+  }
+
+  getIsApproved(): boolean {
+    return this.value1;
+  }
+
+  getTimelock(): BigInt {
+    return this.value2;
+  }
+
+  getTempLockExpiry(): BigInt {
+    return this.value3;
   }
 }
 

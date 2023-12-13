@@ -6,7 +6,7 @@ import {
 
 import {
   ProtonB as ProtonContract,
-} from '../../generated/ProtonB/ProtonB';
+} from '../../generated/GenericWalletManagerB/ProtonB';
 
 
 export function loadOrCreateProtonB(

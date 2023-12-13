@@ -4,11 +4,11 @@ import {
 
 import {
   Transfer as TransferA,
-} from '../../generated/Proton/Proton';
+} from '../../generated/Universe/Proton';
 
 import {
   Transfer as TransferB,
-} from '../../generated/ProtonB/ProtonB';
+} from '../../generated/GenericWalletManagerB/ProtonB';
 
 import {
   Transfer as TransferC,

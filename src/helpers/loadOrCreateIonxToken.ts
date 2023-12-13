@@ -6,7 +6,7 @@ import {
 
 import {
   Ionx as IonxContract,
-} from '../../generated/Ionx/Ionx';
+} from '../../generated/Universe/Ionx';
 
 
 export function loadOrCreateIonxToken(
