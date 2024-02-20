@@ -6,7 +6,7 @@
   },
   "chargedState": {
     "address": "0x298cb5798c0F0af4850d1a380E28E25C02FF087A",
-    "startBlock": "5281983"
+    "startBlock": "5282040"
   },
   "chargedSettings": {
     "address": "0x47563186A46Aa3EBbEA5D294c8514f0ED49f2e2c",
@@ -35,5 +35,9 @@
   "protonC": {
     "address": "0x519a0358DB8c0cF6A4A03Dd133b274520283a159",
     "startBlock": "5282031"
+  },
+  "ionx": {
+    "address": "0x49D5eA6F886CAe46320935b7632C84E67c8A03a6",
+    "startBlock": "5328498"
   }
 }
