@@ -8,9 +8,9 @@ import {
   AaveWalletManager as AaveWalletManagerContract,
 } from '../../generated/ChargedManagers/AaveWalletManager';
 
-// import {
-//   AaveWalletManagerB as AaveWalletManagerContractB,
-// } from '../../generated/ChargedManagers/AaveWalletManagerB';
+import {
+  AaveWalletManagerB as AaveWalletManagerContractB,
+} from '../../generated/ChargedManagers/AaveWalletManagerB';
 
 
 export function loadOrCreateAaveWalletManager(
@@ -26,9 +26,9 @@ export function loadOrCreateAaveWalletManager(
     _aaveWalletManager = new AaveWalletManager(id);
 
     if (isVersionB) {
-      // const boundWalletManager = AaveWalletManagerContractB.bind(aaveWalletManagerAddress);
-      // _aaveWalletManager.owner = boundWalletManager.owner();
-      // _aaveWalletManager.paused = boundWalletManager.isPaused();
+      const boundWalletManager = AaveWalletManagerContractB.bind(aaveWalletManagerAddress);
+      _aaveWalletManager.owner = boundWalletManager.owner();
+      _aaveWalletManager.paused = boundWalletManager.isPaused();
     } else {
       const boundWalletManager = AaveWalletManagerContract.bind(aaveWalletManagerAddress);
       _aaveWalletManager.owner = boundWalletManager.owner();
