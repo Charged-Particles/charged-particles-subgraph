@@ -1,5 +1,5 @@
 {
-  "network": "testnet",
+  "network": "mode-sepolia",
   "universe": {
     "address": "0xB9230542B3F3DFC73a7816a3320c1c553Ec5A86f",
     "startBlock": "16352894"
