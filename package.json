@@ -31,6 +31,7 @@
     "prepare:goerli": "mustache networks/goerli.json subgraph.template.yaml subgraph.goerli.yaml",
     "prepare:mumbai": "mustache networks/mumbai.json subgraph.template.yaml subgraph.mumbai.yaml",
     "prepare:polygon": "mustache networks/polygon.json subgraph.template.yaml subgraph.polygon.yaml",
+    "prepare:modesepolia": "mustache networks/mode-sepolia.json subgraph-no-aave.template.yaml subgraph.modesepolia.yaml",
     "prepare:mantletest": "mustache networks/mantletest.json subgraph-no-aave.template.yaml subgraph.mantletest.yaml",
     "prepare:mantlemainnet": "mustache networks/mantlemainnet.json subgraph-no-aave.template.yaml subgraph.mantlemainnet.yaml",
     "gen:mainnet": "graph codegen subgraph.mainnet.yaml",
@@ -40,7 +41,8 @@
     "gen:goerli": "graph codegen subgraph.goerli.yaml",
     "gen:mumbai": "graph codegen subgraph.mumbai.yaml",
     "gen:polygon": "graph codegen subgraph.polygon.yaml",
-    "gen:mantlemainnet": "graph codegen subgraph.mantlemainnet.yaml",
+    "gen:modesepolia": "graph codegen subgraph.mantlemainnet.yaml",
+    "gen:mantlemainnet": "graph codegen subgraph.modesepolia.yaml",
     "gen:mantletest": "graph codegen subgraph.mantletest.yaml",
     "deploy:local": "graph deploy --node http://127.0.0.1:8020 --ipfs http://localhost:5001 charged-particles/universe subgraph.local.yaml",
     "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ charged-particles/ethereum-universe subgraph.mainnet.yaml",
@@ -69,7 +71,7 @@
     "auth": "graph auth https://api.thegraph.com/deploy/"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.60.0",
+    "@graphprotocol/graph-cli": "0.78.0",
     "@graphprotocol/graph-ts": "^0.31.0",
     "mustache": "4.0.1"
   },

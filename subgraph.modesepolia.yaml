@@ -316,10 +316,6 @@ dataSources:
           handler: handleNewSmartWallet
         - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256)
           handler: handleWalletEnergized
-        - event: WalletDischarged(indexed address,indexed uint256,indexed address,uint256,uint256)
-          handler: handleWalletDischarged
-        - event: WalletDischargedForCreator(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleWalletDischargedForCreator
         - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
           handler: handleWalletReleased
         - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
