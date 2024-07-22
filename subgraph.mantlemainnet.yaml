@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 features:
   - ipfsOnEthereumContracts
   - nonFatalErrors
@@ -7,11 +7,11 @@ schema:
 dataSources:
   - name: Universe
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{universe.address}}"
+      address: "0xd6ed8455903CBd94d8F432eC4059197984baA65e"
       abi: Universe
-      startBlock: {{universe.startBlock}}
+      startBlock: 26681508
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -55,11 +55,11 @@ dataSources:
           handler: handleElectrostaticDischarge
   - name: ChargedParticles
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{chargedParticles.address}}"
+      address: "0x0288280Df6221E7e9f23c1BB398c820ae0Aa6c10"
       abi: ChargedParticles
-      startBlock: {{chargedParticles.startBlock}}
+      startBlock: 26681614
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -87,11 +87,11 @@ dataSources:
           handler: handleProtocolFeesCollected
   - name: ChargedState
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{chargedState.address}}"
+      address: "0x2691B4f4251408bA4b8bf9530B6961b9D0C1231F"
       abi: ChargedState
-      startBlock: {{chargedState.startBlock}}
+      startBlock: 26681534
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -139,11 +139,11 @@ dataSources:
           handler: handlePermsSetForAllowBreakBond
   - name: ChargedSettings
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{chargedSettings.address}}"
+      address: "0xB55E96d519Fbf225b1E5fb3e22ACEa9B7e255224"
       abi: ChargedSettings
-      startBlock: {{chargedSettings.startBlock}}
+      startBlock: 26681555
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -191,11 +191,11 @@ dataSources:
           handler: handlePermsSetForTimelockSelf
   - name: ChargedManagers
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{chargedManagers.address}}"
+      address: "0xaB1a1410EA40930755C1330Cc0fB3367897C8c41"
       abi: ChargedManagers
-      startBlock: {{chargedManagers.startBlock}}
+      startBlock: 26681575
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -231,144 +231,13 @@ dataSources:
           handler: handleWalletManagerRegistered
         - event: BasketManagerRegistered(indexed string,indexed address)
           handler: handleBasketManagerRegistered
-  - name: GenericBasketManager
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      address: "{{genericBasketManager.address}}"
-      abi: GenericBasketManager
-      startBlock: {{genericBasketManager.startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/mappingForGenericBasketManager.ts
-      entities:
-        - GenericBasketManager
-        - GenericSmartBasket
-        - GenericNftTokenBalance
-        - NftBalanceByTokenId
-      abis:
-        - name: GenericBasketManager
-          file: ./abis/GenericBasketManager.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: ERC165
-          file: ./abis/ERC165.json
-        - name: ERC721
-          file: ./abis/ERC721.json
-        - name: ERC1155
-          file: ./abis/ERC1155.json
-      eventHandlers:
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: ControllerSet(indexed address)
-          handler: handleControllerSet
-        - event: PausedStateSet(bool)
-          handler: handlePausedStateSet
-        - event: NewSmartBasket(indexed address,indexed uint256,indexed address)
-          handler: handleNewSmartBasket
-        - event: BasketAdd(indexed address,indexed uint256,address,uint256)
-          handler: handleBasketAdd
-        - event: BasketAdd(indexed address,indexed uint256,address,uint256,uint256)
-          handler: handleBasketAdd
-        - event: BasketRemove(indexed address,indexed address,indexed uint256,address,uint256)
-          handler: handleBasketRemove
-        - event: BasketRemove(indexed address,indexed address,indexed uint256,address,uint256,uint256)
-          handler: handleBasketRemove
-  - name: GenericWalletManager
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      address: "{{genericWalletManager.address}}"
-      abi: GenericWalletManager
-      startBlock: {{genericWalletManager.startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/mappingForGenericWalletManager.ts
-      entities:
-        - GenericWalletManager
-        - GenericSmartWallet
-        - GenericAssetTokenBalance
-      abis:
-        - name: GenericWalletManager
-          file: ./abis/GenericWalletManager.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: Proton
-          file: ./abis/Proton.json
-        - name: ProtonB
-          file: ./abis/ProtonB.json
-        - name: ProtonC
-          file: ./abis/ProtonC.json
-      eventHandlers:
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: ControllerSet(indexed address)
-          handler: handleControllerSet
-        - event: PausedStateSet(bool)
-          handler: handlePausedStateSet
-        - event: NewSmartWallet(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleNewSmartWallet
-        - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256)
-          handler: handleWalletEnergized
-        - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
-          handler: handleWalletReleased
-        - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleWalletRewarded
-  - name: AaveWalletManager
-    kind: ethereum/contract
-    network: {{network}}
-    source:
-      address: "{{aaveWalletManager.address}}"
-      abi: AaveWalletManager
-      startBlock: {{aaveWalletManager.startBlock}}
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.6
-      language: wasm/assemblyscript
-      file: ./src/mappingForAaveWalletManager.ts
-      entities:
-        - AaveWalletManager
-        - AaveSmartWallet
-        - AaveAssetTokenBalance
-      abis:
-        - name: AaveWalletManager
-          file: ./abis/AaveWalletManager.json
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: Proton
-          file: ./abis/Proton.json
-        - name: ProtonB
-          file: ./abis/ProtonB.json
-        - name: ProtonC
-          file: ./abis/ProtonC.json
-      eventHandlers:
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
-        - event: AaveBridgeSet(indexed address)
-          handler: handleAaveBridgeSet
-        - event: ControllerSet(indexed address)
-          handler: handleControllerSet
-        - event: PausedStateSet(bool)
-          handler: handlePausedStateSet
-        - event: NewSmartWallet(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleNewSmartWallet
-        - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256)
-          handler: handleWalletEnergized
-        - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
-          handler: handleWalletReleased
-        - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleWalletRewarded
   - name: GenericBasketManagerB
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{genericBasketManagerB.address}}"
+      address: "0x63174FA9680C674a5580f7d747832B2a2133Ad8f"
       abi: GenericBasketManagerB
-      startBlock: {{genericBasketManagerB.startBlock}}
+      startBlock: 26681649
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -409,11 +278,11 @@ dataSources:
           handler: handleBasketRewarded
   - name: GenericWalletManagerB
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{genericWalletManagerB.address}}"
+      address: "0x96D7791dA7928F0B35f7848b173f25773C7Cc06f"
       abi: GenericWalletManagerB
-      startBlock: {{genericWalletManagerB.startBlock}}
+      startBlock: 26681639
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -451,50 +320,60 @@ dataSources:
           handler: handleWalletReleased
         - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
           handler: handleWalletRewarded
-  - name: AaveWalletManagerB
+  - name: ProtonC
     kind: ethereum/contract
-    network: {{network}}
+    network: mantle
     source:
-      address: "{{aaveWalletManagerB.address}}"
-      abi: AaveWalletManagerB
-      startBlock: {{aaveWalletManagerB.startBlock}}
+      address: "0x76a5df1c6F53A4B80c8c8177edf52FBbC368E825"
+      abi: ProtonC
+      startBlock: 26681664
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
-      file: ./src/mappingForAaveWalletManagerB.ts
+      file: ./src/mappingForProtonC.ts
       entities:
-        - AaveWalletManager
-        - AaveSmartWallet
-        - AaveAssetTokenBalance
+        - Proton
+        - ProtonNFT
       abis:
-        - name: AaveWalletManagerB
-          file: ./abis/AaveWalletManagerB.json
-        - name: ERC20
-          file: ./abis/ERC20.json
         - name: Proton
           file: ./abis/Proton.json
         - name: ProtonB
           file: ./abis/ProtonB.json
         - name: ProtonC
           file: ./abis/ProtonC.json
+        - name: ERC721
+          file: ./abis/ERC721.json
+        - name: ERC1155
+          file: ./abis/ERC1155.json
+        - name: ERC20
+          file: ./abis/ERC20.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
-        - event: AaveBridgeSet(indexed address)
-          handler: handleAaveBridgeSet
-        - event: ControllerSet(indexed address)
-          handler: handleControllerSet
-        - event: ExecutorSet(indexed address)
-          handler: handleExecutorSet
+        - event: UniverseSet(indexed address)
+          handler: handleUniverseSet
+        - event: ChargedStateSet(indexed address)
+          handler: handleChargedStateSet
+        - event: ChargedSettingsSet(indexed address)
+          handler: handleChargedSettingsSet
+        - event: ChargedParticlesSet(indexed address)
+          handler: handleChargedParticlesSet
         - event: PausedStateSet(bool)
           handler: handlePausedStateSet
-        - event: NewSmartWallet(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleNewSmartWallet
-        - event: WalletEnergized(indexed address,indexed uint256,indexed address,uint256,uint256)
-          handler: handleWalletEnergized
-        - event: WalletReleased(indexed address,indexed uint256,indexed address,address,uint256,uint256,uint256)
-          handler: handleWalletReleased
-        - event: WalletRewarded(indexed address,indexed uint256,indexed address,address,uint256)
-          handler: handleWalletRewarded
- 
+        - event: SalePriceSet(indexed uint256,uint256)
+          handler: handleSalePriceSet
+        - event: CreatorRoyaltiesSet(indexed uint256,uint256)
+          handler: handleCreatorRoyaltiesSet
+        - event: ProtonSold(indexed uint256,indexed address,indexed address,uint256,address,uint256)
+          handler: handleProtonSold
+        - event: RoyaltiesClaimed(indexed address,uint256)
+          handler: handleRoyaltiesClaimed
+        - event: FeesWithdrawn(indexed address,uint256)
+          handler: handleFeesWithdrawn
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll

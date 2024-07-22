@@ -6,11 +6,11 @@ import {
 
 import {
   AaveWalletManager as AaveWalletManagerContract,
-} from '../../generated/AaveWalletManager/AaveWalletManager';
+} from '../../generated/ChargedManagers/AaveWalletManager';
 
 import {
   AaveWalletManagerB as AaveWalletManagerContractB,
-} from '../../generated/AaveWalletManagerB/AaveWalletManagerB';
+} from '../../generated/ChargedManagers/AaveWalletManagerB';
 
 
 export function loadOrCreateAaveWalletManager(

@@ -35,47 +35,47 @@ export function handleControllerSet(event: ControllerSet): void {
 }
 
 export function handleDischargeApproval(event: DischargeApproval): void {
-  const _nftState = loadOrCreateNftState(
-    event.address,
-    event.params.contractAddress,
-    event.params.tokenId,
-  );
-  trackLastKnownOwner(_nftState, event.params.owner);
-  _nftState.dischargeApproval = event.params.operator;
-  _nftState.save();
+  // const _nftState = loadOrCreateNftState(
+  //   event.address,
+  //   event.params.contractAddress,
+  //   event.params.tokenId,
+  // );
+  // trackLastKnownOwner(_nftState, event.params.owner);
+  // _nftState.dischargeApproval = event.params.operator;
+  // _nftState.save();
 }
 
 export function handleReleaseApproval(event: ReleaseApproval): void {
-  const _nftState = loadOrCreateNftState(
-    event.address,
-    event.params.contractAddress,
-    event.params.tokenId,
-  );
-  trackLastKnownOwner(_nftState, event.params.owner);
-  _nftState.releaseApproval = event.params.operator;
-  _nftState.save();
+  // const _nftState = loadOrCreateNftState(
+  //   event.address,
+  //   event.params.contractAddress,
+  //   event.params.tokenId,
+  // );
+  // trackLastKnownOwner(_nftState, event.params.owner);
+  // _nftState.releaseApproval = event.params.operator;
+  // _nftState.save();
 }
 
 export function handleBreakBondApproval(event: BreakBondApproval): void {
-  const _nftState = loadOrCreateNftState(
-    event.address,
-    event.params.contractAddress,
-    event.params.tokenId,
-  );
-  trackLastKnownOwner(_nftState, event.params.owner);
-  _nftState.breakBondApproval = event.params.operator;
-  _nftState.save();
+  // const _nftState = loadOrCreateNftState(
+  //   event.address,
+  //   event.params.contractAddress,
+  //   event.params.tokenId,
+  // );
+  // trackLastKnownOwner(_nftState, event.params.owner);
+  // _nftState.breakBondApproval = event.params.operator;
+  // _nftState.save();
 }
 
 export function handleTimelockApproval(event: TimelockApproval): void {
-  const _nftState = loadOrCreateNftState(
-    event.address,
-    event.params.contractAddress,
-    event.params.tokenId,
-  );
-  trackLastKnownOwner(_nftState, event.params.owner);
-  _nftState.timelockApproval = event.params.operator;
-  _nftState.save();
+  // const _nftState = loadOrCreateNftState(
+  //   event.address,
+  //   event.params.contractAddress,
+  //   event.params.tokenId,
+  // );
+  // trackLastKnownOwner(_nftState, event.params.owner);
+  // _nftState.timelockApproval = event.params.operator;
+  // _nftState.save();
 }
 
 export function handleTokenDischargeTimelock(event: TokenDischargeTimelock): void {
