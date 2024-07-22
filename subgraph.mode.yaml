@@ -7,11 +7,11 @@ schema:
 dataSources:
   - name: Universe
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0xB9230542B3F3DFC73a7816a3320c1c553Ec5A86f"
+      address: "0xd6ed8455903CBd94d8F432eC4059197984baA65e"
       abi: Universe
-      startBlock: 16352894
+      startBlock: 10491228
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -55,11 +55,11 @@ dataSources:
           handler: handleElectrostaticDischarge
   - name: ChargedParticles
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0xdD5B990d752d53A93CcaE0aA3aDBbe0940d93d46"
+      address: "0x0288280Df6221E7e9f23c1BB398c820ae0Aa6c10"
       abi: ChargedParticles
-      startBlock: 16352922
+      startBlock: 10491251
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -87,11 +87,11 @@ dataSources:
           handler: handleProtocolFeesCollected
   - name: ChargedState
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0x7a6561daD7EfB841D08B6891AFbFE7e98D8052D6"
+      address: "0x2691B4f4251408bA4b8bf9530B6961b9D0C1231F"
       abi: ChargedState
-      startBlock: 16352902
+      startBlock: 10491263
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -139,11 +139,11 @@ dataSources:
           handler: handlePermsSetForAllowBreakBond
   - name: ChargedSettings
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0x7f4a37469a1217d9424291E36A1BF299f1847cE6"
+      address: "0xB55E96d519Fbf225b1E5fb3e22ACEa9B7e255224"
       abi: ChargedSettings
-      startBlock: 16352909
+      startBlock: 10491333
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -191,11 +191,11 @@ dataSources:
           handler: handlePermsSetForTimelockSelf
   - name: ChargedManagers
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0x2301fDB64b82E40a36CbBd9dd5E8047D635bE9F1"
+      address: "0xaB1a1410EA40930755C1330Cc0fB3367897C8c41"
       abi: ChargedManagers
-      startBlock: 16352915
+      startBlock: 10491309
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -233,11 +233,11 @@ dataSources:
           handler: handleBasketManagerRegistered
   - name: GenericBasketManagerB
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0x63b8094B12DEd1855Ff54D7AB66481201AEcfF7D"
+      address: "0x63174FA9680C674a5580f7d747832B2a2133Ad8f"
       abi: GenericBasketManagerB
-      startBlock: 16352933
+      startBlock: 10491217
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -278,11 +278,11 @@ dataSources:
           handler: handleBasketRewarded
   - name: GenericWalletManagerB
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0xa46e30450e11f523B5A195d69e08878e8bc0C439"
+      address: "0x96D7791dA7928F0B35f7848b173f25773C7Cc06f"
       abi: GenericWalletManagerB
-      startBlock: 16352930
+      startBlock: 10491212
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -322,11 +322,11 @@ dataSources:
           handler: handleWalletRewarded
   - name: ProtonC
     kind: ethereum/contract
-    network: mode-sepolia
+    network: mode-mainnet
     source:
-      address: "0x009aE96a0277eE2590b6a382B9f94E5bdD8063Cc"
+      address: "0x76a5df1c6F53A4B80c8c8177edf52FBbC368E825"
       abi: ProtonC
-      startBlock: 16352936
+      startBlock: 10491222
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
