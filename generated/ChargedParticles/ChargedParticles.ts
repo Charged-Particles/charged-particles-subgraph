@@ -235,14 +235,6 @@ export class ChargedParticles__dischargeParticleResult {
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
   }
-
-  getCreatorAmount(): BigInt {
-    return this.value0;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value1;
-  }
 }
 
 export class ChargedParticles__dischargeParticleAmountResult {
@@ -259,14 +251,6 @@ export class ChargedParticles__dischargeParticleAmountResult {
     map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
-  }
-
-  getCreatorAmount(): BigInt {
-    return this.value0;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value1;
   }
 }
 
@@ -285,14 +269,6 @@ export class ChargedParticles__releaseParticleResult {
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
   }
-
-  getCreatorAmount(): BigInt {
-    return this.value0;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value1;
-  }
 }
 
 export class ChargedParticles__releaseParticleAmountResult {
@@ -309,14 +285,6 @@ export class ChargedParticles__releaseParticleAmountResult {
     map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
-  }
-
-  getCreatorAmount(): BigInt {
-    return this.value0;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value1;
   }
 }
 

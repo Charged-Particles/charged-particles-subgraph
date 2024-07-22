@@ -475,14 +475,6 @@ export class AaveWalletManagerB__dischargeResult {
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
   }
-
-  getCreatorAmount(): BigInt {
-    return this.value0;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value1;
-  }
 }
 
 export class AaveWalletManagerB__dischargeAmountResult {
@@ -500,14 +492,6 @@ export class AaveWalletManagerB__dischargeAmountResult {
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
   }
-
-  getCreatorAmount(): BigInt {
-    return this.value0;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value1;
-  }
 }
 
 export class AaveWalletManagerB__getInterestResult {
@@ -524,14 +508,6 @@ export class AaveWalletManagerB__getInterestResult {
     map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     return map;
-  }
-
-  getCreatorInterest(): BigInt {
-    return this.value0;
-  }
-
-  getOwnerInterest(): BigInt {
-    return this.value1;
   }
 }
 
@@ -553,18 +529,6 @@ export class AaveWalletManagerB__releaseResult {
     map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
     return map;
   }
-
-  getPrincipalAmount(): BigInt {
-    return this.value0;
-  }
-
-  getCreatorAmount(): BigInt {
-    return this.value1;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value2;
-  }
 }
 
 export class AaveWalletManagerB__releaseAmountResult {
@@ -584,18 +548,6 @@ export class AaveWalletManagerB__releaseAmountResult {
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
     return map;
-  }
-
-  getPrincipalAmount(): BigInt {
-    return this.value0;
-  }
-
-  getCreatorAmount(): BigInt {
-    return this.value1;
-  }
-
-  getReceiverAmount(): BigInt {
-    return this.value2;
   }
 }
 
